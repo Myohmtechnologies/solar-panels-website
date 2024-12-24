@@ -51,11 +51,13 @@ export default function RootLayout({
       <head>
         <GoogleTagManagerHead />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} min-h-screen bg-white`}>
         <GoogleTagManagerBody />
         <GoogleAnalytics />
         {isErrorPage ? (
-          <main className="flex-grow overflow-x-hidden">{children}</main>
+          <div className="flex min-h-screen flex-col bg-gray-50">
+            {children}
+          </div>
         ) : (
           <ClientLayout>{children}</ClientLayout>
         )}

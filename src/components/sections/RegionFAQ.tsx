@@ -1,104 +1,90 @@
 'use client';
 
-import { RegionData } from '@/config/seo';
-import { Disclosure, Transition } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDownIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 
-interface Props {
-  region: RegionData;
+interface FAQ {
+  question: string;
+  answer: string;
 }
 
-const RegionFAQ = ({ region }: Props) => {
-  const allAids = [...region.aids.regional, ...region.aids.local];
-  const aidsList = allAids.map(aid => aid.title).join(', ');
+interface Props {
+  faqs: FAQ[];
+}
 
-  const defaultQuestions = [
-    {
-      question: `Pourquoi installer des panneaux solaires dans le ${region.name} ?`,
-      answer: `Le ${region.name} bénéficie de ${region.sunshineHours} heures d'ensoleillement par an, ce qui en fait une région idéale pour l'installation de panneaux solaires. C'est le ${region.sunshineRank} département le plus ensoleillé de France.`
-    },
-    {
-      question: `Quelles sont les aides disponibles dans le ${region.name} ?`,
-      answer: aidsList 
-        ? `Plusieurs aides sont disponibles : ${aidsList}. Contactez-nous pour une estimation personnalisée.`
-        : `Plusieurs aides nationales et locales sont disponibles. Contactez-nous pour connaître les aides spécifiques à votre situation.`
-    },
-    {
-      question: `Quelle production puis-je espérer dans le ${region.name} ?`,
-      answer: `Avec un ensoleillement moyen de ${region.sunshineHours} heures par an, une installation solaire bien dimensionnée peut couvrir une part significative de votre consommation électrique. La consommation moyenne dans la région est de ${region.stats.averageConsumption} kWh/an.`
-    },
-    {
-      question: `Combien coûte une installation solaire dans le ${region.name} ?`,
-      answer: `Le coût d'une installation solaire dépend de plusieurs facteurs : la puissance souhaitée, le type de panneaux, la complexité de l'installation... Nous vous proposons une étude gratuite et personnalisée pour déterminer la solution la plus adaptée à votre situation.`
-    }
-  ];
+const RegionFAQ = ({ faqs }: Props) => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const questions = [...defaultQuestions, ...region.faq];
+  const toggleFAQ = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
 
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 px-4 md:px-8 lg:px-12 bg-gradient-to-br from-f0f4f8 to-e1e7f0">
+      <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl font-bold text-gray-900"
-          >
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
             Questions Fréquentes
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="mt-4 text-lg text-gray-600"
-          >
-            Tout ce que vous devez savoir sur l&apos;installation de panneaux solaires dans le {region.name}
-          </motion.p>
+          </h2>
+          <p className="text-xl text-gray-600">
+            Tout ce que vous devez savoir sur l&apos;installation de panneaux solaires dans votre région
+          </p>
         </div>
 
         <div className="space-y-4">
-          {questions.map((faq, index) => (
+          {faqs.map((faq, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
+              className="bg-white rounded-2xl shadow-lg overflow-hidden"
             >
-              <Disclosure>
-                {({ open }) => (
-                  <div className="bg-white rounded-lg shadow-sm">
-                    <Disclosure.Button className="w-full px-4 py-4 text-left flex justify-between items-center">
-                      <span className="text-lg font-medium text-gray-900">
-                        {faq.question}
-                      </span>
-                      <ChevronDownIcon
-                        className={`${
-                          open ? 'transform rotate-180' : ''
-                        } w-5 h-5 text-gray-500 transition-transform duration-200`}
-                      />
-                    </Disclosure.Button>
-
-                    <Transition
-                      enter="transition duration-100 ease-out"
-                      enterFrom="transform scale-95 opacity-0"
-                      enterTo="transform scale-100 opacity-100"
-                      leave="transition duration-75 ease-out"
-                      leaveFrom="transform scale-100 opacity-100"
-                      leaveTo="transform scale-95 opacity-0"
-                    >
-                      <Disclosure.Panel className="px-4 pb-4 text-gray-700">
-                        {faq.answer}
-                      </Disclosure.Panel>
-                    </Transition>
-                  </div>
+              <button
+                onClick={() => toggleFAQ(index)}
+                className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors"
+              >
+                <span className="text-xl font-semibold text-gray-900">{faq.question}</span>
+                <ChevronDownIcon
+                  className={`w-6 h-6 text-FFDF64 transition-transform duration-300 ${
+                    openIndex === index ? 'transform rotate-180' : ''
+                  }`}
+                />
+              </button>
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="p-6 border-t border-gray-100 bg-gray-50">
+                      <p className="text-gray-600 text-lg">{faq.answer}</p>
+                    </div>
+                  </motion.div>
                 )}
-              </Disclosure>
+              </AnimatePresence>
             </motion.div>
           ))}
+        </div>
+
+        {/* Section Contact */}
+        <div className="mt-12 bg-gradient-to-br from-ffeb99 to-ffb700 p-8 rounded-3xl">
+          <div className="flex items-center justify-center space-x-6">
+            <QuestionMarkCircleIcon className="w-12 h-12 text-black" />
+            <div>
+              <h4 className="text-2xl font-bold text-black mb-3">
+                Vous avez d&apos;autres questions ?
+              </h4>
+              <p className="text-black/80 text-lg">
+                Notre équipe d&apos;experts est là pour vous accompagner dans votre projet solaire.
+                N&apos;hésitez pas à nous contacter pour plus d&apos;informations.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

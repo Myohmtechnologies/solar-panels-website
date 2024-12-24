@@ -2,82 +2,108 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import type { RegionData } from '@/config/seo';
-import { 
-  SunIcon, 
-  MapPinIcon 
-} from '@heroicons/react/24/solid';
+import { SunIcon, BoltIcon, HomeIcon } from '@heroicons/react/24/outline';
 
-interface RegionSolarInstallationSectionProps {
-  region: RegionData;
+interface Props {
+  region: string;
 }
 
-const RegionSolarInstallationSection = ({ region }: RegionSolarInstallationSectionProps) => {
+const RegionSolarInstallationSection = ({ region }: Props) => {
+  const features = [
+    {
+      icon: SunIcon,
+      title: 'Ensoleillement Optimal',
+      description: `La région ${region} bénéficie d'un des meilleurs taux d'ensoleillement en France, garantissant une production optimale d'énergie solaire.`
+    },
+    {
+      icon: BoltIcon,
+      title: 'Production Maximale',
+      description: 'Nos installations sont optimisées pour maximiser la production d\'énergie tout au long de l\'année.'
+    },
+    {
+      icon: HomeIcon,
+      title: 'Installation Sur-Mesure',
+      description: 'Chaque installation est conçue sur mesure en fonction de votre toiture et de vos besoins énergétiques.'
+    }
+  ];
+
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-12 bg-gradient-to-br from-f2f6fa to-e3e9f0">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-        {/* Map Section */}
-        <div className="relative rounded-3xl overflow-hidden shadow-2xl transform transition-transform hover:scale-[1.02]">
-          <Image
-            src='/images/region-section.svg'
-            alt="section region"
-            width={800}
-            height={700}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/40 flex items-end p-6">
-            <div className="text-white">
-              <h3 className="text-xl font-bold mb-2">Région {region.name}</h3>
-              <p className="text-sm">Votre potentiel solaire</p>
+    <section className="py-16 px-4 md:px-8 lg:px-12 bg-gradient-to-br from-f0f4f8 to-e1e7f0">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
+          Installation Solaire en {region}
+        </h2>
+
+        <div className="flex flex-col lg:flex-row gap-8 mb-12">
+          {/* Colonne de gauche avec image */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="lg:w-1/2"
+          >
+            <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-lg">
+              <Image
+                src="/images/06-installation.jpg"
+                alt={`Installation de panneaux solaires en ${region}`}
+                fill
+                className="object-cover"
+              />
             </div>
+          </motion.div>
+
+          {/* Colonne de droite avec features */}
+          <div className="lg:w-1/2 space-y-6">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+                className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-start space-x-4"
+              >
+                <div className="flex-shrink-0">
+                  <feature.icon className="w-12 h-12 text-FFDF64" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600">
+                    {feature.description}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
 
-        {/* Text Section */}
-        <div className="space-y-6">
-          <div className="flex items-center space-x-4 mb-4">
-            <SunIcon className="w-12 h-12 text-FFDF64" />
-            <h2 className="text-3xl font-bold text-gray-900">
-              Potentiel Solaire
-            </h2>
-          </div>
-
-          <p className="text-gray-700 leading-relaxed">
-            La région {region.name} est {region.sunshineRank} région la plus ensoleillée de France ! Y installer des panneaux solaires est donc à la fois une démarche écologique et un investissement rentable.
-          </p>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="flex items-center space-x-3 bg-white p-4 rounded-xl shadow-md">
-              <MapPinIcon className="w-8 h-8 text-FFDF64" />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="bg-gradient-to-br from-ffeb99 to-ffb700 p-8 rounded-3xl"
+        >
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center space-x-6">
+              <SunIcon className="w-12 h-12 text-black" />
               <div>
-                <span className="font-semibold text-gray-800">{region.sunshineHours} heures</span>
-                <span className="ml-2 text-gray-600">d&apos;ensoleillement par an</span>
+                <h4 className="text-2xl font-bold text-black mb-3">
+                  Maximisez votre Production
+                </h4>
+                <p className="text-black/80 text-lg">
+                  Une installation optimisée pour votre toiture
+                </p>
               </div>
             </div>
-            <div className="flex items-center space-x-3 bg-white p-4 rounded-xl shadow-md">
-              <SunIcon className="w-8 h-8 text-FFDF64" />
-              <span className="font-semibold text-gray-800">Région Ensoleillée</span>
-            </div>
+            <ul className="text-black/80 list-disc list-inside text-lg space-y-2">
+              <li>Équipements haute performance</li>
+              <li>Installation professionnelle</li>
+              <li>Suivi de production</li>
+            </ul>
           </div>
-
-          <div className="bg-gradient-to-br from-ffeb99 to-ffb700 p-6 rounded-2xl">
-            <div className="flex items-center space-x-4">
-              <MapPinIcon className="w-10 h-10 text-black" />
-              <div>
-                <h4 className="font-bold text-black">Départements Couverts</h4>
-                <ul className="text-black/80 list-disc list-inside">
-                  {region.departments.map((department, index) => (
-                    <li key={index}>{department.name}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <button className="mt-6 w-full bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-            Découvrir Votre Région
-          </button>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

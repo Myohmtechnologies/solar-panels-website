@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'standalone',
   images: {
     domains: ['res.cloudinary.com'],
   },
@@ -10,9 +9,6 @@ const nextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: true
-  },
-  experimental: {
-    optimizeCss: true
   }
 };
 

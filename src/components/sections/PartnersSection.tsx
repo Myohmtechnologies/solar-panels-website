@@ -17,7 +17,7 @@ const partners = [
     description: "Innovateur en solutions d'optimisation et de gestion de l'énergie solaire."
   },
   {
-    name: "DuelSun",
+    name: "DualSun",
     logo: "/images/partners/duelsun.png",
     description: "Pionnier dans la conception de panneaux solaires haute performance et durables."
   }
@@ -52,11 +52,11 @@ const PartnersSection = () => {
                   alt={`${partner.name} logo`}
                   width={200}
                   height={100}
-                  className="max-h-20 max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                  className="max-h-20 max-w-full object-contain"
                 />
               </div>
               
-              <h3 className="font-bold text-gray-900 mb-2 group-hover:text-AFC97E transition-colors">
+              <h3 className="font-bold text-gray-900 mb-2">
                 {partner.name}
               </h3>
               

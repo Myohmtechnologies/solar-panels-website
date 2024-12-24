@@ -67,7 +67,7 @@ export default function SolarTechnologySection() {
                   </li>
                   <li className="flex items-center">
                     <span className="w-2 h-2 mr-2 bg-FFDF64 rounded-full"></span>
-                    Garantie : 25 ans
+                    Garantie : 30 ans
                   </li>
                 </ul>
               </div>
@@ -114,7 +114,7 @@ export default function SolarTechnologySection() {
                   </li>
                   <li className="flex items-center">
                     <span className="w-2 h-2 mr-2 bg-FFDF64 rounded-full"></span>
-                    Garantie : 15 ans
+                    Garantie : 25 ans
                   </li>
                 </ul>
               </div>

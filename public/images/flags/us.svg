@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1235" height="650">
+<rect width="1235" height="650" fill="#bf0a30"/>
+<g fill="#fff">
+<rect width="1235" height="50" y="50"/>
+<rect width="1235" height="50" y="150"/>
+<rect width="1235" height="50" y="250"/>
+<rect width="1235" height="50" y="350"/>
+<rect width="1235" height="50" y="450"/>
+<rect width="1235" height="50" y="550"/>
+</g>
+<rect width="494" height="350" fill="#002868"/>
+<g fill="#fff">
+<g id="s">
+<g id="h">
+<g id="f">
+<g id="t">
+<polygon id="s1" points="16,0 20,11 29,11 22,17 25,28 16,21 7,28 10,17 3,11 12,11"/>
+<use xlink:href="#s1" y="35"/>
+<use xlink:href="#s1" y="70"/>
+<use xlink:href="#s1" y="105"/>
+<use xlink:href="#s1" y="140"/>
+</g>
+<use xlink:href="#t" x="35"/>
+</g>
+<use xlink:href="#f" x="70"/>
+</g>
+<use xlink:href="#h" x="140"/>
+</g>
+<use xlink:href="#s" x="280"/>
+</g>
+</svg>

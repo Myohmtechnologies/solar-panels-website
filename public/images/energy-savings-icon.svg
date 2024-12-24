@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="130" height="130" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Cercle extérieur -->
+    <circle cx="65" cy="65" r="60" stroke="#1a1a1a" stroke-width="3" stroke-dasharray="4 4"/>
+    
+    <!-- Soleil stylisé -->
+    <circle cx="65" cy="65" r="25" fill="#1a1a1a"/>
+    
+    <!-- Rayons d'énergie -->
+    <path d="M65 20V35" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+    <path d="M65 95V110" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+    <path d="M110 65H95" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+    <path d="M35 65H20" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Flèches circulaires symbolisant les économies -->
+    <path d="M90 40C95 45 98 52 98 60" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+    <path d="M40 90C35 85 32 78 32 70" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Symbole pourcentage -->
+    <circle cx="57" cy="57" r="5" fill="#FFFFFF"/>
+    <circle cx="73" cy="73" r="5" fill="#FFFFFF"/>
+    <path d="M52 78L78 52" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+    
+    <!-- Petites étoiles d'énergie -->
+    <path d="M85 35L88 38L91 35L88 32L85 35Z" fill="#1a1a1a"/>
+    <path d="M35 85L38 88L41 85L38 82L35 85Z" fill="#1a1a1a"/>
+    <path d="M85 95L88 98L91 95L88 92L85 95Z" fill="#1a1a1a"/>
+</svg>

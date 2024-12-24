@@ -14,6 +14,18 @@ const RegionDepartments = ({ region }: Props) => {
 
   if (!currentRegion || !currentRegion.departments.length) return null;
 
+  const formatDepartmentUrl = (department: { code: string; name: string }) => {
+    const departmentUrls: { [key: string]: string } = {
+      '04': '04-alpes-de-haute-provence',
+      '05': '05-hautes-alpes',
+      '06': '06-alpes-maritimes',
+      '13': '13-bouches-du-rhone',
+      '83': '83-var',
+      '84': '84-vaucluse'
+    };
+    return `/region/paca/departements/${departmentUrls[department.code]}`;
+  };
+
   return (
     <section className="py-16 px-4 md:px-8 lg:px-12 bg-gradient-to-br from-white to-gray-50">
       <div className="max-w-6xl mx-auto">
@@ -38,7 +50,7 @@ const RegionDepartments = ({ region }: Props) => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Link href={`/region/${department.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                <Link href={formatDepartmentUrl(department)}>
                   <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group border border-transparent hover:border-FFDF64">
                     <div className="flex items-center space-x-4 mb-4">
                       <div className="p-3 rounded-xl bg-gradient-to-br from-ffeb99 to-ffb700 group-hover:from-ffeb99 group-hover:to-ffb700 transition-all duration-300">

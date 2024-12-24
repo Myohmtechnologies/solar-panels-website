@@ -6,6 +6,7 @@ import RegionAids from '@/components/sections/RegionAids';
 import RegionFAQ from '@/components/sections/RegionFAQ';
 import ContactCTASection from '@/components/sections/ContactCTASection';
 import LocalReviews from '@/components/sections/LocalReviews';
+import RegionDepartments from '@/components/sections/RegionDepartments';
 
 export const metadata: Metadata = {
   title: 'Installation Panneaux Solaires PACA | My Ohm Technologies',
@@ -84,6 +85,7 @@ export default function PACASolarPage() {
       />
       <RegionStats stats={regionData.stats} />
       <RegionSolarInstallationSection region={regionData.name} />
+      <RegionDepartments region={regionData.fullName} />
       <RegionAids region={regionData.name} advantages={regionData.advantages} />
       <LocalReviews region={regionData.fullName} />
       <RegionFAQ faqs={regionData.faqs} />

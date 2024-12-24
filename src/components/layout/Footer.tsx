@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   MapPinIcon, 
   PhoneIcon, 
@@ -13,8 +14,13 @@ const Footer = () => {
         {/* Colonne Entreprise */}
         <div className="space-y-6">
           <div className="flex items-center space-x-3">
-            <SunIcon className="w-10 h-10 text-FFDF64" />
-            <h3 className="text-2xl font-bold">MY OHM</h3>
+            <Image
+              src="/images/logo-dark.png"
+              alt="MyOhm Technologies Logo"
+              width={200}
+              height={80}
+              className="mb-4"
+            />
           </div>
           <p className="text-gray-400 text-sm leading-relaxed">
             Experts en solutions solaires, nous accompagnons les particuliers et les entreprises dans leur transition énergétique avec des technologies innovantes et durables.

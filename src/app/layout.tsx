@@ -6,7 +6,11 @@ import './globals.css';
 import CookieConsent from '@/components/common/CookieConsent';
 import ClientLayout from '@/components/layout/ClientLayout';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.myohmtechnologies.com'),
@@ -47,11 +51,11 @@ export default function RootLayout({
   const isErrorPage = children?.toString().includes('error') || children?.toString().includes('not-found');
 
   return (
-    <html lang="fr">
+    <html lang="fr" className={inter.variable}>
       <head>
         <GoogleTagManagerHead />
       </head>
-      <body className={`${inter.className} min-h-screen bg-white`}>
+      <body className="min-h-screen bg-white">
         <GoogleTagManagerBody />
         <GoogleAnalytics />
         {isErrorPage ? (

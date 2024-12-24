@@ -12,6 +12,12 @@ const nextConfig = {
   eslint: {
     // ⚠️ Uniquement pour le déploiement initial, à retirer après
     ignoreDuringBuilds: true
+  },
+  experimental: {
+    // Désactiver la génération statique
+    isrMemoryCacheSize: 0,
+    // Forcer le mode serveur pour les pages d'erreur
+    runtime: 'nodejs'
   }
 };
 

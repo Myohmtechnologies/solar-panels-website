@@ -1,42 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  
-  // Désactiver le prérendu statique
   output: 'standalone',
-
-  // Configuration webpack minimale
-  webpack: (config) => {
-    config.infrastructureLogging = {
-      level: 'error'
-    };
-
-    // Ignorer les warnings spécifiques
-    config.ignoreWarnings = [
-      /node:internal/,
-      /punycode/,
-      /useContext/
-    ];
-
-    return config;
+  images: {
+    domains: ['res.cloudinary.com'],
   },
-
-  // Configuration TypeScript
   typescript: {
+    // ⚠️ Uniquement pour le déploiement initial, à retirer après
     ignoreBuildErrors: true
   },
-
-  // Configuration ESLint
   eslint: {
+    // ⚠️ Uniquement pour le déploiement initial, à retirer après
     ignoreDuringBuilds: true
-  },
-
-  // Désactiver le prérendu des pages d'erreur
-  async rewrites() {
-    return [
-      { source: '/404', destination: '/' },
-      { source: '/500', destination: '/' }
-    ];
   }
 };
 

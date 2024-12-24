@@ -1,41 +1,13 @@
 export default function NotFound() {
   return (
-    <html>
-      <head>
-        <title>404 - Page non trouvée</title>
-      </head>
-      <body>
-        <div style={{
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '20px',
-          textAlign: 'center',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
-        }}>
-          <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>
-            404 - Page non trouvée
-          </h1>
-          <p style={{ marginBottom: '2rem', color: '#666' }}>
-            Désolé, la page que vous recherchez n'existe pas.
-          </p>
-          <a
-            href="/"
-            style={{
-              backgroundColor: '#007AFF',
-              color: 'white',
-              padding: '12px 24px',
-              borderRadius: '6px',
-              textDecoration: 'none',
-              fontWeight: 500
-            }}
-          >
-            Retour à l'accueil
-          </a>
-        </div>
-      </body>
-    </html>
-  );
+    <div className="min-h-screen flex flex-col items-center justify-center p-4">
+      <h2 className="text-2xl font-bold mb-4">404 - Page non trouvée</h2>
+      <a 
+        href="/"
+        className="bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        Retour à l'accueil
+      </a>
+    </div>
+  )
 }

@@ -1,8 +1,11 @@
-export default function NotFound() {
+"use client";
+import React from 'react';
+
+export default function Error({ statusCode }: { statusCode?: number }) {
   return (
     <html>
       <head>
-        <title>404 - Page non trouvée</title>
+        <title>{statusCode ? `${statusCode}: ` : ''}Une erreur est survenue</title>
       </head>
       <body>
         <div style={{
@@ -16,10 +19,12 @@ export default function NotFound() {
           fontFamily: 'system-ui, -apple-system, sans-serif'
         }}>
           <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>
-            404 - Page non trouvée
+            {statusCode === 404 ? 'Page non trouvée' : 'Une erreur est survenue'}
           </h1>
           <p style={{ marginBottom: '2rem', color: '#666' }}>
-            Désolé, la page que vous recherchez n'existe pas.
+            {statusCode === 404
+              ? 'Désolé, la page que vous recherchez n\'existe pas.'
+              : 'Nous sommes désolés, une erreur s\'est produite.'}
           </p>
           <a
             href="/"

@@ -99,7 +99,7 @@ export interface RegionData {
   }[];
 }
 
-export const defaultRegion = regions[0].name;
+export const defaultRegionName = 'Provence-Alpes-Côte d\'Azur';
 
 export const regions: RegionData[] = [
   {

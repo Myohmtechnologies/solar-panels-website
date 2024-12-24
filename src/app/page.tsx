@@ -14,7 +14,7 @@ import ActionCTASection from '@/components/sections/ActionCTASection';
 import PartnersSection from '@/components/sections/PartnersSection';
 import Script from 'next/script';
 import RegionSolarInstallationSection from '@/components/sections/RegionSolarInstallationSection';
-import { defaultRegion } from '@/config/seo';
+import { defaultRegionName } from '@/config/seo';
 
 export const metadata: Metadata = {
   title: 'My Ohm - Installations de Panneaux Solaires | Économies d\'Énergie',
@@ -94,7 +94,7 @@ export default function Home() {
         <SolarPanelSection />
         <SolarInstallationStepsSection />
         <ClientTestimonialsSection />
-        <RegionSolarInstallationSection region={defaultRegion} />
+        <RegionSolarInstallationSection region={defaultRegionName} />
         <ContactCTASection />
       </main>
     </>

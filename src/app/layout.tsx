@@ -43,6 +43,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Vérifier si nous sommes sur une page d'erreur
+  const isErrorPage = children?.toString().includes('error') || children?.toString().includes('not-found');
+
   return (
     <html lang="fr">
       <head>
@@ -51,9 +54,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <GoogleTagManagerBody />
         <GoogleAnalytics />
-        <ClientLayout>
-          {children}
-        </ClientLayout>
+        {isErrorPage ? (
+          <main className="flex-grow overflow-x-hidden">{children}</main>
+        ) : (
+          <ClientLayout>{children}</ClientLayout>
+        )}
         <CookieConsent />
       </body>
     </html>

@@ -99,52 +99,7 @@ export interface RegionData {
   }[];
 }
 
-export const defaultRegion: RegionData = {
-  name: 'France',
-  slug: 'france',
-  mapImage: '/images/regions/map-default.jpg',
-  sunshineHours: 1800,
-  sunshineRank: '1er',
-  departments: [
-    {
-      name: 'Bouches-du-Rhône',
-      code: '13',
-      population: 2034469
-    },
-    {
-      name: 'Var',
-      code: '83',
-      population: 1076711
-    },
-    {
-      name: 'Alpes-Maritimes',
-      code: '06',
-      population: 1094283
-    },
-    {
-      name: 'Alpes-de-Haute-Provence',
-      code: '04',
-      population: 163915
-    }
-  ],
-  meta: {
-    title: 'Installation de Panneaux Solaires en France | MyOhm Technologies',
-    description: 'Découvrez les solutions d\'installation de panneaux solaires en France. Profitez d\'une énergie propre et économique avec MyOhm Technologies.',
-    keywords: ['panneaux solaires', 'installation solaire', 'énergie solaire', 'France']
-  },
-  stats: {
-    population: 67390000,
-    solarPotential: 11000,
-    installedCapacity: 13200,
-    averageConsumption: 4679
-  },
-  aids: {
-    regional: [],
-    local: []
-  },
-  faq: [],
-  testimonials: []
-};
+export const defaultRegion = regions[0].name;
 
 export const regions: RegionData[] = [
   {

@@ -6,9 +6,10 @@ import { SunIcon, BoltIcon, HomeIcon } from '@heroicons/react/24/outline';
 
 interface Props {
   region: string;
+  description: string;
 }
 
-const RegionSolarInstallationSection = ({ region }: Props) => {
+const RegionSolarInstallationSection = ({ region, description }: Props) => {
   const features = [
     {
       icon: SunIcon,

@@ -36,7 +36,7 @@ const ContactMapSection = () => {
                     Adresse
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    12 Rue de la République, 13001 Marseille
+                    544 Av. Frédéric Mistral, 04100 Manosque
                   </p>
                 </div>
               </div>
@@ -68,7 +68,7 @@ const ContactMapSection = () => {
                     Email
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    contact@myohm.fr
+                    contact@myohmtechnologies.com
                   </p>
                 </div>
               </div>
@@ -78,14 +78,13 @@ const ContactMapSection = () => {
           {/* Carte Google Maps */}
           <div className="rounded-2xl overflow-hidden shadow-lg">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2904.4943742355!2d5.370375315731331!3d43.29668797913244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12c9c0c5aae3f5b9%3A0x40819a5fd8fc7e0!2s12%20Rue%20de%20la%20R%C3%A9publique%2C%2013001%20Marseille!5e0!3m2!1sfr!2sfr!4v1703270014328!5m2!1sfr!2sfr"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2879.5647563321083!2d5.777595776882891!3d43.83423577109506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12cb1b1a1a34c4c7%3A0xd7c4a8c6f5c4c0a0!2s544%20Avenue%20Fr%C3%A9d%C3%A9ric%20Mistral%2C%2004100%20Manosque%2C%20France!5e0!3m2!1sfr!2sfr!4v1703429716000!5m2!1sfr!2sfr"
               width="100%"
               height="450"
               style={{ border: 0 }}
-              allowFullScreen
+              allowFullScreen={true}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="w-full"
             ></iframe>
           </div>
         </div>

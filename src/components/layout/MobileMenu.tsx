@@ -127,6 +127,15 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
                 Nos réalisations
               </Link>
             </li>
+            <li>
+              <Link 
+                href="/contact" 
+                className="block px-4 py-4 text-gray-700 hover:bg-gray-50 rounded-lg font-medium text-base transition-colors"
+                onClick={onClose}
+              >
+                Contact
+              </Link>
+            </li>
           </ul>
         </nav>
         

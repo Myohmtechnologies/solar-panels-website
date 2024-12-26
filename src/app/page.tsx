@@ -89,7 +89,6 @@ export default function Home() {
         <ShowroomSection />
         <SolarBenefitsSection />
         <CaseStudySection />
-        <ActionCTASection />
         <SolarPanelSection />
         <SolarInstallationStepsSection />
         <ClientTestimonialsSection />

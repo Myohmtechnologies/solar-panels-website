@@ -20,7 +20,7 @@ const ShowroomSection = () => {
       description: 'Reconnu Garant de l\'Environnement'
     },
     { 
-      src: '/images/logo-qualifelec-spv.jpg', 
+      src: '/images/qualifelec.jpg', 
       alt: 'Certification QualiPV',
       description: 'Expert en Installation Photovoltaïque'
     },

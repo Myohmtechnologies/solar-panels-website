@@ -7,7 +7,7 @@ export const alpesDeHauteProvence: Department = {
   cities: {
     manosque: {
       name: "Manosque",
-      code: "04112",
+      code: "04100",
       population: 22801,
       sunshineHours: 2800,
       solarAdvantages: [

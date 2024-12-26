@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { XMarkIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
-import { phoneEvents, engagementEvents } from '@/utils/analytics';
+import { phoneEvents, engagementEvents, conversionEvents } from '@/utils/analytics';
 
 interface CommercialContactModalProps {
   isOpen: boolean;
@@ -16,10 +16,12 @@ export default function CommercialContactModal({ isOpen, closeModal, cityName = 
   const handlePhoneClick = () => {
     phoneEvents.phoneClick('commercial_modal');
     engagementEvents.ctaClick('phone_call', 'commercial_modal');
+    conversionEvents.expertContactConversion('phone_click', 'commercial_modal');
   };
 
   const handleEmailClick = () => {
     engagementEvents.ctaClick('email', 'commercial_modal');
+    conversionEvents.expertContactConversion('form_submit', 'commercial_modal');
   };
 
   return (

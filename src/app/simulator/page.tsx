@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from 'next/link';
-import { simulatorEvents } from '@/utils/analytics';
+import { simulatorEvents, conversionEvents, navigationEvents, formEvents } from '@/utils/analytics';
 import { UserIcon, EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline';
 
 // Constantes pour les étapes et les factures d'énergie
@@ -187,6 +187,7 @@ const SimulateurPage = () => {
 
   // Préchargement des images
   useEffect(() => {
+    navigationEvents.pageView('/simulator');
     simulatorEvents.simulatorStart('direct');
     simulatorEvents.stepView('property_type');
     const preloadImage = (src: string) => {
@@ -204,11 +205,34 @@ const SimulateurPage = () => {
     ].forEach(preloadImage);
   }, []);
 
+  const handleStepChange = (newStep: number) => {
+    let stepName: 'property_type' | 'energy_bill' | 'equipment' | 'contact' = 'property_type';
+    
+    switch (newStep) {
+      case STEPS.PROPERTY_TYPE:
+        stepName = 'property_type';
+        break;
+      case STEPS.ENERGY_BILL:
+        stepName = 'energy_bill';
+        break;
+      case STEPS.EQUIPMENT:
+        stepName = 'equipment';
+        break;
+      case STEPS.CONTACT_INFO:
+        stepName = 'contact';
+        break;
+    }
+
+    simulatorEvents.stepView(stepName);
+    formEvents.formProgress('simulator', newStep, 4);
+
+    setCurrentStep(newStep);
+  };
+
   const handlePropertyTypeSelect = (type: string) => {
-    setFormState(prev => ({ ...prev, logementType: type }));
     simulatorEvents.stepComplete('property_type', { property_type: type });
-    setCurrentStep(STEPS.ENERGY_BILL);
-    simulatorEvents.stepView('energy_bill');
+    setFormState(prev => ({ ...prev, logementType: type }));
+    handleStepChange(STEPS.ENERGY_BILL);
   };
 
   const handleEquipmentSelect = (equipmentId: string) => {
@@ -227,15 +251,13 @@ const SimulateurPage = () => {
 
   const handleEquipmentNext = () => {
     simulatorEvents.stepComplete('equipment', { equipment: formState.equipment });
-    setCurrentStep(STEPS.CONTACT_INFO);
-    simulatorEvents.stepView('contact');
+    handleStepChange(STEPS.CONTACT_INFO);
   };
 
   const handleEnergyBillSelect = (range: string) => {
-    setFormState(prev => ({ ...prev, energyBill: range }));
     simulatorEvents.stepComplete('energy_bill', { energy_bill: range });
-    setCurrentStep(STEPS.EQUIPMENT);
-    simulatorEvents.stepView('equipment');
+    setFormState(prev => ({ ...prev, energyBill: range }));
+    handleStepChange(STEPS.EQUIPMENT);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -298,72 +320,78 @@ const SimulateurPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!validateForm()) {
-      console.error('Validation Failed', formState.validationErrors);
-      return;
-    }
+    const isValid = validateForm();
+    
+    if (isValid) {
+      try {
+        conversionEvents.simulatorConversion('complete', {
+          property_type: formState.logementType,
+          energy_bill: formState.energyBill,
+          equipment: formState.equipment
+        });
 
-    setFormState(prev => ({ ...prev, isSubmitting: true, error: "" }));
+        const formData = {
+          name: formState.name,
+          email: formState.email,
+          phone: formState.phone,
+          address: formState.address,
+          city: formState.city,
+          postalCode: formState.postalCode,
+          residentialStatus: formState.residentialStatus || 'OWNER',
+          logementType: formState.logementType,
+          equipment: formState.equipment,
+          energyBill: formState.energyBill,
+          notes: JSON.stringify({
+            logementType: formState.logementType,
+            equipment: formState.equipment,
+            energyBill: formState.energyBill
+          })
+        };
 
-    const formData = {
-      name: formState.name,
-      email: formState.email,
-      phone: formState.phone,
-      address: formState.address,
-      city: formState.city,
-      postalCode: formState.postalCode,
-      residentialStatus: formState.residentialStatus || 'OWNER',
-      logementType: formState.logementType,
-      equipment: formState.equipment,
-      energyBill: formState.energyBill,
-      notes: JSON.stringify({
-        logementType: formState.logementType,
-        equipment: formState.equipment,
-        energyBill: formState.energyBill
-      })
-    };
+        console.log('Submitting Form Data:', JSON.stringify(formData, null, 2));
 
-    console.log('Submitting Form Data:', JSON.stringify(formData, null, 2));
+        const apiUrl = `${window.location.origin}/api/leads`;
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
 
-    try {
-      const apiUrl = `${window.location.origin}/api/leads`;
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+        console.log('Response Status:', response.status);
+        const data = await response.json();
+        console.log('Response Data:', data);
 
-      console.log('Response Status:', response.status);
-      const data = await response.json();
-      console.log('Response Data:', data);
+        if (!response.ok) {
+          throw new Error(data.error || 'Erreur lors de la soumission');
+        }
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Erreur lors de la soumission');
+        const leadInfo = {
+          name: formState.name,
+          logementType: formState.logementType,
+          energyBill: formState.energyBill,
+        };
+        
+        sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
+        window.location.href = '/merci';
+        
+      } catch (error: any) {
+        console.error('Detailed Error:', {
+          message: error.message,
+          name: error.name,
+          stack: error.stack,
+          formData: formData
+        });
+        setFormState(prev => ({
+          ...prev,
+          error: error.message || "Une erreur est survenue lors de l'envoi du formulaire.",
+          isSubmitting: false
+        }));
+        formEvents.formError('simulator_submission_error');
       }
-
-      const leadInfo = {
-        name: formState.name,
-        logementType: formState.logementType,
-        energyBill: formState.energyBill,
-      };
-      
-      sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
-      window.location.href = '/merci';
-      
-    } catch (error: any) {
-      console.error('Detailed Error:', {
-        message: error.message,
-        name: error.name,
-        stack: error.stack,
-        formData: formData
-      });
-      setFormState(prev => ({
-        ...prev,
-        error: error.message || "Une erreur est survenue lors de l'envoi du formulaire.",
-        isSubmitting: false
-      }));
+    } else {
+      formEvents.formError('simulator_validation_error');
     }
   };
 

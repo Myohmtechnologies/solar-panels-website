@@ -16,27 +16,9 @@ export const trackEvent = (eventName: string, eventParams?: Record<string, any>)
 
 // 1. Événements de navigation
 export const navigationEvents = {
-  pageView: (pagePath: string) => trackEvent('page_view', {
-    page_path: pagePath,
-    timestamp: new Date().toISOString(),
-  }),
-  scrollDepth: (depth: number) => trackEvent('scroll_depth', {
-    depth_percentage: depth,
-    timestamp: new Date().toISOString(),
-  }),
-  timeOnPage: (seconds: number, pagePath: string) => trackEvent('time_on_page', {
-    duration_seconds: seconds,
-    page_path: pagePath,
-    timestamp: new Date().toISOString(),
-  }),
-  notFoundError: (path: string, referrer: string) => trackEvent('404_error', {
-    path,
-    referrer,
+  pageView: (page: string) => trackEvent('page_view', {
+    page_path: page,
     timestamp: new Date().toISOString()
-  }),
-  internalSearch: (query: string, resultsCount: number) => trackEvent('internal_search', {
-    search_term: query,
-    results_count: resultsCount
   }),
 };
 
@@ -55,6 +37,11 @@ export const engagementEvents = {
   documentDownload: (documentName: string) => trackEvent('document_download', {
     document_name: documentName,
     timestamp: new Date().toISOString(),
+  }),
+  conversionIntent: (intentType: string, additionalData?: Record<string, any>) => trackEvent('conversion_intent', {
+    intent_type: intentType,
+    timestamp: new Date().toISOString(),
+    ...additionalData
   }),
 };
 
@@ -78,26 +65,30 @@ export type SimulatorStep = 'property_type' | 'energy_bill' | 'equipment' | 'con
 export const simulatorEvents = {
   simulatorStart: (source: string) => trackEvent('simulator_start', {
     source,
-    timestamp: new Date().toISOString(),
+    timestamp: new Date().toISOString()
   }),
+
   stepView: (step: SimulatorStep) => trackEvent('simulator_step_view', {
-    step_name: step,
-    timestamp: new Date().toISOString(),
+    step,
+    timestamp: new Date().toISOString()
   }),
-  stepComplete: (step: SimulatorStep, data?: any) => trackEvent('simulator_step_complete', {
-    step_name: step,
-    step_data: data,
-    timestamp: new Date().toISOString(),
+
+  stepComplete: (step: SimulatorStep, data: Record<string, any>) => trackEvent('simulator_step_complete', {
+    step,
+    ...data,
+    timestamp: new Date().toISOString()
   }),
+
+  equipmentSelected: (equipment: string[]) => trackEvent('simulator_equipment_selected', {
+    equipment,
+    timestamp: new Date().toISOString()
+  }),
+
   stepAbandoned: (step: SimulatorStep) => trackEvent('simulator_step_abandoned', {
     step_name: step,
     timestamp: new Date().toISOString(),
   }),
-  equipmentSelected: (equipment: string[]) => trackEvent('simulator_equipment_selected', {
-    equipment_list: equipment,
-    equipment_count: equipment.length,
-    timestamp: new Date().toISOString(),
-  }),
+
   simulatorComplete: (data: {
     property_type: string,
     energy_bill: string,
@@ -164,11 +155,17 @@ export const technicalEvents = {
 
 // 8. Événements de conversion
 export const conversionEvents = {
+  simulatorConversion: (step: 'start' | 'complete' | 'thank_you_page', data?: Record<string, any>) => trackEvent('simulator_conversion', {
+    conversion_step: step,
+    conversion_value: step === 'complete' ? 50 : (step === 'thank_you_page' ? 100 : 0),
+    timestamp: new Date().toISOString(),
+    ...data
+  }),
+
   leadGenerated: (source: string, value: number) => trackEvent('lead_generated', {
     source,
-    value,
-    currency: 'EUR',
-    conversion: true
+    lead_value: value,
+    timestamp: new Date().toISOString()
   }),
 
   quoteRequested: (serviceType: string, location: string) => trackEvent('quote_requested', {
@@ -188,7 +185,13 @@ export const conversionEvents = {
     appointment_date: date,
     appointment_type: type,
     conversion: true
-  })
+  }),
+
+  expertContactConversion: (conversionType: 'phone_click' | 'form_submit', source: string) => trackEvent('expert_contact_conversion', {
+    conversion_type: conversionType,
+    source,
+    timestamp: new Date().toISOString(),
+  }),
 };
 
 // 9. Événements de formulaire
@@ -201,10 +204,16 @@ export const formEvents = {
       : 0
   }),
 
-  formProgress: (formName: string, step: number, totalSteps: number) => trackEvent('form_progress', {
+  formProgress: (formName: string, currentStep: number, totalSteps: number) => trackEvent('form_progress', {
     form_name: formName,
-    current_step: step,
+    current_step: currentStep,
     total_steps: totalSteps,
-    progress_percentage: (step / totalSteps) * 100
+    progress_percentage: Math.round((currentStep / totalSteps) * 100),
+    timestamp: new Date().toISOString()
+  }),
+
+  formError: (errorType: string) => trackEvent('form_error', {
+    error_type: errorType,
+    timestamp: new Date().toISOString()
   })
 };

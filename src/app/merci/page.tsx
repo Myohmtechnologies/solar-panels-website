@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CheckCircleIcon, ClockIcon, SunIcon, PhoneIcon } from '@heroicons/react/24/solid';
+import { conversionEvents, navigationEvents } from '@/utils/analytics';
 
 export default function MerciPage() {
   const [leadInfo, setLeadInfo] = useState<{
@@ -16,10 +17,25 @@ export default function MerciPage() {
   const [showMicroInverterInfo, setShowMicroInverterInfo] = useState(false);
 
   useEffect(() => {
+    // Track la vue de la page
+    navigationEvents.pageView('/merci');
+
+    // Récupérer les infos du lead
     const storedLeadInfo = sessionStorage.getItem('leadInfo');
-    if (storedLeadInfo) {
-      setLeadInfo(JSON.parse(storedLeadInfo));
-    }
+    const leadInfo = storedLeadInfo ? JSON.parse(storedLeadInfo) : null;
+
+    // Track la conversion finale
+    conversionEvents.simulatorConversion('thank_you_page', {
+      source: 'simulator_complete',
+      property_type: leadInfo?.logementType,
+      energy_bill: leadInfo?.energyBill,
+      equipment: leadInfo?.equipment
+    });
+
+    // Track la génération du lead
+    conversionEvents.leadGenerated('simulator_thank_you', 100);
+
+    setLeadInfo(leadInfo);
   }, []);
 
   return (

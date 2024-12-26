@@ -128,20 +128,55 @@ const HeroSection = () => {
   };
 
   const handleExpertContact = () => {
+    // Événement de clic sur le bouton de contact expert
+    window.gtag('event', 'cta_click', {
+      'event_category': 'Hero Section',
+      'event_label': 'Contact Expert',
+      'page_path': window.location.pathname
+    });
+
+    // Événement personnalisé
     engagementEvents.ctaClick('contact_expert', 'hero_section');
+    
+    // Événement de conversion potentielle
+    engagementEvents.conversionIntent('expert_contact_modal_open');
+    
     setIsModalOpen(true);
   };
 
   const handleSimulatorClick = () => {
+    // Événement de clic sur le bouton simulateur
+    window.gtag('event', 'cta_click', {
+      'event_category': 'Hero Section',
+      'event_label': 'Simulateur Économies',
+      'page_path': window.location.pathname
+    });
+
+    // Événement personnalisé
     engagementEvents.ctaClick('simulator', 'hero_section');
+    
+    // Événement de navigation
     navigationEvents.pageView('/simulator');
+    
+    // Événement de conversion potentielle
+    engagementEvents.conversionIntent('simulator_access');
   };
 
   return (
     <>
       {/* Bandeau CTA mobile qui s'affiche après avoir dépassé la section héro */}
       {scrollPosition > heroHeight && (
-        <div className="fixed top-0 left-0 right-0 z-40 md:hidden bg-white/90 backdrop-blur-sm shadow-sm">
+        <div 
+          className="fixed top-0 left-0 right-0 z-40 md:hidden bg-white/90 backdrop-blur-sm shadow-sm"
+          onMouseEnter={() => {
+            // Événement de visibilité du bandeau mobile
+            window.gtag('event', 'mobile_cta_banner', {
+              'event_category': 'Hero Section',
+              'event_label': 'Banner Visibility',
+              'scroll_position': scrollPosition
+            });
+          }}
+        >
           <div className="grid grid-cols-2 gap-2 p-2 container mx-auto">
             <button
               onClick={handleExpertContact}

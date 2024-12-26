@@ -47,9 +47,16 @@ const Header = () => {
                   >
                     <Link 
                       href="/services/panneaux-solaires" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md font-semibold"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md font-semibold flex items-center gap-2"
                     >
-                      Panneaux Solaires
+                      <Image 
+                        src="/images/icone-pv.png" 
+                        alt="Icône Panneaux Photovoltaïques" 
+                        width={24} 
+                        height={24} 
+                        className="w-6 h-6"
+                      />
+                      Installation Panneaux Solaires
                     </Link>
                   </Popover.Panel>
                 </>

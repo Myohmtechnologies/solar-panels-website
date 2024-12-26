@@ -25,18 +25,13 @@ const RegionMapSection = ({ region }: RegionMapSectionProps) => {
         {/* Map Section */}
         <div className="relative rounded-3xl overflow-hidden shadow-2xl transform transition-transform hover:scale-[1.02]">
           <Image
-            src='/images/region-section.svg'
+            src='/images/Carte-region.svg'
             alt="section region"
             width={800}
             height={700}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/40 flex items-end p-6">
-            <div className="text-white">
-              <h3 className="text-xl font-bold mb-2">Région {regionData.name}</h3>
-              <p className="text-sm">Votre potentiel solaire</p>
-            </div>
-          </div>
+        
         </div>
 
         {/* Text Section */}

@@ -44,6 +44,7 @@ export const varDepartement: Department = {
       name: "Toulon",
       code: "83137",
       population: 171953,
+      sunshineHours: 2850,
       individualHouses: 19734,
       solarAdvantages: [
         "Ensoleillement méditerranéen exceptionnel",
@@ -140,6 +141,7 @@ export const varDepartement: Department = {
       name: "Fréjus",
       code: "83061",
       population: 54023,
+      sunshineHours: 2800,
       individualHouses: 6500,
       solarAdvantages: [
         "Climat méditerranéen idéal",
@@ -188,6 +190,7 @@ export const varDepartement: Department = {
       name: "Hyères",
       code: "83069",
       population: 57635,
+      sunshineHours: 2850,
       individualHouses: 7200,
       coordinates: {
         lat: 43.1206,
@@ -251,6 +254,7 @@ export const varDepartement: Department = {
       name: "Draguignan",
       code: "83050",
       population: 40963,
+      sunshineHours: 2750,
       individualHouses: 4900,
       solarAdvantages: [
         "Climat provençal idéal",
@@ -347,6 +351,7 @@ export const varDepartement: Department = {
       name: "Saint-Raphaël",
       code: "83118",
       population: 35042,
+      sunshineHours: 2800,
       individualHouses: 4300,
       solarAdvantages: [
         "Exposition Côte d'Azur",

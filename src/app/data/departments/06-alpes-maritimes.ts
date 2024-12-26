@@ -13,6 +13,7 @@ export const alpesMaritimes: Department = {
       name: "Nice",
       code: "06088",
       population: 342669,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Plus de 300 jours de soleil par an",
         "Climat méditerranéen idéal",
@@ -53,6 +54,7 @@ export const alpesMaritimes: Department = {
       name: "Antibes",
       code: "06004",
       population: 74982,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Ensoleillement exceptionnel",
         "Position géographique optimale",
@@ -93,6 +95,7 @@ export const alpesMaritimes: Department = {
       name: "Cannes",
       code: "06029",
       population: 74545,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Climat méditerranéen optimal",
         "Fort taux d'ensoleillement",
@@ -133,6 +136,7 @@ export const alpesMaritimes: Department = {
       name: "Grasse",
       code: "06069",
       population: 50409,
+      sunshineHours: 2750,
       solarAdvantages: [
         "Exposition sud privilégiée",
         "Climat méditerranéen favorable",
@@ -173,6 +177,7 @@ export const alpesMaritimes: Department = {
       name: "Cagnes-sur-Mer",
       code: "06027",
       population: 49322,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Exposition maritime idéale",
         "Ensoleillement optimal",
@@ -501,9 +506,9 @@ export const alpesMaritimes: Department = {
       ],
       keyPoints: [
         "Village d'art et de gastronomie",
-        "Solutions personnalisées",
-        "Expertise locale reconnue",
-        "Accompagnement sur mesure"
+        "Solutions sur mesure",
+        "Installateurs qualifiés",
+        "Suivi technique complet"
       ],
       reviews: [
         {
@@ -736,7 +741,7 @@ export const alpesMaritimes: Department = {
       solarAdvantages: [
         "Situation géographique privilégiée",
         "Ensoleillement optimal",
-        "Performance énergétique élevée",
+        "Performance énergétique optimale",
         "Rentabilité attractive"
       ],
       keyPoints: [

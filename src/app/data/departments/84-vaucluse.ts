@@ -12,12 +12,13 @@ export const vaucluse: Department = {
     "avignon": {
       name: "Avignon",
       code: "84007",
-      population: 94200,
+      population: 94203,
+      sunshineHours: 2800,
       solarAdvantages: [
-        "Plus de 2800 heures d'ensoleillement par an",
-        "Climat méditerranéen idéal",
-        "Fort potentiel d'économies",
-        "Rendement solaire optimal"
+        "Climat méditerranéen optimal",
+        "Position géographique privilégiée",
+        "Fort ensoleillement annuel",
+        "Zone propice aux installations"
       ],
       keyPoints: [
         "Préfecture du Vaucluse",
@@ -25,6 +26,17 @@ export const vaucluse: Department = {
         "Réseau d'installateurs certifiés",
         "Aides locales disponibles"
       ],
+      installation: {
+        customerName: "Jean-Marc P.",
+        city: "Avignon",
+        monthlySavings: 103,
+        systemSize: 3,
+        panelsCount: 6,
+        invertersCount: 6,
+        testimonial: "Installation impeccable, équipe professionnelle et réactive. Production solaire au-delà de nos attentes.",
+        rating: 5,
+        imageUrl: "/images/installations/83-installation.jpg"
+      },
       reviews: [
         {
           author: "Marie L.",
@@ -49,12 +61,13 @@ export const vaucluse: Department = {
     "carpentras": {
       name: "Carpentras",
       code: "84031",
-      population: 28500,
+      population: 29386,
+      sunshineHours: 2750,
       solarAdvantages: [
-        "Excellent taux d'ensoleillement",
-        "Zone climatique favorable",
-        "Économies d'énergie significatives",
-        "Retour sur investissement rapide"
+        "Situation géographique favorable",
+        "Ensoleillement important",
+        "Climat provençal idéal",
+        "Fort potentiel solaire"
       ],
       keyPoints: [
         "Sous-préfecture du Vaucluse",
@@ -78,12 +91,13 @@ export const vaucluse: Department = {
     "orange": {
       name: "Orange",
       code: "84087",
-      population: 29000,
+      population: 29907,
+      sunshineHours: 2800,
       solarAdvantages: [
+        "Position stratégique",
         "Ensoleillement optimal",
-        "Conditions météo favorables",
-        "Rentabilité assurée",
-        "Production solaire élevée"
+        "Climat favorable",
+        "Nombreux projets solaires"
       ],
       keyPoints: [
         "Ville historique romaine",
@@ -104,15 +118,16 @@ export const vaucluse: Department = {
       altitude: 50,
       coordinates: { lat: 44.1389, lng: 4.8076 }
     },
-    "pernes-les-fontaines": {
-      name: "Pernes-les-Fontaines",
-      code: "84088",
-      population: 10000,
+    "cavaillon": {
+      name: "Cavaillon",
+      code: "84035",
+      population: 26689,
+      sunshineHours: 2800,
       solarAdvantages: [
-        "Exposition solaire privilégiée",
-        "Climat méditerranéen idéal",
-        "Économies substantielles",
-        "Performance énergétique"
+        "Exposition sud dominante",
+        "Climat méditerranéen",
+        "Zone propice au solaire",
+        "Fort potentiel d'installation"
       ],
       keyPoints: [
         "Ville historique et moderne",
@@ -126,12 +141,33 @@ export const vaucluse: Department = {
           rating: 5,
           text: "Excellent accompagnement du début à la fin. Installation parfaite.",
           date: "2023-10-15",
-          city: "Pernes-les-Fontaines",
+          city: "Cavaillon",
           installation: defaultSolarInstallation
         }
       ],
       altitude: 55,
-      coordinates: { lat: 44.0167, lng: 5.0667 }
+      coordinates: { lat: 43.8333, lng: 5.0667 }
+    },
+    "apt": {
+      name: "Apt",
+      code: "84003",
+      population: 11885,
+      sunshineHours: 2750,
+      solarAdvantages: [
+        "Position au cœur du Luberon",
+        "Ensoleillement exceptionnel",
+        "Climat favorable",
+        "Zone peu urbanisée"
+      ],
+      keyPoints: [
+        "Ville historique et touristique",
+        "Engagement écologique fort",
+        "Professionnels expérimentés",
+        "Suivi personnalisé"
+      ],
+      reviews: [],
+      altitude: 170,
+      coordinates: { lat: 43.8767, lng: 5.3978 }
     }
   }
 };

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { HomeIcon, SunIcon, BanknotesIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, SunIcon, BanknotesIcon, CheckCircleIcon, UserCircleIcon, StarIcon } from '@heroicons/react/24/outline';
 
 const CaseStudySection = () => {
   return (
@@ -82,6 +82,8 @@ const CaseStudySection = () => {
           </div>
         </div>
       </div>
+
+      
     </section>
   );
 };

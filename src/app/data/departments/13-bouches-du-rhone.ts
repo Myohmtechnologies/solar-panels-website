@@ -13,6 +13,7 @@ export const bouchesdurhone: Department = {
       name: "Marseille",
       code: "13055",
       population: 870731,
+      sunshineHours: 2850,
       solarAdvantages: [
         "Ensoleillement exceptionnel avec plus de 2800 heures par an",
         "Position idéale en bord de mer pour une exposition optimale",
@@ -109,6 +110,7 @@ export const bouchesdurhone: Department = {
       name: "Aix-en-Provence",
       code: "13001",
       population: 143097,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Climat méditerranéen idéal pour le solaire",
         "Forte exposition solaire annuelle",
@@ -187,6 +189,7 @@ export const bouchesdurhone: Department = {
       name: "Arles",
       code: "13004",
       population: 52857,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Fort ensoleillement annuel",
         "Territoire adapté aux installations solaires",
@@ -259,6 +262,7 @@ export const bouchesdurhone: Department = {
       name: "Martigues",
       code: "13056",
       population: 49021,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Position côtière idéale pour l'ensoleillement",
         "Zone industrielle avec fort potentiel solaire",
@@ -336,6 +340,7 @@ export const bouchesdurhone: Department = {
       name: "Aubagne",
       code: "13005",
       population: 46124,
+      sunshineHours: 2750,
       solarAdvantages: [
         "Situation géographique privilégiée",
         "Ensoleillement optimal toute l'année",
@@ -408,6 +413,7 @@ export const bouchesdurhone: Department = {
       name: "Salon-de-Provence",
       code: "13103",
       population: 45528,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Excellent ensoleillement annuel",
         "Zone favorable aux installations solaires",
@@ -480,6 +486,7 @@ export const bouchesdurhone: Department = {
       name: "Istres",
       code: "13047",
       population: 43463,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Territoire propice aux installations solaires",
         "Ensoleillement exceptionnel",
@@ -557,6 +564,7 @@ export const bouchesdurhone: Department = {
       name: "La Ciotat",
       code: "13028",
       population: 35758,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Position côtière idéale",
         "Ensoleillement optimal",
@@ -629,6 +637,7 @@ export const bouchesdurhone: Department = {
       name: "Vitrolles",
       code: "13117",
       population: 33919,
+      sunshineHours: 2750,
       solarAdvantages: [
         "Zone industrielle avec fort potentiel",
         "Ensoleillement méditerranéen optimal",
@@ -706,6 +715,7 @@ export const bouchesdurhone: Department = {
       name: "Marignane",
       code: "13054",
       population: 33793,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Position géographique favorable",
         "Fort ensoleillement annuel",
@@ -783,6 +793,7 @@ export const bouchesdurhone: Department = {
       name: "Miramas",
       code: "13063",
       population: 26515,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Territoire adapté aux installations solaires",
         "Ensoleillement optimal",
@@ -855,6 +866,7 @@ export const bouchesdurhone: Department = {
       name: "Les Pennes-Mirabeau",
       code: "13071",
       population: 21835,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Position géographique idéale",
         "Ensoleillement méditerranéen optimal",
@@ -932,6 +944,7 @@ export const bouchesdurhone: Department = {
       name: "Allauch",
       code: "13002",
       population: 21146,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Position en hauteur idéale",
         "Ensoleillement exceptionnel",
@@ -1009,6 +1022,7 @@ export const bouchesdurhone: Department = {
       name: "Gardanne",
       code: "13041",
       population: 20705,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Territoire en reconversion énergétique",
         "Fort ensoleillement annuel",
@@ -1081,6 +1095,7 @@ export const bouchesdurhone: Department = {
       name: "Châteauneuf-les-Martigues",
       code: "13026",
       population: 18042,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Position côtière avantageuse",
         "Ensoleillement méditerranéen optimal",
@@ -1158,6 +1173,7 @@ export const bouchesdurhone: Department = {
       name: "Châteaurenard",
       code: "13027",
       population: 15839,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Territoire agricole avec fort potentiel",
         "Ensoleillement provençal optimal",
@@ -1235,6 +1251,7 @@ export const bouchesdurhone: Department = {
       name: "Port-de-Bouc",
       code: "13077",
       population: 17207,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Position portuaire stratégique",
         "Ensoleillement méditerranéen optimal",
@@ -1307,6 +1324,7 @@ export const bouchesdurhone: Department = {
       name: "Fos-sur-Mer",
       code: "13039",
       population: 15821,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Zone industrialo-portuaire majeure",
         "Ensoleillement méditerranéen optimal",
@@ -1384,6 +1402,7 @@ export const bouchesdurhone: Department = {
       name: "Tarascon",
       code: "13108",
       population: 15128,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Position stratégique en Provence",
         "Ensoleillement exceptionnel",
@@ -1461,6 +1480,7 @@ export const bouchesdurhone: Department = {
       name: "Bouc-Bel-Air",
       code: "13015",
       population: 14931,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Position géographique privilégiée",
         "Ensoleillement optimal",
@@ -1533,6 +1553,7 @@ export const bouchesdurhone: Department = {
       name: "Berre-l'Étang",
       code: "13014",
       population: 13654,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Zone industrielle avec fort potentiel",
         "Ensoleillement méditerranéen optimal",
@@ -1610,6 +1631,7 @@ export const bouchesdurhone: Department = {
       name: "Saint-Martin-de-Crau",
       code: "13097",
       population: 13557,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Vaste territoire avec fort potentiel",
         "Ensoleillement exceptionnel",
@@ -1687,6 +1709,7 @@ export const bouchesdurhone: Department = {
       name: "Rognac",
       code: "13081",
       population: 12587,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Position géographique favorable",
         "Ensoleillement méditerranéen optimal",
@@ -1759,6 +1782,7 @@ export const bouchesdurhone: Department = {
       name: "Saint-Rémy-de-Provence",
       code: "13100",
       population: 9893,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Cadre historique préservé",
         "Ensoleillement provençal optimal",
@@ -1836,6 +1860,7 @@ export const bouchesdurhone: Department = {
       name: "Plan-de-Cuques",
       code: "13075",
       population: 11090,
+      sunshineHours: 2800,
       solarAdvantages: [
         "Position privilégiée près de Marseille",
         "Ensoleillement méditerranéen optimal",

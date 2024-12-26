@@ -13,6 +13,7 @@ export const hautesAlpes: Department = {
       name: "Gap",
       code: "05061",
       population: 40500,
+      sunshineHours: 2600,
       solarAdvantages: [
         "Ensoleillement exceptionnel en altitude",
         "Position géographique privilégiée",
@@ -81,6 +82,7 @@ export const hautesAlpes: Department = {
       name: "Briançon",
       code: "05023",
       population: 10561,
+      sunshineHours: 2550,
       solarAdvantages: [
         "Plus haute ville d'Europe",
         "Ensoleillement optimal en altitude",
@@ -149,6 +151,7 @@ export const hautesAlpes: Department = {
       name: "Embrun",
       code: "05046",
       population: 6404,
+      sunshineHours: 2500,
       solarAdvantages: [
         "Climat méditerranéen d'altitude",
         "Exposition optimale",
@@ -196,6 +199,7 @@ export const hautesAlpes: Department = {
       name: "Laragne-Montéglin",
       code: "05070",
       population: 3585,
+      sunshineHours: 2600,
       solarAdvantages: [
         "Climat favorable",
         "Exposition sud optimale",

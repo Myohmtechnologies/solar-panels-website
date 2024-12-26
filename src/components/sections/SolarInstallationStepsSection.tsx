@@ -1,110 +1,77 @@
 'use client';
 
 import { 
-  DocumentMagnifyingGlassIcon,
-  LightBulbIcon,
+  CalculatorIcon,
+  ClipboardDocumentCheckIcon,
   WrenchScrewdriverIcon,
-  CheckBadgeIcon
-} from '@heroicons/react/24/solid';
-
-const installationSteps = [
-  {
-    icon: DocumentMagnifyingGlassIcon,
-    title: "Étude de Faisabilité",
-    description: "Analyse personnalisée de votre propriété, consommation énergétique et potentiel solaire.",
-    details: [
-      "Audit énergétique",
-      "Étude d'ensoleillement",
-      "Dimensionnement du système"
-    ]
-  },
-  {
-    icon: LightBulbIcon,
-    title: "Conception du Projet",
-    description: "Création d'un projet sur-mesure adapté à vos besoins et à votre budget.",
-    details: [
-      "Choix des panneaux",
-      "Plan d'installation",
-      "Simulation financière"
-    ]
-  },
-  {
-    icon: WrenchScrewdriverIcon,
-    title: "Installation",
-    description: "Mise en place professionnelle de vos panneaux solaires par nos techniciens experts.",
-    details: [
-      "Pose des supports",
-      "Installation des panneaux",
-      "Raccordement électrique"
-    ]
-  },
-  {
-    icon: CheckBadgeIcon,
-    title: "Mise en Service",
-    description: "Activation et test complet de votre installation pour une performance optimale.",
-    details: [
-      "Vérifications techniques",
-      "Raccordement au réseau",
-      "Formation et conseils"
-    ]
-  }
-];
+  BanknotesIcon
+} from '@heroicons/react/24/outline';
 
 const SolarInstallationStepsSection = () => {
+  const steps = [
+    {
+      icon: <CalculatorIcon className="w-12 h-12 text-FFDF64" />,
+      title: "Simulation personnalisée",
+      description: "Obtenez une simulation détaillée de votre installation et de vos économies potentielles",
+      number: "1"
+    },
+    {
+      icon: <ClipboardDocumentCheckIcon className="w-12 h-12 text-FFDF64" />,
+      title: "Étude de faisabilité gratuite",
+      description: "Nos experts évaluent gratuitement la faisabilité technique de votre projet",
+      number: "2"
+    },
+    {
+      icon: <WrenchScrewdriverIcon className="w-12 h-12 text-FFDF64" />,
+      title: "Installation rapide et professionnelle",
+      description: "Une installation soignée réalisée par nos équipes qualifiées",
+      number: "3"
+    },
+    {
+      icon: <BanknotesIcon className="w-12 h-12 text-FFDF64" />,
+      title: "Commencez à économiser",
+      description: "Profitez immédiatement des avantages de votre installation solaire",
+      number: "4"
+    }
+  ];
+
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-12 bg-gradient-to-br from-f2f6fa to-e3e9f0">
+    <section className="py-16 px-4 md:px-8 lg:px-12 bg-white">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center space-x-4 mb-4">
-            <WrenchScrewdriverIcon className="w-12 h-12 text-FFDF64" />
-            <h2 className="text-3xl font-bold text-gray-900">
-              Étapes de l&apos;installation solaire
-            </h2>
-          </div>
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          Les étapes de votre installation solaire
+        </h2>
 
-          <p className="text-gray-700 max-w-2xl mx-auto leading-relaxed">
-            Découvrez le processus complet de votre installation de panneaux solaires, de l&apos;étude initiale à la mise en service, pour une transition énergétique en toute sérénité.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {installationSteps.map((step, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {steps.map((step, index) => (
             <div 
-              key={step.title} 
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group"
+              key={index}
+              className="relative p-6 bg-gradient-to-br from-f1f5f9 to-e2e8f0 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              <div className="flex flex-col items-center text-center">
-                <div className="p-4 bg-FFDF64/20 rounded-full mb-4">
-                  <step.icon className="w-10 h-10 text-FFDF64" />
+              {/* Numéro de l'étape */}
+              <div className="absolute -top-4 -left-4 w-8 h-8 bg-FFDF64 rounded-full flex items-center justify-center text-black font-bold">
+                {step.number}
+              </div>
+
+              {/* Contenu */}
+              <div className="text-center space-y-4">
+                <div className="flex justify-center">
+                  {step.icon}
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2 group-hover:text-AFC97E transition-colors">
+                <h3 className="text-xl font-bold text-gray-900">
                   {step.title}
                 </h3>
-                <p className="text-gray-600 text-sm mb-4">{step.description}</p>
-                <ul className="text-gray-700 text-sm list-disc list-inside space-y-1">
-                  {step.details.map((detail, detailIndex) => (
-                    <li key={detailIndex}>{detail}</li>
-                  ))}
-                </ul>
+                <p className="text-gray-600">
+                  {step.description}
+                </p>
               </div>
+
+              {/* Ligne de connexion entre les étapes */}
+              {index < steps.length - 1 && (
+                <div className="hidden lg:block absolute -right-4 top-1/2 transform -translate-y-1/2 w-8 h-0.5 bg-FFDF64"></div>
+              )}
             </div>
           ))}
-        </div>
-
-        <div className="bg-gradient-to-br from-ffeb99 to-ffb700 p-6 rounded-2xl mt-12 text-center">
-          <div className="max-w-2xl mx-auto flex flex-col items-center">
-            <LightBulbIcon className="w-12 h-12 text-black mb-4" />
-            <h4 className="font-bold text-black text-xl mb-2">Notre Engagement</h4>
-            <p className="text-black/80 max-w-xl">
-              Un accompagnement personnalisé à chaque étape pour garantir la réussite de votre projet solaire.
-            </p>
-          </div>
-        </div>
-
-        <div className="text-center mt-12">
-          <button className="bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-            Commencer Votre Projet
-          </button>
         </div>
       </div>
     </section>

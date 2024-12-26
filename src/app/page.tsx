@@ -87,14 +87,14 @@ export default function Home() {
       <main className="overflow-x-hidden">
         <HeroSection />
         <ShowroomSection />
-        <PartnersSection />
+        <SolarBenefitsSection />
         <CaseStudySection />
         <ActionCTASection />
-        <SolarBenefitsSection />
         <SolarPanelSection />
         <SolarInstallationStepsSection />
         <ClientTestimonialsSection />
         <RegionMapSection region={defaultRegionName} />
+        <PartnersSection />
         <ContactCTASection />
       </main>
     </>

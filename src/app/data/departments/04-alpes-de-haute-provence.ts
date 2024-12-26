@@ -7,9 +7,35 @@ export const alpesDeHauteProvence: Department = {
   cities: {
     manosque: {
       name: "Manosque",
-      code: "04100",
-      population: 23550,
-      slug: "manosque",
+      code: "04112",
+      population: 22801,
+      sunshineHours: 2800,
+      solarAdvantages: [
+        "Ensoleillement exceptionnel avec plus de 2800 heures par an",
+        "Climat méditerranéen idéal pour le solaire",
+        "Forte politique locale en faveur des énergies renouvelables",
+        "Zone géographique optimale pour la production solaire"
+      ],
+      reviews: [
+        {
+          author: "Jean-Pierre M.",
+          location: "Centre-ville",
+          comment: "Installation impeccable par l'équipe de MyOhm. Production supérieure aux estimations après 6 mois d'utilisation. Je recommande !",
+          rating: 5
+        },
+        {
+          author: "Marie L.",
+          location: "Les Plantiers",
+          comment: "Très satisfaite du service et du suivi. L'équipe est professionnelle et à l'écoute. Installation réalisée dans les délais.",
+          rating: 5
+        },
+        {
+          author: "Robert D.",
+          location: "Saint-Lazare",
+          comment: "Excellent rapport qualité/prix. Les panneaux sont discrets et performants. Un vrai plus pour réduire ma facture d'électricité.",
+          rating: 4
+        }
+      ],
       description: `Située au cœur de la Provence, Manosque bénéficie d'un ensoleillement exceptionnel avec plus de 300 jours de soleil par an. Cette ville dynamique combine parfaitement le charme provençal avec une approche moderne de la transition énergétique.`,
       seoTitle: 'Installation Panneaux Solaires Manosque | Expert Photovoltaïque',
       seoDescription: 'Expert en installation de panneaux solaires à Manosque. Profitez d\'un service premium, certifié RGE, et d\'une garantie décennale. Devis gratuit et personnalisé.',
@@ -47,28 +73,12 @@ export const alpesDeHauteProvence: Department = {
         "Bonus altitude +400m",
         "Accompagnement ADEME renforcé"
       ],
-      reviews: [
-        {
-          author: "Jean-Marc P.",
-          rating: 5,
-          date: "2023-11-15",
-          comment: "Installation parfaitement adaptée aux conditions locales. L'équipe connaît très bien les spécificités de la région.",
-          location: "Manosque Centre"
-        },
-        {
-          author: "Sophie L.",
-          rating: 4.5,
-          date: "2023-10-20",
-          comment: "Excellent suivi et production supérieure aux estimations grâce à l'altitude.",
-          location: "Les Plantiers"
-        }
-      ],
       seo: {
-        title: "Installation Panneaux Solaires Manosque (04100) | Expert Solaire Altitude",
+        title: "Installation Panneaux Solaires Manosque (04112) | Expert Solaire Altitude",
         metaDescription: "Expert en installation solaire à Manosque. Profitez d'un ensoleillement exceptionnel de 2750h/an et d'aides locales. Installation adaptée au climat alpin-méditerranéen. Devis gratuit.",
         keywords: [
           "panneaux solaires Manosque",
-          "installation solaire 04100",
+          "installation solaire 04112",
           "photovoltaïque Manosque",
           "énergie solaire altitude",
           "aide panneaux solaires Manosque",
@@ -519,6 +529,7 @@ export const alpesDeHauteProvence: Department = {
       name: "Oraison",
       code: "04143",
       population: 5800,
+      sunshineHours: 2700,
       solarAdvantages: [
         "Climat méditerranéen favorable",
         "Fort potentiel solaire",
@@ -754,6 +765,7 @@ export const alpesDeHauteProvence: Department = {
       name: "Digne-les-Bains",
       code: "04070",
       population: 16500,
+      sunshineHours: 2700,
       solarAdvantages: [
         "Climat favorable",
         "Fort potentiel solaire",
@@ -895,6 +907,7 @@ export const alpesDeHauteProvence: Department = {
       name: "Sisteron",
       code: "04209",
       population: 7500,
+      sunshineHours: 2650,
       solarAdvantages: [
         "Ensoleillement exceptionnel",
         "Situation géographique idéale",

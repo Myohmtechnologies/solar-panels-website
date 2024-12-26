@@ -2,6 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import Link from 'next/link';
+import { MapPinIcon, UserIcon, ChartBarIcon } from '@heroicons/react/24/outline';
+import CommercialContactModal from '../modals/CommercialContactModal';
 
 // Composant Modal de Contact
 const ContactModal = ({ onClose }: { onClose: () => void }) => {
@@ -99,10 +103,10 @@ const HeroSection = () => {
     <>
       <div className="relative flex flex-col md:block">
         {/* Vidéo de fond */}
-        <div className='relative h-[60vh] md:h-screen min-h-[400px] w-full overflow-hidden'>
-          <div className="absolute inset-0 rounded-b-[50px] overflow-hidden">
+        <div className='relative h-[50vh] md:h-screen min-h-[400px] w-full overflow-hidden'>
+          <div className="absolute inset-0 overflow-hidden">
             <video 
-              src="/images/video-hero-section.mp4"
+              src="/images/video-background.mp4"
               poster="/images/video-hero-section-poster.jpg"
               autoPlay 
               loop 
@@ -112,8 +116,8 @@ const HeroSection = () => {
               className="w-full h-full object-cover"
               aria-hidden="true"
             >
-              <source src="/images/video-hero-section.mp4" type="video/mp4" />
-              <source src="/images/video-hero-section.webm" type="video/webm" />
+              <source src="/images/video-background.mp4" type="video/mp4" />
+              <source src="/images/video-background.webm" type="video/webm" />
             </video>
             <div className="absolute inset-0 bg-black/40"></div>
           </div>
@@ -129,39 +133,29 @@ const HeroSection = () => {
             
             <div className="text-center mb-6">
               <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                Économisez avec l&apos;énergie solaire
+                Réduisissiez votre consommation d&apos;électricité Jusqu&apos;à 70%
               </h1>
               <p className="text-gray-600 text-base mb-4">
                 Découvrez votre potentiel d&apos;économies ou contactez un expert
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-              {/* Simulation d'économies */}
-              <button 
-                onClick={() => router.push('/simulator')}
-                className="group bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg text-white rounded-3xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 w-full text-center"
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold text-black transition-all duration-200 bg-gradient-to-br from-ffeb99 to-ffb700 rounded-3xl"
               >
-                <div className="flex items-center text-black justify-center space-x-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8.5a.5.5 0 11-1 0 .5.5 0 011 0zm4.5 4a.5.5 0 11-1 0 .5.5 0 011 0z" />
-                  </svg>
-                  <span className="font-semibold">Simuler mes économies</span>
-                </div>
+                <UserIcon className="w-5 h-5" />
+                Contacter un expert
               </button>
 
-              {/* Contacter un spécialiste */}
-              <button 
-                onClick={() => setIsModalOpen(true)}
-                className="group bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg border border-primary text-primary rounded-3xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 w-full text-center"
+              <Link
+                href="/simulator"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold text-white transition-all duration-200 bg-black rounded-3xl"
               >
-                <div className="flex items-center text-black justify-center space-x-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                  <span className="font-semibold">Contacter un expert</span>
-                </div>
-              </button>
+                <ChartBarIcon className="w-5 h-5" />
+                Simulation des économies
+              </Link>
             </div>
 
             {/* Détails */}
@@ -203,10 +197,12 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Modal de contact */}
-      {isModalOpen && (
-        <ContactModal onClose={() => setIsModalOpen(false)} />
-      )}
+      {/* Commercial Contact Modal */}
+      <CommercialContactModal
+        isOpen={isModalOpen}
+        closeModal={() => setIsModalOpen(false)}
+        cityName="votre ville"
+      />
     </>
   );
 };

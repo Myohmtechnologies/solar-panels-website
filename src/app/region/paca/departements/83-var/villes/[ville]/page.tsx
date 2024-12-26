@@ -1,4 +1,4 @@
-import { var83 } from '@/app/data/departments/83-var';
+import { varDepartement } from '@/app/data/departments/83-var';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import CityPageContent from '@/components/CityPageContent';
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function VillePage({ params }: Props) {
-  const cityData = var83.cities[params.ville];
+  const cityData = varDepartement.cities[params.ville];
 
   if (!cityData) {
     notFound();
@@ -23,19 +23,20 @@ export default function VillePage({ params }: Props) {
         slug: params.ville
       }}
       departmentName="83-var"
-      cities={var83.cities}
+      cities={varDepartement.cities}
     />
   );
 }
 
-export function generateStaticParams() {
-  return Object.keys(var83.cities).map((citySlug) => ({
-    ville: citySlug,
+export async function generateStaticParams() {
+  const cities = Object.values(varDepartement.cities || {});
+  return cities.map((city) => ({
+    ville: city.name.toLowerCase().replace(/\s+/g, '-')
   }));
 }
 
 export function generateMetadata({ params }: Props): Metadata {
-  const cityData = var83.cities[params.ville];
+  const cityData = varDepartement.cities[params.ville];
   
   if (!cityData) {
     return {

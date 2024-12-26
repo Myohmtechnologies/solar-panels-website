@@ -1,11 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { MapPinIcon, UserIcon, ChartBarIcon } from '@heroicons/react/24/outline';
 import CommercialContactModal from '../modals/CommercialContactModal';
+import { engagementEvents, navigationEvents } from '@/utils/analytics';
+
+// Hook personnalisé pour détecter le défilement
+const useScrollPosition = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  useEffect(() => {
+    const updatePosition = () => {
+      setScrollPosition(window.pageYOffset);
+    };
+
+    window.addEventListener('scroll', updatePosition);
+    updatePosition(); // Set initial position
+
+    return () => window.removeEventListener('scroll', updatePosition);
+  }, []);
+
+  return scrollPosition;
+};
 
 // Composant Modal de Contact
 const ContactModal = ({ onClose }: { onClose: () => void }) => {
@@ -98,10 +117,54 @@ const SocialProofBadge = () => (
 const HeroSection = () => {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const scrollPosition = useScrollPosition();
+  const [heroHeight, setHeroHeight] = useState(0);
+
+  // Référence pour mesurer la hauteur de la section héro
+  const heroRef = (el: HTMLDivElement | null) => {
+    if (el) {
+      setHeroHeight(el.offsetHeight);
+    }
+  };
+
+  const handleExpertContact = () => {
+    engagementEvents.ctaClick('contact_expert', 'hero_section');
+    setIsModalOpen(true);
+  };
+
+  const handleSimulatorClick = () => {
+    engagementEvents.ctaClick('simulator', 'hero_section');
+    navigationEvents.pageView('/simulator');
+  };
 
   return (
     <>
-      <div className="relative flex flex-col md:block">
+      {/* Bandeau CTA mobile qui s'affiche après avoir dépassé la section héro */}
+      {scrollPosition > heroHeight && (
+        <div className="fixed top-0 left-0 right-0 z-40 md:hidden bg-white/90 backdrop-blur-sm shadow-sm">
+          <div className="grid grid-cols-2 gap-2 p-2 container mx-auto">
+            <button
+              onClick={handleExpertContact}
+              className="inline-flex items-center justify-center gap-2 px-3 py-2 text-xs font-semibold text-black transition-all duration-200 bg-gradient-to-br from-ffeb99 to-ffb700 rounded-lg"
+            >
+              <UserIcon className="w-4 h-4" />
+              Contacter
+            </button>
+
+            <Link
+              href="/simulator"
+              onClick={handleSimulatorClick}
+              className="inline-flex items-center justify-center gap-2 px-3 py-2 text-xs font-semibold text-white transition-all duration-200 bg-black rounded-lg"
+            >
+              <ChartBarIcon className="w-4 h-4" />
+              Simuler
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Contenu principal */}
+      <div ref={heroRef} className="relative flex flex-col md:block md:pt-0">
         {/* Vidéo de fond */}
         <div className='relative h-[50vh] md:h-screen min-h-[400px] w-full overflow-hidden'>
           <div className="absolute inset-0 overflow-hidden">
@@ -133,7 +196,7 @@ const HeroSection = () => {
             
             <div className="text-center mb-6">
               <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                Réduisissiez votre consommation d&apos;électricité Jusqu&apos;à 70%
+                Réduisez votre consommation d&apos;électricité jusqu&apos;à 70%
               </h1>
               <p className="text-gray-600 text-base mb-4">
                 Découvrez votre potentiel d&apos;économies ou contactez un expert
@@ -142,7 +205,7 @@ const HeroSection = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
-                onClick={() => setIsModalOpen(true)}
+                onClick={handleExpertContact}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold text-black transition-all duration-200 bg-gradient-to-br from-ffeb99 to-ffb700 rounded-3xl"
               >
                 <UserIcon className="w-5 h-5" />
@@ -151,7 +214,8 @@ const HeroSection = () => {
 
               <Link
                 href="/simulator"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold text-white transition-all duration-200 bg-black rounded-3xl"
+                onClick={handleSimulatorClick}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold text-white transition-all duration-200 bg-[#10618F] rounded-3xl"
               >
                 <ChartBarIcon className="w-5 h-5" />
                 Simulation des économies

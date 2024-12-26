@@ -94,8 +94,7 @@ export default function Home() {
         <SolarInstallationStepsSection />
         <ClientTestimonialsSection />
         <RegionMapSection region={defaultRegionName} />
-        <PartnersSection />
-        <ContactCTASection />
+     
       </main>
     </>
   );

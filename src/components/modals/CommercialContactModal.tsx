@@ -4,14 +4,24 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { XMarkIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import { phoneEvents, engagementEvents } from '@/utils/analytics';
 
 interface CommercialContactModalProps {
   isOpen: boolean;
   closeModal: () => void;
-  cityName: string;
+  cityName?: string;
 }
 
-export default function CommercialContactModal({ isOpen, closeModal, cityName }: CommercialContactModalProps) {
+export default function CommercialContactModal({ isOpen, closeModal, cityName = 'votre ville' }: CommercialContactModalProps) {
+  const handlePhoneClick = () => {
+    phoneEvents.phoneClick('commercial_modal');
+    engagementEvents.ctaClick('phone_call', 'commercial_modal');
+  };
+
+  const handleEmailClick = () => {
+    engagementEvents.ctaClick('email', 'commercial_modal');
+  };
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={closeModal}>
@@ -68,6 +78,7 @@ export default function CommercialContactModal({ isOpen, closeModal, cityName }:
                 <div className="space-y-4">
                   <a
                     href="tel:+33647760725"
+                    onClick={handlePhoneClick}
                     className="flex items-center justify-center gap-2 w-full bg-gradient-to-br from-ffeb99 to-ffb700 text-black py-3 px-4 rounded-lg font-semibold hover:opacity-90 transition-opacity"
                   >
                     <PhoneIcon className="h-5 w-5" />
@@ -76,6 +87,7 @@ export default function CommercialContactModal({ isOpen, closeModal, cityName }:
 
                   <a
                     href="mailto:rudy@myohmtechnologies.com"
+                    onClick={handleEmailClick}
                     className="flex items-center justify-center gap-2 w-full bg-black text-white py-3 px-4 rounded-lg font-semibold hover:opacity-90 transition-opacity"
                   >
                     <EnvelopeIcon className="h-5 w-5" />

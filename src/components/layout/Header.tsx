@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import MobileMenu from './MobileMenu';
+import { Popover } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -26,20 +28,79 @@ const Header = () => {
 
           {/* Navigation desktop */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/panneaux-solaire" className="text-gray-700 hover:text-gray-900 font-medium text-base">
-              Panneaux photovoltaïques
-            </Link>
-            <Link href="/qui-sommes-nous" className="text-gray-700 hover:text-gray-900 font-medium text-base">
-              Qui sommes-nous
-            </Link>
-            <Link href="/blog" className="text-gray-700 hover:text-gray-900 font-medium text-base">
+            {/* Services avec sous-menu */}
+            <Popover className="relative">
+              {({ open }) => (
+                <>
+                  <Popover.Button 
+                    className={`
+                      ${open ? 'text-primary' : 'text-gray-800'}
+                      flex items-center font-bold text-base cursor-pointer gap-1
+                    `}
+                  >
+                    Nos Services
+                    <ChevronDownIcon className={`w-4 h-4 opacity-50 ${open ? 'rotate-180' : ''}`} />
+                  </Popover.Button>
+
+                  <Popover.Panel 
+                    className="absolute left-0 z-10 mt-3 w-56 bg-white shadow-lg rounded-lg p-2"
+                  >
+                    <Link 
+                      href="/services/panneaux-solaires" 
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md font-semibold"
+                    >
+                      Panneaux Solaires
+                    </Link>
+                  </Popover.Panel>
+                </>
+              )}
+            </Popover>
+
+            {/* À propos avec sous-menu */}
+            <Popover className="relative">
+              {({ open }) => (
+                <>
+                  <Popover.Button 
+                    className={`
+                      ${open ? 'text-primary' : 'text-gray-800'}
+                      flex items-center font-bold text-base cursor-pointer gap-1
+                    `}
+                  >
+                    À propos
+                    <ChevronDownIcon className={`w-4 h-4 opacity-50 ${open ? 'rotate-180' : ''}`} />
+                  </Popover.Button>
+
+                  <Popover.Panel 
+                    className="absolute left-0 z-10 mt-3 w-56 bg-white shadow-lg rounded-lg p-2"
+                  >
+                    <Link 
+                      href="/qui-sommes-nous" 
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md font-semibold"
+                    >
+                      Qui sommes-nous
+                    </Link>
+                    <Link 
+                      href="/showroom" 
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md font-semibold"
+                    >
+                      Notre Showroom
+                    </Link>
+                  </Popover.Panel>
+                </>
+              )}
+            </Popover>
+
+            <Link href="/blog" className="text-gray-700 hover:text-gray-900 font-bold text-base">
               Blog
             </Link>
-            <Link href="#" className="text-gray-700 hover:text-gray-900 font-medium text-base">
-              Notre showroom
-            </Link>
-            <Link href="/nos-realisation" className="text-gray-700 hover:text-gray-900 font-medium text-base">
+
+            <Link href="/nos-realisation" className="text-gray-700 hover:text-gray-900 font-bold text-base">
               Nos réalisations
+            </Link>
+
+            {/* Nouveau lien Contact */}
+            <Link href="/contact" className="text-gray-700 hover:text-gray-900 font-bold text-base">
+              Contact
             </Link>
           </nav>
 

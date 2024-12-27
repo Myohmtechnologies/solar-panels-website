@@ -27,7 +27,7 @@ const SolarBenefitsSection = () => {
               Réduisez vos factures
             </h3>
             <p className="text-gray-600 text-center">
-              Économisez jusqu&apos;à 60% sur votre facture d&apos;électricité
+              Économisez jusqu&apos;à 70% sur votre facture d&apos;électricité
             </p>
           </div>
 

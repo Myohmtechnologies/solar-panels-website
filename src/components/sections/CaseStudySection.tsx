@@ -72,7 +72,7 @@ const CaseStudySection = () => {
                 <div>
                   <h4 className="font-bold text-black">Résultats Clés</h4>
                   <ul className="text-black/80 list-disc list-inside">
-                    <li>Investissement amorti en 7 ans</li>
+                    <li>Investissement amorti en 5 ans</li>
                     <li>Réduction de 2.5 tonnes de CO2/an</li>
                     <li>Éligible aux aides gouvernementales</li>
                   </ul>

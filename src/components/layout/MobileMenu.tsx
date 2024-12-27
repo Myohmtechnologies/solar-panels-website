@@ -90,6 +90,24 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
               >
                 Panneaux photovoltaïques
               </Link>
+              <li>
+              <Link 
+                href="/borne-de-recharge" 
+                className="block px-4 py-4 text-gray-700 hover:bg-gray-50 rounded-lg font-medium text-base transition-colors"
+                onClick={onClose}
+              >
+               Borne de recharge
+              </Link>
+            </li>
+            <li>
+              <Link 
+                href="/batterie-de-stockage" 
+                className="block px-4 py-4 text-gray-700 hover:bg-gray-50 rounded-lg font-medium text-base transition-colors"
+                onClick={onClose}
+              >
+                Batteries solaires
+              </Link>
+            </li>
             </li>
             <li>
               <Link 
@@ -134,6 +152,15 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
                 onClick={onClose}
               >
                 Contact
+              </Link>
+            </li>
+            <li>
+              <Link 
+                href="/parrainage" 
+                className="block px-4 py-4 text-gray-700 hover:bg-gray-50 rounded-lg font-medium text-base transition-colors"
+                onClick={onClose}
+              >
+                Parrainage 
               </Link>
             </li>
           </ul>

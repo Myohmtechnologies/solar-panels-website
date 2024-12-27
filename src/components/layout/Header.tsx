@@ -136,6 +136,10 @@ const Header = () => {
             <Link href="/contact" className="text-gray-700 hover:text-gray-900 font-bold text-base">
               Contact
             </Link>
+             {/* Nouveau lien Contact */}
+             <Link href="/parrainage" className="text-gray-700 hover:text-gray-900 font-bold text-base">
+              Parrainage 
+            </Link>
           </nav>
 
           {/* Bouton CTA */}

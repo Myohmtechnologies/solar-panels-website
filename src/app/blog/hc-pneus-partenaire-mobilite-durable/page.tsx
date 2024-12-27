@@ -30,7 +30,7 @@ export default function HCPneusArticle() {
                 <span className="text-sm font-medium">27 décembre 2023</span>
                 <span className="text-white/30">•</span>
                 <ClockIcon className="h-5 w-5" />
-                <span className="text-sm font-medium">5 min de lecture</span>
+                <span className="text-sm font-medium">2 min de lecture</span>
               </div>
               <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6 leading-tight">
                 HC Pneus : Votre partenaire pour une mobilité durable à Manosque

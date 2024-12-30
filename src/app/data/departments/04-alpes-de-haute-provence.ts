@@ -10,11 +10,26 @@ export const alpesDeHauteProvence: Department = {
       code: "04100",
       population: 22801,
       sunshineHours: 2800,
+      neighborhoods: [
+        "Centre-ville",
+        "Les Plantiers",
+        "Saint-Lazare",
+        "La Rochette",
+        "Les Serrets"
+      ],
+      localStatistics: {
+        averageElectricityConsumption: "6500 kWh/an",
+        solarPotential: "1350 kWh/kWc/an",
+        co2Savings: "1.2 tonnes/an/installation"
+      },
       solarAdvantages: [
         "Ensoleillement exceptionnel avec plus de 2800 heures par an",
         "Climat méditerranéen idéal pour le solaire",
         "Forte politique locale en faveur des énergies renouvelables",
-        "Zone géographique optimale pour la production solaire"
+        "Zone géographique optimale pour la production solaire",
+        "Territoire engagé dans la transition énergétique",
+        "Subventions locales attractives",
+        "Réseau d'installateurs certifiés"
       ],
       reviews: [
         {
@@ -36,10 +51,18 @@ export const alpesDeHauteProvence: Department = {
           rating: 4
         }
       ],
-      description: `Située au cœur de la Provence, Manosque bénéficie d'un ensoleillement exceptionnel avec plus de 300 jours de soleil par an. Cette ville dynamique combine parfaitement le charme provençal avec une approche moderne de la transition énergétique.`,
-      seoTitle: 'Installation Panneaux Solaires Manosque | Expert Photovoltaïque',
-      seoDescription: 'Expert en installation de panneaux solaires à Manosque. Profitez d\'un service premium, certifié RGE, et d\'une garantie décennale. Devis gratuit et personnalisé.',
-      seoKeywords: ['panneaux solaires Manosque', 'installation photovoltaïque Manosque', 'énergie solaire Provence', 'MyOhm Technologies Manosque'],
+      description: `Située au cœur de la Provence, Manosque bénéficie d'un ensoleillement exceptionnel avec plus de 300 jours de soleil par an. Cette ville dynamique de 22 801 habitants combine parfaitement le charme provençal avec une approche moderne de la transition énergétique. Avec une altitude moyenne de 420m et un climat méditerranéen privilégié, Manosque offre des conditions optimales pour l'installation de panneaux solaires. La ville s'est engagée dans une politique énergétique ambitieuse, encourageant activement l'adoption des énergies renouvelables à travers des initiatives locales et des aides financières spécifiques.`,
+      seoTitle: 'Installation Panneaux Solaires Manosque (04100) | Expert Photovoltaïque MyOhm',
+      seoDescription: 'Expert en installation de panneaux solaires à Manosque. Profitez d\'un ensoleillement exceptionnel de 2800h/an, d\'aides locales et d\'une expertise technique certifiée. Devis gratuit et personnalisé.',
+      seoKeywords: [
+        'panneaux solaires Manosque',
+        'installation photovoltaïque 04100',
+        'énergie solaire Manosque',
+        'installateur solaire Alpes-de-Haute-Provence',
+        'aide panneaux solaires Manosque',
+        'devis solaire Manosque',
+        'MyOhm Technologies Manosque'
+      ],
       advantages: {
         solar: [
           'Ensoleillement optimal avec plus de 300 jours de soleil par an',
@@ -86,10 +109,18 @@ export const alpesDeHauteProvence: Department = {
         ],
         images: [
           {
-            url: "/images/installations/04-manosque-installation.jpg",
+            url: "/images/hero-section-manosque.webp",
             width: 800,
             height: 600,
-            alt: "Installation solaire adaptée à l'altitude - Manosque"
+            alt: "Vue aérienne de Manosque - Ville idéale pour l'énergie solaire",
+            title: "Manosque vue du ciel - Potentiel solaire exceptionnel"
+          },
+          {
+            url: "/images/installation-de-panneau-solaire-a-manosque.webp",
+            width: 800,
+            height: 600,
+            alt: "Installation de panneaux solaires sur toiture traditionnelle à Manosque",
+            title: "Installation photovoltaïque résidentielle à Manosque"
           }
         ]
       },
@@ -104,26 +135,75 @@ export const alpesDeHauteProvence: Department = {
         'Éco-PTZ bonifié pour les travaux d\'amélioration énergétique'
       ],
       images: {
-        city: '/images/cities/manosque.jpg',
-        installation: '/images/installations/manosque-installation.jpg'
+        city: '/images/hero-section-manosque.webp',
+        installation: '/images/installation-de-panneau-solaire-a-manosque.webp'
       },
+      heroImage: {
+        url: "/images/hero-section-manosque.webp",
+        alt: "Vue aérienne de Manosque - Potentiel solaire exceptionnel en Provence"
+      },
+      installation: {
+        customerName: "Jean-Marc P.",
+        city: "Manosque",
+        monthlySavings: 120,
+        systemSize: 6,
+        panelsCount: 12,
+        invertersCount: 1,
+        testimonial: "Installation impeccable, équipe professionnelle et réactive. Production solaire au-delà de nos attentes.",
+        rating: 5,
+        imageUrl: "/images/installation-de-panneau-solaire-a-manosque.webp"
+      },
+      faq: [
+        {
+          question: "Quel est le potentiel solaire de Manosque ?",
+          answer: "Manosque bénéficie d'un ensoleillement exceptionnel avec plus de 300 jours de soleil par an et 2750 heures d'ensoleillement annuel, ce qui en fait un lieu idéal pour l'installation de panneaux solaires.",
+          keywords: ["ensoleillement Manosque", "potentiel solaire Manosque"],
+          category: "technique"
+        },
+        {
+          question: "Quelles sont les aides disponibles à Manosque pour l'installation de panneaux solaires ?",
+          answer: "À Manosque, vous pouvez bénéficier de plusieurs aides : la prime communale Manosque Énergie+, les aides départementales des Alpes-de-Haute-Provence, ainsi que les dispositifs nationaux comme MaPrimeRénov' et la prime à l'autoconsommation.",
+          keywords: ["aides solaires Manosque", "subventions panneaux solaires"],
+          category: "aides"
+        },
+        {
+          question: "Combien coûte une installation solaire à Manosque ?",
+          answer: "Le coût d'une installation solaire à Manosque varie entre 8000€ et 15000€ pour une installation résidentielle standard, avant aides et subventions. Le retour sur investissement moyen est de 6 à 8 ans grâce à l'excellent ensoleillement local.",
+          keywords: ["prix panneaux solaires Manosque", "coût installation solaire"],
+          category: "general"
+        },
+        {
+          question: "Quelles sont les spécificités techniques pour une installation à Manosque ?",
+          answer: "À Manosque, les installations doivent tenir compte du climat méditerranéen et du Mistral. Nous recommandons des panneaux résistants aux vents forts et un angle d'inclinaison optimal de 30-35° pour maximiser la production tout au long de l'année.",
+          keywords: ["installation solaire Manosque", "spécifications techniques"],
+          category: "technique"
+        }
+      ],
       solarInstallation: defaultSolarInstallation
     },
     castellane: {
       name: "Castellane",
       code: "04039",
       population: 1500,
-      solarAdvantages: [
-        "Excellent taux d'ensoleillement annuel",
-        "Position géographique favorable",
-        "Économies substantielles sur la facture énergétique",
-        "Impact environnemental positif"
+      neighborhoods: [
+        "Centre Historique",
+        "Le Roc",
+        "Saint-Michel",
+        "Les Angles",
+        "Le Plan"
       ],
-      keyPoints: [
-        "Installation rapide et professionnelle",
-        "Garantie 25 ans sur les panneaux",
-        "Suivi de production personnalisé",
-        "Rentabilité assurée"
+      localStatistics: {
+        averageElectricityConsumption: "5800 kWh/an",
+        solarPotential: "1320 kWh/kWc/an",
+        co2Savings: "1.1 tonnes/an/installation"
+      },
+      solarAdvantages: [
+        "Position géographique privilégiée à 724m d'altitude",
+        "Ensoleillement optimal toute l'année",
+        "Zone climatique favorable aux installations solaires",
+        "Territoire labellisé Petites Cités de Caractère",
+        "Aides spécifiques aux monuments historiques",
+        "Expertise locale en intégration paysagère"
       ],
       reviews: [
         {
@@ -141,19 +221,18 @@ export const alpesDeHauteProvence: Department = {
           location: "Centre Historique"
         }
       ],
-      seo: {
-        title: "Castellane : installation solaire pour particuliers et professionnels",
-        metaDescription: "Découvrez les avantages de l'installation solaire à Castellane. Économisez sur votre facture d'électricité et contribuez à la transition énergétique.",
-        keywords: ["installation solaire", "Castellane", "énergie renouvelable", "économies d'énergie"],
-        images: [
-          {
-            url: "https://example.com/castellane-solaire.jpg",
-            width: 800,
-            height: 600,
-            alt: "Installation solaire à Castellane"
-          }
-        ]
-      },
+      description: `Castellane, perchée à 724 mètres d'altitude au cœur du Parc naturel régional du Verdon, bénéficie d'une situation géographique exceptionnelle pour l'énergie solaire. Cette cité historique de 1500 habitants allie préservation du patrimoine et transition énergétique. Son climat privilégié et son engagement dans le développement durable en font un territoire idéal pour l'installation de panneaux solaires, avec une attention particulière portée à l'intégration paysagère.`,
+      seoTitle: 'Installation Panneaux Solaires Castellane (04120) | Expert Photovoltaïque MyOhm',
+      seoDescription: 'Expert en installation de panneaux solaires à Castellane. Profitez d\'une situation géographique optimale et d\'une expertise en intégration paysagère. Devis gratuit personnalisé.',
+      seoKeywords: [
+        'panneaux solaires Castellane',
+        'installation photovoltaïque 04120',
+        'énergie solaire Verdon',
+        'installation solaire patrimoine',
+        'aide panneaux solaires Castellane',
+        'devis solaire Castellane',
+        'MyOhm Technologies Castellane'
+      ],
       solarInstallation: defaultSolarInstallation
     },
     valensole: {
@@ -207,40 +286,37 @@ export const alpesDeHauteProvence: Department = {
       name: "Saint-Laurent-du-Verdon",
       code: "04170",
       population: 100,
-      solarAdvantages: [
-        "Exposition solaire privilégiée",
-        "Cadre naturel préservé",
-        "Engagement écologique",
-        "Rentabilité attractive"
+      neighborhoods: [
+        "Village",
+        "Les Granges",
+        "Le Plan",
+        "Les Adrets"
       ],
-      keyPoints: [
-        "Installation sur-mesure",
-        "Maintenance simplifiée",
-        "Durabilité des équipements",
-        "Service client réactif"
-      ],
-      reviews: [
-        {
-          author: "Jean-Marc B.",
-          rating: 5,
-          comment: "Excellent travail, équipe à l'écoute. Production solaire au-delà de nos attentes.",
-          date: "2023-10-01",
-          location: "Route du Verdon"
-        }
-      ],
-      seo: {
-        title: "Saint-Laurent-du-Verdon : installation solaire pour particuliers et professionnels",
-        metaDescription: "Découvrez les avantages de l'installation solaire à Saint-Laurent-du-Verdon. Économisez sur votre facture d'électricité et contribuez à la transition énergétique.",
-        keywords: ["installation solaire", "Saint-Laurent-du-Verdon", "énergie renouvelable", "économies d'énergie"],
-        images: [
-          {
-            url: "https://example.com/saint-laurent-du-verdon-solaire.jpg",
-            width: 800,
-            height: 600,
-            alt: "Installation solaire à Saint-Laurent-du-Verdon"
-          }
-        ]
+      localStatistics: {
+        averageElectricityConsumption: "4900 kWh/an",
+        solarPotential: "1340 kWh/kWc/an",
+        co2Savings: "1.0 tonnes/an/installation"
       },
+      solarAdvantages: [
+        "Exposition sud optimale",
+        "Climat méditerranéen favorable",
+        "Faible densité urbaine idéale pour les installations",
+        "Zone rurale sans contraintes architecturales majeures",
+        "Accompagnement personnalisé pour chaque projet",
+        "Forte sensibilité écologique locale"
+      ],
+      description: `Saint-Laurent-du-Verdon, petit village authentique de 100 habitants, offre un cadre idéal pour l'installation de panneaux solaires. Sa situation privilégiée en Haute-Provence et sa faible densité urbaine permettent une optimisation maximale des installations solaires. Le village s'inscrit dans une démarche de développement durable, encourageant activement la transition énergétique de ses habitants.`,
+      seoTitle: 'Installation Panneaux Solaires Saint-Laurent-du-Verdon (04500) | Expert Photovoltaïque MyOhm',
+      seoDescription: 'Expert en installation solaire à Saint-Laurent-du-Verdon. Bénéficiez d\'une exposition optimale et d\'un accompagnement personnalisé pour votre projet solaire. Devis gratuit.',
+      seoKeywords: [
+        'panneaux solaires Saint-Laurent-du-Verdon',
+        'installation photovoltaïque 04500',
+        'énergie solaire Verdon',
+        'installation solaire rurale',
+        'aide panneaux solaires Saint-Laurent',
+        'devis solaire Saint-Laurent-du-Verdon',
+        'MyOhm Technologies Verdon'
+      ],
       solarInstallation: defaultSolarInstallation
     },
     "greoux-les-bains": {
@@ -310,7 +386,7 @@ export const alpesDeHauteProvence: Department = {
         {
           author: "Pierre M.",
           rating: 5,
-          comment: "Très satisfait de l'installation. L'équipe a été professionnelle et efficace.",
+          comment: "Très satisfait de l'installation. L'équipe a su s'adapter au terrain.",
           date: "2023-11-01",
           location: "Vue sur le Lac"
         },
@@ -341,17 +417,37 @@ export const alpesDeHauteProvence: Department = {
       name: "Saint-Étienne-les-Orgues",
       code: "04178",
       population: 1200,
-      solarAdvantages: [
-        "Ensoleillement optimal",
-        "Conditions climatiques favorables",
-        "Économies durables",
-        "Impact écologique positif"
+      neighborhoods: [
+        "Centre Village",
+        "Les Orgues",
+        "Le Forest",
+        "Les Tourettes",
+        "Saint-Pons"
       ],
-      keyPoints: [
-        "Installation rapide",
-        "Équipements performants",
-        "Suivi de production",
-        "Service client réactif"
+      localStatistics: {
+        averageElectricityConsumption: "5200 kWh/an",
+        solarPotential: "1310 kWh/kWc/an",
+        co2Savings: "1.1 tonnes/an/installation"
+      },
+      solarAdvantages: [
+        "Situation au pied de la montagne de Lure",
+        "Ensoleillement exceptionnel",
+        "Climat montagnard favorable",
+        "Engagement communal fort dans les énergies renouvelables",
+        "Accompagnement technique spécialisé",
+        "Solutions adaptées au climat montagnard"
+      ],
+      description: `Saint-Étienne-les-Orgues, village de 1200 habitants niché au pied de la montagne de Lure, bénéficie d'un ensoleillement remarquable. Sa position géographique unique et son climat montagnard offrent des conditions idéales pour l'installation de panneaux solaires. La commune s'engage activement dans la transition énergétique, proposant des solutions adaptées aux spécificités de son territoire.`,
+      seoTitle: 'Installation Panneaux Solaires Saint-Étienne-les-Orgues (04230) | Expert Photovoltaïque MyOhm',
+      seoDescription: 'Expert en installation solaire à Saint-Étienne-les-Orgues. Solutions adaptées au climat montagnard, accompagnement personnalisé. Devis gratuit.',
+      seoKeywords: [
+        'panneaux solaires Saint-Étienne-les-Orgues',
+        'installation photovoltaïque 04230',
+        'énergie solaire montagne de Lure',
+        'installation solaire montagne',
+        'aide panneaux solaires Saint-Étienne',
+        'devis solaire Saint-Étienne-les-Orgues',
+        'MyOhm Technologies montagne'
       ],
       reviews: [
         {
@@ -435,17 +531,37 @@ export const alpesDeHauteProvence: Department = {
       name: "Simiane-la-Rotonde",
       code: "04209",
       population: 600,
-      solarAdvantages: [
-        "Excellent taux d'ensoleillement",
-        "Cadre historique adapté",
-        "Économies significatives",
-        "Démarche écologique"
+      neighborhoods: [
+        "Village Historique",
+        "La Rotonde",
+        "Les Chalps",
+        "Le Plan",
+        "Les Crottes"
       ],
-      keyPoints: [
-        "Installation respectueuse du patrimoine",
-        "Équipements performants",
-        "Garantie décennale",
-        "Accompagnement personnalisé"
+      localStatistics: {
+        averageElectricityConsumption: "5100 kWh/an",
+        solarPotential: "1330 kWh/kWc/an",
+        co2Savings: "1.1 tonnes/an/installation"
+      },
+      solarAdvantages: [
+        "Village perché avec exposition optimale",
+        "Architecture médiévale adaptée au solaire",
+        "Expertise en intégration patrimoniale",
+        "Accompagnement spécialisé monuments historiques",
+        "Solutions sur-mesure pour bâtiments anciens",
+        "Forte sensibilité écologique"
+      ],
+      description: `Simiane-la-Rotonde, village médiéval de 600 habitants, allie patrimoine historique et innovation énergétique. Son architecture unique et sa position dominante offrent des opportunités exceptionnelles pour l'installation de panneaux solaires. La commune s'engage dans une transition énergétique respectueuse de son patrimoine, avec des solutions adaptées aux contraintes architecturales.`,
+      seoTitle: 'Installation Panneaux Solaires Simiane-la-Rotonde (04150) | Expert Photovoltaïque MyOhm',
+      seoDescription: 'Expert en installation solaire à Simiane-la-Rotonde. Solutions adaptées au patrimoine historique, intégration architecturale soignée. Devis gratuit.',
+      seoKeywords: [
+        'panneaux solaires Simiane-la-Rotonde',
+        'installation photovoltaïque 04150',
+        'énergie solaire patrimoine',
+        'installation solaire village historique',
+        'aide panneaux solaires Simiane',
+        'devis solaire Simiane-la-Rotonde',
+        'MyOhm Technologies patrimoine'
       ],
       reviews: [
         {
@@ -577,47 +693,38 @@ export const alpesDeHauteProvence: Department = {
       name: "La Brillanne",
       code: "04033",
       population: 900,
-      solarAdvantages: [
-        "Exposition solaire optimale",
-        "Terrain favorable",
-        "Rentabilité attractive",
-        "Solution durable"
+      neighborhoods: [
+        "Centre Village",
+        "Les Granges",
+        "Le Plan d'Eau",
+        "Les Jardins",
+        "La Durance"
       ],
-      keyPoints: [
-        "Installation personnalisée",
-        "Matériel premium",
-        "Garanties étendues",
-        "Support technique"
-      ],
-      reviews: [
-        {
-          author: "Patrick L.",
-          rating: 5,
-          comment: "Installation parfaite et équipe très professionnelle.",
-          date: "2023-12-12",
-          location: "Route de Forcalquier"
-        },
-        {
-          author: "Martine D.",
-          rating: 5,
-          comment: "Excellent service et bon suivi après installation.",
-          date: "2023-11-30",
-          location: "Les Jardins"
-        }
-      ],
-      seo: {
-        title: "La Brillanne : installation solaire pour particuliers et professionnels",
-        metaDescription: "Solutions solaires adaptées à La Brillanne. Optimisez votre consommation énergétique.",
-        keywords: ["installation solaire", "La Brillanne", "énergie renouvelable", "économies"],
-        images: [
-          {
-            url: "https://example.com/la-brillanne-solaire.jpg",
-            width: 800,
-            height: 600,
-            alt: "Installation solaire à La Brillanne"
-          }
-        ]
+      localStatistics: {
+        averageElectricityConsumption: "5300 kWh/an",
+        solarPotential: "1345 kWh/kWc/an",
+        co2Savings: "1.15 tonnes/an/installation"
       },
+      solarAdvantages: [
+        "Situation privilégiée dans la vallée de la Durance",
+        "Ensoleillement optimal toute l'année",
+        "Terrain plat facilitant l'installation",
+        "Proximité des services techniques",
+        "Accompagnement administratif renforcé",
+        "Solutions adaptées aux maisons individuelles"
+      ],
+      description: `La Brillanne, commune de 900 habitants située dans la vallée de la Durance, bénéficie d'une exposition solaire exceptionnelle. Sa topographie favorable et son climat méditerranéen en font un lieu idéal pour l'installation de panneaux solaires. La commune encourage activement la transition énergétique avec des solutions adaptées à son territoire.`,
+      seoTitle: 'Installation Panneaux Solaires La Brillanne (04700) | Expert Photovoltaïque MyOhm',
+      seoDescription: 'Expert en installation solaire à La Brillanne. Profitez d\'une situation géographique optimale et d\'un accompagnement personnalisé. Devis gratuit.',
+      seoKeywords: [
+        'panneaux solaires La Brillanne',
+        'installation photovoltaïque 04700',
+        'énergie solaire Durance',
+        'installation solaire vallée',
+        'aide panneaux solaires La Brillanne',
+        'devis solaire La Brillanne',
+        'MyOhm Technologies Durance'
+      ],
       solarInstallation: defaultSolarInstallation
     },
     annot: {
@@ -718,17 +825,37 @@ export const alpesDeHauteProvence: Department = {
       name: "Barrême",
       code: "04022",
       population: 800,
-      solarAdvantages: [
-        "Ensoleillement optimal",
-        "Position géographique avantageuse",
-        "Économies significatives",
-        "Impact écologique positif"
+      neighborhoods: [
+        "Centre Village",
+        "Les Clues",
+        "Saint-Jean",
+        "Le Plan",
+        "Les Graves"
       ],
-      keyPoints: [
-        "Installation professionnelle",
-        "Matériel haute performance",
-        "Suivi personnalisé",
-        "Service après-vente réactif"
+      localStatistics: {
+        averageElectricityConsumption: "5100 kWh/an",
+        solarPotential: "1315 kWh/kWc/an",
+        co2Savings: "1.05 tonnes/an/installation"
+      },
+      solarAdvantages: [
+        "Village de moyenne montagne bien exposé",
+        "Climat favorable aux installations solaires",
+        "Expertise en solutions adaptées à l'altitude",
+        "Accompagnement technique personnalisé",
+        "Support pour les démarches administratives",
+        "Solutions résistantes aux conditions climatiques"
+      ],
+      description: `Barrême, village de 800 habitants niché dans la vallée de l'Asse, offre un cadre idéal pour l'énergie solaire. Son altitude moyenne et son exposition privilégiée permettent une production solaire optimale. La commune s'engage dans la transition énergétique avec des solutions adaptées aux spécificités de son territoire montagnard.`,
+      seoTitle: 'Installation Panneaux Solaires Barrême (04330) | Expert Photovoltaïque MyOhm',
+      seoDescription: 'Expert en installation solaire à Barrême. Solutions adaptées au climat de moyenne montagne, accompagnement personnalisé. Devis gratuit.',
+      seoKeywords: [
+        'panneaux solaires Barrême',
+        'installation photovoltaïque 04330',
+        'énergie solaire moyenne montagne',
+        'installation solaire Barrême',
+        'aide panneaux solaires Barrême',
+        'devis solaire Barrême',
+        'MyOhm Technologies montagne'
       ],
       reviews: [
         {
@@ -860,47 +987,38 @@ export const alpesDeHauteProvence: Department = {
       name: "Selonnet",
       code: "04205",
       population: 500,
-      solarAdvantages: [
-        "Position géographique favorable",
-        "Ensoleillement de qualité",
-        "Rentabilité assurée",
-        "Solution écologique"
+      neighborhoods: [
+        "Chef-Lieu",
+        "Chabanon",
+        "Les Agneliers",
+        "Le Forest",
+        "Les Martels"
       ],
-      keyPoints: [
-        "Installation personnalisée",
-        "Équipements certifiés",
-        "Suivi de production",
-        "Assistance technique"
-      ],
-      reviews: [
-        {
-          author: "Laurent B.",
-          rating: 5,
-          comment: "Très satisfait de l'installation et du suivi.",
-          date: "2023-12-05",
-          location: "Le Village"
-        },
-        {
-          author: "Anne-Marie D.",
-          rating: 5,
-          comment: "Service professionnel et résultats au rendez-vous.",
-          date: "2023-11-15",
-          location: "Les Hauteurs"
-        }
-      ],
-      seo: {
-        title: "Selonnet : installation solaire pour particuliers et professionnels",
-        metaDescription: "Installation solaire à Selonnet. Optimisez votre consommation énergétique en montagne.",
-        keywords: ["installation solaire", "Selonnet", "énergie renouvelable", "montagne"],
-        images: [
-          {
-            url: "https://example.com/selonnet-solaire.jpg",
-            width: 800,
-            height: 600,
-            alt: "Installation solaire à Selonnet"
-          }
-        ]
+      localStatistics: {
+        averageElectricityConsumption: "5000 kWh/an",
+        solarPotential: "1300 kWh/kWc/an",
+        co2Savings: "1.0 tonnes/an/installation"
       },
+      solarAdvantages: [
+        "Station de montagne bien exposée",
+        "Expertise en installations haute altitude",
+        "Solutions adaptées aux conditions hivernales",
+        "Accompagnement technique spécialisé montagne",
+        "Support pour les aides spécifiques altitude",
+        "Technologies résistantes au climat alpin"
+      ],
+      description: `Selonnet, station de montagne de 500 habitants, combine tourisme hivernal et engagement environnemental. Son altitude et son exposition offrent un potentiel solaire remarquable malgré les conditions climatiques alpines. La commune propose des solutions adaptées aux contraintes de la haute montagne, avec une expertise particulière en installations résistantes au climat rigoureux.`,
+      seoTitle: 'Installation Panneaux Solaires Selonnet (04140) | Expert Photovoltaïque MyOhm',
+      seoDescription: 'Expert en installation solaire à Selonnet. Solutions haute altitude, technologies adaptées aux conditions alpines. Devis gratuit.',
+      seoKeywords: [
+        'panneaux solaires Selonnet',
+        'installation photovoltaïque 04140',
+        'énergie solaire haute montagne',
+        'installation solaire station ski',
+        'aide panneaux solaires Selonnet',
+        'devis solaire Selonnet',
+        'MyOhm Technologies alpin'
+      ],
       solarInstallation: defaultSolarInstallation
     },
     sisteron: {

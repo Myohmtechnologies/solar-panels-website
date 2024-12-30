@@ -12,6 +12,11 @@ export interface City {
   slug?: string;
   reviews?: Review[];
   installation?: Installation;
+  heroImage?: {
+    url: string;
+    alt: string;
+  };
+  faq?: FAQItem[];  // Ajout du champ FAQ optionnel
 }
 
 export interface Installation {
@@ -41,4 +46,18 @@ export interface Department {
     alt: string;
   };
   cities: Record<string, City>;
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+  keywords?: string[];
+  category?: 'technique' | 'aides' | 'local' | 'general';
+}
+
+export interface DepartmentFAQ {
+  commonQuestions: FAQItem[];
+  citySpecificQuestions: {
+    [cityCode: string]: FAQItem[];
+  };
 }

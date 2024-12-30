@@ -37,7 +37,7 @@ const ShowroomSection = () => {
         {/* Showroom Image */}
         <div className="relative rounded-3xl overflow-hidden shadow-2xl transform transition-transform hover:scale-[1.02]">
           <Image 
-            src="/images/showroom-my-ohm.png" 
+            src="/images/hero-local.jpeg" 
             alt="Showroom My Ohm Technologie" 
             width={800} 
             height={700} 
@@ -45,8 +45,8 @@ const ShowroomSection = () => {
           />
           <div className="absolute inset-0 bg-black/40 flex items-end p-6">
             <div className="text-white">
-              <h3 className="text-xl font-bold mb-2">Visitez notre showroom à Manosque</h3>
-              <p className="text-sm">Découvrez nos solutions en conditions réelles</p>
+              <h3 className="text-xl font-bold mb-2">Nos installations témoignent de notre expertise.</h3>
+              <p className="text-sm">Découvrez nos solutions en conditions réelles.</p>
             </div>
           </div>
         </div>

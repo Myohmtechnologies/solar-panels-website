@@ -12,7 +12,9 @@ import LocalStatistics from '@/components/sections/LocalStatistics';
 import TestimonialsSection from './sections/TestimonialsSection';
 import SocialMediaSection from './sections/SocialMediaSection';
 import InstallationsSection from './sections/InstallationsSection';
-import { FinancialAidsSection } from './sections/FinancialAidsSection';
+import FinancialAidsSection from './sections/FinancialAidsSection';
+import SolarBenefitsSection from './sections/SolarBenefitsSection';
+import SolarSimulator from './sections/SolarSimulator';
 import { Department } from '@/app/data/types';
 
 interface CityPageContentProps {
@@ -31,20 +33,21 @@ export default function CityPageContent({ cityData, departmentName, cities }: Ci
         description={cityData.description || `Découvrez le potentiel solaire de ${cityData.name}, une ville du département ${departmentName}`}
         population={cityData.population}
         sunshineHours={2750}
+        heroImage={cityData.heroImage}
       />
 
-      {/* Section Statistiques */}
-      {cityData.localStatistics && (
-        <LocalStatistics 
-          statistics={cityData.localStatistics}
-          cityName={cityData.name}
-        />
-      )}
+      {/* Section Bénéfices Solaires */}
+      <SolarBenefitsSection
+        title={`Pourquoi installer des panneaux solaires à ${cityData.name} ?`}
+        cityName={cityData.name}
+        advantages={cityData.solarAdvantages}
+      />
 
-      {/* Section Avantages */}
-      {cityData.solarAdvantages && (
-        <CitySolarAdvantages advantages={cityData.solarAdvantages} />
-      )}
+      {/* Simulateur d'économies solaires */}
+      <SolarSimulator 
+        cityName={cityData.name}
+        sunshineHours={cityData.sunshineHours}
+      />
 
       {/* Section Aides Financières */}
       <FinancialAidsSection cityName={cityData.name} />
@@ -64,6 +67,18 @@ export default function CityPageContent({ cityData, departmentName, cities }: Ci
       {/* Section FAQ */}
       {cityData.faq && cityData.faq.length > 0 && (
         <CityFAQ faqItems={cityData.faq} cityName={cityData.name} />
+      )}
+      {/* Section Statistiques */}
+      {cityData.localStatistics && (
+        <LocalStatistics 
+          statistics={cityData.localStatistics}
+          cityName={cityData.name}
+        />
+      )}
+
+      {/* Section Avantages */}
+      {cityData.solarAdvantages && (
+        <CitySolarAdvantages advantages={cityData.solarAdvantages} />
       )}
 
       {/* Section Réseaux Sociaux */}

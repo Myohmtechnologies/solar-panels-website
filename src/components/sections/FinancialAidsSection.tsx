@@ -47,19 +47,19 @@ export default function FinancialAidsSection({ cityName }: FinancialAidsSectionP
             <ul className="space-y-2">
               <li className="text-black flex items-center">
                 <span className="mr-2 text-FFDF64 font-bold">•</span>
-                6 kWc : 1 140 €
+                3 kWc :  660€
               </li>
               <li className="text-black flex items-center">
                 <span className="mr-2 text-FFDF64 font-bold">•</span>
-                9 kWc : 1 710 €
+                6 kWc : 1440 €
               </li>
               <li className="text-black flex items-center">
                 <span className="mr-2 text-FFDF64 font-bold">•</span>
-                12 kWc : 2 280 €
+                9 kWc : 1710 €
               </li>
             </ul>
             <p className="text-sm text-black/70 italic border-l-4 border-FFDF64 pl-4 mt-4">
-              Valable jusqu'au 31 octobre 2024
+              Valable jusqu'au 31 janvier 2025
             </p>
           </div>
 
@@ -76,7 +76,7 @@ export default function FinancialAidsSection({ cityName }: FinancialAidsSectionP
             <ul className="space-y-2">
               <li className="text-black flex items-center">
                 <span className="mr-2 text-FFDF64 font-bold">•</span>
-                Taux réduit à 5,5%
+                Taux réduit à 10%
               </li>
               <li className="text-black flex items-center">
                 <span className="mr-2 text-FFDF64 font-bold">•</span>

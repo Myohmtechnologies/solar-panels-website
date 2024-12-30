@@ -10,6 +10,10 @@ export const alpesDeHauteProvence: Department = {
       code: "04100",
       population: 22801,
       sunshineHours: 2800,
+      heroImage: {
+        url: '/images/hero-section-manosque.jpeg',
+        alt: 'Vue panoramique de Manosque, ville idéale pour l\'installation de panneaux solaires'
+      },
       neighborhoods: [
         "Centre-ville",
         "Les Plantiers",
@@ -51,7 +55,7 @@ export const alpesDeHauteProvence: Department = {
           rating: 4
         }
       ],
-      description: `Située au cœur de la Provence, Manosque bénéficie d'un ensoleillement exceptionnel avec plus de 300 jours de soleil par an. Cette ville dynamique de 22 801 habitants combine parfaitement le charme provençal avec une approche moderne de la transition énergétique. Avec une altitude moyenne de 420m et un climat méditerranéen privilégié, Manosque offre des conditions optimales pour l'installation de panneaux solaires. La ville s'est engagée dans une politique énergétique ambitieuse, encourageant activement l'adoption des énergies renouvelables à travers des initiatives locales et des aides financières spécifiques.`,
+      description: `Située au cœur de la Provence, Manosque bénéficie d'un ensoleillement exceptionnel avec plus de 300 jours de soleil par an. Cette ville dynamique de 22 801 habitants combine parfaitement le charme provençal avec une approche moderne de la transition énergétique. Avec une altitude moyenne de 420m et un climat méditerranéen privilégié, Manosque offre des conditions optimales pour l'installation de panneaux solaires, avec une attention particulière portée à l'intégration paysagère.`,
       seoTitle: 'Installation Panneaux Solaires Manosque (04100) | Expert Photovoltaïque MyOhm',
       seoDescription: 'Expert en installation de panneaux solaires à Manosque. Profitez d\'un ensoleillement exceptionnel de 2800h/an, d\'aides locales et d\'une expertise technique certifiée. Devis gratuit et personnalisé.',
       seoKeywords: [
@@ -138,10 +142,6 @@ export const alpesDeHauteProvence: Department = {
         city: '/images/hero-section-manosque.webp',
         installation: '/images/installation-de-panneau-solaire-a-manosque.webp'
       },
-      heroImage: {
-        url: "/images/hero-section-manosque.webp",
-        alt: "Vue aérienne de Manosque - Potentiel solaire exceptionnel en Provence"
-      },
       installation: {
         customerName: "Jean-Marc P.",
         city: "Manosque",
@@ -221,7 +221,7 @@ export const alpesDeHauteProvence: Department = {
           location: "Centre Historique"
         }
       ],
-      description: `Castellane, perchée à 724 mètres d'altitude au cœur du Parc naturel régional du Verdon, bénéficie d'une situation géographique exceptionnelle pour l'énergie solaire. Cette cité historique de 1500 habitants allie préservation du patrimoine et transition énergétique. Son climat privilégié et son engagement dans le développement durable en font un territoire idéal pour l'installation de panneaux solaires, avec une attention particulière portée à l'intégration paysagère.`,
+      description: `Castellane, cité historique de 1500 habitants perchée à 724 mètres d'altitude au cœur du Parc naturel régional du Verdon, bénéficie d'une situation géographique exceptionnelle pour l'énergie solaire. Cette ville dynamique allie préservation du patrimoine et transition énergétique. Son climat privilégié et son engagement dans le développement durable en font un territoire idéal pour l'installation de panneaux solaires, avec une attention particulière portée à l'intégration paysagère.`,
       seoTitle: 'Installation Panneaux Solaires Castellane (04120) | Expert Photovoltaïque MyOhm',
       seoDescription: 'Expert en installation de panneaux solaires à Castellane. Profitez d\'une situation géographique optimale et d\'une expertise en intégration paysagère. Devis gratuit personnalisé.',
       seoKeywords: [

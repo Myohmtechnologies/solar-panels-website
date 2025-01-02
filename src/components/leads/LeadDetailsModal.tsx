@@ -42,19 +42,27 @@ interface LeadDetailsModalProps {
 export default function LeadDetailsModal({ isOpen, onClose, lead }: LeadDetailsModalProps) {
   const [actions, setActions] = useState<LeadAction[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchActions = async () => {
       if (!lead._id) return;
       
       try {
+        setIsLoading(true);
+        setError(null);
         const response = await fetch(`/api/leads/${lead._id}/actions`);
-        if (!response.ok) throw new Error('Failed to fetch actions');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch actions');
+        }
         
         const data = await response.json();
-        setActions(data.actions);
+        setActions(data.actions || []);
       } catch (error) {
         console.error('Error fetching actions:', error);
+        setError('Erreur lors du chargement de l\'historique');
+        setActions([]);
       } finally {
         setIsLoading(false);
       }
@@ -197,7 +205,9 @@ export default function LeadDetailsModal({ isOpen, onClose, lead }: LeadDetailsM
                                 <div className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-solid border-green-500 border-r-transparent"></div>
                                 <div className="mt-2 text-sm text-gray-500">Chargement de l&apos;historique...</div>
                               </div>
-                            ) : actions.length > 0 ? (
+                            ) : error ? (
+                              <div className="text-center py-4 text-red-500">{error}</div>
+                            ) : actions && actions.length > 0 ? (
                               <div className="flow-root">
                                 <ul role="list" className="-mb-8">
                                   {actions.map((action, actionIdx) => (

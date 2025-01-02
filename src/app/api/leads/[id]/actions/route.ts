@@ -14,15 +14,15 @@ export async function GET(
     const collection = db.collection('lead_actions');
 
     const actions = await collection
-      .find({ leadId: new ObjectId(params.id) })
+      .find({ leadId: params.id }) // Utiliser l'ID comme string
       .sort({ date: -1 })
       .toArray();
     
-    return NextResponse.json(actions);
+    return NextResponse.json({ actions }); // Wrapper les actions dans un objet
   } catch (error) {
     console.error('Database Error:', error);
     return NextResponse.json(
-      { error: 'Failed to retrieve lead actions' }, 
+      { error: 'Failed to retrieve lead actions', actions: [] }, 
       { status: 500 }
     );
   }
@@ -54,7 +54,7 @@ export async function POST(
 
     // Créer l'action
     const actionData: Omit<LeadAction, '_id'> = {
-      leadId: params.id,
+      leadId: params.id, // Stocker l'ID comme string
       type,
       status,
       date: new Date().toISOString(),
@@ -65,7 +65,10 @@ export async function POST(
     const result = await db.collection('lead_actions').insertOne(actionData);
     
     // Créer l'action complète avec l'ID généré
-    const action = { ...actionData, _id: result.insertedId.toString() };
+    const action = { 
+      ...actionData, 
+      _id: result.insertedId.toString() 
+    };
     
     // Mettre à jour le lead avec le nouveau statut et la prochaine action
     await db.collection('leads').updateOne(
@@ -73,8 +76,12 @@ export async function POST(
       {
         $set: {
           status,
-          lastAction: action,
-          nextAction: nextAction || null
+          lastAction: {
+            ...action,
+            date: new Date().toISOString() // S'assurer que la date est au bon format
+          },
+          nextAction: nextAction || null,
+          updatedAt: new Date().toISOString()
         }
       }
     );

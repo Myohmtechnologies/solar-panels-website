@@ -62,10 +62,12 @@ export enum LogementType {
 export enum LeadStatus {
   NEW = 'NEW',
   CONTACTED = 'CONTACTED',
-  MEETING_SCHEDULED = 'MEETING_SCHEDULED',
+  RDV_SCHEDULED = 'RDV_SCHEDULED',
   TECHNICAL_VISIT = 'TECHNICAL_VISIT',
-  CONTRACT_SIGNED = 'CONTRACT_SIGNED',
+  DEMARCHE_ADMINISTRATIF = 'DEMARCHE_ADMINISTRATIF',
   INSTALLATION = 'INSTALLATION',
+  CONSUAL = 'CONSUAL',
+  RACORDEMENT_EDF = 'RACORDEMENT_EDF',
   COMPLETED = 'COMPLETED',
   NOT_INTERESTED = 'NOT_INTERESTED'
 }
@@ -103,11 +105,13 @@ export interface Lead {
 // Mapping des statuts aux étapes suivantes possibles
 export const STATUS_TRANSITIONS: Record<LeadStatus, LeadStatus[]> = {
   [LeadStatus.NEW]: [LeadStatus.CONTACTED, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.CONTACTED]: [LeadStatus.MEETING_SCHEDULED, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.MEETING_SCHEDULED]: [LeadStatus.TECHNICAL_VISIT, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.TECHNICAL_VISIT]: [LeadStatus.CONTRACT_SIGNED, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.CONTRACT_SIGNED]: [LeadStatus.INSTALLATION],
-  [LeadStatus.INSTALLATION]: [LeadStatus.COMPLETED],
+  [LeadStatus.CONTACTED]: [LeadStatus.RDV_SCHEDULED, LeadStatus.NOT_INTERESTED],
+  [LeadStatus.RDV_SCHEDULED]: [LeadStatus.TECHNICAL_VISIT, LeadStatus.NOT_INTERESTED],
+  [LeadStatus.TECHNICAL_VISIT]: [LeadStatus.DEMARCHE_ADMINISTRATIF, LeadStatus.NOT_INTERESTED],
+  [LeadStatus.DEMARCHE_ADMINISTRATIF]: [LeadStatus.INSTALLATION],
+  [LeadStatus.INSTALLATION]: [LeadStatus.CONSUAL],
+  [LeadStatus.CONSUAL]: [LeadStatus.RACORDEMENT_EDF],
+  [LeadStatus.RACORDEMENT_EDF]: [LeadStatus.COMPLETED],
   [LeadStatus.COMPLETED]: [],
   [LeadStatus.NOT_INTERESTED]: []
 };
@@ -116,10 +120,12 @@ export const STATUS_TRANSITIONS: Record<LeadStatus, LeadStatus[]> = {
 export const REQUIRED_ACTIONS: Record<LeadStatus, string[]> = {
   [LeadStatus.NEW]: ['CALL', 'EMAIL'],
   [LeadStatus.CONTACTED]: ['MEETING'],
-  [LeadStatus.MEETING_SCHEDULED]: ['TECHNICAL_VISIT'],
+  [LeadStatus.RDV_SCHEDULED]: ['TECHNICAL_VISIT'],
   [LeadStatus.TECHNICAL_VISIT]: ['CONTRACT'],
-  [LeadStatus.CONTRACT_SIGNED]: ['INSTALLATION'],
+  [LeadStatus.DEMARCHE_ADMINISTRATIF]: ['INSTALLATION'],
   [LeadStatus.INSTALLATION]: ['INSTALLATION_COMPLETE'],
+  [LeadStatus.CONSUAL]: [],
+  [LeadStatus.RACORDEMENT_EDF]: [],
   [LeadStatus.COMPLETED]: [],
   [LeadStatus.NOT_INTERESTED]: []
 };

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Lead } from '@/types';
+import { Lead, LeadStatus } from '@/types';
 import LeadsStats from '@/components/leads/LeadsStats';
 import LeadsFilters from '@/components/leads/LeadsFilters';
 import LeadsTable from '@/components/leads/LeadsTable';
@@ -10,14 +10,12 @@ import { useRouter } from 'next/navigation';
 
 const TABS = [
   { name: 'Tous les prospects', value: 'ALL' },
-  { name: 'Nouveaux', value: 'NEW' },
-  { name: 'RDV Client', value: 'MEETING_SCHEDULED' },
-  { name: 'Visites techniques', value: 'TECHNICAL_VISIT' },
-  { name: 'Démarche Administrative ', value: 'CONTRACT_SIGNED' },
-  { name: 'Pose', value: 'Pose' },
-  { name: 'Consual', value: 'Consual' },
-  { name: 'Raccordement EDF', value: 'Contract' },
-
+  { name: 'Nouveaux', value: LeadStatus.NEW },
+  { name: 'RDV Client', value: 'RDV_SCHEDULED' },
+  { name: 'Visites techniques', value: LeadStatus.TECHNICAL_VISIT },
+  { name: 'Démarche Administrative', value: LeadStatus.CONTRACT_SIGNED },
+  { name: 'Installation', value: LeadStatus.INSTALLATION },
+  { name: 'Terminé', value: LeadStatus.COMPLETED },
 ];
 
 export default function LeadsPage() {

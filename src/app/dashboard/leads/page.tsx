@@ -13,7 +13,7 @@ const TABS = [
   { name: 'Nouveaux', value: LeadStatus.NEW },
   { name: 'RDV Client', value: 'RDV_SCHEDULED' },
   { name: 'Visites techniques', value: LeadStatus.TECHNICAL_VISIT },
-  { name: 'Démarche Administrative', value: LeadStatus.CONTRACT_SIGNED },
+  { name: 'Démarche Administrative', value: LeadStatus.DEMARCHE_ADMINISTRATIF },
   { name: 'Installation', value: LeadStatus.INSTALLATION },
   { name: 'Terminé', value: LeadStatus.COMPLETED },
 ];

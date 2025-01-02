@@ -46,6 +46,16 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [isActionModalOpen, setIsActionModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [leadsPerPage, setLeadsPerPage] = useState(10);
+
+  // Calcul pour la pagination
+  const indexOfLastLead = currentPage * leadsPerPage;
+  const indexOfFirstLead = indexOfLastLead - leadsPerPage;
+  const currentLeads = leads.slice(indexOfFirstLead, indexOfLastLead);
+  const totalPages = Math.ceil(leads.length / leadsPerPage);
+
+  const pageSizeOptions = [10, 25, 50, 100];
 
   const handleActionClick = (lead: Lead) => {
     setSelectedLead(lead);
@@ -68,6 +78,34 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
 
   return (
     <div className="mt-8 flow-root">
+      <div className="sm:flex sm:items-center sm:justify-between mb-4">
+        <div className="flex items-center space-x-2">
+          <label htmlFor="leadsPerPage" className="text-sm text-gray-500">
+            Afficher
+          </label>
+          <select
+            id="leadsPerPage"
+            className="rounded-md border-gray-300 py-1.5 text-sm"
+            value={leadsPerPage}
+            onChange={(e) => {
+              setLeadsPerPage(Number(e.target.value));
+              setCurrentPage(1);
+            }}
+          >
+            {pageSizeOptions.map((size) => (
+              <option key={size} value={size}>
+                {size}
+              </option>
+            ))}
+          </select>
+          <span className="text-sm text-gray-500">leads par page</span>
+        </div>
+        
+        <div className="text-sm text-gray-500">
+          {leads.length} leads au total
+        </div>
+      </div>
+
       <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
           <table className="min-w-full divide-y divide-gray-300">
@@ -94,7 +132,7 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {leads.map((lead) => (
+              {currentLeads.map((lead) => (
                 <tr key={lead._id}>
                   <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
                     {lead.name}
@@ -177,6 +215,50 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
         </div>
       </div>
 
+      {/* Pagination */}
+      <div className="mt-4 flex items-center justify-between">
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={() => setCurrentPage(1)}
+            disabled={currentPage === 1}
+            className="px-2 py-1 text-sm rounded-md border border-gray-300 disabled:opacity-50"
+          >
+            ««
+          </button>
+          <button
+            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+            className="px-2 py-1 text-sm rounded-md border border-gray-300 disabled:opacity-50"
+          >
+            «
+          </button>
+          
+          <span className="text-sm text-gray-700">
+            Page {currentPage} sur {totalPages}
+          </span>
+          
+          <button
+            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+            disabled={currentPage === totalPages}
+            className="px-2 py-1 text-sm rounded-md border border-gray-300 disabled:opacity-50"
+          >
+            »
+          </button>
+          <button
+            onClick={() => setCurrentPage(totalPages)}
+            disabled={currentPage === totalPages}
+            className="px-2 py-1 text-sm rounded-md border border-gray-300 disabled:opacity-50"
+          >
+            »»
+          </button>
+        </div>
+
+        <div className="text-sm text-gray-500">
+          Affichage {indexOfFirstLead + 1} - {Math.min(indexOfLastLead, leads.length)} sur {leads.length} leads
+        </div>
+      </div>
+
+      {/* Modals */}
       {selectedLead && (
         <>
           <LeadActionModal

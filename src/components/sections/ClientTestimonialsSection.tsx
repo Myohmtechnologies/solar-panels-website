@@ -34,15 +34,16 @@ const ClientTestimonialsSection = () => {
                 ))}
               </div>
               <p className="text-gray-700 italic mb-4 text-sm">
-                &quot;MY OHM a complètement transformé ma consommation énergétique. Les économies sont significatives et l&apos;installation s&apos;est faite en toute simplicité.&quot;
+              Une équipe attentive aux besoins du client, alliant professionnalisme et rigueur.
+Le chantier à été laissé propre, et nous avons reçu des explications claires sur la gestion des panneaux photovoltaique.
+Je recommande vivement My Ohm !
               </p>
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-FFDF64/20 rounded-full flex items-center justify-center">
                   <ChatBubbleLeftRightIcon className="w-6 h-6 text-FFDF64" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900">Sophie Martin</h4>
-                  <p className="text-gray-600 text-xs">Marseille</p>
+                  <h4 className="font-bold text-gray-900">Christelle Irénée</h4>
                 </div>
               </div>
             </div>
@@ -65,7 +66,6 @@ const ClientTestimonialsSection = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-gray-900">Jean Dupont</h4>
-                  <p className="text-gray-600 text-xs">Nice</p>
                 </div>
               </div>
             </div>
@@ -88,7 +88,6 @@ const ClientTestimonialsSection = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-gray-900">Marie Laurent</h4>
-                  <p className="text-gray-600 text-xs">Lyon</p>
                 </div>
               </div>
             </div>

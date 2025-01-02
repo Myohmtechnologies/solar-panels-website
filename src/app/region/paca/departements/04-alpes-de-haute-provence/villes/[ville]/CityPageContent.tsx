@@ -9,9 +9,12 @@ import CityReviews from '@/components/sections/CityReviews';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SolarInstallationSchema from '@/components/SolarInstallationSchema';
 import LocalStatistics from '@/components/sections/LocalStatistics';
+import ElectricityPriceChart from '@/components/ElectricityPriceChart';
+import { CheckIcon } from '@heroicons/react/24/outline';
+import { BanknotesIcon, HomeIcon, DocumentCheckIcon, PhoneIcon } from '@heroicons/react/24/outline';
+
 import { City } from '@/app/data/types';
 import { useState } from 'react';
-import { BanknotesIcon, HomeIcon, DocumentCheckIcon, PhoneIcon } from '@heroicons/react/24/outline';
 
 interface CityPageContentProps {
   cityData: City;
@@ -66,6 +69,44 @@ export default function CityPageContent({ cityData, departmentName }: CityPageCo
         {cityData.solarAdvantages && (
           <CitySolarAdvantages advantages={cityData.solarAdvantages} />
         )}
+
+        {/* Electricity Price Chart Section */}
+        <section className="py-16 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="flex flex-col justify-center space-y-6">
+                <h2 className="text-3xl font-bold text-black">
+                  Pourquoi investir dans le solaire maintenant ?
+                </h2>
+                <p className="text-black/70">
+                  Le prix de l'électricité ne cesse d'augmenter en France.
+                  Investir dans des panneaux solaires aujourd'hui vous permet de :
+                </p>
+                <ul className="space-y-3 text-black/80">
+                  <li className="flex items-center gap-3">
+                    <div className="w-6 h-6 bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg rounded-full flex items-center justify-center">
+                      <CheckIcon className="w-4 h-4 text-black" />
+                    </div>
+                    Réduire votre facture énergétique
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="w-6 h-6 bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg rounded-full flex items-center justify-center">
+                      <CheckIcon className="w-4 h-4 text-black" />
+                    </div>
+                    Protéger contre la hausse des prix
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="w-6 h-6 bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg rounded-full flex items-center justify-center">
+                      <CheckIcon className="w-4 h-4 text-black" />
+                    </div>
+                    Valoriser votre patrimoine
+                  </li>
+                </ul>
+              </div>
+              <ElectricityPriceChart />
+            </div>
+          </div>
+        </section>
 
         {/* Section Aides Financières */}
         <section className="py-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">

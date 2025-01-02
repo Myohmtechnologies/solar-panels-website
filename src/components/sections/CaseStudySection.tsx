@@ -19,7 +19,7 @@ const CaseStudySection = () => {
           <div className="absolute inset-0 bg-black/40 flex items-end p-6">
             <div className="text-white">
               <h3 className="text-xl font-bold mb-2">Maison individuelle à Manosque</h3>
-              <p className="text-sm">Installation de 6 panneaux solaires</p>
+              <p className="text-sm">Installation de 12 panneaux solaires</p>
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@ const CaseStudySection = () => {
               <HomeIcon className="w-10 h-10 text-FFDF64" />
               <div>
                 <h4 className="font-semibold text-gray-800">Profil du Client</h4>
-                <p className="text-gray-600">Famille de 4 personnes, maison de 120m²</p>
+                <p className="text-gray-600">Famille de 5 personnes, maison de 120m²</p>
               </div>
             </div>
 
@@ -45,7 +45,7 @@ const CaseStudySection = () => {
               <SunIcon className="w-10 h-10 text-FFDF64" />
               <div>
                 <h4 className="font-semibold text-gray-800">Installation</h4>
-                <p className="text-gray-600">6 panneaux de 500W, orientation Sud</p>
+                <p className="text-gray-600">12 panneaux de 500W, orientation Sud</p>
               </div>
             </div>
 
@@ -54,13 +54,13 @@ const CaseStudySection = () => {
               <BanknotesIcon className="w-10 h-10 text-FFDF64" />
               <div>
                 <h4 className="font-semibold text-gray-800">Économies Annuelles</h4>
-                <p className="text-gray-600">Réduction de 60% sur la facture électrique</p>
+                <p className="text-gray-600">Réduction de 50% sur la facture électrique</p>
                 <div className="mt-2 flex justify-between items-center">
                   <span className="text-sm text-red-600 line-through">250€/mois avant</span>
-                  <span className="text-sm text-green-600 font-bold">150€/mois après</span>
+                  <span className="text-sm text-green-600 font-bold">90€/mois après</span>
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
-                  Économie : <span className="font-semibold text-green-600">100€/mois</span>
+                  Économie : <span className="font-semibold text-green-600">160€/mois</span>
                 </div>
               </div>
             </div>

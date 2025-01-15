@@ -1,7 +1,11 @@
 'use client';
 
-import { FAQItem } from '@/app/data/types';
 import { useState } from 'react';
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
 
 interface CityFAQProps {
   faqItems: FAQItem[];
@@ -49,18 +53,6 @@ export default function CityFAQ({ faqItems, cityName }: CityFAQProps) {
               {openIndex === index && (
                 <div className="p-4 bg-white border border-gray-200 rounded-b-lg">
                   <p className="text-gray-700">{item.answer}</p>
-                  {item.keywords && (
-                    <div className="mt-2 flex flex-wrap gap-2">
-                      {item.keywords.map((keyword, kIndex) => (
-                        <span
-                          key={kIndex}
-                          className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded"
-                        >
-                          {keyword}
-                        </span>
-                      ))}
-                    </div>
-                  )}
                 </div>
               )}
             </div>

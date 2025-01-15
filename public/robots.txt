@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Host
+Host: https://myohmtechnologies.fr
+
+# Sitemaps
+Sitemap: https://myohmtechnologies.fr/sitemap.xml

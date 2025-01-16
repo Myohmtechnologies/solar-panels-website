@@ -7,7 +7,8 @@ import {
   SunIcon,
   ShieldCheckIcon,
   UserGroupIcon,
-  WrenchIcon
+  WrenchIcon,
+  ClockIcon
 } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -77,6 +78,10 @@ const ShowroomSection = () => {
               <div className="flex items-start space-x-3">
                 <BuildingOffice2Icon className="w-6 h-6 text-FFDF64 mt-1" />
                 <p className="text-gray-700">Un showroom unique pour visualiser votre installation</p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <ClockIcon className="w-6 h-6 text-FFDF64 mt-1" />
+                <p className="text-gray-700">Échange standard du matériel en 24h pour une tranquillité d'esprit totale</p>
               </div>
             </div>
           </div>

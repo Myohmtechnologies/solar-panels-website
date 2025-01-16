@@ -156,41 +156,57 @@ export const technicalEvents = {
 // 8. Événements de conversion
 export const conversionEvents = {
   simulatorConversion: (step: 'start' | 'complete' | 'thank_you_page', data?: Record<string, any>) => trackEvent('simulator_conversion', {
-    conversion_step: step,
-    conversion_value: step === 'complete' ? 50 : (step === 'thank_you_page' ? 100 : 0),
-    timestamp: new Date().toISOString(),
-    ...data
+    step,
+    ...data,
+    value: data?.estimatedValue || 0,
+    currency: 'EUR',
+    conversion_type: 'simulator',
   }),
 
   leadGenerated: (source: string, value: number) => trackEvent('lead_generated', {
     source,
-    lead_value: value,
-    timestamp: new Date().toISOString()
+    value,
+    currency: 'EUR',
+    conversion_type: 'lead',
+    user_type: 'prospect',
   }),
 
   quoteRequested: (serviceType: string, location: string) => trackEvent('quote_requested', {
     service_type: serviceType,
     location,
-    conversion: true
+    conversion_type: 'quote',
+    timestamp: new Date().toISOString(),
   }),
 
   projectStarted: (projectType: string, budget: number) => trackEvent('project_started', {
     project_type: projectType,
     budget,
     currency: 'EUR',
-    conversion: true
+    conversion_type: 'project',
+    timestamp: new Date().toISOString(),
   }),
 
   appointmentScheduled: (date: string, type: string) => trackEvent('appointment_scheduled', {
     appointment_date: date,
     appointment_type: type,
-    conversion: true
+    conversion_type: 'appointment',
+    value: type === 'technical_visit' ? 150 : 100,
+    currency: 'EUR',
   }),
 
-  expertContactConversion: (conversionType: 'phone_click' | 'form_submit', source: string) => trackEvent('expert_contact_conversion', {
+  expertContactConversion: (conversionType: 'phone_click' | 'form_submit', source: string) => trackEvent('expert_contact', {
     conversion_type: conversionType,
     source,
-    timestamp: new Date().toISOString(),
+    value: conversionType === 'phone_click' ? 50 : 75,
+    currency: 'EUR',
+  }),
+
+  documentDownload: (documentName: string, documentType: string) => trackEvent('document_download', {
+    document_name: documentName,
+    document_type: documentType,
+    conversion_type: 'download',
+    value: 25,
+    currency: 'EUR',
   }),
 };
 

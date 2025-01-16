@@ -66,9 +66,9 @@ export default function ArchivesPage() {
       <div className="space-y-6">
         {/* En-tête */}
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold text-gray-900">Archives</h1>
+          <h1 className="text-2xl font-semibold text-gray-900">Leads à Suivre</h1>
           <span className="text-sm text-gray-500">
-            {leads.length} lead{leads.length > 1 ? 's' : ''} archivé{leads.length > 1 ? 's' : ''}
+            {leads.length} lead{leads.length > 1 ? 's' : ''} à suivre
           </span>
         </div>
 

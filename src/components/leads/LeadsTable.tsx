@@ -28,7 +28,7 @@ const STATUS_LABELS = {
   [LeadStatus.CONSUAL]: 'Consuel',
   [LeadStatus.RACORDEMENT_EDF]: 'Raccordement EDF',
   [LeadStatus.COMPLETED]: 'Terminé',
-  [LeadStatus.NOT_INTERESTED]: 'Pas Intéressé',
+  [LeadStatus.NOT_INTERESTED]: 'À Suivre',
 };
 
 const STATUS_COLORS = {
@@ -42,7 +42,7 @@ const STATUS_COLORS = {
   [LeadStatus.CONSUAL]: 'bg-gray-100 text-gray-800',
   [LeadStatus.RACORDEMENT_EDF]: 'bg-yellow-100 text-yellow-800',
   [LeadStatus.COMPLETED]: 'bg-green-100 text-green-800',
-  [LeadStatus.NOT_INTERESTED]: 'bg-red-100 text-red-800',
+  [LeadStatus.NOT_INTERESTED]: 'bg-orange-100 text-orange-800',
 };
 
 const formatDate = (date: string | undefined | null) => {

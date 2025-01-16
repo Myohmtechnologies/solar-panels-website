@@ -26,7 +26,7 @@ const STATUS_LABELS: Record<LeadStatus, string> = {
   [LeadStatus.CONSUAL]: 'Consuel',
   [LeadStatus.RACORDEMENT_EDF]: 'Raccordement EDF',
   [LeadStatus.COMPLETED]: 'Terminé - suivi annuel',
-  [LeadStatus.NOT_INTERESTED]: 'Pas Intéressé',
+  [LeadStatus.NOT_INTERESTED]: 'À Suivre',
 };
 
 const STATUS_COLORS: Record<LeadStatus, string> = {
@@ -118,7 +118,7 @@ export default function LeadActionModal({ isOpen, onClose, lead, onStatusChange 
     }
 
     if (selectedStatus === LeadStatus.NOT_INTERESTED && !notes.trim()) {
-      setError('Veuillez indiquer la raison du désintérêt');
+      setError('Veuillez indiquer la raison du suivi');
       return false;
     }
 
@@ -385,7 +385,7 @@ export default function LeadActionModal({ isOpen, onClose, lead, onStatusChange 
 
                       <div>
                         <label htmlFor="notes" className="block text-sm font-medium text-gray-700">
-                          {selectedStatus === LeadStatus.NOT_INTERESTED ? 'Raison du désintérêt' : 'Notes'}
+                          {selectedStatus === LeadStatus.NOT_INTERESTED ? 'Raison du suivi' : 'Notes'}
                         </label>
                         <div className="mt-2">
                           <textarea
@@ -395,7 +395,7 @@ export default function LeadActionModal({ isOpen, onClose, lead, onStatusChange 
                             value={notes}
                             onChange={(e) => setNotes(e.target.value)}
                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
-                            placeholder={selectedStatus === LeadStatus.NOT_INTERESTED ? 'Expliquez pourquoi le client n\'est pas intéressé' : 'Notes additionnelles...'}
+                            placeholder={selectedStatus === LeadStatus.NOT_INTERESTED ? 'Notez les raisons du suivi et la date de relance prévue' : 'Notes additionnelles...'}
                             required={selectedStatus === LeadStatus.NOT_INTERESTED}
                           />
                         </div>

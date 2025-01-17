@@ -3,8 +3,9 @@ import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import { Toaster } from 'react-hot-toast';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
+import dynamic from 'next/dynamic';
+
+const ClientLayout = dynamic(() => import('@/components/layout/ClientLayout'), { ssr: false });
 
 const inter = Inter({
   subsets: ['latin'],
@@ -53,12 +54,10 @@ export default function RootLayout({
   return (
     <html lang="fr" className={inter.variable}>
       <body className="min-h-screen bg-white">
-        <Header />
-        <main className="min-h-screen pt-20 md:pt-20">
+        <ClientLayout>
           <Toaster />
           {children}
-        </main>
-        <Footer />
+        </ClientLayout>
         <Script
           id="ga-script"
           strategy="afterInteractive"

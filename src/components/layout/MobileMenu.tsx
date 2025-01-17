@@ -123,17 +123,31 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
 
               <Link 
                 href="/ballon-thermodynamique"
-                className="flex items-center space-x-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+                className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
                 onClick={onClose}
               >
                 <Image 
                   src="/images/icon-chauffe-eau.png" 
-                  alt="Icône Ballon" 
+                  alt="Icône Ballon thermodynamique" 
                   width={24} 
                   height={24}
                   className="w-6 h-6"
                 />
-                <span className="font-medium">Ballon thermodynamique</span>
+                <span>Ballon thermodynamique</span>
+              </Link>
+              <Link
+                href="/solutions/batterie-virtuelle"
+                className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                onClick={onClose}
+              >
+                <Image
+                  src="/images/icons/icone-batterie-virtuelle.png"
+                  alt="Icône Batterie Virtuelle"
+                  width={24}
+                  height={24}
+                  className="w-6 h-6"
+                />
+                <span>Batterie Virtuelle</span>
               </Link>
             </div>
 

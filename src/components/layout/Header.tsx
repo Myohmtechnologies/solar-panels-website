@@ -119,6 +119,19 @@ const Header = () => {
                         />
                         Ballon thermodynamique
                       </Link>
+                      <Link 
+                        href="/solutions/batterie-virtuelle" 
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md font-semibold flex items-center gap-2"
+                      >
+                        <Image 
+                          src="/images/icons/icone-batterie-virtuelle.png" 
+                          alt="Icône Batterie Virtuelle"  
+                          width={24} 
+                          height={24} 
+                          className="w-6 h-6"
+                        />
+                        Batterie Virtuelle
+                      </Link>
                     </Popover.Panel>
                   </>
                 )}

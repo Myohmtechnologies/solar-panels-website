@@ -1494,6 +1494,40 @@ const alpesDeHauteProvence: Department = {
           icon: "ShieldCheckIcon"
         }
       ]
+    },
+    "saint-andre-les-alpes": {
+      name: "Saint-André-les-Alpes",
+      code: "04173",
+      population: 1000,
+      sunshineHours: 2700,
+      solarAdvantages: [
+        "Ensoleillement favorable avec 2700 heures par an",
+        "Situation géographique idéale en altitude",
+        "Territoire engagé dans la transition énergétique",
+        "Subventions locales attractives",
+        "Réseau d'installateurs qualifiés"
+      ],
+      neighborhoods: [
+        "Centre-ville",
+        "Le Plan",
+        "Les Iscles",
+        "La Gare",
+        "Les Granges"
+      ],
+      solarInstallation: defaultSolarInstallation,
+      seo: {
+        title: "Installation Panneaux Solaires Saint-André-les-Alpes (04) | Expert Certifié RGE 2025",
+        metaDescription: "✓ Installation de panneaux solaires à Saint-André-les-Alpes par un installateur certifié RGE. 2700h d'ensoleillement/an, devis gratuit !",
+        keywords: [
+          "panneaux solaires Saint-André-les-Alpes",
+          "installation solaire Saint-André-les-Alpes",
+          "énergie solaire Saint-André-les-Alpes",
+          "installateur panneaux solaires Saint-André-les-Alpes",
+          "pose panneaux solaires Saint-André-les-Alpes",
+          "devis panneaux solaires Saint-André-les-Alpes",
+          "prix panneaux solaires Saint-André-les-Alpes"
+        ]
+      }
     }
   }
 };

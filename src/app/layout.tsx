@@ -43,6 +43,8 @@ export const metadata: Metadata = {
   },
 };
 
+const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX'; // Remplacez par votre ID
+
 export default function RootLayout({
   children,
 }: {
@@ -55,6 +57,34 @@ export default function RootLayout({
     <html lang="fr" className={inter.variable}>
       <head>
         <GoogleTagManagerHead />
+        <Script
+          id="gtm-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              
+              // Configuration par défaut - consentement requis
+              gtag('consent', 'default', {
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'analytics_storage': 'denied'
+              });
+
+              // Initialisation de Google Analytics
+              gtag('js', new Date());
+              gtag('config', '${GA_MEASUREMENT_ID}', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
         <Script id="facebook-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)

@@ -53,11 +53,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className={inter.variable}>
-      <body className="min-h-screen bg-white">
-        <ClientLayout>
-          <Toaster />
-          {children}
-        </ClientLayout>
+      <head>
+        {/* Google Analytics */}
         <Script
           id="ga-script"
           strategy="afterInteractive"
@@ -75,6 +72,31 @@ export default function RootLayout({
             `,
           }}
         />
+        
+        {/* Google Ads */}
+        <Script
+          id="google-ads"
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16817660787"
+        />
+        <Script
+          id="google-ads-config"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-16817660787');
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-screen bg-white">
+        <ClientLayout>
+          <Toaster />
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );

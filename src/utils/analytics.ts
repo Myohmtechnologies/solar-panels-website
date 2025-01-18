@@ -1,18 +1,50 @@
 // Fonction pour envoyer des événements à Google Analytics
-export const trackEvent = (eventName: string, eventParams?: Record<string, any>) => {
-  if (typeof window !== 'undefined' && (window as any).gtag) {
-    try {
-      (window as any).gtag('event', eventName, {
-        ...eventParams,
-        timestamp: new Date().toISOString(),
-        debug_mode: process.env.NODE_ENV === 'development'
-      });
-    } catch (error) {
-      console.error('Error tracking event:', error);
-      technicalEvents.errorOccurred('analytics', `Failed to track event: ${eventName}`);
+export const trackEvent = (eventName: string, eventParams: Record<string, any> = {}) => {
+  try {
+    if (!window.gtag) {
+      console.warn('Google Analytics not loaded');
+      return;
     }
+
+    // Vérifier la connexion Internet
+    if (!navigator.onLine) {
+      console.warn('No internet connection, event tracking queued');
+      // Optionnel : stocker l'événement pour le renvoyer plus tard
+      queueEvent(eventName, eventParams);
+      return;
+    }
+
+    window.gtag('event', eventName, {
+      ...eventParams,
+      send_to: 'G-ET19PN3YHF'
+    });
+  } catch (error) {
+    console.warn('Error tracking event:', error);
   }
 };
+
+// File d'attente pour les événements hors ligne
+const eventQueue: Array<{ name: string; params: Record<string, any>; timestamp: number }> = [];
+
+const queueEvent = (eventName: string, eventParams: Record<string, any>) => {
+  eventQueue.push({
+    name: eventName,
+    params: eventParams,
+    timestamp: Date.now()
+  });
+};
+
+// Réessayer d'envoyer les événements en file d'attente quand la connexion est rétablie
+if (typeof window !== 'undefined') {
+  window.addEventListener('online', () => {
+    while (eventQueue.length > 0) {
+      const event = eventQueue.shift();
+      if (event) {
+        trackEvent(event.name, event.params);
+      }
+    }
+  });
+}
 
 // 1. Événements de navigation
 export const navigationEvents = {

@@ -323,9 +323,13 @@ const SimulateurPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (formState.isSubmitting) return;
+    
     const isValid = validateForm();
     
     if (isValid) {
+      setFormState(prev => ({ ...prev, isSubmitting: true, error: '' }));
+      
       try {
         conversionEvents.simulatorConversion('complete', {
           property_type: formState.logementType,
@@ -344,10 +348,14 @@ const SimulateurPage = () => {
           logementType: formState.logementType,
           equipment: formState.equipment,
           energyBill: formState.energyBill,
+          source: 'simulator',
+          projectType: 'SOLAR_PANELS',
           notes: JSON.stringify({
             logementType: formState.logementType,
             equipment: formState.equipment,
-            energyBill: formState.energyBill
+            energyBill: formState.energyBill,
+            address: formState.address,
+            postalCode: formState.postalCode
           })
         };
 
@@ -655,8 +663,13 @@ const SimulateurPage = () => {
                     onChange={handleInputChange}
                     required
                     placeholder="Votre nom et prénom"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64"
+                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64 ${
+                      formState.validationErrors.name ? 'border-red-500' : 'border-gray-300'
+                    }`}
                   />
+                  {formState.validationErrors.name && (
+                    <p className="mt-1 text-red-500 text-sm">{formState.validationErrors.name}</p>
+                  )}
                 </div>
               </div>
 
@@ -674,8 +687,13 @@ const SimulateurPage = () => {
                     onChange={handleInputChange}
                     required
                     placeholder="votre@email.com"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64"
+                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64 ${
+                      formState.validationErrors.email ? 'border-red-500' : 'border-gray-300'
+                    }`}
                   />
+                  {formState.validationErrors.email && (
+                    <p className="mt-1 text-red-500 text-sm">{formState.validationErrors.email}</p>
+                  )}
                 </div>
               </div>
 
@@ -693,17 +711,105 @@ const SimulateurPage = () => {
                     onChange={handleInputChange}
                     required
                     placeholder="06 12 34 56 78"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64"
+                    className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64 ${
+                      formState.validationErrors.phone ? 'border-red-500' : 'border-gray-300'
+                    }`}
                   />
+                  {formState.validationErrors.phone && (
+                    <p className="mt-1 text-red-500 text-sm">{formState.validationErrors.phone}</p>
+                  )}
                 </div>
               </div>
 
+              <div>
+                <label htmlFor="address" className="block text-gray-700 mb-2">Adresse</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    value={formState.address}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="123 rue de la République"
+                    className={`w-full pl-4 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64 ${
+                      formState.validationErrors.address ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                  />
+                  {formState.validationErrors.address && (
+                    <p className="mt-1 text-red-500 text-sm">{formState.validationErrors.address}</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="city" className="block text-gray-700 mb-2">Ville</label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      id="city"
+                      name="city"
+                      value={formState.city}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="Ville"
+                      className={`w-full pl-4 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64 ${
+                        formState.validationErrors.city ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                    />
+                    {formState.validationErrors.city && (
+                      <p className="mt-1 text-red-500 text-sm">{formState.validationErrors.city}</p>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="postalCode" className="block text-gray-700 mb-2">Code Postal</label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      id="postalCode"
+                      name="postalCode"
+                      value={formState.postalCode}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="75000"
+                      className={`w-full pl-4 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64 ${
+                        formState.validationErrors.postalCode ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                    />
+                    {formState.validationErrors.postalCode && (
+                      <p className="mt-1 text-red-500 text-sm">{formState.validationErrors.postalCode}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {formState.error && (
+                <div className="p-3 bg-red-100 text-red-700 rounded-lg">
+                  {formState.error}
+                </div>
+              )}
 
               <button 
                 type="submit"
-                className="w-full bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+                disabled={formState.isSubmitting}
+                className={`w-full bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 ${
+                  formState.isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'
+                }`}
               >
-                Obtenir une estimation gratuite 
+                {formState.isSubmitting ? (
+                  <span className="flex items-center justify-center">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Envoi en cours...
+                  </span>
+                ) : (
+                  'Obtenir une estimation gratuite'
+                )}
               </button>
             </form>
           )}

@@ -5,14 +5,15 @@ import './globals.css';
 import { Toaster } from 'react-hot-toast';
 import dynamic from 'next/dynamic';
 
-const ClientLayout = dynamic(() => import('@/components/layout/ClientLayout'), { ssr: false });
-const GA4Initialize = dynamic(() => import('@/components/analytics/GA4Initialize'), { ssr: false });
-
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
 });
+
+const ClientLayout = dynamic(() => import('@/components/layout/ClientLayout'), { ssr: false });
+const GA4Initialize = dynamic(() => import('@/components/analytics/GA4Initialize'), { ssr: false });
+const TrackingInitializer = dynamic(() => import('@/components/tracking/TrackingInitializer'), { ssr: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.myohmtechnologies.com'),
@@ -104,11 +105,10 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-white">
+        <Toaster position="top-center" />
         <GA4Initialize />
-        <ClientLayout>
-          <Toaster />
-          {children}
-        </ClientLayout>
+        <TrackingInitializer />
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

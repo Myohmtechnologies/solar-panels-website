@@ -9,9 +9,9 @@ export async function POST(req: Request) {
     const body = await req.json();
     
     // Validation des données
-    if (!body.name || !body.email || !body.phone || !body.city) {
+    if (!body.name || !body.email || !body.phone || !body.city || !body.address || !body.postalCode) {
       return NextResponse.json(
-        { error: 'Les champs nom, email, téléphone et ville sont requis' },
+        { error: 'Les champs nom, email, téléphone, adresse, ville et code postal sont requis' },
         { status: 400 }
       );
     }
@@ -23,17 +23,20 @@ export async function POST(req: Request) {
         name: body.name,
         email: body.email,
         phone: body.phone,
+        address: body.address,
         city: body.city,
+        postalCode: body.postalCode,
         projectType: body.projectType || 'SOLAR_PANELS',
         source: body.source || 'WEBSITE',
         notes: body.notes || '',
         createdAt: new Date(),
         status: 'NEW',
-        // Ajout des données du simulateur si présentes
+        // Données du simulateur
         simulatorData: body.source === 'simulator' ? {
-          production: body.production,
-          totalAnnualSavings: body.totalAnnualSavings,
-          systemSize: body.systemSize
+          logementType: body.logementType,
+          equipment: body.equipment,
+          energyBill: body.energyBill,
+          residentialStatus: body.residentialStatus
         } : null
       });
 

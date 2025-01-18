@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { submitLead } from '@/services/leadService';
+import { trackConversion } from '@/utils/sourceTracking';
 
 interface LeadFormProps {
   onSuccess: () => void;
@@ -38,14 +39,18 @@ export default function LeadForm({ onSuccess, onError, source, cityName, estimat
       });
 
       if (result.success) {
-        onSuccess();
+        // Track conversion
+        trackConversion('lead_form_submit', 75);
+        
+        onSuccess?.();
         setFormData({ fullName: '', email: '', phone: '' });
         router.push('/merci');
       } else {
-        onError(result.error || "Une erreur s'est produite");
+        onError?.(result.error || "Une erreur s'est produite");
       }
     } catch (error) {
-      onError("Une erreur inattendue s'est produite");
+      console.error('Error submitting lead:', error);
+      onError?.("Une erreur inattendue s'est produite");
     } finally {
       setIsSubmitting(false);
     }

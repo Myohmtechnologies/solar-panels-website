@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { HouseholdSelector } from './HouseholdSelector';
 import QuoteModal from '../modals/QuoteModal';
+import { cityPageTracking } from '@/utils/cityPageTracking';
 
 interface SimulatorProps {
   cityName: string;
@@ -28,6 +29,77 @@ export default function SolarSimulator({ cityName, sunshineHours = 2800, default
     co2Reduction: 0
   });
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const startTime = useRef(Date.now());
+
+  useEffect(() => {
+    cityPageTracking.simulatorStart({
+      simulator_type: 'integrated',
+      step: 'init',
+      city: cityName
+    });
+
+    return () => {
+      const timeSpent = Date.now() - startTime.current;
+      cityPageTracking.simulatorAbandonment({
+        simulator_type: 'integrated',
+        step: 'page_exit',
+        city: cityName,
+        time_spent: timeSpent
+      });
+    };
+  }, []);
+
+  const handleConsommationChange = (value: number) => {
+    setConsommation(value);
+    cityPageTracking.simulatorStep({
+      simulator_type: 'integrated',
+      step: 'consommation',
+      city: cityName,
+      input_values: { consommation: value },
+      time_spent: Date.now() - startTime.current
+    });
+  };
+
+  const handleSystemSizeChange = (value: number) => {
+    setSystemSize(value);
+    cityPageTracking.simulatorStep({
+      simulator_type: 'integrated',
+      step: 'system_size',
+      city: cityName,
+      input_values: { system_size: value },
+      time_spent: Date.now() - startTime.current
+    });
+  };
+
+  const handleOrientationChange = (value: string) => {
+    setOrientation(value);
+    cityPageTracking.simulatorStep({
+      simulator_type: 'integrated',
+      step: 'orientation',
+      city: cityName,
+      input_values: { orientation: value },
+      time_spent: Date.now() - startTime.current
+    });
+  };
+
+  const handleQuoteRequest = () => {
+    const timeSpent = Date.now() - startTime.current;
+    cityPageTracking.simulatorComplete({
+      simulator_type: 'integrated',
+      step: 'quote_request',
+      city: cityName,
+      time_spent: timeSpent,
+      result_type: 'quote',
+      estimated_value: estimations.totalAnnualSavings,
+      input_values: {
+        consommation,
+        systemSize,
+        orientation,
+        estimations
+      }
+    });
+    setIsQuoteModalOpen(true);
+  };
 
   const calculateEconomies = () => {
     // Facteurs d'orientation
@@ -84,11 +156,10 @@ export default function SolarSimulator({ cityName, sunshineHours = 2800, default
     };
   };
 
-  // Calcul initial et mise à jour
   useEffect(() => {
     const newEstimations = calculateEconomies();
     setEstimations(newEstimations);
-  }, [consommation, systemSize, orientation, sunshineHours]); // Ajout de sunshineHours comme dépendance
+  }, [consommation, systemSize, orientation, sunshineHours]);
 
   return (
     <section id="simulator-section" className="py-16 px-4 sm:px-6 lg:px-8">
@@ -106,7 +177,7 @@ export default function SolarSimulator({ cityName, sunshineHours = 2800, default
                 </label>
                 <HouseholdSelector
                   consommation={consommation}
-                  setConsommation={setConsommation}
+                  setConsommation={handleConsommationChange}
                 />
               </div>
 
@@ -117,7 +188,7 @@ export default function SolarSimulator({ cityName, sunshineHours = 2800, default
                 <select
                   id="systemSize"
                   value={systemSize}
-                  onChange={(e) => setSystemSize(parseInt(e.target.value))}
+                  onChange={(e) => handleSystemSizeChange(parseInt(e.target.value))}
                   className="w-full p-3 bg-white/10 border border-white/20 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-FFDF64"
                 >
                   <option value="3">3 kWc - Petite installation</option>
@@ -138,7 +209,7 @@ export default function SolarSimulator({ cityName, sunshineHours = 2800, default
                 <select
                   id="orientation"
                   value={orientation}
-                  onChange={(e) => setOrientation(e.target.value)}
+                  onChange={(e) => handleOrientationChange(e.target.value)}
                   className="w-full p-3 bg-white/10 border border-white/20 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-FFDF64"
                 >
                   <option value="sud">Sud (Optimal)</option>
@@ -174,7 +245,7 @@ export default function SolarSimulator({ cityName, sunshineHours = 2800, default
                 </div>
               </div>
               <button
-                onClick={() => setIsQuoteModalOpen(true)}
+                onClick={handleQuoteRequest}
                 className="w-full mt-6 bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg text-black py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
               >
                 Demander un devis personnalisé

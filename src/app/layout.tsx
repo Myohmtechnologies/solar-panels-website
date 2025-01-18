@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import dynamic from 'next/dynamic';
 
 const ClientLayout = dynamic(() => import('@/components/layout/ClientLayout'), { ssr: false });
+const GA4Initialize = dynamic(() => import('@/components/analytics/GA4Initialize'), { ssr: false });
 
 const inter = Inter({
   subsets: ['latin'],
@@ -68,7 +69,17 @@ export default function RootLayout({
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-XXXXXXXXXX');
+              gtag('config', 'G-XXXXXXXXXX', {
+                custom_map: {
+                  'dimension1': 'traffic_source',
+                  'dimension2': 'traffic_medium',
+                  'dimension3': 'campaign_city',
+                  'dimension4': 'landing_page',
+                  'dimension5': 'user_intent'
+                },
+                send_page_view: true,
+                cookie_flags: 'secure;samesite=none'
+              });
             `,
           }}
         />
@@ -93,6 +104,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-white">
+        <GA4Initialize />
         <ClientLayout>
           <Toaster />
           {children}

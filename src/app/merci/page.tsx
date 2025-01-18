@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CheckCircleIcon, ClockIcon, SunIcon, PhoneIcon } from '@heroicons/react/24/solid';
 import { conversionEvents, navigationEvents } from '@/utils/analytics';
+import { trackConversion, trackUserSource } from '@/utils/sourceTracking';
 
 export default function MerciPage() {
   const [leadInfo, setLeadInfo] = useState<{
@@ -34,6 +35,21 @@ export default function MerciPage() {
 
     // Track la génération du lead
     conversionEvents.leadGenerated('simulator_thank_you', 100);
+
+    // Track the source of the user
+    const source = trackUserSource();
+    
+    // Track final conversion
+    trackConversion('thank_you_page', 100);
+    
+    // Track Google Ads conversion specifically
+    if (window.gtag) {
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-16817660787/[conversion_label]',
+        'value': 100.0,
+        'currency': 'EUR'
+      });
+    }
 
     setLeadInfo(leadInfo);
   }, []);

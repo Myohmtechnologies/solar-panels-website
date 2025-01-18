@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { trackEvent } from '@/utils/analytics';
 
 interface Message {
     text: string;
@@ -75,8 +76,18 @@ export default function ChatBot() {
     const [shouldPulse, setShouldPulse] = useState(true);
     const [hasJoined, setHasJoined] = useState(false);
     const [waitingForResponse, setWaitingForResponse] = useState(false);
-
+    const startTime = useRef(Date.now());
     const lastMessageRef = useRef<HTMLDivElement>(null);
+
+    // Fonction utilitaire pour le tracking
+    const trackChatbotEvent = (action: string, data: any = {}) => {
+        trackEvent('chatbot_interaction', {
+            action,
+            question_id: currentQuestion,
+            ...data,
+            timestamp: new Date().toISOString()
+        });
+    };
 
     useEffect(() => {
         if (lastMessageRef.current) {
@@ -108,6 +119,35 @@ export default function ChatBot() {
         return () => window.removeEventListener('resize', checkMobile);
     }, [isMobile]);
 
+    useEffect(() => {
+        if (isOpen && !hasJoined) {
+            trackChatbotEvent('start_conversation');
+            setMessages([{ 
+                text: "Rudy vient de rejoindre la conversation", 
+                type: 'system',
+                showAvatar: false 
+            }]);
+            setHasJoined(true);
+
+            setTimeout(() => {
+                showNextMessage(questions[0].text).then(() => {
+                    setCurrentQuestion(1);
+                    setTimeout(() => {
+                        showNextMessage(questions[1].text).then(() => {
+                            setCurrentQuestion(2);
+                            setTimeout(() => {
+                                showNextMessage(questions[2].text).then(() => {
+                                    setCurrentQuestion(3);
+                                    setWaitingForResponse(true);
+                                });
+                            }, TYPING_DELAY);
+                        });
+                    }, TYPING_DELAY);
+                });
+            }, INITIAL_DELAY);
+        }
+    }, [isOpen, hasJoined]);
+
     const showNextMessage = (message: string, showAvatar: boolean = true) => {
         setIsTyping(true);
         setWaitingForResponse(false);
@@ -136,37 +176,15 @@ export default function ChatBot() {
         });
     };
 
-    useEffect(() => {
-        if (isOpen && !hasJoined) {
-            setMessages([{ 
-                text: "Rudy vient de rejoindre la conversation", 
-                type: 'system',
-                showAvatar: false 
-            }]);
-            setHasJoined(true);
-
-            setTimeout(() => {
-                showNextMessage(questions[0].text).then(() => {
-                    setCurrentQuestion(1);
-                    setTimeout(() => {
-                        showNextMessage(questions[1].text).then(() => {
-                            setCurrentQuestion(2);
-                            setTimeout(() => {
-                                showNextMessage(questions[2].text).then(() => {
-                                    setCurrentQuestion(3);
-                                    setWaitingForResponse(true);
-                                });
-                            }, TYPING_DELAY);
-                        });
-                    }, TYPING_DELAY);
-                });
-            }, INITIAL_DELAY);
-        }
-    }, [isOpen, hasJoined]);
-
     const handleSubmit = (response: string) => {
         if (!response.trim() || isTyping) return;
         
+        // Track la réponse de l'utilisateur
+        trackChatbotEvent('user_response', {
+            response,
+            time_spent: Date.now() - startTime.current
+        });
+
         setMessages(prev => [...prev, { text: response, type: 'user' }]);
         setUserResponses(prev => ({ ...prev, [currentQuestion]: response }));
         setWaitingForResponse(false);
@@ -182,6 +200,62 @@ export default function ChatBot() {
                 });
             }
         }, 500);
+    };
+
+    const handleFormSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const formMessage = `Nom: ${formData.fullName}\nEmail: ${formData.email}\nTéléphone: ${formData.phone}`;
+        
+        // Track la soumission du formulaire
+        trackChatbotEvent('form_submit', {
+            type_logement: userResponses[3],
+            surface: userResponses[4],
+            installation: userResponses[5],
+            time_spent: Date.now() - startTime.current
+        });
+
+        handleSubmit(formMessage);
+
+        try {
+            const response = await fetch('/api/leads', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: formData.fullName,
+                    email: formData.email,
+                    phone: formData.phone,
+                    city: 'À compléter',
+                    projectType: 'SOLAR_PANELS',
+                    source: 'CHATBOT',
+                    notes: `Type de logement: ${userResponses[3]}\nSurface: ${userResponses[4]}m²\nType d'installation: ${userResponses[5]}`,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Erreur lors de l\'enregistrement');
+            }
+
+            setTimeout(() => {
+                showNextMessage("Merci pour votre demande ! Un conseiller My ohm va vous recontacter très prochainement pour étudier votre projet en détail. À bientôt !");
+                trackChatbotEvent('conversation_complete', {
+                    success: true
+                });
+                setTimeout(() => {
+                    setIsOpen(false);
+                }, 5000);
+            }, 1000);
+
+        } catch (error) {
+            console.error('Erreur:', error);
+            trackChatbotEvent('form_error', {
+                error: error.message
+            });
+            setTimeout(() => {
+                showNextMessage("Désolé, une erreur est survenue lors de l'enregistrement. Veuillez réessayer plus tard.");
+            }, 1000);
+        }
     };
 
     if (!isOpen) {
@@ -361,55 +435,3 @@ export default function ChatBot() {
         </div>
     );
 }
-
-const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const formMessage = `Nom: ${formData.fullName}\nEmail: ${formData.email}\nTéléphone: ${formData.phone}`;
-    handleSubmit(formMessage);
-
-    const typeLogement = userResponses[3];
-    const surface = userResponses[4];
-    const installation = userResponses[5];
-
-    let projectType = 'SOLAR_PANELS';
-    if (installation === 'Borne de recharge IRVE') {
-        projectType = 'IRVE';
-    } else if (installation === 'Ballon thermodynamique') {
-        projectType = 'THERMODYNAMIC_BALLOON';
-    }
-
-    try {
-        const response = await fetch('/api/leads', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: formData.fullName,
-                email: formData.email,
-                phone: formData.phone,
-                city: 'À compléter',
-                projectType: projectType,
-                source: 'CHATBOT',
-                notes: `Type de logement: ${typeLogement}\nSurface: ${surface}m²\nType d'installation: ${installation}`,
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Erreur lors de l\'enregistrement');
-        }
-
-        setTimeout(() => {
-            showNextMessage("Merci pour votre demande ! Un conseiller My Ohm va vous recontacter très prochainement pour étudier votre projet en détail. À bientôt !");
-            setTimeout(() => {
-                setIsOpen(false);
-            }, 5000);
-        }, 1000);
-
-    } catch (error) {
-        console.error('Erreur:', error);
-        setTimeout(() => {
-            showNextMessage("Désolé, une erreur est survenue lors de l'enregistrement. Veuillez réessayer plus tard.");
-        }, 1000);
-    }
-};

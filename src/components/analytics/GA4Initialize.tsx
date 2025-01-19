@@ -1,7 +1,9 @@
 'use client';
 
 import Script from 'next/script';
+import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
+import { trackPageView } from '@/services/analytics';
 
 declare global {
   interface Window {
@@ -13,60 +15,23 @@ declare global {
 const GA_MEASUREMENT_ID = 'G-ET19PN3YHF';
 const GOOGLE_ADS_ID = 'AW-16817660787';
 
-export default function GA4Initialize() {
-  // Gestion des erreurs de chargement
-  const handleScriptError = () => {
-    console.warn('Google Analytics script failed to load');
-    if (typeof window !== 'undefined') {
-      window.gtag = (...args: any[]) => {
-        console.warn('Google Analytics not available:', args);
-      };
-    }
-  };
+const GA4Initialize = () => {
+  const pathname = usePathname();
 
   useEffect(() => {
-    // Initialiser la file d'attente des événements
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function() {
-      window.dataLayer.push(arguments);
-    };
-
-    // Vérification périodique de la connexion
-    const checkConnection = () => {
-      if (navigator.onLine) {
-        // Réessayer de charger les scripts si nécessaire
-        const scripts = document.querySelectorAll('script[data-analytics]');
-        scripts.forEach(script => {
-          if (script.getAttribute('data-loaded') !== 'true') {
-            script.setAttribute('src', script.getAttribute('data-src') || '');
-          }
-        });
-      }
-    };
-
-    window.addEventListener('online', checkConnection);
-    window.addEventListener('offline', () => {
-      console.warn('Internet connection lost, analytics events will be queued');
-    });
-
-    return () => {
-      window.removeEventListener('online', checkConnection);
-      window.removeEventListener('offline', () => {});
-    };
-  }, []);
+    // Track page view whenever the path changes
+    trackPageView(pathname);
+  }, [pathname]);
 
   return (
     <>
       <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         strategy="afterInteractive"
-        data-analytics="true"
-        onError={handleScriptError}
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
       />
       <Script
         id="google-analytics"
         strategy="afterInteractive"
-        data-analytics="true"
       >
         {`
           window.dataLayer = window.dataLayer || [];
@@ -74,11 +39,13 @@ export default function GA4Initialize() {
           gtag('js', new Date());
           gtag('config', '${GA_MEASUREMENT_ID}', {
             page_path: window.location.pathname,
-            debug_mode: ${process.env.NODE_ENV === 'development'}
+            send_page_view: false // Désactivé car géré par notre service analytics
           });
           gtag('config', '${GOOGLE_ADS_ID}');
         `}
       </Script>
     </>
   );
-}
+};
+
+export default GA4Initialize;

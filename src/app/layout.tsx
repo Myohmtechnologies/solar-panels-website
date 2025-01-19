@@ -14,6 +14,9 @@ const inter = Inter({
 const ClientLayout = dynamic(() => import('@/components/layout/ClientLayout'), { ssr: false });
 const GA4Initialize = dynamic(() => import('@/components/analytics/GA4Initialize'), { ssr: false });
 const TrackingInitializer = dynamic(() => import('@/components/tracking/TrackingInitializer'), { ssr: false });
+const FacebookPixel = dynamic(() => import('@/components/analytics/FacebookPixel'), { ssr: false });
+const ScrollTracker = dynamic(() => import('@/components/analytics/ScrollTracker'), { ssr: false });
+const TeamAuth = dynamic(() => import('@/components/admin/TeamAuth'), { ssr: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.myohmtechnologies.com'),
@@ -56,6 +59,8 @@ export default function RootLayout({
   return (
     <html lang="fr" className={inter.variable}>
       <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Google Analytics */}
         <Script
           id="ga-script"
@@ -108,6 +113,9 @@ export default function RootLayout({
         <Toaster position="top-center" />
         <GA4Initialize />
         <TrackingInitializer />
+        <FacebookPixel />
+        <ScrollTracker />
+        <TeamAuth />
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

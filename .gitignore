@@ -34,11 +34,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Large media files
-public/images/*.mp4
-public/images/video-background.mp4
-public/images/720p.mp4
-public/images/MyOhm-Testimonial.mp4
-
 # Cache
 .next/cache/

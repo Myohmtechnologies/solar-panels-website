@@ -2,13 +2,14 @@ export const TEAM_EMAILS = [
   // Équipe de développement
   'riadh@myohmtechnologies.com',
   // Équipe commerciale
-  // Ajoutez les emails de l'équipe commerciale
-  
+  'rudy@myohmtechnologies.com',
   // Équipe marketing
   // Ajoutez les emails de l'équipe marketing
   
   // Direction
-  // Ajoutez les emails de la direction
+  'samir@myohmtechnologies.com',
+  'ali@myohmtechnologies.com'
+  
 ];
 
 export const TEAM_DOMAINS = [

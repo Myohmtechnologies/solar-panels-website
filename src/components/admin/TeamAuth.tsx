@@ -17,7 +17,7 @@ const TeamAuth = () => {
       setIsAuthenticated(true);
       // Envoie l'information à GA
       if (window.gtag) {
-        window.gtag('set', 'user_properties', {
+        window.gtag('event', 'team_auth', {
           team_member: true,
           team_email: teamEmail
         });
@@ -40,7 +40,7 @@ const TeamAuth = () => {
       
       // Envoie l'information à GA
       if (window.gtag) {
-        window.gtag('set', 'user_properties', {
+        window.gtag('event', 'team_auth', {
           team_member: true,
           team_email: emailToAuth
         });
@@ -68,7 +68,7 @@ const TeamAuth = () => {
     
     // Met à jour GA
     if (window.gtag) {
-      window.gtag('set', 'user_properties', {
+      window.gtag('event', 'team_logout', {
         team_member: false,
         team_email: null
       });

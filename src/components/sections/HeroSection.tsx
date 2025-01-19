@@ -183,18 +183,21 @@ const HeroSection = () => {
         <div className='relative h-[50vh] md:h-screen min-h-[400px] w-full overflow-hidden'>
           <div className="absolute inset-0 overflow-hidden">
             <video 
-              src="https://res.cloudinary.com/dz5sry4jz/video/upload/q_auto,f_auto,c_scale,w_1920/societe-installation-de-panneaux-solaires"
+              src="https://res.cloudinary.com/dz5sry4jz/video/upload/q_auto:eco,f_auto,c_scale,w_1280/societe-installation-de-panneaux-solaires"
               poster="/images/video-hero-section-poster.jpg"
               autoPlay 
               loop  
               muted 
               playsInline
-              preload="none"
+              preload="metadata"
+              loading="lazy"
               className="w-full h-full object-cover"
               aria-hidden="true"
             >
-              <source src="/images/video-background.mp4" type="video/mp4" />
-              <source src="/images/video-background.webm" type="video/webm" />
+              <source 
+                src="https://res.cloudinary.com/dz5sry4jz/video/upload/q_auto:eco,f_auto,c_scale,w_1280/societe-installation-de-panneaux-solaires" 
+                type="video/mp4"
+              />
             </video>
             <div className="absolute inset-0 bg-black/40"></div>
           </div>

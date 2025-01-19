@@ -183,7 +183,7 @@ const HeroSection = () => {
         <div className='relative h-[50vh] md:h-screen min-h-[400px] w-full overflow-hidden'>
           <div className="absolute inset-0 overflow-hidden">
             <video 
-              src="/images/societe-installation-de-panneaux-solaires.mp4"
+              src="https://res.cloudinary.com/dz5sry4jz/video/upload/v1705690800/societe-installation-de-panneaux-solaires.mp4"
               poster="/images/video-hero-section-poster.jpg"
               autoPlay 
               loop  

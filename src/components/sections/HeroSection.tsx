@@ -186,7 +186,7 @@ const HeroSection = () => {
               src="/images/societe-installation-de-panneaux-solaires.mp4"
               poster="/images/video-hero-section-poster.jpg"
               autoPlay 
-              loop 
+              loop  
               muted 
               playsInline
               preload="none"

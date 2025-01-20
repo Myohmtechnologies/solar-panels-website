@@ -22,7 +22,9 @@ export default function LeadForm({ onSuccess, onError, source, cityName, estimat
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
-    phone: ''
+    phone: '',
+    address: '',
+    postalCode: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -43,7 +45,7 @@ export default function LeadForm({ onSuccess, onError, source, cityName, estimat
         trackConversion('lead_form_submit', 75);
         
         onSuccess?.();
-        setFormData({ fullName: '', email: '', phone: '' });
+        setFormData({ fullName: '', email: '', phone: '', address: '', postalCode: '' });
         router.push('/merci');
       } else {
         onError?.(result.error || "Une erreur s'est produite");
@@ -96,6 +98,34 @@ export default function LeadForm({ onSuccess, onError, source, cityName, estimat
           required
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-FFDF64 focus:outline-none focus:ring-1 focus:ring-FFDF64"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+          Adresse
+        </label>
+        <input
+          type="text"
+          id="address"
+          required
+          value={formData.address}
+          onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+          className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-FFDF64 focus:outline-none focus:ring-1 focus:ring-FFDF64"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700">
+          Code postal
+        </label>
+        <input
+          type="text"
+          id="postalCode"
+          required
+          value={formData.postalCode}
+          onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })}
           className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 focus:border-FFDF64 focus:outline-none focus:ring-1 focus:ring-FFDF64"
         />
       </div>

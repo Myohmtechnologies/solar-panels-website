@@ -3,6 +3,8 @@ export interface Lead {
   email: string;
   phone: string;
   city: string;
+  address: string;
+  postalCode: string;
   source: 'hero' | 'simulator';
   estimations?: {
     production?: number;
@@ -24,6 +26,8 @@ export async function submitLead(lead: Lead): Promise<{ success: boolean; error?
         email: lead.email,
         phone: lead.phone,
         city: lead.city,
+        address: lead.address,
+        postalCode: lead.postalCode,
         source: lead.source,
         projectType: 'SOLAR_PANELS',
         notes: lead.estimations ? `Production: ${lead.estimations.production}kWh/an, Économies: ${lead.estimations.totalAnnualSavings}€/an, Puissance: ${lead.estimations.systemSize}kWc` : '',

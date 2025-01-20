@@ -11,8 +11,9 @@ export default function ClientLayout({
 }) {
   const pathname = usePathname();
   const isDashboard = pathname?.startsWith('/dashboard');
+  const isThanksPage = pathname?.startsWith('/merci');
 
-  if (isDashboard) {
+  if (isDashboard || isThanksPage) {
     return children;
   }
 

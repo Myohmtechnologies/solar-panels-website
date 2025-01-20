@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { isTeamEmail } from '@/config/team';
 
 const TeamAuth = () => {
   const [email, setEmail] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const eventSentRef = useRef(false);
 
   // Vérifie si déjà authentifié au chargement
   useEffect(() => {
@@ -15,17 +16,6 @@ const TeamAuth = () => {
     
     if (teamStatus === 'true' && teamEmail && isTeamEmail(teamEmail)) {
       setIsAuthenticated(true);
-      // Envoie l'information à GA
-      if (window.gtag) {
-        console.log('TeamAuth: Sending GA event');
-        window.gtag('event', 'team_auth', {
-          team_member: true,
-          team_email: teamEmail
-        });
-        console.log('TeamAuth: GA event sent');
-      } else {
-        console.warn('TeamAuth: gtag not found');
-      }
     }
 
     // Auto-authentification si l'email est dans l'URL
@@ -46,15 +36,16 @@ const TeamAuth = () => {
       localStorage.setItem('teamEmail', emailToAuth);
       setIsAuthenticated(true);
       
-      // Envoie l'information à GA
-      if (window.gtag) {
+      // Envoie l'information à GA seulement si ce n'est pas déjà fait
+      if (window.gtag && !eventSentRef.current) {
         console.log('TeamAuth: Sending GA event');
         window.gtag('event', 'team_auth', {
           team_member: true,
           team_email: emailToAuth
         });
         console.log('TeamAuth: GA event sent');
-      } else {
+        eventSentRef.current = true;
+      } else if (!window.gtag) {
         console.warn('TeamAuth: gtag not found');
       }
 

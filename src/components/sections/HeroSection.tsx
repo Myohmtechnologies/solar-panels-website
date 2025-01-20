@@ -184,7 +184,6 @@ const HeroSection = () => {
           <div className="absolute inset-0 overflow-hidden">
             <video 
               src="https://res.cloudinary.com/dz5sry4jz/video/upload/q_auto:eco,f_auto,c_scale,w_1280/societe-installation-de-panneaux-solaires"
-              poster="https://res.cloudinary.com/dz5sry4jz/image/upload/q_auto,f_auto/myohm/video-hero-section-poster.jpg"
               autoPlay 
               loop  
               muted 

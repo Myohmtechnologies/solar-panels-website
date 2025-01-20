@@ -65,7 +65,7 @@ export default function RootLayout({
         <Script
           id="ga-script"
           strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+          src="https://www.googletagmanager.com/gtag/js?id=G-ET19PN3YHF"
         />
         <Script
           id="ga-config"
@@ -75,16 +75,8 @@ export default function RootLayout({
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-XXXXXXXXXX', {
-                custom_map: {
-                  'dimension1': 'traffic_source',
-                  'dimension2': 'traffic_medium',
-                  'dimension3': 'campaign_city',
-                  'dimension4': 'landing_page',
-                  'dimension5': 'user_intent'
-                },
-                send_page_view: true,
-                cookie_flags: 'secure;samesite=none'
+              gtag('config', 'G-ET19PN3YHF', {
+                page_path: window.location.pathname,
               });
             `,
           }}

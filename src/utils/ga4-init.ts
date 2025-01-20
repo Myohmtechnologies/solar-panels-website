@@ -3,18 +3,15 @@ import { GA4_REPORTS, GA4_EXPLORATIONS, GA4_DASHBOARDS, GA4_ALERTS, GA4_SEGMENTS
 export const initializeGA4Configuration = () => {
   if (typeof window === 'undefined' || !window.gtag) return;
 
-  // Configuration des dimensions personnalisées
-  gtag('config', 'G-XXXXXXXXXX', {
+  // Configuration de base
+  gtag('config', 'G-ET19PN3YHF', {
+    cookie_flags: 'secure;samesite=none',
     custom_map: {
       'dimension1': 'traffic_source',
       'dimension2': 'traffic_medium',
       'dimension3': 'campaign_city',
       'dimension4': 'landing_page',
-      'dimension5': 'simulator_type',
-      'dimension6': 'conversion_type',
-      'metric1': 'conversion_value',
-      'metric2': 'ROAS',
-      'metric3': 'ROI'
+      'dimension5': 'user_intent'
     }
   });
 

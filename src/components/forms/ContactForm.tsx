@@ -11,8 +11,6 @@ interface ContactFormData {
   phone: string;
   message: string;
   city: string;
-  address: string;
-  postalCode: string;
 }
 
 const ContactForm = () => {
@@ -23,9 +21,7 @@ const ContactForm = () => {
     email: '',
     phone: '',
     message: '',
-    city: '',
-    address: '',
-    postalCode: ''
+    city: ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -61,8 +57,6 @@ const ContactForm = () => {
           email: formData.email,
           phone: formData.phone,
           city: formData.city,
-          address: formData.address,
-          postalCode: formData.postalCode,
           source: 'CONTACT_FORM',
           projectType: 'SOLAR_PANELS',
           notes: formData.message
@@ -83,9 +77,7 @@ const ContactForm = () => {
         email: '',
         phone: '',
         message: '',
-        city: '',
-        address: '',
-        postalCode: ''
+        city: ''
       });
 
       // Redirect to thank you page
@@ -151,53 +143,6 @@ const ContactForm = () => {
       </div>
 
       <div>
-        <label htmlFor="address" className="block text-sm font-medium text-gray-700">
-          Adresse *
-        </label>
-        <input
-          type="text"
-          id="address"
-          name="address"
-          required
-          value={formData.address}
-          onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
-        />
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-            Ville *
-          </label>
-          <input
-            type="text"
-            id="city"
-            name="city"
-            required
-            value={formData.city}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700">
-            Code postal *
-          </label>
-          <input
-            type="text"
-            id="postalCode"
-            name="postalCode"
-            required
-            value={formData.postalCode}
-            onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
-          />
-        </div>
-      </div>
-
-      <div>
         <label htmlFor="message" className="block text-sm font-medium text-gray-700">
           Message
         </label>
@@ -206,6 +151,21 @@ const ContactForm = () => {
           name="message"
           rows={4}
           value={formData.message}
+          onChange={handleChange}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+          Ville *
+        </label>
+        <input
+          type="text"
+          id="city"
+          name="city"
+          required
+          value={formData.city}
           onChange={handleChange}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
         />

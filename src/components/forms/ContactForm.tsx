@@ -11,6 +11,8 @@ interface ContactFormData {
   phone: string;
   message: string;
   city: string;
+  address: string;
+  postalCode: string;
 }
 
 const ContactForm = () => {
@@ -21,7 +23,9 @@ const ContactForm = () => {
     email: '',
     phone: '',
     message: '',
-    city: ''
+    city: '',
+    address: '',
+    postalCode: ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,7 +57,12 @@ const ContactForm = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...formData,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          city: formData.city,
+          address: formData.address,
+          postalCode: formData.postalCode,
           source: 'CONTACT_FORM',
           projectType: 'SOLAR_PANELS',
           notes: formData.message
@@ -61,15 +70,12 @@ const ContactForm = () => {
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to create lead');
+        throw new Error('Erreur lors de l\'envoi du formulaire');
       }
 
-      // Track successful form submission
-      contactFormEvents.formSubmit(true);
-      
       setSubmitStatus('success');
-      toast.success('Votre message a bien été envoyé ! Nous vous recontacterons rapidement.');
+      contactFormEvents.formSubmit(true);
+      toast.success('Votre message a été envoyé avec succès !');
       
       // Reset form
       setFormData({
@@ -77,111 +83,138 @@ const ContactForm = () => {
         email: '',
         phone: '',
         message: '',
-        city: ''
+        city: '',
+        address: '',
+        postalCode: ''
       });
 
-      // Redirection vers la page de remerciement
+      // Redirect to thank you page
       router.push('/merci');
     } catch (error) {
-      // Track form submission error
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
       contactFormEvents.formSubmit(false);
       contactFormEvents.formError('api_error');
-      setSubmitStatus('error');
       toast.error('Une erreur est survenue. Veuillez réessayer.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-          Nom complet
+          Nom complet *
         </label>
         <input
           type="text"
-          name="name"
           id="name"
+          name="name"
           required
           value={formData.name}
           onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-ffb700 focus:ring-ffb700 sm:text-sm"
-          placeholder="Jean Dupont"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
         />
       </div>
 
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-          Email
+          Email *
         </label>
         <input
           type="email"
-          name="email"
           id="email"
+          name="email"
           required
           value={formData.email}
           onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-ffb700 focus:ring-ffb700 sm:text-sm"
-          placeholder="jean.dupont@example.com"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
         />
       </div>
 
       <div>
         <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-          Téléphone
+          Téléphone *
         </label>
         <input
           type="tel"
-          name="phone"
           id="phone"
+          name="phone"
           required
           value={formData.phone}
           onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-ffb700 focus:ring-ffb700 sm:text-sm"
-          placeholder="06 12 34 56 78"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
         />
       </div>
 
       <div>
-        <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-          Ville
+        <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+          Adresse *
         </label>
         <input
           type="text"
-          name="city"
-          id="city"
+          id="address"
+          name="address"
           required
-          value={formData.city}
+          value={formData.address}
           onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-ffb700 focus:ring-ffb700 sm:text-sm"
-          placeholder="Paris"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
         />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+            Ville *
+          </label>
+          <input
+            type="text"
+            id="city"
+            name="city"
+            required
+            value={formData.city}
+            onChange={handleChange}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700">
+            Code postal *
+          </label>
+          <input
+            type="text"
+            id="postalCode"
+            name="postalCode"
+            required
+            value={formData.postalCode}
+            onChange={handleChange}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
+          />
+        </div>
       </div>
 
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-          Message (optionnel)
+          Message
         </label>
         <textarea
-          name="message"
           id="message"
+          name="message"
           rows={4}
           value={formData.message}
           onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-ffb700 focus:ring-ffb700 sm:text-sm"
-          placeholder="Votre message..."
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
         />
       </div>
 
       <button
         type="submit"
         disabled={isSubmitting}
-        className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-gradient-to-br from-ffeb99 to-ffb700 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ffb700 ${
+        className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-3xl shadow-sm text-sm font-medium text-white bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 ${
           isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
         }`}
       >

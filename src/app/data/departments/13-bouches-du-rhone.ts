@@ -117,7 +117,7 @@ const bouchesdurhone: Department = {
       code: "13001",
       population: 143097,
       sunshineHours: 2800,
-      description: "Expert RGE en installation de panneaux solaires à Aix-en-Provence. Plus de 500 installations réalisées, certification QualiPV et garantie décennale. Profitez d'un ensoleillement exceptionnel de 2800h/an et des aides locales pour votre projet solaire.",
+      description: "Expert certifié RGE en installation de panneaux solaires photovoltaïques à Aix-en-Provence. Profitez d'un ensoleillement exceptionnel de 2800h/an pour optimiser votre production électrique. Notre équipe d'artisans qualifiés assure l'installation complète, de l'étude à la mise en service. Bénéficiez des aides locales et d'une réduction jusqu'à 70% sur votre facture d'électricité grâce à l'autoconsommation solaire. Plus de 500 installations réalisées avec certification QualiPV et garantie décennale.",
       heroImage: {
         url: '/images/installation-de-panneaux-solaire-aix-en-provence.jpeg',
         alt: 'Installation de panneaux solaires à Aix-en-Provence par un expert RGE'
@@ -175,40 +175,22 @@ const bouchesdurhone: Department = {
         }
       ],
       seo: {
-        title: "Installateur Panneaux Solaires RGE Aix-en-Provence | Expert Certifié 2025",
-        metaDescription: "✓ Installateur de panneaux solaires certifié RGE à Aix-en-Provence. 10 ans d'expertise, 500+ installations réussies, certification QualiPV. Devis gratuit personnalisé !",
+        title: "Installation Panneaux Solaires Photovoltaïques à Aix-en-Provence | Expert RGE",
+        metaDescription: "✓ Installation de panneaux solaires et systèmes photovoltaïques à Aix-en-Provence. Production électrique optimale avec 2800h d'ensoleillement/an. Profitez des aides locales et réduisez votre empreinte carbone. Devis gratuit par un artisan RGE.",
         keywords: [
-          // Variations RGE
-          "installateur panneaux solaires RGE aix en provence",
-          "installation panneaux solaires RGE aix en provence",
-          "artisan RGE panneaux solaires aix en provence",
-          "entreprise RGE solaire aix en provence",
-          
-          // Variations panneaux solaires (pluriel)
-          "panneaux solaires aix en provence",
-          "installation panneaux solaires aix en provence",
-          "installateur panneaux solaires aix en provence",
-          "pose panneaux solaires aix en provence",
-          
-          // Variations photovoltaïque
-          "installation photovoltaique aix en provence",
-          "installateur photovoltaique aix en provence",
-          "panneaux photovoltaiques aix en provence",
-          
-          // Variations prix et devis
-          "prix panneaux solaires aix en provence",
-          "devis panneaux solaires aix en provence",
-          "cout installation solaire aix en provence",
-          
-          // Variations géographiques
-          "panneaux solaires 13100",
-          "installation solaire bouches du rhone",
-          "energie solaire aix en provence"
+          "installation photovoltaïque Aix-en-Provence",
+          "panneaux solaires Bouches du Rhône",
+          "énergie solaire PACA",
+          "autoconsommation solaire",
+          "production électrique solaire",
+          "installation certifiée RGE",
+          "pose panneaux photovoltaïques",
+          "transition énergétique Aix"
         ],
         localBusiness: {
           "@type": "LocalBusiness",
-          "name": "Installation Panneaux Solaires RGE Aix-en-Provence",
-          "description": "Expert certifié RGE en installation de panneaux solaires à Aix-en-Provence. Plus de 500 installations réussies, certification QualiPV et garantie décennale. Devis gratuit et personnalisé.",
+          "name": "Installation Panneaux Solaires Aix-en-Provence",
+          "description": "Expert en installation de panneaux solaires à Aix-en-Provence. Installation certifiée RGE, devis gratuit et accompagnement personnalisé.",
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Aix-en-Provence",
@@ -223,41 +205,55 @@ const bouchesdurhone: Department = {
           },
           "url": "https://votresite.fr/aix-en-provence",
           "telephone": "+33400000000",
-          "openingHours": "Mo-Fr 09:00-18:00",
-          "areaServed": {
-            "@type": "GeoCircle",
-            "geoMidpoint": {
-              "@type": "GeoCoordinates",
-              "latitude": "43.5297",
-              "longitude": "5.4474"
-            },
-            "geoRadius": "30000"
-          },
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "reviewCount": "124"
-          },
-          "priceRange": "€€€",
-          "image": "/images/regions/bg-aix-en-provence.webp"
+          "openingHours": "Mo-Fr 09:00-18:00"
         },
         faqSchema: [
           {
-            question: "Pourquoi choisir un installateur RGE pour ses panneaux solaires à Aix-en-Provence ?",
-            answer: "Un installateur RGE (Reconnu Garant de l'Environnement) à Aix-en-Provence vous garantit une installation de qualité et l'accès aux aides de l'État comme MaPrimeRénov'. Notre certification RGE et QualiPV, associée à plus de 500 installations réussies, vous assure un travail professionnel et conforme aux normes."
+            question: "Les panneaux photovoltaïques offrent de nombreux avantages :",
+            answer: "Production d’énergie renouvelable à partir du soleil, réduisant votre empreinte carbone.Réduction de votre facture d’électricité jusqu’à 70 % grâce à l’autoconsommation.Possibilité de revendre le surplus d’énergie produite, générant un revenu supplémentaire.Longue durée de vie et faible besoin en maintenance, notamment pour des équipements de qualité comme les panneaux DualSun.Les panneaux sont particulièrement rentables dans les Bouches-du-Rhône et à Aix-en-Provence, où l’ensoleillement est optimal."
           },
           {
-            question: "Quel est le coût d'une installation de panneaux solaires à Aix-en-Provence ?",
-            answer: "Le coût d'une installation de panneaux solaires à Aix-en-Provence varie entre 8000€ et 15000€ selon la surface et la puissance. En tant qu'installateur certifié RGE, nous vous aidons à obtenir toutes les aides disponibles qui peuvent réduire ce coût jusqu'à 50%."
+            question: "Quel est le coût d'une installation photovoltaïque à Aix-en-Provence ?",
+            answer: "Le coût d'une installation photovoltaïque dépend de plusieurs facteurs :La puissance en kWc de l’installation.Le type de modèle choisi (ex. DualSun ou autres).Les conditions de votre toit, comme l’inclinaison et l’orientation plein sud.En moyenne, une installation coûte entre 8 000 € et 15 000 €, avec un prix moyen variant selon les options. Heureusement, des aides comme l’éco-prêt, des subventions, et une réduction d'impôt peuvent réduire ce coût."
           },
           {
-            question: "Quelles sont les aides disponibles pour l'installation de panneaux solaires à Aix-en-Provence ?",
-            answer: "À Aix-en-Provence, vous pouvez bénéficier de plusieurs aides : MaPrimeRénov' (jusqu'à 4000€), la prime à l'autoconsommation (jusqu'à 380€/kWc), l'éco-PTZ (jusqu'à 50000€), et les aides régionales PACA. En tant qu'installateur RGE, nous vous accompagnons dans toutes vos démarches."
+            question: "Pourquoi choisir un installateur RGE pour vos panneaux solaires ?",
+            answer: "Faire appel à un installateur RGE garantit :Une installation conforme aux normes, optimisant la qualité et la rentabilité de votre système.L’accès à des aides financières comme la prime à l’autoconsommation ou le taux de TVA réduit.Un meilleur raccordement au réseau électrique pour revendre le surplus d’énergie.Dans les Bouches-du-Rhône, de nombreux installateurs RGE interviennent pour des projets résidentiels ou professionnels, notamment à Aix-en-Provence."
           },
           {
-            question: "Combien de temps faut-il pour installer des panneaux solaires à Aix-en-Provence ?",
-            answer: "En tant qu'installateur RGE local à Aix-en-Provence, nous réalisons l'installation complète en 2 à 3 jours après validation du projet. Le délai total, incluant l'étude technique, les démarches administratives et l'obtention des aides, est d'environ 2-3 mois."
+            question: "Quelle est la rentabilité d’une installation photovoltaïque ?",
+            answer: " Une installation photovoltaïque est souvent rentabilisée en 8 à 12 ans grâce à :La production d’électricité photovoltaïque gratuite pour votre consommation.La revente d’énergie produite au réseau, générant des revenus supplémentaires.Les économies réalisées sur vos factures, atteignant parfois 70 % de réduction.Avec un équipement bien installé et un ensoleillement optimal, comme à Aix-en-Provence, la rentabilité est assurée."
+          },
+          {
+            question: "Quels sont les atouts de l’énergie photovoltaïque pour votre maison ?",
+            answer: " Installer un système photovoltaïque dans votre maison présente plusieurs atouts :Réduction des coûts grâce à l’énergie renouvelable et une meilleure efficacité énergétique.Valorisation de votre bien immobilier avec des équipements modernes et durablesUne solution écologique, idéale pour les régions comme les Bouches-du-Rhône.Avec des panneaux comme DualSun, l’énergie produite est maximale pour un coût minimal."
+          },
+          {
+            question: "Quels sont les types de solutions photovoltaïques disponibles ?",
+            answer: " Vous avez le choix entre plusieurs solutions photovoltaïques :Les panneaux photovoltaïques classiques, parfaits pour produire de l’électricité solaire.Des panneaux hybrides, comme DualSun, combinant production électrique et thermique.Des systèmes d’autoconsommation avec batteries pour stocker l’énergie.Chaque solution peut être adaptée à votre besoin, que ce soit pour une maison, une centrale solaire, ou un projet professionnel."
+          },
+          {
+            question:"Comment réduire vos factures grâce au photovoltaïque ?",
+            answer:"Avec les panneaux solaires, vous pouvez :Utiliser l’énergie produite pour alimenter votre maison, réduisant ainsi votre dépendance au réseau.Revendre le surplus pour obtenir un revenu complémentaire.Bénéficier d’aides comme l’éco-prêt ou une réduction d’impôt, rendant l’investissement plus accessible.L’ensoleillement de la région, notamment à Aix-en-Provence, permet de maximiser les économies."
+          },
+          {
+            question: "Quels critères influencent le rendement des panneaux solaires ?",
+            answer: "Le rendement d’une installation dépend de :L’inclinaison et l’orientation de vos panneaux photovoltaïques.La qualité des équipements, comme les panneaux DualSun.L’ensoleillement et l’exposition plein sud.En choisissant des professionnels expérimentés dans les Bouches-du-Rhône, vous optimisez votre puissance installée et la durabilité de votre système."
+          },
+          {
+            question: "Quelles aides pour l’installation de panneaux photovoltaïques ?",
+            answer:"Plusieurs aides sont disponibles en 2024 pour l’installation photovoltaïque :La prime à l’autoconsommation.Un éco-prêt à taux zéro pour financer le projet.Une réduction d’impôt et un taux de TVA réduit.Des subventions régionales dans les Bouches-du-Rhône, particulièrement pour les installations à Aix-en-Provence."
+          },
+          {
+            question: "Pourquoi opter pour l’énergie photovoltaïque en France ?",
+            answer: "L’énergie photovoltaïque en France est en plein essor grâce à :Des initiatives favorisant la transition écologique.Une forte demande pour l’autoconsommation solaire et la revente de surplus.L’excellence des fabricants, comme DualSun, et des installateurs locaux.Dans des régions comme les Bouches-du-Rhône, le coût d’une installation est rapidement amorti grâce aux aides et au fort ensoleillement."
+
+          },
+          {
+            question: "Pourquoi choisir Aix-en-Provence pour installer vos panneaux solaires ?",
+            answer:"Aix-en-Provence est une ville idéale pour une installation solaire :Un ensoleillement important, parfait pour maximiser la puissance moyenne de vos panneaux.Des installateurs expérimentés proposant des devis gratuits et des solutions adaptées.De nombreuses aides financières, comme l’éco-prêt et la réduction d’impôt.Avec des équipements bien choisis, l’investissement devient rentable rapidement."
           }
+
         ]
       },
       solarInstallation: defaultSolarInstallation
@@ -326,11 +322,11 @@ const bouchesdurhone: Department = {
           },
           {
             question: "Quel est le potentiel solaire à Arles ?",
-            answer: "Arles bénéficie d'un ensoleillement exceptionnel avec 2800 heures de soleil par an, ce qui en fait un lieu idéal pour l'installation de panneaux solaires avec un excellent rendement."
+            answer: "Arles bénéficie d'un excellent ensoleillement avec 2800 heures de soleil par an, ce qui garantit une production optimale d'énergie solaire tout au long de l'année."
           },
           {
             question: "Quelles aides sont disponibles à Arles ?",
-            answer: "À Arles, vous pouvez bénéficier des aides nationales (MaPrimeRénov'), régionales PACA, et départementales des Bouches-du-Rhône. Les économies peuvent atteindre jusqu'à 7500€ sur votre installation."
+            answer: "À Arles, vous pouvez bénéficier des aides nationales (MaPrimeRénov'), régionales PACA, et départementales. Les économies peuvent atteindre jusqu'à 7500€ sur votre installation."
           }
         ],
         images: [
@@ -694,7 +690,7 @@ const bouchesdurhone: Department = {
           author: "Philippe R.",
           rating: 4.8,
           date: "2023-10-18",
-          comment: "Installation impeccable, équipe professionnelle. Très satisfait du rendement.",
+          comment: "Installation impeccable, équipe très professionnelle. Très satisfait du rendement.",
           location: "Istres Nord"
         }
       ],

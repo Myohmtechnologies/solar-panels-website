@@ -34,6 +34,7 @@ export default function CityPageContent({ cityData, departmentName, cities }: Ci
   return (
     <main className="bg-white">
       <CityActionButtons />
+      
       {/* Section Hero */}
       <CityHero 
         cityName={cityData.name}

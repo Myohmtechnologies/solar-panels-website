@@ -39,14 +39,22 @@ const TeamAuth = () => {
       // Envoie l'information à GA seulement si ce n'est pas déjà fait
       if (window.gtag && !eventSentRef.current) {
         console.log('TeamAuth: Sending GA event');
-        window.gtag('event', 'team_auth', {
-          team_member: true,
-          team_email: emailToAuth
-        });
-        console.log('TeamAuth: GA event sent');
-        eventSentRef.current = true;
-      } else if (!window.gtag) {
-        console.warn('TeamAuth: gtag not found');
+        try {
+          window.gtag('event', 'team_auth', {
+            team_member: true,
+            team_email: emailToAuth
+          });
+          console.log('TeamAuth: GA event sent successfully');
+          eventSentRef.current = true;
+        } catch (error) {
+          console.error('TeamAuth: Error sending GA event:', error);
+        }
+      } else {
+        if (!window.gtag) {
+          console.warn('TeamAuth: gtag not found');
+        } else if (eventSentRef.current) {
+          console.log('TeamAuth: Event already sent, skipping');
+        }
       }
 
       // Nettoie l'URL si nécessaire

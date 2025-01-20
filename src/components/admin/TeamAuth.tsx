@@ -17,33 +17,45 @@ const TeamAuth = () => {
       setIsAuthenticated(true);
       // Envoie l'information à GA
       if (window.gtag) {
+        console.log('TeamAuth: Sending GA event');
         window.gtag('event', 'team_auth', {
           team_member: true,
           team_email: teamEmail
         });
+        console.log('TeamAuth: GA event sent');
+      } else {
+        console.warn('TeamAuth: gtag not found');
       }
     }
 
     // Auto-authentification si l'email est dans l'URL
     const urlParams = new URLSearchParams(window.location.search);
     const emailParam = urlParams.get('team_email');
+    console.log('TeamAuth: URL params check', { emailParam });
     if (emailParam && isTeamEmail(emailParam)) {
+      console.log('TeamAuth: Valid team email found', emailParam);
       handleTeamAuth(emailParam);
     }
   }, []);
 
   const handleTeamAuth = (emailToAuth: string) => {
+    console.log('TeamAuth: Attempting authentication', { emailToAuth });
     if (isTeamEmail(emailToAuth)) {
+      console.log('TeamAuth: Email validated');
       localStorage.setItem('teamMember', 'true');
       localStorage.setItem('teamEmail', emailToAuth);
       setIsAuthenticated(true);
       
       // Envoie l'information à GA
       if (window.gtag) {
+        console.log('TeamAuth: Sending GA event');
         window.gtag('event', 'team_auth', {
           team_member: true,
           team_email: emailToAuth
         });
+        console.log('TeamAuth: GA event sent');
+      } else {
+        console.warn('TeamAuth: gtag not found');
       }
 
       // Nettoie l'URL si nécessaire
@@ -68,10 +80,14 @@ const TeamAuth = () => {
     
     // Met à jour GA
     if (window.gtag) {
+      console.log('TeamAuth: Sending GA event');
       window.gtag('event', 'team_logout', {
         team_member: false,
         team_email: null
       });
+      console.log('TeamAuth: GA event sent');
+    } else {
+      console.warn('TeamAuth: gtag not found');
     }
   };
 

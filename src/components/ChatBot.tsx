@@ -56,7 +56,9 @@ const questions: Question[] = [
         formFields: [
             { type: 'text', placeholder: 'Nom complet', name: 'fullName' },
             { type: 'email', placeholder: 'Email', name: 'email' },
-            { type: 'tel', placeholder: 'Numéro de téléphone', name: 'phone' }
+            { type: 'tel', placeholder: 'Numéro de téléphone', name: 'phone' },
+            { type: 'text', placeholder: 'Adresse', name: 'address' },
+            { type: 'text', placeholder: 'Code postal', name: 'postalCode' }
         ]
     }
 ];
@@ -68,7 +70,13 @@ export default function ChatBot() {
     const [messages, setMessages] = useState<Message[]>([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [userResponses, setUserResponses] = useState<Record<number, string>>({});
-    const [formData, setFormData] = useState({ fullName: '', email: '', phone: '' });
+    const [formData, setFormData] = useState({ 
+        fullName: '', 
+        email: '', 
+        phone: '',
+        address: 'À compléter',
+        postalCode: 'À compléter'
+    });
     const [inputValue, setInputValue] = useState('');
     const [isTyping, setIsTyping] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
@@ -204,7 +212,7 @@ export default function ChatBot() {
 
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const formMessage = `Nom: ${formData.fullName}\nEmail: ${formData.email}\nTéléphone: ${formData.phone}`;
+        const formMessage = `Nom: ${formData.fullName}\nEmail: ${formData.email}\nTéléphone: ${formData.phone}\nAdresse: ${formData.address}\nCode postal: ${formData.postalCode}`;
         
         // Track la soumission du formulaire
         trackChatbotEvent('form_submit', {
@@ -227,6 +235,8 @@ export default function ChatBot() {
                     email: formData.email,
                     phone: formData.phone,
                     city: 'À compléter',
+                    address: formData.address,
+                    postalCode: formData.postalCode,
                     projectType: 'SOLAR_PANELS',
                     source: 'CHATBOT',
                     notes: `Type de logement: ${userResponses[3]}\nSurface: ${userResponses[4]}m²\nType d'installation: ${userResponses[5]}`,

@@ -195,11 +195,21 @@ export default function LeadDetailsModal({ isOpen, onClose, lead }: LeadDetailsM
                         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                           <dt className="text-sm font-medium leading-6 text-gray-900">Statut actuel</dt>
                           <dd className="mt-1 text-sm leading-6 sm:col-span-2 sm:mt-0">
-                            <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${STATUS_COLORS[lead.status]}">
+                            <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${STATUS_COLORS[lead.status]}`}>
                               {STATUS_LABELS[lead.status]}
                             </span>
                           </dd>
                         </div>
+
+                        {/* Notes */}
+                        {lead.notes && (
+                          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                            <dt className="text-sm font-medium leading-6 text-gray-900">Notes</dt>
+                            <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 whitespace-pre-wrap">
+                              {lead.notes}
+                            </dd>
+                          </div>
+                        )}
 
                         {/* Prochaine action */}
                         {lead.nextAction && (

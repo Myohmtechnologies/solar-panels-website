@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MapPinIcon, UserIcon, ChartBarIcon } from '@heroicons/react/24/outline';
+import { MapPinIcon, UserIcon, ChartBarIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { engagementEvents, navigationEvents } from '@/utils/analytics';
 import ContactForm from '../forms/ContactForm';
 import { Dialog, Transition } from '@headlessui/react';
@@ -116,10 +116,10 @@ const HeroSection = () => {
 
     // Événement personnalisé
     engagementEvents.ctaClick('contact_expert', 'hero_section');
-    
+
     // Événement de conversion potentielle
     engagementEvents.conversionIntent('expert_contact_modal_open');
-    
+
     setIsModalOpen(true);
   };
 
@@ -133,10 +133,10 @@ const HeroSection = () => {
 
     // Événement personnalisé
     engagementEvents.ctaClick('simulator', 'hero_section');
-    
+
     // Événement de navigation
     navigationEvents.pageView('/simulator');
-    
+
     // Événement de conversion potentielle
     engagementEvents.conversionIntent('simulator_access');
   };
@@ -145,7 +145,7 @@ const HeroSection = () => {
     <>
       {/* Bandeau CTA mobile qui s'affiche après avoir dépassé la section héro */}
       {scrollPosition > heroHeight && (
-        <div 
+        <div
           className="fixed top-0 left-0 right-0 z-40 md:hidden bg-white/90 backdrop-blur-sm shadow-sm"
           onMouseEnter={() => {
             // Événement de visibilité du bandeau mobile
@@ -178,23 +178,23 @@ const HeroSection = () => {
       )}
 
       {/* Contenu principal */}
-      <section data-section="city-hero" className="relative flex flex-col md:block md:pt-0">
+      <section data-section="city-hero" className="hero-section relative min-h-[85vh] md:min-h-screen w-full bg-gradient-to-br from-white to-gray-100">
         {/* Vidéo de fond */}
         <div className='relative h-[50vh] md:h-screen min-h-[400px] w-full overflow-hidden'>
           <div className="absolute inset-0 overflow-hidden">
-            <video 
+            <video
               src="https://res.cloudinary.com/dz5sry4jz/video/upload/q_auto:eco,f_auto,c_scale,w_1280/societe-installation-de-panneaux-solaires"
-              autoPlay 
-              loop  
-              muted 
+              autoPlay
+              loop
+              muted
               playsInline
               preload="metadata"
               loading="lazy"
               className="w-full h-full object-cover"
               aria-hidden="true"
             >
-              <source 
-                src="https://res.cloudinary.com/dz5sry4jz/video/upload/q_auto:eco,f_auto,c_scale,w_1280/societe-installation-de-panneaux-solaires" 
+              <source
+                src="https://res.cloudinary.com/dz5sry4jz/video/upload/q_auto:eco,f_auto,c_scale,w_1280/societe-installation-de-panneaux-solaires"
                 type="video/mp4"
               />
             </video>
@@ -205,36 +205,36 @@ const HeroSection = () => {
         {/* Contenu principal */}
         <div className="relative bg-white md:bg-transparent flex items-center px-4 md:px-8 lg:px-12 py-6 md:py-0 md:absolute md:inset-0">
           <div className="bg-light-yellow rounded-2xl p-6 md:p-8 max-w-xl backdrop-blur-sm w-full md:ml-[5%] shadow-2xl hover:scale-[1.02] transition-transform duration-300">
-            {/* Ajout d'un élément d'urgence */}
-            <div className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full animate-pulse">
-              Offre limitée
-            </div>
-            
+
+
             <div className="text-center mb-6">
-              <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                Réduisez votre consommation d&apos;électricité jusqu&apos;à 70%
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-3 leading-tight">
+                <span className="block mb-2">Économisez jusqu&apos;à 70%</span>
+                <span className="block text-xl md:text-2xl lg:text-3xl">sur vos factures d&apos;électricité</span>
+                <span className="block mt-2 text-xl md:text-2xl lg:text-3xl text-green-700">et bénéficiez des aides de l&apos;État 2025</span>
               </h1>
-              <p className="text-gray-600 text-base mb-4">
-                Découvrez votre potentiel d&apos;économies ou contactez un expert
+              <p className="text-lg md:text-xl text-gray-700 font-medium mb-4 max-w-md mx-auto">
+                Découvrez votre potentiel d&apos;économies
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={handleExpertContact}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold text-black transition-all duration-200 bg-gradient-to-br from-ffeb99 to-ffb700 rounded-3xl"
-              >
-                <UserIcon className="w-5 h-5" />
-                Contacter un expert
-              </button>
-
               <Link
                 href="/simulator"
                 onClick={handleSimulatorClick}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-base font-semibold text-white transition-all duration-200 bg-[#10618F] rounded-3xl"
+                className="group w-full py-4 rounded-full bg-gradient-solar inline-flex items-center justify-center relative overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-95"
               >
-                <ChartBarIcon className="w-5 h-5" />
-                Simulation des économies
+                {/* Effet de brillance permanent */}
+                <div className="absolute inset-0 w-1/4 h-full bg-white/20 skew-x-[45deg] transform -translate-x-full animate-shine"></div>
+                
+                {/* Contenu du bouton */}
+                <span className="flex items-center justify-center gap-3 relative">
+                  <ChartBarIcon className="w-6 h-6 transition-transform group-hover:scale-110" />
+                  <span className="text-lg md:text-xl font-bold">
+                    Simulation gratuite
+                  </span>
+                  <ArrowRightIcon className="w-5 h-5 transition-all duration-300 group-hover:translate-x-1" />
+                </span>
               </Link>
             </div>
 
@@ -244,7 +244,7 @@ const HeroSection = () => {
                 <svg className="w-4 h-4 text-AFC97E mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                Estimation en 2 mins
+                Estimation gratuite en 2 mins
               </span>
               <span className="flex items-center">
                 <svg className="w-4 h-4 text-AFC97E mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -254,15 +254,40 @@ const HeroSection = () => {
               </span>
             </div>
 
+            {/* Logos des certifications */}
+            <div className="flex items-center justify-center gap-4 mt-4">
+              <Image
+                src="/images/rge1.png"
+                alt="Certification RGE"
+                width={90}
+                height={40}
+                className="h-8 w-auto object-contain"
+              />
+              <Image
+                src="/images/qualipv1.png"
+                alt="Certification QualiPV"
+                width={100}
+                height={40}
+                className="h-8 w-auto object-contain"
+              />
+              <Image
+                src="/images/garantie-decennale-p2a-construction.webp"
+                alt="Certification Decinel"
+                width={100}
+                height={50}
+                className="h-8 w-auto object-contain"
+              />
+            </div>
+
             {/* Note Google */}
             <div className="flex flex-col items-center justify-center mt-4">
               <div className="flex items-center">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <svg 
-                    key={star} 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    className="h-5 w-5 text-yellow-500" 
-                    viewBox="0 0 20 20" 
+                  <svg
+                    key={star}
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 text-yellow-500"
+                    viewBox="0 0 20 20"
                     fill="currentColor"
                   >
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -278,7 +303,7 @@ const HeroSection = () => {
       </section>
 
       {/* Commercial Contact Modal */}
-      <ContactModal 
+      <ContactModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />

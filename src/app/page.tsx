@@ -13,7 +13,6 @@ import { defaultRegionName } from '@/config/seo';
 import RegionMapSection from '@/components/sections/RegionMapSection';
 import CityActionButtons from '@/components/sections/CityActionButtons';
 import ChatBot from '@/components/ChatBot';
-import RecentInstallations from '@/components/RecentInstallations';
 import FaqSection from '@/components/sections/FaqSection';
 
 export const metadata: Metadata = {
@@ -86,9 +85,7 @@ export default function Home() {
       />
       <main className="overflow-x-hidden">
         <ChatBot />
-        <div className="hidden md:block">
-          <RecentInstallations />
-        </div>
+       
         <HeroSection />
         <CityActionButtons />
         <ShowroomSection />

@@ -62,9 +62,9 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
             <Image 
               src="/images/logo.png" 
               alt="Logo MY OHM" 
-              width={120} 
-              height={40}
-              className="w-auto h-8"
+              width={150} 
+              height={70}
+              className="w-auto h-10 md:h-12"
             />
             <button
               onClick={onClose}

@@ -114,7 +114,7 @@ const bouchesdurhone: Department = {
     },
     "aix-en-provence": {
       name: "Aix-en-Provence",
-      code: "13001",
+      code: "13100",
       population: 143097,
       sunshineHours: 2800,
       description: "Expert certifié RGE en installation de panneaux solaires photovoltaïques à Aix-en-Provence. Profitez d'un ensoleillement exceptionnel de 2800h/an pour optimiser votre production électrique. Notre équipe d'artisans qualifiés assure l'installation complète, de l'étude à la mise en service. Bénéficiez des aides locales et d'une réduction jusqu'à 70% sur votre facture d'électricité grâce à l'autoconsommation solaire. Plus de 500 installations réalisées avec certification QualiPV et garantie décennale.",

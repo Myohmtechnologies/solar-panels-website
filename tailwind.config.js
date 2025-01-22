@@ -45,6 +45,14 @@ module.exports = {
         'gradient-contact': 'linear-gradient(to bottom right, #f2f6fa, #e3e9f0)',
         'gradient-footer': 'linear-gradient(to bottom right, #232323, #1a1a1a)',
       },
+      keyframes: {
+        shine: {
+          '100%': { transform: 'translateX(150%) skewX(-45deg)' },
+        }
+      },
+      animation: {
+        shine: 'shine 1s ease-in-out infinite',
+      },
       typography: {
         DEFAULT: {
           css: {

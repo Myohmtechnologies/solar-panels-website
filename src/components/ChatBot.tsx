@@ -20,36 +20,21 @@ interface Question {
 }
 
 const questions: Question[] = [
+   
     {
         id: 1,
-        text: "Bonjour, je suis Rudy votre conseiller en rénovation énergétique de My ohm technologies.",
-        showAvatar: true
-    },
-    {
-        id: 2,
-        text: "Vous envisagez de réaliser des travaux chez vous pour économiser sur vos factures d'énergie ? Vous êtes au bon endroit !",
-        showAvatar: true
-    },
-    {
-        id: 3,
-        text: "Ensemble nous allons faire le point sur vos besoins et je pourrais ensuite vous mettre en relation avec un professionnel de my ohm Technologies pour répondre de vive voix à toutes vos questions.\n\nVous habitez :",
+        text: "Bonjour, Vous envisagez de réaliser des travaux chez vous pour économiser sur vos factures d'énergie ? Vous êtes au bon endroit !",
         options: ["Une maison individuelle", "Un appartement"],
         showAvatar: true
     },
     {
-        id: 4,
-        text: "Quelle est la surface de votre domicile en m² ?",
-        inputType: 'number',
+        id: 2,
+        text: "Quel est le montant mensuel de votre facture d'électricité ?",
+        options: ["Entre 70€ et 160€", "Entre 160€ et 250€", "Entre 250€ et 500€"],
         showAvatar: true
     },
     {
-        id: 5,
-        text: "Quel type d'installation vous intéresse ?",
-        options: ["Panneaux solaires", "Borne de recharge IRVE", "Ballon thermodynamique"],
-        showAvatar: true
-    },
-    {
-        id: 6,
+        id: 3,
         text: "Pour finaliser votre demande et vous recontacter, merci de nous laisser vos coordonnées :",
         inputType: 'form',
         showAvatar: true,
@@ -80,6 +65,7 @@ export default function ChatBot() {
     const [shouldPulse, setShouldPulse] = useState(true);
     const [hasJoined, setHasJoined] = useState(false);
     const [waitingForResponse, setWaitingForResponse] = useState(false);
+    const [showChatButton, setShowChatButton] = useState(false);
     const startTime = useRef(Date.now());
     const lastMessageRef = useRef<HTMLDivElement>(null);
 
@@ -107,8 +93,25 @@ export default function ChatBot() {
         checkMobile();
         window.addEventListener('resize', checkMobile);
 
-        setIsOpen(!isMobile);
+        setIsOpen(false);
 
+        // Gestion du scroll pour mobile
+        const handleScroll = () => {
+            if (isMobile) {
+                const heroSection = document.querySelector('.hero-section');
+                if (heroSection) {
+                    const heroBottom = heroSection.getBoundingClientRect().bottom;
+                    setShowChatButton(heroBottom < 0);
+                }
+            } else {
+                setShowChatButton(true);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Vérification initiale
+
+        // Animation de pulse sur mobile
         if (isMobile) {
             const pulseInterval = setInterval(() => {
                 setShouldPulse(prev => !prev);
@@ -117,10 +120,14 @@ export default function ChatBot() {
             return () => {
                 clearInterval(pulseInterval);
                 window.removeEventListener('resize', checkMobile);
+                window.removeEventListener('scroll', handleScroll);
             };
         }
 
-        return () => window.removeEventListener('resize', checkMobile);
+        return () => {
+            window.removeEventListener('resize', checkMobile);
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, [isMobile]);
 
     useEffect(() => {
@@ -136,17 +143,6 @@ export default function ChatBot() {
             setTimeout(() => {
                 showNextMessage(questions[0].text).then(() => {
                     setCurrentQuestion(1);
-                    setTimeout(() => {
-                        showNextMessage(questions[1].text).then(() => {
-                            setCurrentQuestion(2);
-                            setTimeout(() => {
-                                showNextMessage(questions[2].text).then(() => {
-                                    setCurrentQuestion(3);
-                                    setWaitingForResponse(true);
-                                });
-                            }, TYPING_DELAY);
-                        });
-                    }, TYPING_DELAY);
                 });
             }, INITIAL_DELAY);
         }
@@ -212,9 +208,8 @@ export default function ChatBot() {
         
         // Track la soumission du formulaire
         trackChatbotEvent('form_submit', {
-            type_logement: userResponses[3],
-            surface: userResponses[4],
-            installation: userResponses[5],
+            type_logement: userResponses[1],
+            montant_facture: userResponses[2],
             time_spent: Date.now() - startTime.current
         });
 
@@ -233,7 +228,7 @@ export default function ChatBot() {
                     city: 'À compléter',
                     projectType: 'SOLAR_PANELS',
                     source: 'CHATBOT',
-                    notes: `Type de logement: ${userResponses[3]}\nSurface: ${userResponses[4]}m²\nType d'installation: ${userResponses[5]}`,
+                    notes: `Type de logement: ${userResponses[1]}\nMontant facture: ${userResponses[2]}`,
                 }),
             });
 
@@ -263,7 +258,7 @@ export default function ChatBot() {
     };
 
     if (!isOpen) {
-        return (
+        return showChatButton ? (
             <button 
                 onClick={() => setIsOpen(true)}
                 className={`fixed bottom-4 right-4 w-16 h-16 bg-gradient-solar rounded-full shadow-lg flex items-center justify-center transition-all duration-500 z-50 ${
@@ -279,7 +274,7 @@ export default function ChatBot() {
                     </svg>
                 </div>
             </button>
-        );
+        ) : null;
     }
 
     return (

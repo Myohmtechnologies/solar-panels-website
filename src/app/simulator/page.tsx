@@ -11,9 +11,8 @@ import { UserIcon, EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline';
 const STEPS = {
   PROPERTY_TYPE: 1,
   ENERGY_BILL: 2,
-  EQUIPMENT: 3,
-  CONTACT_INFO: 4
-};
+  CONTACT: 3,
+} as const;
 
 const ENERGY_BILL_RANGES = [
   { 
@@ -42,63 +41,6 @@ const ENERGY_BILL_RANGES = [
   },
 ];
 
-const EQUIPMENT_OPTIONS = [
-  {
-    id: 'heatpump',
-    label: 'Pompe à chaleur',
-    icon: '🌡️',
-    description: 'Chauffage et eau chaude',
-    power: '3 kW',
-    savings: '150€',
-    price: '800€'
-  },
-  {
-    id: 'ac',
-    label: 'Climatisation',
-    icon: '❄️',
-    description: 'Rafraîchissement en été',
-    power: '2 kW',
-    savings: '100€',
-    price: '600€'
-  },
-  {
-    id: 'airconditioner',
-    label: 'Air conditionné',
-    icon: '🌪️',
-    description: 'Climatisation fixe',
-    power: '4 kW',
-    savings: '200€',
-    price: '1000€'
-  },
-  {
-    id: 'evcharger',
-    label: 'Borne de recharge',
-    icon: '🔌',
-    description: 'Pour véhicule électrique',
-    power: '7 kW',
-    savings: '300€',
-    price: '1200€'
-  },
-  {
-    id: 'pool',
-    label: 'Piscine',
-    icon: '🏊‍♂️',
-    description: 'Filtration et chauffage',
-    power: '5 kW',
-    savings: '250€',
-    price: '900€'
-  },
-  {
-    id: 'electricheater',
-    label: 'Radiateurs électriques',
-    icon: '♨️',
-    description: 'Chauffage électrique',
-    power: '2 kW',
-    savings: '100€',
-    price: '500€'
-  }
-];
-
 // Validation des données
 const validateEmail = (email: string): boolean => {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -118,8 +60,7 @@ const StepProgressBar = ({ currentStep }: { currentStep: number }) => {
   const steps = [
     { id: STEPS.PROPERTY_TYPE, label: 'Type de propriété' },
     { id: STEPS.ENERGY_BILL, label: 'Facture d\'énergie' },
-    { id: STEPS.EQUIPMENT, label: 'Équipements' },
-    { id: STEPS.CONTACT_INFO, label: 'Coordonnées' }
+    { id: STEPS.CONTACT, label: 'Coordonnées' }
   ];
 
   return (
@@ -168,7 +109,6 @@ const SimulateurPage = () => {
     residentialStatus: "",
     ownershipType: "",
     logementType: "",
-    equipment: [] as string[],
     energyBill: "",
     name: "",
     email: "",
@@ -209,7 +149,7 @@ const SimulateurPage = () => {
   }, []);
 
   const handleStepChange = (newStep: number) => {
-    let stepName: 'property_type' | 'energy_bill' | 'equipment' | 'contact' = 'property_type';
+    let stepName: 'property_type' | 'energy_bill' | 'contact' = 'property_type';
     
     switch (newStep) {
       case STEPS.PROPERTY_TYPE:
@@ -218,16 +158,13 @@ const SimulateurPage = () => {
       case STEPS.ENERGY_BILL:
         stepName = 'energy_bill';
         break;
-      case STEPS.EQUIPMENT:
-        stepName = 'equipment';
-        break;
-      case STEPS.CONTACT_INFO:
+      case STEPS.CONTACT:
         stepName = 'contact';
         break;
     }
 
     simulatorEvents.stepView(stepName);
-    formEvents.formProgress('simulator', newStep, 4);
+    formEvents.formProgress('simulator', newStep, 3);
 
     setCurrentStep(newStep);
   };
@@ -238,29 +175,10 @@ const SimulateurPage = () => {
     handleStepChange(STEPS.ENERGY_BILL);
   };
 
-  const handleEquipmentSelect = (equipmentId: string) => {
-    setFormState(prev => {
-      const equipment = [...prev.equipment];
-      const index = equipment.indexOf(equipmentId);
-      if (index === -1) {
-        equipment.push(equipmentId);
-      } else {
-        equipment.splice(index, 1);
-      }
-      simulatorEvents.equipmentSelected(equipment);
-      return { ...prev, equipment };
-    });
-  };
-
-  const handleEquipmentNext = () => {
-    simulatorEvents.stepComplete('equipment', { equipment: formState.equipment });
-    handleStepChange(STEPS.CONTACT_INFO);
-  };
-
-  const handleEnergyBillSelect = (range: string) => {
-    simulatorEvents.stepComplete('energy_bill', { energy_bill: range });
-    setFormState(prev => ({ ...prev, energyBill: range }));
-    handleStepChange(STEPS.EQUIPMENT);
+  const handleEnergyBillSelect = (value: string) => {
+    simulatorEvents.stepComplete('energy_bill', { energy_bill: value });
+    setFormState(prev => ({ ...prev, energyBill: value }));
+    handleStepChange(STEPS.CONTACT);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -334,7 +252,6 @@ const SimulateurPage = () => {
         conversionEvents.simulatorConversion('complete', {
           property_type: formState.logementType,
           energy_bill: formState.energyBill,
-          equipment: formState.equipment
         });
 
         const formData = {
@@ -346,13 +263,11 @@ const SimulateurPage = () => {
           postalCode: formState.postalCode,
           residentialStatus: formState.residentialStatus || 'OWNER',
           logementType: formState.logementType,
-          equipment: formState.equipment,
           energyBill: formState.energyBill,
           source: 'simulator',
           projectType: 'SOLAR_PANELS',
           notes: JSON.stringify({
             logementType: formState.logementType,
-            equipment: formState.equipment,
             energyBill: formState.energyBill,
             address: formState.address,
             postalCode: formState.postalCode
@@ -424,8 +339,8 @@ const SimulateurPage = () => {
       <div className="flex flex-col lg:flex-row justify-between px-4 md:px-[10%] gap-8 lg:gap-16 pt-20">
         <div className="flex-1 max-w-2xl mx-auto w-full">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl md:text-3xl text-gray-900 font-semibold leading-snug">
-              Découvrez combien vous pouvez économiser avec l&apos;énergie solaire
+            <h1 className="text-2xl md:text-3xl lg:text-4xl text-gray-900 font-semibold leading-snug">
+              Estimation de votre projet solaire en 1 minute
             </h1>
             {currentStep > STEPS.PROPERTY_TYPE && (
               <button
@@ -453,9 +368,7 @@ const SimulateurPage = () => {
                 <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
                   Quel type de propriété ?
                 </h2>
-                <p className="text-gray-600 text-base mb-4">
-                  Sélectionnez le type de logement pour une estimation précise
-                </p>
+                
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -504,52 +417,41 @@ const SimulateurPage = () => {
           {currentStep === STEPS.ENERGY_BILL && (
             <div className="space-y-6">
               <div className="text-center mb-6">
-                <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
                   Quelle est votre facture d&apos;énergie ?
                 </h2>
-                <p className="text-gray-600 text-base mb-4">
-                  Sélectionnez votre tranche de consommation pour une estimation précise
-                </p>
+                
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {ENERGY_BILL_RANGES.map((range, index) => (
                   <button 
                     key={index}
                     onClick={() => handleEnergyBillSelect(range.value)}
-                    className="group bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg text-white rounded-3xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 w-full text-center hover:scale-[1.02]"
+                    className="group bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg text-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 w-full text-center hover:scale-[1.02]"
                   >
-                    <div className="flex flex-col items-center text-black justify-center space-y-3">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="flex items-center text-black justify-center space-x-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      <div className="w-full">
-                        <span className="font-semibold text-sm block mb-3">{range.label}</span>
-                        <div className="grid grid-cols-2 gap-2 text-sm">
-                          <div className="text-center">
-                            <p className="font-bold text-gray-900">Facture</p>
-                            <p className="font-medium text-gray-600">€{range.bill}/mois</p>
-                          </div>
-                          <div className="text-center">
-                            <p className="font-bold text-green-600">+{range.savings}</p>
-                           
-                          </div>
-                        </div>
+                      <div className="text-left">
+                        <span className="font-semibold text-lg md:text-xl block mb-1">{range.label}</span>
+                        <span className="text-base md:text-lg text-gray-700">soit {range.annual}</span>
                       </div>
                     </div>
                   </button>
                 ))}
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-600 text-sm mt-4">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-600 text-base mt-6">
                 <span className="flex items-center">
-                  <svg className="w-4 h-4 text-AFC97E mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 text-AFC97E mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   Calcul précis
                 </span>
                 <span className="flex items-center">
-                  <svg className="w-4 h-4 text-AFC97E mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 text-AFC97E mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   Personnalisé
@@ -558,93 +460,7 @@ const SimulateurPage = () => {
             </div>
           )}
 
-          {currentStep === STEPS.EQUIPMENT && (
-            <div className="space-y-6">
-              <div className="text-center mb-6">
-                <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                  Quels équipements souhaitez-vous installer ?
-                </h2>
-                <p className="text-gray-600 text-base mb-4">
-                  Sélectionnez les équipements adaptés à votre logement
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {EQUIPMENT_OPTIONS.map((equipment) => (
-                  <button
-                    key={equipment.id}
-                    onClick={() => handleEquipmentSelect(equipment.id)}
-                    className={`group bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg text-white rounded-3xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 w-full text-center hover:scale-[1.02] ${
-                      formState.equipment.includes(equipment.id) 
-                        ? 'border-4 border-green-500' 
-                        : ''
-                    }`}
-                  >
-                    <div className="flex items-center text-black justify-center space-x-3">
-                      <div className="text-2xl mr-3">{equipment.icon}</div>
-                      <div className="flex-1 text-left">
-                        <span className="font-semibold block mb-3">{equipment.label}</span>
-                        <p className="text-xs text-gray-600 mb-4">{equipment.description}</p>
-                        <div className="grid grid-cols-3 gap-4 text-xs">
-                          <div className="text-center">
-                            <p className="font-bold text-gray-900 text-[11px]">Puissance</p>
-                            <p className="font-medium text-gray-600 text-[11px]">{equipment.power}</p>
-                          </div>
-                          <div className="text-center">
-                            <p className="font-bold text-green-600 text-[11px]">+{equipment.savings}</p>
-                          </div>
-                          <div className="text-center">
-                            <p className="font-bold text-black text-[11px]">{equipment.price}</p>
-                            <p className="font-medium text-gray-600 text-[11px]">TTC</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                        formState.equipment.includes(equipment.id)
-                          ? 'border-green-500 bg-green-500'
-                          : 'border-gray-300'
-                      }`}>
-                        {formState.equipment.includes(equipment.id) && (
-                          <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                        )}
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-600 text-sm mt-4">
-                <span className="flex items-center">
-                  <svg className="w-4 h-4 text-AFC97E mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Personnalisable
-                </span>
-                <span className="flex items-center">
-                  <svg className="w-4 h-4 text-AFC97E mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  Installation incluse
-                </span>
-              </div>
-
-              <div className="mt-6 text-center">
-                <button 
-                  onClick={handleEquipmentNext}
-                  disabled={formState.equipment.length === 0}
-                  className={`w-full bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-semibold py-3 px-6 rounded-3xl hover:opacity-90 transition-opacity mb-8`}
-                >
-                  Continuer
-                </button>
-              </div>
-
-              <div className="mb-16"></div>
-            </div>
-          )}
-
-          {currentStep === STEPS.CONTACT_INFO && (
+          {currentStep === STEPS.CONTACT && (
             <form 
               onSubmit={handleSubmit} 
               className="bg-white p-8 rounded-2xl shadow-lg space-y-6"

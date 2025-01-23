@@ -16,8 +16,8 @@ import ChatBot from '@/components/ChatBot';
 import FaqSection from '@/components/sections/FaqSection';
 
 export const metadata: Metadata = {
-  title: 'My Ohm - Installations de Panneaux Solaires | Économies d\'Énergie',
-  description: 'Découvrez My Ohm, votre expert en installations de panneaux photovoltaïques. Simulez vos économies d\'énergie, bénéficiez de solutions sur mesure dans les Alpes de Haute-Provence et toute la région PACA.',
+  title: 'Installations de Panneaux Solaires RGE| installateurs photovoltaiques',
+  description: 'Découvrez votre expert en installations de panneaux photovoltaïques. Simulez vos économies d\'énergie, bénéficiez de solutions sur mesure dans les Alpes de Haute-Provence et toute la région PACA.',
   keywords: [
     'installations panneaux solaires', 
     'installations de panneaux photovoltaïques', 

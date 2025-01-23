@@ -42,12 +42,23 @@ export default function MerciPage() {
     // Track final conversion
     trackConversion('thank_you_page', 100);
     
-    // Track Google Ads conversion specifically
-    if (window.gtag) {
+    // Track Google Ads conversion
+    if (typeof window !== 'undefined' && window.gtag) {
+      // Track GA4 conversion event
       window.gtag('event', 'conversion', {
-        'send_to': 'AW-16817660787/[conversion_label]',
+        'send_to': 'G-ET19PN3YHF',
+        'event_category': 'lead',
+        'event_label': 'simulator_complete',
         'value': 100.0,
         'currency': 'EUR'
+      });
+
+      // Track Google Ads conversion
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-16817660787/CL_7CKqY9IQZEO_Ej6Qp',  // Ajout du label de conversion
+        'value': 100.0,
+        'currency': 'EUR',
+        'transaction_id': new Date().getTime().toString()
       });
     }
 

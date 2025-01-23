@@ -178,7 +178,7 @@ const HeroSection = () => {
       )}
 
       {/* Contenu principal */}
-      <section data-section="city-hero" className="hero-section relative min-h-[85vh] md:min-h-screen w-full bg-gradient-to-br from-white to-gray-100">
+      <section data-section="city-hero" className="hero-section relative min-h-[70vh] md:min-h-screen w-full bg-gradient-to-br from-white to-gray-100">
         {/* Vidéo de fond */}
         <div className='relative h-[50vh] md:h-screen min-h-[400px] w-full overflow-hidden'>
           <div className="absolute inset-0 overflow-hidden">

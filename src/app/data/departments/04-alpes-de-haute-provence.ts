@@ -77,16 +77,44 @@ const alpesDeHauteProvence: Department = {
         },
         faqSchema: [
           {
-            question: "Quel est le coût d'une installation solaire à Manosque ?",
-            answer: "Le coût moyen d'une installation solaire à Manosque varie entre 8000€ et 15000€. Les aides régionales PACA et départementales peuvent réduire ce coût jusqu'à 50%."
+            question: "Pourquoi installer des panneaux solaires à Manosque ?",
+            answer: "Manosque, située dans les Alpes de Haute-Provence, bénéficie d'un ensoleillement exceptionnel, ce qui en fait un lieu idéal pour une installation photovoltaïque. Les panneaux solaires permettent de produire de l'électricité propre et renouvelable, réduisant ainsi vos factures énergétiques tout en contribuant à la transition énergétique."
           },
           {
-            question: "Quel est le potentiel solaire à Manosque ?",
-            answer: "Manosque bénéficie d'un potentiel solaire exceptionnel avec 2800 heures d'ensoleillement par an et un rendement moyen de 1350 kWh/kWc/an, ce qui en fait un lieu idéal pour l'installation de panneaux solaires."
+            question: "Quel est le coût d'une installation de panneaux solaires à Manosque ?",
+            answer: "Le coût d'une installation dépend de nombreux facteurs : la puissance installée (en kWh), le type de panneaux (photovoltaïques ou thermiques), et les besoins spécifiques de votre maison. Notre entreprise RGE propose des devis gratuits et des estimations précises pour un budget adapté à chaque projet."
           },
           {
-            question: "Quelles sont les aides disponibles à Manosque ?",
-            answer: "À Manosque, vous pouvez bénéficier des aides nationales (MaPrimeRénov'), régionales PACA, et départementales. Les économies peuvent atteindre jusqu'à 7500€ sur votre installation."
+            question: "Quels sont les avantages des panneaux solaires ?",
+            answer: "Les panneaux solaires offrent plusieurs avantages : Réduction significative de vos factures d'électricité, rentabilité durable grâce à l'autoconsommation et au surplus d'électricité vendu, réduction de l'empreinte carbone grâce à l'énergie renouvelable, valorisation de votre maison en augmentant sa valeur à long terme."
+          },
+          {
+            question: "Quels types de panneaux solaires sont disponibles ?",
+            answer: "Nous proposons différents types de panneaux adaptés aux besoins de nos clients : Panneaux photovoltaïques pour produire de l'électricité, panneaux solaires thermiques pour chauffer l'eau ou alimenter un circuit de chauffage, systèmes hybrides combinant production électrique et chaleur."
+          },
+          {
+            question: "Comment se déroule une installation de panneaux solaires à Manosque ?",
+            answer: "L'installation suit plusieurs étapes : Étude de votre toiture et de votre consommation énergétique, pose des panneaux par une équipe d'experts qualifiés, raccordement au réseau électrique et mise en service, maintenance et suivi pour garantir des performances optimales sur le long terme."
+          },
+          {
+            question: "Quelles aides sont disponibles pour une installation solaire ?",
+            answer: "À Manosque, vous pouvez bénéficier d'aides financières telles que : MaPrimeRénov' pour la rénovation énergétique, les aides locales dans les Alpes de Haute-Provence, les primes à l'autoconsommation et le tarif de rachat pour le surplus d'électricité produite."
+          },
+          {
+            question: "Combien d'électricité produit un système solaire à Manosque ?",
+            answer: "La production dépend de la puissance installée et des conditions locales. À Manosque, l'ensoleillement permet une production photovoltaïque élevée, maximisant la rentabilité de votre installation. Par exemple, un système de 3 kWh peut produire en moyenne 4 000 kWh par an."
+          },
+          {
+            question: "Quels services propose votre entreprise à Manosque ?",
+            answer: "Nous proposons une large gamme de services : Installation de panneaux photovoltaïques et thermiques, entretien et maintenance des panneaux solaires, réparation et dépannage de panneaux, audit énergétique et rénovation globale, mise en conformité des installations existantes."
+          },
+          {
+            question: "Pourquoi choisir une entreprise certifiée RGE à Manosque ?",
+            answer: "Faire appel à une entreprise RGE garantit des travaux réalisés selon les normes, une qualité optimale, et l'accès à des aides financières. Nos installateurs certifiés RGE à Manosque assurent un suivi personnalisé pour chaque projet."
+          },
+          {
+            question: "Comment choisir les panneaux solaires adaptés à votre maison ?",
+            answer: "Le choix des panneaux dépend de la configuration de votre toit, de vos besoins en électricité et de votre budget. Nous réalisons une analyse sur mesure pour vous proposer la meilleure solution en termes de rendement, durabilité et coût."
           }
         ],
         images: [
@@ -102,6 +130,41 @@ const alpesDeHauteProvence: Department = {
             height: 600,
             alt: "Réalisations panneaux solaires Manosque"
           }
+        ]
+      },
+      realisationsNew: [
+        {
+          _id: "manosque1",
+          title: "Nos réalisations de panneaux solaires à Manosque",
+          description: "Installation de panneaux solaires à Manosque certifiée RGE",
+          mainImage: '/images/installateur-rge-panneaux-solaire-manosque.jpg',
+          secondaryImage: '/images/installateur-rge-panneaux-solaire-manosque.jpg',
+          date: "2024-01-20",
+          city: "Manosque",
+          type: "Résidentiel",
+          year: 2024,
+          specifications: {
+            puissance: 5.4,
+            pannels: 14,
+            surface: 28,
+            economie: 920
+          }
+        },
+       
+      ],
+      seoContent: {
+        title: "Tout ce qu'il faut savoir sur l'installation photovoltaïque et les solutions énergétiques modernes",
+        paragraphs: [
+          "Les panneaux photovoltaïques sont devenus une solution incontournable pour réduire ses factures énergétiques tout en adoptant une démarche respectueuse de l'environnement. Grâce à l'expertise des entreprises spécialisées, il est désormais simple et rentable de passer à une énergie verte et propre. Ces installations permettent de produire de l'électricité renouvelable directement depuis le toit de votre maison, tout en bénéficiant d'un fonctionnement garanti et optimisé pour plusieurs décennies.",
+          "Installer des panneaux photovoltaïques sur votre toit représente un investissement qui permet de réaliser des économies significatives sur vos factures. Les modules de dernière génération, conçus avec des technologies avancées, garantissent un rendement élevé et une durabilité optimale. Par exemple, le surplus d'électricité produit peut être stocké ou revendu au réseau, ce qui maximise la rentabilité de votre installation.",
+          "En parallèle, les solutions solaires thermodynamiques, telles que les chauffe-eaux solaires et les pompes à chaleur, offrent une alternative efficace pour produire de l'eau chaude sanitaire ou alimenter un circuit de climatisation et de chauffage. Ces systèmes combinent efficacité énergétique et réduction d'empreinte carbone, tout en répondant aux besoins spécifiques des particuliers et des professionnels.",
+          "Que ce soit pour une maison individuelle ou une industrie, les entreprises spécialisées, comme ADL Tech Industrie, accompagnent les clients dans toutes les étapes de leur projet. Cela inclut la pose de panneaux photovoltaïques, l'isolation thermique, ou encore la mise en conformité d'une installation électrique. Une estimation précise est réalisée en amont pour garantir un budget maîtrisé et des résultats en adéquation avec les attentes.",
+          "Les services d'installation de panneaux photovoltaïques incluent également l'entretien et le dépannage. Cela garantit une performance optimale tout au long de la durée de vie du système. Par exemple, un dépannage rapide en cas de panne sur un panneau solaire thermique ou une pompe à chaleur est assuré par des experts locaux qualifiés. De plus, des solutions innovantes, comme les systèmes de recharge pour véhicules électriques, s'intègrent parfaitement dans cette démarche énergétique globale.",
+          "Les entreprises spécialisées, reconnues pour leur réputation et leur expertise, accompagnent leurs clients à chaque étape : Étude et conception du projet avec analyse de la faisabilité technique, pose et mise en service selon les normes en vigueur, et entretien régulier pour garantir le bon fonctionnement à long terme.",
+          "En plus de réduire les factures, les panneaux photovoltaïques contribuent à la réduction des gaz à effet de serre. L'utilisation d'une énergie propre, comme celle produite par les panneaux solaires thermiques ou les systèmes photovoltaïques, est un atout majeur pour lutter contre le changement climatique. L'intégration de technologies telles que le stockage de l'énergie et les pompes à chaleur permet également d'optimiser l'efficacité énergétique.",
+          "Faire appel à des installateurs certifiés RGE est essentiel pour garantir la qualité des travaux. Ces professionnels possèdent les compétences nécessaires pour intervenir sur différents modèles de panneaux et de systèmes solaires. Le respect des normes est également un point clé, notamment pour la mise en conformité d'une installation existante ou le dépannage d'un système solaire thermodynamique.",
+          "Les entreprises proposent également des services complémentaires comme la pose de carrelage et travaux d'isolation thermique, la recherche de fuite et dépannage de chaudières, ainsi que la planification et réalisation de rénovations globales pour maximiser les économies d'énergie.",
+          "En conclusion, investir dans le photovoltaïque ou les solutions solaires thermiques est un choix judicieux, tant pour les particuliers que pour les professionnels. Ces systèmes, garantis pour leur longévité et leur performance, permettent de réaliser des économies significatives tout en respectant l'environnement. Avec des produits de qualité, des garanties solides, et une expertise reconnue, l'installation de panneaux solaires représente une opportunité durable et rentable. Contactez une société de confiance pour bénéficier de conseils personnalisés et d'un service complet."
         ]
       },
       solarInstallation: defaultSolarInstallation
@@ -194,7 +257,7 @@ const alpesDeHauteProvence: Department = {
       ],
       seo: {
         title: "Valensole : installation solaire pour particuliers et professionnels",
-        metaDescription: "Découvrez les avantages de l'installation solaire à Valensole. Économisez sur votre facture d'électricité et contribuez à la transition énergétique.",
+        metaDescription: "Découvrez les avantages de l'installation solaire à Valensole. ✦ Expert installation solaire ✦ Économisez sur votre facture d'électricité et contribuez à la transition énergétique.",
         keywords: ["installation solaire", "Valensole", "énergie renouvelable", "économies d'énergie"],
         images: [
           {

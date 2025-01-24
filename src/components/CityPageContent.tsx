@@ -24,6 +24,7 @@ import CityRegulations from '@/components/sections/CityRegulations';
 import { BuildingLibraryIcon, DocumentCheckIcon, ShieldCheckIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import RealisationCityInstallNew from '@/components/sections/RealisationCityInstallNew';
 import CitySeoContent from '@/components/sections/CitySeoContent';
+import CitySchemaMarkup from '@/components/CitySchemaMarkup';
 
 interface CityPageContentProps {
   cityData: City;
@@ -34,6 +35,7 @@ interface CityPageContentProps {
 export default function CityPageContent({ cityData, departmentName, cities }: CityPageContentProps) {
   return (
     <main className="bg-white">
+      <CitySchemaMarkup cityData={cityData} departmentName={departmentName} />
       <CityActionButtons />
       
       {/* Section Hero */}

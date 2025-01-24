@@ -51,6 +51,7 @@ const bouchesdurhone: Department = {
         metaDescription: "✓ Installation de panneaux solaires à Marseille par un installateur certifié RGE. 2800h d'ensoleillement/an, devis gratuit !",
         keywords: [
           "panneaux solaires marseille",
+          "entreprise Panneaux solaire marseille",
           "installation panneaux solaires marseille",
           "installateur panneaux solaires marseille",
           "aide panneaux solaires marseille",

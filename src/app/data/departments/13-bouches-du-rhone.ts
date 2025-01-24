@@ -118,7 +118,7 @@ const bouchesdurhone: Department = {
           },
           {
             question: "Est-il rentable d'installer un kit solaire ?",
-            answer: "Oui, un kit solaire est une solution rentable à long terme, particulièrement à Marseille grâce à l'ensoleillement. En plus de réduire vos factures d'électricité, vous pouvez revendre le surplus d'électricité produite au réseau électrique ou l'utiliser pour alimenter une batterie de stockage."
+            answer: "Oui, un kit solaire est une solution rentable à long terme, particulièrement à Marseille grâce à l'ensoleillement. En plus de réduire vos factures d'électricité, vous pouvez revendre le surplus d'énergie produite au réseau électrique ou l'utiliser pour alimenter une batterie de stockage."
           },
           {
             question: "Comment se déroule l'installation de panneaux solaires ?",
@@ -136,6 +136,55 @@ const bouchesdurhone: Department = {
             question: "Comment le solaire contribue-t-il au développement durable ?",
             answer: "L'électricité produite par les panneaux solaires est une énergie propre et verte, réduisant l'empreinte carbone et les émissions de gaz à effet de serre. Installer des panneaux solaires participe à la transition énergétique et au développement durable tout en diminuant vos dépenses énergétiques."
           }
+        ]
+      },
+      realisationsNew: [
+        {
+          _id: "marseille1",
+          title: "Nos réalisations de panneaux solaires à Marseille",
+          description: "Installation de panneaux solaires à Marseille certifiée RGE",
+          mainImage: '/images/installateur-de-panneaux-photovoltaiques-marseille.jpeg',
+          secondaryImage: '/images/installateur-rge-panneaux-solaire-marseille.jpeg',
+          date: "2024-01-10",
+          city: "Marseille",
+          type: "Résidentiel",
+          year: 2024,
+          specifications: {
+            puissance: 6.2,
+            pannels: 16,
+            surface: 32,
+            economie: 1100
+          }
+        },
+        {
+          _id: "marseille2",
+          title: "Nos réalisations de panneaux solaires à Marseille",
+          description: "Installation de panneaux photovoltaiques à Marseille",
+          mainImage: '/images/installation-de-panneaux-solaire-marseille.jpeg',
+          secondaryImage: '/images/realisation-panneaux-solaire-marseille.jpeg',
+          date: "2023-12-15",
+          city: "Marseille",
+          type: "Résidentiel",
+          year: 2023,
+          specifications: {
+            puissance: 8.4,
+            pannels: 24,
+            surface: 48,
+            economie: 1450
+          }
+        }
+      ],
+      seoContent: {
+        title: "Tout savoir sur l'installation de panneaux solaires à Marseille et dans les Bouches-du-Rhône",
+        paragraphs: [
+          "Installer un panneau solaire sur votre toit est une démarche simple et efficace pour profiter de l'ensoleillement exceptionnel de la région des Bouches-du-Rhône. Grâce à une installation de panneau solaire adaptée, vous pouvez transformer l'énergie solaire en électricité photovoltaïque pour votre maison. Cette solution d'autoconsommation permet de réduire vos factures d'électricité tout en contribuant à la transition énergétique. Les particuliers peuvent également revendre le surplus de production électrique directement à EDF, générant ainsi un revenu supplémentaire.",
+          "Avec une démarche bien réalisée, l'installation de panneaux solaires peut être éligible à des aides financières, telles que MaPrimeRénov' ou d'autres dispositifs disponibles au niveau national et local. Ces subventions réduisent le montant total de l'investissement, rendant cette solution encore plus accessible. De plus, les installateurs certifiés RGE (Reconnu Garant de l'Environnement) vous permettent de bénéficier de ces aides tout en garantissant une qualité optimale de la pose.",
+          "Le déroulement de l'installation d'une centrale photovoltaïque suit plusieurs étapes importantes. Tout commence par une étude technique de votre toiture pour déterminer le type de panneau solaire le plus adapté à votre maison. Les technologies modernes, comme les modules utilisant la technologie TopCon, assurent une production électrique maximale. Une fois les panneaux installés, la mise en service est réalisée pour vérifier la production d'électricité solaire et connecter votre installation au réseau électrique, si nécessaire.",
+          "En plus de l'électricité photovoltaïque, il est possible d'installer des systèmes de stockage d'énergie pour maximiser votre autoconsommation. Ces batteries permettent de conserver l'énergie produite pendant la journée pour une utilisation aux heures où le soleil ne brille pas. Cette solution est particulièrement avantageuse dans les régions ensoleillées comme Marseille, où l'énergie produite peut facilement couvrir les besoins d'une maison sur 24 heures.",
+          "Pour ceux qui souhaitent aller encore plus loin dans la transition énergétique, le solaire thermique est une excellente option. Il utilise l'énergie solaire pour chauffer de l'eau, ce qui est particulièrement utile pour réduire la consommation d'énergie liée au chauffage et à l'eau chaude sanitaire. En combinant solaire thermique et photovoltaïque, vous pouvez optimiser l'utilisation de votre toiture et profiter des nombreux avantages de l'énergie solaire.",
+          "En termes de coûts, le montant de l'installation dépend de plusieurs facteurs : la puissance installée, la taille des panneaux, le type de technologie (monocristallin ou polycristallin), et la présence ou non d'un système de stockage. Toutefois, grâce aux aides financières disponibles et à l'autoconsommation, cet investissement devient rapidement rentable. Les particuliers ayant franchi le pas témoignent souvent d'une expérience positive, avec des avis élogieux sur la simplicité du processus et la fiabilité des produits.",
+          "Choisir un installateur certifié RGE est essentiel pour garantir une installation conforme aux normes. Avec une assurance incluse, un service après-vente de qualité, et des panneaux solaires conçus pour durer, vous bénéficiez d'une tranquillité d'esprit totale. De plus, l'assistance inclut des recours en cas de problème, pour une expérience sans souci.",
+          "En conclusion, une installation de panneau solaire à Marseille offre une opportunité exceptionnelle de produire une énergie propre et de réaliser des économies tout en participant au développement durable. Avec des dispositifs financiers comme MaPrimeRénov', des produits de qualité, et un ensoleillement optimal, il est temps de profiter pleinement des avantages de l'énergie solaire."
         ]
       },
       solarInstallation: defaultSolarInstallation

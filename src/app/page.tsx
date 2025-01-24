@@ -87,11 +87,12 @@ export default function Home() {
         <ChatBot />
        
         <HeroSection />
+        <ClientTestimonialsSection />
         <CityActionButtons />
         <ShowroomSection />
        
         <SolarBenefitsSection />
-        <ClientTestimonialsSection />
+        
         <CaseStudySection />
         <SolarPanelSection />
         <SolarInstallationStepsSection />

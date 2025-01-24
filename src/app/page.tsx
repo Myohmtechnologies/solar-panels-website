@@ -14,6 +14,7 @@ import RegionMapSection from '@/components/sections/RegionMapSection';
 import CityActionButtons from '@/components/sections/CityActionButtons';
 import ChatBot from '@/components/ChatBot';
 import FaqSection from '@/components/sections/FaqSection';
+import HomeSchemaMarkup from '@/components/HomeSchemaMarkup';
 
 export const metadata: Metadata = {
   title: 'Installations de Panneaux Solaires RGE| installateurs photovoltaiques',
@@ -88,6 +89,7 @@ export default function Home() {
        
         <HeroSection />
         <ClientTestimonialsSection />
+        <HomeSchemaMarkup />
         <CityActionButtons />
         <ShowroomSection />
        

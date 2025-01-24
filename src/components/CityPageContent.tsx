@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { City } from '@/app/data/types';
+import { City, Department } from '@/types';
 import CityHero from '@/components/sections/CityHero';
 import CitySolarAdvantages from '@/components/sections/CitySolarAdvantages';
 import ContactCTASection from '@/components/sections/ContactCTASection';
@@ -19,10 +19,11 @@ import ElectricityPriceChart from '@/components/ElectricityPriceChart';
 import NearbyTownsSection from './sections/NearbyTownsSection';
 import PrixInstallation from '@/components/PrixInstallation';
 import { CheckIcon } from '@heroicons/react/24/outline';
-import { Department } from '@/app/data/types';
 import CityActionButtons from './sections/CityActionButtons';
 import CityRegulations from '@/components/sections/CityRegulations';
 import { BuildingLibraryIcon, DocumentCheckIcon, ShieldCheckIcon, MapPinIcon } from '@heroicons/react/24/outline';
+import RealisationCityInstallNew from '@/components/sections/RealisationCityInstallNew';
+import CitySeoContent from '@/components/sections/CitySeoContent';
 
 interface CityPageContentProps {
   cityData: City;
@@ -51,6 +52,11 @@ export default function CityPageContent({ cityData, departmentName, cities }: Ci
         cityName={cityData.name}
         advantages={cityData.solarAdvantages}
       />
+
+      {/* Section Réalisations */}
+      {cityData.realisationsNew && cityData.realisationsNew.length > 0 && (
+        <RealisationCityInstallNew realisations={cityData.realisationsNew} />
+      )}
 
       {/* Section Prix des Installations */}
       <PrixInstallation cityName={cityData.name} />
@@ -134,6 +140,16 @@ export default function CityPageContent({ cityData, departmentName, cities }: Ci
       {cityData.seo?.faqSchema && cityData.seo.faqSchema.length > 0 && (
         <CityFAQ faqItems={cityData.seo.faqSchema} cityName={cityData.name} />
       )}
+
+      {/* Section SEO Content */}
+      <CitySeoContent 
+        cityName={cityData.name}
+        seoContent={cityData.seoContent}
+      />
+
+      {/* Section Contact */}
+      <ContactCTASection />
+
       {/* Section Statistiques */}
       {cityData.localStatistics && (
         <LocalStatistics 
@@ -156,9 +172,6 @@ export default function CityPageContent({ cityData, departmentName, cities }: Ci
         cities={cities}
         departmentSlug={departmentName}
       />
-
-      {/* Section CTA Contact */}
-      <ContactCTASection />
     </main>
   );
 }

@@ -144,26 +144,63 @@ const bouchesdurhone: Department = {
           }
         ]
       },
+      realisationsNew: [
+        {
+          _id: "aix1",
+          title: "Nos réalisations de panneaux solaires à Aix-en-Provence",
+          description: "Installation de panneaux solaires à Aix-en-Provence certifiée RGE",
+          mainImage: '/images/installateur-de-panneaux-photovoltaiques-aix-en-provence.jpeg',
+          secondaryImage: '/images/installateur-rge-panneaux-solaire.jpeg',
+          date: "2024-01-15",
+          region: "PACA",
+          city: "Aix-en-Provence",
+          type: "Résidentiel",
+          year: 2024,
+          specifications: {
+            puissance: 4.2,
+            pannels: 12,
+            surface: 24,
+            economie: 850,
+        
+          }
+        },
+        {
+          _id: "aix2",
+          title: "Nos réalisations de panneaux solaires à Aix-en-Provence",
+          description: "Installation de panneaux photovoltaiques",
+          mainImage: '/images/installation-de-panneaux-solaire-aix-en-provence.jpeg',
+          secondaryImage: '/images/realisation-panneaux-solaire-aix-en-provence.jpeg',
+          date: "2023-12-20",
+          region: "PACA",
+          city: "Aix-en-Provence",
+          type: "Résidentiel",
+          year: 2023,
+          specifications: {
+            puissance: 9.6,
+            pannels: 28,
+            surface: 56,
+            economie: 2100
+          }
+        }
+      ],
       solarAdvantages: [
-        "Ensoleillement méditerranéen optimal avec 2800h/an",
-        "Installation par des experts certifiés RGE",
-        "Accompagnement personnalisé de A à Z",
-        "Garantie décennale et suivi de production",
-        "Aides locales et régionales avantageuses",
-        "Retour sur investissement optimisé"
+        "Ensoleillement méditerranéen optimal",
+        "Position géographique privilégiée",
+        "Climat favorable toute l'année",
+        "Fort potentiel de production"
       ],
       keyPoints: [
-        "Installation sur mesure par des experts RGE",
-        "Expertise locale reconnue depuis 10 ans",
-        "Aides régionales attractives jusqu'à 8000€",
-        "Service après-vente premium"
+        "Installation sur mesure adaptée à Aix-en-Provence",
+        "Expertise locale reconnue",
+        "Aides régionales attractives",
+        "Service après-vente réactif"
       ],
       reviews: [
         {
           author: "Laurent P.",
           rating: 5,
           date: "2023-12-18",
-          comment: "Installation de panneaux solaires impeccable par cette équipe RGE. Très professionnel du début à la fin, je recommande !",
+          comment: "Installation impeccable, équipe très professionnelle. Production optimale grâce à l'excellent ensoleillement.",
           location: "Aix Centre"
         },
         {
@@ -176,7 +213,7 @@ const bouchesdurhone: Department = {
       ],
       seo: {
         title: "Installation Panneaux Solaires Photovoltaïques à Aix-en-Provence | Expert RGE",
-        metaDescription: "✓ Installation de panneaux solaires et systèmes photovoltaïques à Aix-en-Provence. Production électrique optimale avec 2800h d'ensoleillement/an. Profitez des aides locales et réduisez votre empreinte carbone. Devis gratuit par un artisan RGE.",
+        metaDescription: "✓ Installation de panneaux solaires et systèmes photovoltaïques à Aix-en-Provence. Production électrique optimale avec 2800h d'ensoleillement/an. Profitez des aides locales ! Devis gratuit.",
         keywords: [
           "installation photovoltaïque Aix-en-Provence",
           "panneaux solaires Bouches du Rhône",
@@ -254,6 +291,20 @@ const bouchesdurhone: Department = {
             answer:"Aix-en-Provence est une ville idéale pour une installation solaire :Un ensoleillement important, parfait pour maximiser la puissance moyenne de vos panneaux.Des installateurs expérimentés proposant des devis gratuits et des solutions adaptées.De nombreuses aides financières, comme l’éco-prêt et la réduction d’impôt.Avec des équipements bien choisis, l’investissement devient rentable rapidement."
           }
 
+        ]
+      },
+      seoContent: {
+        title: "Installer des panneaux solaires à Aix-en-Provence : une solution rentable et durable",
+        paragraphs: [
+          "L'installation de panneaux solaires sur votre toiture représente une avancée significative dans la transition énergétique. En optant pour cette solution, vous transformez votre bâtiment en une source de production photovoltaïque propre et rentable, tout en bénéficiant d'un impact environnemental réduit. Que vous soyez un particulier ou une entreprise située à Aix-en-Provence ou dans les alentours, nous vous proposons des solutions adaptées à vos besoins.",
+          "Notre entreprise, réputée pour son expertise dans le secteur des panneaux solaires, intervient dans les Bouches-du-Rhône, y compris Marseille et l'ouest du département. Avec des installateurs certifiés, nous garantissons une pose de panneaux conforme aux normes, maximisant la performance et la longévité de votre installation.",
+          "Les panneaux solaires, composés de modules photovoltaïques, captent l'énergie du soleil pour produire de l'électricité propre. Cette électricité produite peut être utilisée en autoconsommation, permettant ainsi une économie sur votre facture pouvant aller jusqu'à 70%. Avec un tarif du marché de l'électricité en constante augmentation, installer des panneaux solaires est une solution rentable sur le long terme.",
+          "En installant des panneaux solaires, vous pouvez également bénéficier d'aides financières comme l'éco-prêt ou des subventions locales, rendant ce projet encore plus accessible. De plus, EDF propose des solutions solaires adaptées aux besoins des clients particuliers et professionnels.",
+          "Notre entreprise privilégie la proximité avec ses clients afin de garantir un service personnalisé et rapide. Nous disposons d'une équipe d'experts prêts à intervenir sur votre toiture ou sur le sol pour installer des panneaux solaires à Aix-en-Provence et dans les alentours. Nous assurons également la maintenance et l'entretien de vos installations pour garantir leur performance optimale sur le long terme.",
+          "En choisissant nos services, vous bénéficiez d'un accompagnement complet, de la conception de votre projet à sa réalisation. Nous analysons votre toiture et vos besoins en électricité pour déterminer la meilleure solution : modules photovoltaïques adaptés, production en kWc et optimisation de la place disponible.",
+          "Opter pour des panneaux solaires, c'est aussi participer activement à la transition énergétique. En réduisant votre dépendance aux énergies fossiles et en produisant votre propre électricité, vous contribuez à diminuer l'impact environnemental. De plus, les économies réalisées permettent de libérer du budget pour d'autres projets, tout en augmentant la valeur de votre bâtiment.",
+          "Avec de nombreux avis positifs et une solide réputation dans le secteur, notre entreprise est reconnue pour la qualité de ses services et la satisfaction de ses clients. Que vous souhaitiez installer des panneaux solaires sur votre toiture à Aix-en-Provence, poser un panneau multi-énergies ou envisager un parc solaire plus grand, nous sommes à votre disposition pour vous accompagner dans ce projet.",
+          "En conclusion, l'installation de panneaux solaires représente une solution idéale pour profiter de la chaleur du soleil, réduire vos coûts énergétiques et contribuer à un avenir durable. Contactez-nous dès aujourd'hui pour bénéficier d'un devis gratuit et personnalisé !"
         ]
       },
       solarInstallation: defaultSolarInstallation

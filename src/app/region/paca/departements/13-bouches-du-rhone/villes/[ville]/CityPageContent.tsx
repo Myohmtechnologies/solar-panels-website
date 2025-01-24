@@ -7,6 +7,8 @@ import ContactCTASection from '@/components/sections/ContactCTASection';
 import ElectricityPriceChart from '@/components/ElectricityPriceChart';
 import SolarSimulator from '@/components/sections/SolarSimulator';
 import CityRealisations from '@/components/CityRealisations';
+import RealisationCityInstall from '@/components/sections/RealisationCityInstall';
+import RealisationCityInstallNew from '@/components/sections/RealisationCityInstallNew';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { BuildingLibraryIcon, DocumentCheckIcon, ShieldCheckIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import { City } from '@/types';
@@ -51,7 +53,16 @@ export default function CityPageContent({ cityData, departmentName }: CityPageCo
 
       {/* Realisations Section */}
       {cityData.realisations && (
-        <CityRealisations realisations={cityData.realisations} />
+        <RealisationCityInstall 
+          title={cityData.realisations.title}
+          description={cityData.realisations.description}
+          images={cityData.realisations.images}
+        />
+      )}
+
+      {/* New Realisations Section */}
+      {cityData.realisationsNew && cityData.realisationsNew.length > 0 && (
+        <RealisationCityInstallNew realisations={cityData.realisationsNew} />
       )}
 
       {/* Electricity Price Chart Section */}

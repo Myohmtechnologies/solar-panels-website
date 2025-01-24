@@ -186,6 +186,11 @@ export interface City {
       alt: string;
     }[];
   };
+  realisationsNew?: Realisation[];
+  seoContent?: {
+    title: string;
+    paragraphs: string[];
+  };
 }
 
 export interface Testimonial {

@@ -5,6 +5,7 @@ import BlogAuthor from '@/components/blog/BlogAuthor';
 import BlogCTA from '@/components/blog/BlogCTA';
 import BlogRelated from '@/components/blog/BlogRelated';
 import BlogSocialShare from '@/components/blog/BlogSocialShare';
+import BlogSchemaMarkup from '@/components/BlogSchemaMarkup';
 import { BlogService } from '@/services/blogService';
 import { Metadata } from 'next';
 
@@ -69,6 +70,7 @@ export default async function BlogDetailPage({ params }: Props) {
     return (
       <div className="min-h-screen flex flex-col bg-white">
         <main className="flex-grow">
+          <BlogSchemaMarkup blog={blog} />
           <BlogHead 
             title={blog.title}
             description={blog.description}

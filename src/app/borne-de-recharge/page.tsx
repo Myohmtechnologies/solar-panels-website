@@ -18,6 +18,7 @@ import {
   ClipboardDocumentCheckIcon
 } from '@heroicons/react/24/outline';
 import ContactCTASection from '@/components/sections/ContactCTASection';
+import BorneRechargeSchemaMarkup from '@/components/BorneRechargeSchemaMarkup';
 
 const certifications = [
   { 
@@ -39,6 +40,7 @@ const certifications = [
 export default function BorneDeRechargePage() {
   return (
     <main className="overflow-x-hidden">
+      <BorneRechargeSchemaMarkup />
       {/* Hero Section avec image en background */}
       <section className="relative h-[90vh] min-h-[600px] flex items-center">
         <div className="absolute inset-0">

@@ -93,20 +93,48 @@ const bouchesdurhone: Department = {
         },
         faqSchema: [
           {
-            question: "Quel est le coût d'une installation de panneaux solaires à Marseille ?",
-            answer: "Le coût d'une installation de panneaux solaires à Marseille varie entre 8000€ et 15000€ selon la surface et la puissance. En tant qu'installateur certifié, nous vous aidons à obtenir toutes les aides disponibles qui peuvent réduire ce coût jusqu'à 50%."
+            question: "Pourquoi installer des panneaux solaires à Marseille ?",
+            answer: "Marseille, située dans les Bouches-du-Rhône, bénéficie d’une exceptionnelle exposition au soleil, ce qui en fait une région idéale pour l’installation de panneaux solaires sur toiture. Grâce à l’ensoleillement annuel élevé, les panneaux photovoltaïques produisent une quantité d’électricité optimale, assurant un rendement élevé et une rentabilité maximale pour votre investissement."
           },
           {
-            question: "Comment choisir son installateur de panneaux solaires à Marseille ?",
-            answer: "Un bon installateur de panneaux solaires à Marseille doit être certifié RGE, avoir une expérience prouvée et proposer un service complet : étude personnalisée, installation professionnelle et suivi après-vente. Notre équipe répond à tous ces critères avec plus de 500 installations réussies dans la région."
+            question: "Quels types de panneaux solaires existe-t-il ?",
+            answer: "Il existe principalement deux types de panneaux solaires :Les panneaux photovoltaïques : utilisés pour produire de l’électricité à partir de l’énergie solaire.Les panneaux solaires thermiques : qui captent la chaleur du soleil pour produire de l’eau chaude.Certaines solutions hybrides, comme les panneaux DualSun, combinent les deux technologies pour maximiser la production énergétique."
           },
           {
-            question: "Quel est le délai pour installer des panneaux solaires à Marseille ?",
+            question: "Quelle est la durée de vie des panneaux solaires ?",
             answer: "En tant qu'installateur local à Marseille, nous réalisons l'installation complète en 2 à 3 jours après validation du projet. Le délai total, incluant l'étude et les démarches administratives, est d'environ 2-3 mois."
           },
           {
             question: "Quelles aides sont disponibles pour l'installation de panneaux solaires à Marseille ?",
-            answer: "À Marseille, vous pouvez bénéficier de plusieurs aides : MaPrimeRénov', la prime à l'autoconsommation, l'éco-PTZ, et les aides régionales PACA. Le montant total des aides peut atteindre jusqu'à 7500€ selon votre situation."
+            answer: "La durée de vie moyenne des panneaux photovoltaïques est d’environ 25 à 30 ans. Cette longévité est assurée par une garantie constructeur fiable et un entretien régulier. Les nouveaux modules utilisant la technologie TopCon offrent une performance accrue sur le long terme."
+          },
+          {
+            question: "Quels sont les avantages fiscaux pour une installation photovoltaïque ?",
+            answer: "Les particuliers peuvent bénéficier de dispositifs d'aide tels que : Une réduction d'impôt pour les installations solaires, des subventions locales ou nationales pour favoriser la transition énergétique, et des tarifs avantageux pour la vente du surplus d'électricité produite."
+          },
+          {
+            question: "Comment choisir le bon équipement solaire ?",
+            answer: "Le choix du meilleur matériel dépend de plusieurs facteurs, notamment : La puissance installée nécessaire pour alimenter votre maison, le type de panneaux (monocristallins ou polycristallins), et l'inclinaison et l'orientation de votre toiture pour un rendement optimal. Nos experts partenaires vous accompagnent pour réaliser une étude personnalisée adaptée à vos besoins et à votre budget."
+          },
+          {
+            question: "Est-il rentable d'installer un kit solaire ?",
+            answer: "Oui, un kit solaire est une solution rentable à long terme, particulièrement à Marseille grâce à l'ensoleillement. En plus de réduire vos factures d'électricité, vous pouvez revendre le surplus d'électricité produite au réseau électrique ou l'utiliser pour alimenter une batterie de stockage."
+          },
+          {
+            question: "Comment se déroule l'installation de panneaux solaires ?",
+            answer: "L'installation suit plusieurs étapes : Analyse technique et étude de votre toiture inclinée ou plate, pose des panneaux par des installateurs certifiés QualiPV, et mise en service pour vérifier la production annuelle et l'intégration au réseau électrique. Notre entreprise respecte les règles de l'art pour assurer une installation fiable et durable."
+          },
+          {
+            question: "Quel est le coût d'une installation solaire ?",
+            answer: "Le coût varie en fonction de plusieurs critères : puissance installée, type de panneau, et options comme une batterie ou un kit solaire. Cependant, avec des aides financières et un bon rendement, l'investissement devient rapidement rentable."
+          },
+          {
+            question: "Quels avis sur les panneaux solaires à Marseille ?",
+            answer: "Nos clients sont ravis des solutions proposées, qu'il s'agisse de panneaux monocristallins ou de systèmes hybrides. Consultez nos références et avis pour découvrir les témoignages de particuliers ayant franchi le pas de la transition écologique."
+          },
+          {
+            question: "Comment le solaire contribue-t-il au développement durable ?",
+            answer: "L'électricité produite par les panneaux solaires est une énergie propre et verte, réduisant l'empreinte carbone et les émissions de gaz à effet de serre. Installer des panneaux solaires participe à la transition énergétique et au développement durable tout en diminuant vos dépenses énergétiques."
           }
         ]
       },

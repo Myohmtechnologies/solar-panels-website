@@ -77,6 +77,42 @@ const alpesMaritimes: Department = {
           location: "Nice Centre"
         }
       ],
+      realisationsNew: [
+        {
+          _id: "nice1",
+          title: "Nos réalisations de panneaux solaires à Nice",
+          description: "Installation de panneaux solaires à Nice certifiée RGE",
+          mainImage: '/images/installateur-de-panneaux-photovoltaiques-nice.jpeg',
+          secondaryImage: '/images/installateur-rge-panneaux-solaire-nice.jpeg',
+          date: "2024-01-15",
+          city: "Nice",
+          type: "Résidentiel",
+          year: 2024,
+          specifications: {
+            puissance: 6.6,
+            pannels: 18,
+            surface: 36,
+            economie: 1200
+          }
+        },
+        {
+          _id: "nice2",
+          title: "Nos réalisations de panneaux solaires à Nice",
+          description: "Installation de panneaux photovoltaiques à Nice",
+          mainImage: '/images/installation-de-panneaux-solaire-nice.jpeg',
+          secondaryImage: '/images/realisation-panneaux-solaire-nice.jpeg',
+          date: "2023-12-20",
+          city: "Nice",
+          type: "Résidentiel",
+          year: 2023,
+          specifications: {
+            puissance: 9.2,
+            pannels: 26,
+            surface: 52,
+            economie: 1600
+          }
+        }
+      ],
       seo: {
         title: "Installation Panneaux Solaires Nice (06) | Expert Certifié RGE 2025",
         metaDescription: "✓ Installation de panneaux solaires à Nice par un expert certifié RGE. Profitez de 2800h d'ensoleillement/an !",
@@ -85,6 +121,21 @@ const alpesMaritimes: Department = {
           "installation solaire nice",
           "energie solaire nice",
           "installateur panneaux solaires nice"
+        ]
+      },
+      seoContent: {
+        title: "Optimisation énergétique grâce aux panneaux solaires : un choix durable et responsable",
+        paragraphs: [
+          "Dans un contexte où la réduction de l'impact environnemental et la transition énergétique occupent une place centrale, installer des panneaux solaires à Nice représente une solution innovante et efficace. En combinant des critères de qualité, de performance et de durabilité, cette démarche offre des avantages significatifs pour les particuliers et les collectivités, tout en répondant aux enjeux environnementaux actuels. Ce guide explore les multiples bénéfices de l'installation de panneaux solaires, en mettant en lumière les éléments clés tels que la certification, l'impact carbone, les solutions de financement, et l'accompagnement professionnel dans le sud de la France.",
+          "Les panneaux solaires permettent de produire une électricité propre et renouvelable en exploitant l'énergie inépuisable du soleil. Grâce à un impact carbone réduit, cette solution énergétique contribue activement à la préservation de l'environnement tout en favorisant une diminution significative de l'empreinte écologique. À Nice, ville réputée pour son fort ensoleillement, les panneaux photovoltaïques sur toiture ou au sol offrent une production annuelle optimale, maximisant ainsi les bénéfices pour les utilisateurs.",
+          "L'installation de panneaux solaires à Nice est un investissement à la fois rentable et durable. Avec des taux de rendement élevés et des systèmes comme le kit solaire ou le solaire thermique, il est possible de générer une électricité solaire qui alimente directement votre logement. Les particuliers peuvent également profiter de la revente de surplus au réseau, augmentant ainsi leurs revenus annuels et amortissant rapidement les coûts initiaux.",
+          "Pour assurer la réussite de ce projet, le recours à une entreprise spécialisée est primordial. Un installateur de panneaux solaires photovoltaïques certifié garantit une mise en œuvre conforme aux normes, ainsi qu'une mise en service optimale. Ces professionnels qualifiés accompagnent leurs clients à chaque étape, de la conception du projet à son suivi post-installation.",
+          "Les nombreuses aides gouvernementales et locales disponibles à Nice permettent de rendre ces solutions accessibles au plus grand nombre. Parmi elles, on retrouve : La prime à l'autoconsommation, les subventions locales proposées par la Métropole Nice Côte d'Azur, le crédit d'impôt pour la transition énergétique (CITE) et des dispositifs de TVA réduite, ainsi que des aides spéciales pour les installations de solaire thermique, adaptées à la production d'eau chaude.",
+          "En optant pour une installation de panneaux solaires, les particuliers et les collectivités participent activement à la réduction des émissions de gaz à effet de serre. Le raccordement au réseau ou l'utilisation en autoconsommation contribue à une diminution de la dépendance aux énergies fossiles. De plus, ces solutions s'intègrent parfaitement dans le cadre d'une économie circulaire, favorisant un développement harmonieux et durable.",
+          "L'installation de panneaux solaires à Nice est personnalisable en fonction des besoins spécifiques des clients. Qu'il s'agisse d'une maison individuelle, d'un espace public ou d'une collectivité, chaque projet est adapté en fonction de la taille, de l'orientation et de l'inclinaison de la toiture, afin de garantir un rendement maximal.",
+          "Grâce à des équipements certifiés et à des contrats de maintenance fiables, les propriétaires peuvent bénéficier d'une tranquillité d'esprit à long terme. Les panneaux solaires modernes sont conçus pour résister aux conditions climatiques les plus extrêmes tout en offrant une longévité exceptionnelle.",
+          "Les panneaux solaires sur toiture et les installations au sol à Nice représentent une opportunité unique pour contribuer activement à la transition énergétique. En choisissant des solutions adaptées et en faisant appel à des installateurs certifiés, les particuliers et les collectivités peuvent réduire leur dépendance énergétique tout en améliorant leur confort au quotidien.",
+          "En conclusion, investir dans des panneaux solaires à Nice est un choix gagnant à tous les niveaux : économique, environnemental et pratique. Grâce à des outils performants, des certifications de qualité comme QualiPV, et un accompagnement sur mesure, chaque projet solaire devient une réussite durable. Pour en savoir plus, contactez dès maintenant un expert en photovoltaïque à Nice et bénéficiez d'un devis gratuit pour votre propre électricité verte et renouvelable."
         ]
       }
     },

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { trackEvent } from '@/utils/analytics';
+import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 
 interface Message {
     text: string;
@@ -65,7 +66,7 @@ export default function ChatBot() {
     const [shouldPulse, setShouldPulse] = useState(true);
     const [hasJoined, setHasJoined] = useState(false);
     const [waitingForResponse, setWaitingForResponse] = useState(false);
-    const [showChatButton, setShowChatButton] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
     const startTime = useRef(Date.now());
     const lastMessageRef = useRef<HTMLDivElement>(null);
 
@@ -90,43 +91,27 @@ export default function ChatBot() {
             setIsMobile(window.innerWidth <= 768);
         };
         
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-
-        setIsOpen(false);
-
-        // Gestion du scroll pour mobile
         const handleScroll = () => {
-            if (isMobile) {
-                const heroSection = document.querySelector('.hero-section');
-                if (heroSection) {
-                    const heroBottom = heroSection.getBoundingClientRect().bottom;
-                    setShowChatButton(heroBottom < 0);
-                }
+            const heroSection = document.querySelector('[data-section="city-hero"]');
+            if (heroSection) {
+                const heroBottom = heroSection.getBoundingClientRect().bottom;
+                setIsVisible((!isMobile || (isMobile && heroBottom < 0)));
             } else {
-                setShowChatButton(true);
+                setIsVisible(true); // Si pas de hero section (autres pages), toujours visible
             }
         };
 
+        // Initial checks
+        checkMobile();
+        handleScroll();
+
+        // Event listeners
         window.addEventListener('scroll', handleScroll);
-        handleScroll(); // Vérification initiale
-
-        // Animation de pulse sur mobile
-        if (isMobile) {
-            const pulseInterval = setInterval(() => {
-                setShouldPulse(prev => !prev);
-            }, 1500);
-
-            return () => {
-                clearInterval(pulseInterval);
-                window.removeEventListener('resize', checkMobile);
-                window.removeEventListener('scroll', handleScroll);
-            };
-        }
+        window.addEventListener('resize', checkMobile);
 
         return () => {
-            window.removeEventListener('resize', checkMobile);
             window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', checkMobile);
         };
     }, [isMobile]);
 
@@ -257,8 +242,10 @@ export default function ChatBot() {
         }
     };
 
+    if (!isVisible) return null;
+
     if (!isOpen) {
-        return showChatButton ? (
+        return (
             <button 
                 onClick={() => setIsOpen(true)}
                 className={`fixed bottom-4 right-4 w-16 h-16 bg-gradient-solar rounded-full shadow-lg flex items-center justify-center transition-all duration-500 z-50 ${
@@ -274,7 +261,7 @@ export default function ChatBot() {
                     </svg>
                 </div>
             </button>
-        ) : null;
+        );
     }
 
     return (

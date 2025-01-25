@@ -25,6 +25,8 @@ import { BuildingLibraryIcon, DocumentCheckIcon, ShieldCheckIcon, MapPinIcon } f
 import RealisationCityInstallNew from '@/components/sections/RealisationCityInstallNew';
 import CitySeoContent from '@/components/sections/CitySeoContent';
 import CitySchemaMarkup from '@/components/CitySchemaMarkup';
+import { useState, useEffect } from 'react';
+import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 
 interface CityPageContentProps {
   cityData: City;
@@ -33,6 +35,36 @@ interface CityPageContentProps {
 }
 
 export default function CityPageContent({ cityData, departmentName, cities }: CityPageContentProps) {
+  const [showChat, setShowChat] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    const handleScroll = () => {
+      const heroSection = document.querySelector('[data-section="city-hero"]');
+      if (heroSection) {
+        const heroBottom = heroSection.getBoundingClientRect().bottom;
+        setShowChat((!isMobile || (isMobile && heroBottom < 0)));
+      }
+    };
+
+    // Initial checks
+    checkMobile();
+    handleScroll();
+
+    // Event listeners
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, [isMobile]);
+
   return (
     <main className="bg-white">
       <CitySchemaMarkup cityData={cityData} departmentName={departmentName} />
@@ -55,11 +87,6 @@ export default function CityPageContent({ cityData, departmentName, cities }: Ci
         advantages={cityData.solarAdvantages}
       />
 
-      {/* Section Réalisations */}
-      {cityData.realisationsNew && cityData.realisationsNew.length > 0 && (
-        <RealisationCityInstallNew realisations={cityData.realisationsNew} />
-      )}
-
       {/* Section Prix des Installations */}
       <PrixInstallation cityName={cityData.name} />
 
@@ -77,6 +104,17 @@ export default function CityPageContent({ cityData, departmentName, cities }: Ci
             }[reg.icon]
           }))}
         />
+      )}
+
+      {/* Chat Button */}
+      {showChat && (
+        <button
+          onClick={() => window.open('https://wa.me/33652632145', '_blank')}
+          className="fixed bottom-4 right-4 z-50 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-all duration-300 animate-bounce"
+          aria-label="Ouvrir le chat WhatsApp"
+        >
+          <ChatBubbleLeftRightIcon className="w-6 h-6" />
+        </button>
       )}
 
       {/* Electricity Price Chart Section */}

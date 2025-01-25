@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { MapPinIcon, UserIcon, ChartBarIcon } from '@heroicons/react/24/outline';
+import { MapPinIcon, UserIcon, ChartBarIcon, PhoneIcon, CalculatorIcon, SunIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import ContactModal from '../modals/ContactModal';
 
@@ -29,7 +29,7 @@ export default function CityHero({ cityName, departmentName, description, popula
 
   return (
     <>
-      <section data-section="city-hero" className="relative min-h-[600px] flex items-center justify-center overflow-hidden">
+      <section data-section="city-hero" className="relative min-h-[500px] md:min-h-[600px] flex items-center justify-center overflow-hidden">
         {/* Background with gradient and optional hero image */}
         <div className="absolute inset-0">
           {heroImage ? (
@@ -41,58 +41,77 @@ export default function CityHero({ cityName, departmentName, description, popula
                   fill
                   className="object-cover"
                   priority
+                  sizes="100vw"
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
             </>
           ) : (
             <div className="bg-gradient-to-br from-white to-ffeb99/20" />
           )}
         </div>
 
-        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
           <div className="text-center">
-            <h1 className={`text-4xl sm:text-5xl font-extrabold ${heroImage ? 'text-white' : 'text-black'} mb-8`}>
-              Installation Panneaux Solaires à {cityName}
+            {/* Prix Flash Banner */}
+            <div className="bg-red-600 text-white py-2 px-4 rounded-full inline-block mb-6 animate-pulse">
+              <span className="font-semibold">🔥 Prix Flash -10% jusqu'au 31/01</span>
+            </div>
+            
+            <h1 className={`text-3xl sm:text-4xl md:text-5xl font-extrabold ${heroImage ? 'text-white' : 'text-black'} mb-4`}>
+              Installation Panneaux Solaires<br className="hidden sm:block" /> à {cityName}
             </h1>
 
-            <div className="flex flex-wrap justify-center gap-6 mb-8">
-              <div className="flex items-center space-x-2">
-                <MapPinIcon className={`w-6 h-6 ${heroImage ? 'text-white' : 'text-black'}`} />
-                <span className={heroImage ? 'text-white' : 'text-black'}>{population.toLocaleString()} habitants</span>
+            <p className={`text-lg md:text-xl ${heroImage ? 'text-white' : 'text-black/80'} font-medium mb-6`}>
+              Économisez jusqu'à 70% sur vos factures d'électricité
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-2xl mx-auto mb-8">
+              <div className={`flex flex-col items-center p-3 rounded-lg ${heroImage ? 'bg-white/10 backdrop-blur-sm' : 'bg-ffeb99/10'}`}>
+                <MapPinIcon className={`w-6 h-6 ${heroImage ? 'text-ffeb99' : 'text-ffb700'} mb-1`} />
+                <span className={`text-sm md:text-base ${heroImage ? 'text-white' : 'text-black'}`}>{population.toLocaleString()} habitants</span>
               </div>
               {sunshineHours && (
-                <div className="flex items-center space-x-2">
-                  <svg className={`w-6 h-6 ${heroImage ? 'text-white' : 'text-black'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                  </svg>
-                  <span className={heroImage ? 'text-white' : 'text-black'}>{sunshineHours}h d'ensoleillement/an</span>
+                <div className={`flex flex-col items-center p-3 rounded-lg ${heroImage ? 'bg-white/10 backdrop-blur-sm' : 'bg-ffeb99/10'}`}>
+                  <SunIcon className={`w-6 h-6 ${heroImage ? 'text-ffeb99' : 'text-ffb700'} mb-1`} />
+                  <span className={`text-sm md:text-base ${heroImage ? 'text-white' : 'text-black'}`}>{sunshineHours}h soleil/an</span>
                 </div>
               )}
+              <div className={`flex flex-col items-center p-3 rounded-lg ${heroImage ? 'bg-white/10 backdrop-blur-sm' : 'bg-ffeb99/10'}`}>
+                <CalculatorIcon className={`w-6 h-6 ${heroImage ? 'text-ffeb99' : 'text-ffb700'} mb-1`} />
+                <span className={`text-sm md:text-base ${heroImage ? 'text-white' : 'text-black'}`}>Devis gratuit</span>
+              </div>
             </div>
 
             {description && (
-              <p className={`text-lg ${heroImage ? 'text-white' : 'text-black/80'} max-w-3xl mx-auto mb-12`}>
+              <p className={`text-base md:text-lg ${heroImage ? 'text-white/90' : 'text-black/80'} max-w-3xl mx-auto mb-8 hidden md:block`}>
                 {description}
               </p>
             )}
 
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <div className="flex flex-col gap-3 max-w-md mx-auto">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="flex items-center justify-center space-x-2 bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-semibold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity"
+                className="flex items-center justify-center space-x-2 shine-effect text-black font-semibold py-4 px-6 rounded-lg hover:opacity-90 transition-opacity shadow-lg"
               >
                 <UserIcon className="w-5 h-5" />
-                <span>Contacter un commercial</span>
+                <span>Obtenir un devis gratuit</span>
               </button>
 
               <button
                 onClick={scrollToSimulator}
-                className="flex items-center justify-center space-x-2 bg-[#10618F] text-white font-semibold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity"
+                className="flex items-center justify-center space-x-2 bg-[#10618F] text-white font-semibold py-4 px-6 rounded-lg hover:opacity-90 transition-opacity shadow-lg"
               >
                 <ChartBarIcon className="w-5 h-5" />
-                <span>Simulation des économies</span>
+                <span>Simuler vos Économie </span>
               </button>
+            </div>
+
+            {/* Trust Badges */}
+            <div className="flex justify-center items-center gap-4 mt-8">
+              <Image src="/images/rge1.png" alt="Certification RGE" width={60} height={60} className="" />
+              <Image src="/images/qualipv1.png" alt="Certification QualiPV" width={60} height={60} className="" />
+              <Image src="/images/garantie-decennale-p2a-construction.webp" alt="Partenaire SolarEdge" width={60} height={60} className="" />
             </div>
           </div>
         </div>

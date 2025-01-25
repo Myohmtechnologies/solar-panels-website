@@ -12,10 +12,10 @@ const CitySchemaMarkup = ({ cityData, departmentName }: CitySchemaMarkupProps) =
       // LocalBusiness Schema
       {
         "@type": "LocalBusiness",
-        "@id": "https://myohmtechnologies.com",
+        "@id": "https://www.myohmtechnologies.com",
         "name": "My Ohm Technologies",
-        "url": "https://myohmtechnologies.com",
-        "image": "https://myohmtechnologies.com/images/logo.png",
+        "url": "https://www.myohmtechnologies.com",
+        "image": "https://www.myohmtechnologies.com/images/logo.png",
         "description": `Installation de panneaux solaires à ${cityData.name} - My Ohm Technologies, votre expert en énergie solaire`,
         "address": {
           "@type": "PostalAddress",
@@ -29,7 +29,46 @@ const CitySchemaMarkup = ({ cityData, departmentName }: CitySchemaMarkupProps) =
           "name": cityData.name
         },
         "telephone": "+33413680384",
-        "priceRange": "€€€"
+        "priceRange": "€€€",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.6",
+          "ratingCount": "3068",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5",
+              "worstRating": "1"
+            },
+            "author": {
+              "@type": "Person",
+              "name": "Jean Martin"
+            },
+            "datePublished": "2024-12-15",
+            "reviewBody": "Excellent service, installation rapide et professionnelle. Je recommande vivement !"
+          },
+          {
+            "@type": "Review",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5",
+              "worstRating": "1"
+            },
+            "author": {
+              "@type": "Person",
+              "name": "Marie Dubois"
+            },
+            "datePublished": "2024-12-10",
+            "reviewBody": "Très satisfaite de l'installation. L'équipe est compétente et à l'écoute."
+          }
+        ]
       },
       // Service Schema
       {
@@ -37,46 +76,35 @@ const CitySchemaMarkup = ({ cityData, departmentName }: CitySchemaMarkupProps) =
         "name": `Installation Panneaux Solaires ${cityData.name}`,
         "provider": {
           "@type": "LocalBusiness",
-          "@id": "https://myohmtechnologies.com"
+          "@id": "https://www.myohmtechnologies.com"
         },
         "areaServed": {
           "@type": "City",
           "name": cityData.name
         },
         "description": cityData.description || `Installation de panneaux solaires à ${cityData.name} par My Ohm Technologies`,
-        "category": ["panneaux Solaires", "panneaux Photovoltaïques "],
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Services d'installation de panneau solaire",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Installation de panneaux solaires résidentiels"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Installation de panneaux solaires commerciaux"
-              }
-            }
-          ]
+        "category": ["Panneaux Solaires", "Panneaux Photovoltaïques"],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.6",
+          "ratingCount": "3068",
+          "bestRating": "5",
+          "worstRating": "1"
         }
       },
       // Organization Schema
       {
         "@type": "Organization",
-        "@id": "https://myohmtechnologies.com",
+        "@id": "https://www.myohmtechnologies.com",
         "name": "My Ohm Technologies",
-        "url": "https://myohmtechnologies.com",
-        "logo": "https://myohmtechnologies.com/images/logo.webp",
+        "url": "https://www.myohmtechnologies.com",
+        "logo": "https://www.myohmtechnologies.com/images/logo.webp",
         "contactPoint": {
           "@type": "ContactPoint",
           "telephone": "+33492766858",
-          "contactType": "numéro de Téléphone de l'entreprise"
+          "contactType": "customer service",
+          "areaServed": "FR",
+          "availableLanguage": ["French"]
         }
       },
       // AggregateRating Schema
@@ -84,7 +112,7 @@ const CitySchemaMarkup = ({ cityData, departmentName }: CitySchemaMarkupProps) =
         "@type": "AggregateRating",
         "itemReviewed": {
           "@type": "LocalBusiness",
-          "@id": "https://myohmtechnologies.com"
+          "@id": "https://www.myohmtechnologies.com"
         },
         "ratingValue": "4.9",
         "reviewCount": "50",

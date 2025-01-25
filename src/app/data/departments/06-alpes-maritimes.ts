@@ -26,6 +26,48 @@ const alpesMaritimes: Department = {
         "Aides régionales attractives",
         "Service après-vente réactif"
       ],
+      faq: [
+        {
+          question: "Pourquoi choisir des panneaux solaires à Nice ?",
+          answer: "Nice bénéficie d'un ensoleillement exceptionnel, avec un climat idéal pour maximiser la production d'énergie solaire. Installer des panneaux solaires à Nice permet de produire une électricité propre et renouvelable tout en réduisant votre facture énergétique."
+        },
+        {
+          question: "Quel est le prix moyen d'une installation photovoltaïque à Nice ?",
+          answer: "Le prix moyen pour l'installation de panneaux solaires à Nice dépend de plusieurs facteurs, comme la puissance installée (en kWc), le type de panneaux photovoltaïques, et les spécificités de votre toiture. En général, les coûts varient entre 8 000 € et 15 000 €, avec des aides locales et nationales comme la prime à l'autoconsommation ou la TVA réduite."
+        },
+        {
+          question: "Quelles sont les aides disponibles pour un projet solaire dans la région niçoise ?",
+          answer: "Les habitants de la région de Nice peuvent bénéficier de plusieurs aides pour leur installation photovoltaïque, notamment : MaPrimeRénov' pour la rénovation énergétique, la prime à l'autoconsommation, et les subventions locales proposées par la Métropole Nice Côte d'Azur. Ces dispositifs permettent de réduire le coût initial et d'améliorer la rentabilité de votre projet."
+        },
+        {
+          question: "Quels sont les avantages des panneaux photovoltaïques à Nice ?",
+          answer: "Les panneaux photovoltaïques à Nice offrent plusieurs avantages : réduction de votre facture d'électricité, contribution à la transition énergétique avec une énergie propre, revente du surplus de production, et valorisation de votre patrimoine grâce à un habitat plus écologique."
+        },
+        {
+          question: "Quelle est la durée de vie moyenne des panneaux solaires ?",
+          answer: "Les panneaux solaires installés à Nice ont une durée de vie moyenne de 25 à 30 ans. Avec un entretien régulier et un installateur certifié RGE, vous pouvez garantir des performances optimales pendant toute cette période."
+        },
+        {
+          question: "Pourquoi faire appel à un installateur certifié RGE à Nice ?",
+          answer: "Faire appel à un installateur certifié RGE (Reconnu Garant de l'Environnement) garantit : une installation conforme aux normes, l'accès à des aides financières comme MaPrimeRénov', et une expertise locale adaptée aux spécificités climatiques de la Côte d'Azur."
+        },
+        {
+          question: "Comment fonctionne l'autoconsommation avec des panneaux solaires ?",
+          answer: "L'autoconsommation consiste à utiliser directement l'électricité produite par vos panneaux solaires pour alimenter votre maison. À Nice, grâce à l'ensoleillement élevé, vous pouvez couvrir une grande partie de vos besoins énergétiques, et revendre le surplus au réseau électrique via un contrat avec EDF ou un autre fournisseur."
+        },
+        {
+          question: "Quelle puissance installer pour répondre aux besoins d'un foyer niçois ?",
+          answer: "La puissance idéale pour une installation photovoltaïque dépend de la consommation électrique de votre foyer. En moyenne : une maison de 4 personnes nécessite environ 3 kWc, une maison avec équipements énergivores (chauffage électrique, piscine) peut nécessiter jusqu'à 6 kWc. Une étude personnalisée par un professionnel à Nice est essentielle pour dimensionner correctement votre installation."
+        },
+        {
+          question: "Quels types de panneaux solaires sont les plus adaptés à Nice ?",
+          answer: "À Nice, les panneaux solaires monocristallins sont souvent recommandés pour leur haut rendement et leur performance dans des conditions d'ensoleillement élevées. Les panneaux solaires thermiques, eux, sont idéaux pour produire de l'eau chaude sanitaire, réduisant ainsi votre consommation énergétique globale."
+        },
+        {
+          question: "Comment entretenir ses panneaux photovoltaïques à Nice ?",
+          answer: "L'entretien des panneaux photovoltaïques à Nice est simple et consiste principalement à : nettoyer les panneaux deux fois par an pour retirer la poussière et les débris, et vérifier régulièrement l'onduleur et les connexions électriques. Les entreprises spécialisées à Nice proposent également des contrats d'entretien pour garantir la longévité et les performances de votre système."
+        }
+      ],
       reviews: [
         {
           author: "Jean-Pierre M.",

@@ -2,110 +2,145 @@ const SimulateurSchemaMarkup = () => {
   const schemas = {
     "@context": "https://schema.org",
     "@graph": [
-      // WebApplication Schema
       {
         "@type": "WebApplication",
         "@id": "https://myohmtechnologies.com/simulator#app",
-        "name": "Simulateur d'Aides Solaires",
+        "name": "Simulateur d'Installation Solaire",
         "applicationCategory": "UtilityApplication",
         "browserRequirements": "Requires JavaScript. Requires HTML5.",
-        "description": "Simulateur gratuit pour calculer vos aides financières et économies potentielles pour votre installation de panneaux solaires.",
+        "description": "Simulateur gratuit pour calculer le coût et la rentabilité de votre installation solaire. Prix à partir de 7300€, avec estimation des aides financières.",
         "offers": {
           "@type": "Offer",
           "price": "0",
           "priceCurrency": "EUR"
         },
         "featureList": [
-          "Calcul de la prime à l'autoconsommation",
-          "Estimation des économies d'énergie",
+          "Calcul personnalisé selon surface et consommation",
+          "Estimation précise des coûts (à partir de 7300€)",
+          "Calcul des aides (prime à l'autoconsommation jusqu'à 1710€)",
+          "Simulation de production solaire sur 25 ans",
           "Calcul du retour sur investissement",
-          "Simulation de la production solaire",
-          "Calcul des aides fiscales"
+          "Export PDF du projet complet"
         ],
-        "operatingSystem": "All",
-        "permissions": "none",
-        "softwareVersion": "1.0",
-        "provider": {
-          "@type": "Organization",
-          "@id": "https://myohmtechnologies.com"
+        "potentialAction": {
+          "@type": "CalculateAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://myohmtechnologies.com/simulator",
+            "actionPlatform": ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"]
+          },
+          "result": {
+            "@type": "PropertyValue",
+            "name": "Résultat de simulation",
+            "description": "Devis détaillé avec coûts, aides et rentabilité"
+          }
         }
       },
-      // SoftwareApplication Schema
       {
         "@type": "SoftwareApplication",
         "name": "Calculateur Solaire My Ohm",
         "applicationCategory": "CalculatorApplication",
-        "description": "Outil de simulation pour estimer le coût et la rentabilité de votre installation solaire, en prenant en compte toutes les aides disponibles.",
-        "features": [
-          "Interface intuitive",
-          "Résultats instantanés",
-          "Calculs personnalisés",
-          "Export des résultats en PDF"
-        ],
+        "description": "Outil professionnel de simulation solaire avec estimation précise des coûts à partir de 7300€",
         "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "EUR"
+          "@type": "AggregateOffer",
+          "lowPrice": "7300",
+          "highPrice": "25000",
+          "priceCurrency": "EUR",
+          "offerCount": "3",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Installation 3kWc",
+              "price": "7300",
+              "description": "Installation complète petite maison"
+            },
+            {
+              "@type": "Offer",
+              "name": "Installation 6kWc",
+              "price": "12000",
+              "description": "Installation complète maison moyenne"
+            },
+            {
+              "@type": "Offer",
+              "name": "Installation 9kWc",
+              "price": "16000",
+              "description": "Installation complète grande maison"
+            }
+          ]
         }
       },
-      // HowTo Schema pour l'utilisation du simulateur
       {
         "@type": "HowTo",
         "name": "Comment utiliser le simulateur solaire",
-        "description": "Guide d'utilisation du simulateur d'aides et d'économies solaires",
+        "description": "Guide d'utilisation du simulateur avec estimation des coûts",
+        "estimatedCost": {
+          "@type": "MonetaryAmount",
+          "currency": "EUR",
+          "minValue": "7300",
+          "maxValue": "25000"
+        },
         "step": [
           {
             "@type": "HowToStep",
-            "name": "Saisie des informations",
-            "text": "Renseignez votre localisation et la surface disponible pour les panneaux"
+            "name": "Type de propriété",
+            "text": "Sélectionnez votre type de logement (maison ou appartement)"
           },
           {
             "@type": "HowToStep",
-            "name": "Consommation électrique",
-            "text": "Indiquez votre consommation électrique annuelle"
+            "name": "Consommation",
+            "text": "Entrez votre consommation électrique annuelle"
           },
           {
             "@type": "HowToStep",
-            "name": "Type d'installation",
-            "text": "Choisissez le type d'installation souhaité"
+            "name": "Surface disponible",
+            "text": "Indiquez la surface disponible pour les panneaux"
           },
           {
             "@type": "HowToStep",
-            "name": "Résultats",
-            "text": "Obtenez une estimation détaillée des aides et économies"
+            "name": "Résultats détaillés",
+            "text": "Obtenez votre devis personnalisé avec prix, aides et rentabilité",
+            "itemListElement": [
+              {
+                "@type": "HowToTip",
+                "text": "Prix à partir de 7300€ pour une installation 3kWc"
+              },
+              {
+                "@type": "HowToTip",
+                "text": "Prime à l'autoconsommation jusqu'à 1710€"
+              },
+              {
+                "@type": "HowToTip",
+                "text": "TVA réduite à 10%"
+              }
+            ]
           }
-        ],
-        "tool": [
-          "Navigateur web moderne",
-          "Facture d'électricité"
         ]
       },
-      // Organization Schema
       {
-        "@type": "Organization",
-        "@id": "https://myohmtechnologies.com",
-        "name": "My Ohm Technologies",
-        "url": "https://myohmtechnologies.com",
-        "logo": "https://myohmtechnologies.com/images/logo.png"
-      },
-      // BreadcrumbList Schema
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
+        "@type": "FAQPage",
+        "mainEntity": [
           {
-            "@type": "ListItem",
-            "position": 1,
-            "item": {
-              "@id": "https://myohmtechnologies.com",
-              "name": "Accueil"
+            "@type": "Question",
+            "name": "Quel est le prix minimum d'une installation solaire ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Les prix démarrent à 7300€ pour une installation de 3kWc, idéale pour une petite maison."
             }
           },
           {
-            "@type": "ListItem",
-            "position": 2,
-            "item": {
-              "@id": "https://myohmtechnologies.com/simulator",
-              "name": "Simulateur"
+            "@type": "Question",
+            "name": "Quelles sont les aides disponibles ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Vous pouvez bénéficier de la prime à l'autoconsommation (jusqu'à 1710€), de la TVA réduite à 10% et d'une exonération de taxe foncière."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Le simulateur est-il gratuit ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, le simulateur est totalement gratuit et vous permet d'obtenir une estimation précise de votre projet solaire."
             }
           }
         ]

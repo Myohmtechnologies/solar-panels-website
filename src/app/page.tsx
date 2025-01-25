@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'My Ohm - Économisez avec l\'Énergie Solaire',
+    title: 'My om technologies - Installation de panneaux solaires PhotovoltaïqueCertifié RGE',
     description: 'Solutions personnalisées de panneaux solaires. Réduisez vos factures et votre empreinte carbone.',
     images: '/images/og-image.jpg'
   }

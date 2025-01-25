@@ -18,7 +18,7 @@ interface PrixInstallationType {
 const installations: PrixInstallationType[] = [
   {
     capacite: '3kW',
-    prix: '9 890€',
+    prix: '7 890€',
     aide: '660€',
     image: '/images/3kwh.png',
     surface: '13m²',
@@ -26,7 +26,7 @@ const installations: PrixInstallationType[] = [
   },
   {
     capacite: '6kW',
-    prix: '14 890€',
+    prix: '12 890€',
     aide: '960€',
     image: '/images/6kwh.png',
     surface: '26m²',
@@ -34,7 +34,7 @@ const installations: PrixInstallationType[] = [
   },
   {
     capacite: '9kW',
-    prix: '19 890€',
+    prix: '16 890€',
     aide: '1 440€',
     image: '/images/9kwh.png',
     surface: '39m²',

@@ -59,7 +59,7 @@ export default function CityHero({ cityName, departmentName, description, popula
             </div>
             
             <h1 className={`text-3xl sm:text-4xl md:text-5xl font-extrabold ${heroImage ? 'text-white' : 'text-black'} mb-4`}>
-              Installation Panneaux Solaires<br className="hidden sm:block" /> à {cityName}
+              Installation Panneaux Solaires<br className="hidden sm:block" /> à {cityName} | Installateur Photovoltaïque RGE
             </h1>
 
             <p className={`text-lg md:text-xl ${heroImage ? 'text-white' : 'text-black/80'} font-medium mb-6`}>

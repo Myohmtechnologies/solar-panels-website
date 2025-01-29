@@ -4,7 +4,8 @@ interface CitySeoContentProps {
   cityName: string;
   seoContent?: {
     title: string;
-    paragraphs: string[];
+    content?: string;
+    paragraphs?: string[];
   };
 }
 
@@ -18,11 +19,19 @@ export default function CitySeoContent({ cityName, seoContent }: CitySeoContentP
           {seoContent.title}
         </h2>
         <div className="prose prose-lg max-w-none">
-          {seoContent.paragraphs.map((paragraph, index) => (
-            <p key={index} className="mb-6 text-gray-600 leading-relaxed">
-              {paragraph}
-            </p>
-          ))}
+          {seoContent.paragraphs ? (
+            seoContent.paragraphs.map((paragraph, index) => (
+              <p key={index} className="mb-6 text-gray-600 leading-relaxed">
+                {paragraph}
+              </p>
+            ))
+          ) : seoContent.content ? (
+            seoContent.content.split('\n\n').map((paragraph, index) => (
+              <p key={index} className="mb-6 text-gray-600 leading-relaxed">
+                {paragraph}
+              </p>
+            ))
+          ) : null}
         </div>
       </div>
     </section>

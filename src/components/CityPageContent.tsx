@@ -152,8 +152,8 @@ export default function CityPageContent({ cityData, departmentName, cities }: Ci
       />
 
       {/* Section FAQ */}
-      {cityData.faq && cityData.faq.length > 0 && (
-        <CityFAQ faqItems={cityData.faq} cityName={cityData.name} />
+      {cityData.seo?.faqSchema && cityData.seo.faqSchema.length > 0 && (
+        <CityFAQ faqItems={cityData.seo.faqSchema} cityName={cityData.name} />
       )}
 
       {/* Section SEO Content */}

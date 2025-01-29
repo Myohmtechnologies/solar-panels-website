@@ -42,7 +42,7 @@ const var83: Department = {
   cities: {
     toulon: {
       name: "Toulon",
-      code: "83137",
+      code: "83000",
       population: 171953,
       sunshineHours: 2800,
       heroImage: {
@@ -78,37 +78,91 @@ const var83: Department = {
         }
       ],
       seo: {
-        title: "Installation Panneaux Solaires Toulon (83) | Expert Certifié RGE",
-        metaDescription: "✓ Expert en installation de panneaux solaires à Toulon. 2800h d'ensoleillement/an, équipe certifiée RGE. Devis gratuit et aides régionales disponibles.",
+        title: "Installation Panneaux Solaires Toulon (83) | Expert Certifié RGE 2025",
+        metaDescription: "✓ Installation de panneaux solaires à Toulon par un installateur certifié RGE. 2800h d'ensoleillement/an, devis gratuit.",
         keywords: [
-          "panneau solaire toulon",
           "panneaux solaires toulon",
+          "entreprise panneaux solaire toulon",
+          "installation panneaux solaires toulon",
+          "installateur panneaux solaires toulon",
+          "aide panneaux solaires toulon",
+          "panneau solaire toulon",
           "installation panneau solaire toulon",
           "installateur panneau solaire toulon",
-          "entreprise panneaux solaires toulon",
+          "panneaux solaires toulon 83000",
+          "panneaux solaires toulon mourillon",
+          "panneaux solaires toulon haute ville",
+          "installateur panneaux photovoltaïques toulon",
+          "installation panneaux photovoltaiques toulon",
+          "panneau photovoltaique toulon",
+          "installation de panneaux solaires toulon",
+          "installation de panneau solaire toulon",
+          "installateur de panneaux solaires toulon",
+          "installateur de panneau solaire toulon",
           "prix panneaux solaires toulon",
-          "installation photovoltaique toulon",
-          "aide panneau solaire toulon"
+          "prix panneau solaire toulon",
+          "devis panneaux solaires toulon"
         ],
         localBusiness: {
           "@type": "LocalBusiness",
           "name": "Installation Panneaux Solaires Toulon",
+          "description": "Expert en installation de panneaux solaires à Toulon. Installation certifiée RGE, devis gratuit et accompagnement personnalisé.",
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Toulon",
             "postalCode": "83000",
             "addressRegion": "Var",
             "addressCountry": "FR"
-          }
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "43.1242",
+            "longitude": "5.9280"
+          },
+          "url": "https://votresite.fr/toulon",
+          "telephone": "+33400000000",
+          "openingHours": "Mo-Fr 09:00-18:00"
         },
         faqSchema: [
           {
-            question: "Quel est le coût d'une installation solaire à Toulon ?",
-            answer: "Le coût d'une installation solaire à Toulon varie entre 8000€ et 15000€, selon la puissance installée. Les aides régionales et nationales peuvent réduire ce coût jusqu'à 50%."
+            question: "Pourquoi installer des panneaux solaires à Toulon ?",
+            answer: "Grâce à son excellent ensoleillement, Toulon est une ville idéale pour l'installation de panneaux solaires. Cette solution vous permettra de produire votre propre électricité solaire, de réduire vos factures énergétiques et de contribuer à la transition énergétique."
           },
           {
-            question: "Combien d'heures d'ensoleillement à Toulon ?",
-            answer: "Toulon bénéficie d'environ 2800 heures d'ensoleillement par an, ce qui en fait une ville idéale pour l'installation de panneaux solaires avec un excellent rendement énergétique."
+            question: "Quels sont les avantages d'une installation solaire pour un domicile ?",
+            answer: "Installer des panneaux solaires photovoltaïques permet de réaliser une économie d'énergie significative, d'alléger votre facture, et d'augmenter la valeur de votre habitation. C'est aussi une démarche écologique pour une production photovoltaïque durable."
+          },
+          {
+            question: "Quel est le coût d'une installation photovoltaïque à Toulon ?",
+            answer: "Le prix d'une installation standard dépend de la puissance installée, de la configuration de votre toiture, et du matériel choisi (TopCon, monocristallin, polycristallin). Un kit de 3 kWc coûte environ 7 000 €, tandis qu'un système solaire plus puissant peut atteindre 15 000 €."
+          },
+          {
+            question: "Existe-t-il des aides pour l'installation de panneaux solaires ?",
+            answer: "Oui ! Vous pouvez bénéficier de plusieurs aides financières, comme la prime à l'autoconsommation, le crédit d'impôt pour la transition énergétique, l'éco-prêt à taux zéro, et d'autres subventions disponibles."
+          },
+          {
+            question: "Comment choisir le meilleur installateur de panneaux photovoltaïques à Toulon ?",
+            answer: "Il est recommandé d'opter pour un installateur certifié RGE (Reconnu Garant de l'Environnement), garantissant une pose conforme aux normes QualiPV et Qualifelec. Consultez les avis Google et les témoignages clients pour choisir un artisan qualifié et expérimenté."
+          },
+          {
+            question: "Combien de temps dure une installation de panneaux solaires ?",
+            answer: "La mise en place d'un système solaire prend généralement 1 à 3 jours, selon la configuration de votre toiture et la puissance installée. Un installateur qualifié vous accompagne à chaque étape du projet."
+          },
+          {
+            question: "Peut-on revendre l'électricité produite par les panneaux photovoltaïques ?",
+            answer: "Oui ! Vous pouvez revendre votre électricité photovoltaïque à EDF via un contrat d'obligation d'achat. Cela vous permet de rentabiliser plus rapidement votre investissement et d'optimiser votre rendement des panneaux solaires."
+          },
+          {
+            question: "Quelle est la durée de vie d'un panneau photovoltaïque ?",
+            answer: "Un panneau photovoltaïque a une durée de vie moyenne de 25 à 30 ans. Son efficacité reste élevée durant plusieurs décennies, avec une légère baisse de production annuelle après 20 ans."
+          },
+          {
+            question: "Quelle est la différence entre panneaux solaires thermiques et photovoltaïques ?",
+            answer: "Les panneaux solaires photovoltaïques transforment le soleil en électricité solaire. Les panneaux solaires thermiques utilisent l'énergie solaire pour chauffer l'eau sanitaire."
+          },
+          {
+            question: "Comment obtenir un devis pour une installation solaire à Toulon ?",
+            answer: "Vous pouvez prendre contact avec notre équipe pour une demande de devis gratuit. Nous analyserons votre configuration, votre toiture inclinée, et vos besoins énergétiques pour vous proposer la meilleure solution."
           }
         ],
         images: [
@@ -125,6 +179,24 @@ const var83: Department = {
             alt: "Réalisations panneaux solaires Toulon"
           }
         ]
+      },
+      seoContent: {
+        title: "Installation de Panneaux Solaires à Toulon - Expert Photovoltaïque Certifié RGE",
+        content: `Vous souhaitez investir dans l'installation de panneaux solaires à Toulon et dans le Var pour bénéficier d'une électricité photovoltaïque rentable et écologique ? Faites confiance à notre entreprise spécialisée, experte en énergie renouvelable, pour vous accompagner dans votre projet solaire. Grâce à l'ensoleillement exceptionnel de la région PACA, l'installation photovoltaïque sur votre toiture vous permettra de produire votre propre électricité et de réaliser des économies d'énergie significatives.
+
+Nos installateurs certifiés RGE vous proposent des solutions adaptées à votre habitation ou votre entreprise, en fonction de la puissance installée et de votre capacité de production. Nous mettons en place des panneaux solaires photovoltaïques de qualité, garantissant un rendement optimal et une durée de vie longue. En optant pour l'autoconsommation, vous réduisez votre facture d'électricité et profitez d'un investissement rentable et durable.
+
+Notre équipe qualifiée vous accompagne à chaque étape : étude de faisabilité, devis gratuit, choix du kit solaire, mise en service et suivi. Nous vous aidons également à obtenir les aides financières disponibles, telles que la prime à l'autoconsommation, le crédit d'impôt pour la transition énergétique, l'éco-prêt à taux zéro, ainsi que les subventions locales. Ces dispositifs vous permettent d'alléger le montant d'une installation de panneaux solaires et d'optimiser votre investissement.
+
+Que vous soyez un particulier ou un professionnel, nous vous proposons différents types de panneaux (monocristallins, polycristallins, TopCon, thermiques) pour une production solaire efficace. Nos artisans qualifiés respectent les normes QualiPV, Qualifelec et suivent une charte de qualité stricte.
+
+Nous intervenons dans toute la ville de Toulon, ainsi qu'à La Seyne-sur-Mer et ses alentours, pour garantir une installation photovoltaïque clé en main. Faites confiance à notre expérience et consultez les avis Google de nos clients satisfaits. Contactez-nous dès aujourd'hui pour obtenir un devis gratuit et lancer votre projet solaire !
+
+L'installation de panneaux solaires à Toulon est une solution idéale pour optimiser votre électricité produite et réduire votre facture énergétique. Grâce à une démarche d'installation bien définie, nos installateurs certifiés prennent en charge vos travaux de rénovation énergétique, en respectant une charte de qualité stricte. Que vous souhaitiez opter pour un kit solaire, un système photovoltaïque ou un solaire thermique, notre équipe qualifiée vous accompagne dès le début du projet jusqu'à la mise en place de votre installation de panneau solaire.
+
+Nous proposons des solutions adaptées aux panneaux solaires sur toiture inclinée, garantissant un rendement optimal et une production annuelle stable. En choisissant une installation photovoltaïque à Toulon, vous bénéficiez des aides pour l'installation de panneaux, comme le crédit d'impôt pour la transition énergétique ou la subvention disponible, rendant votre investissement encore plus rentable.
+
+Notre expert en panneaux solaires, certifié QualiPV, vous conseille sur le montant d'une installation de panneaux solaires, le coût d'une installation photovoltaïque et le prix d'une installation standard. Consultez les avis Google de nos clients satisfaits à La Seyne-sur-Mer et dans le Var, et faites confiance à des professionnels du domaine. Contactez-nous dès maintenant pour voir le plan, obtenir un devis gratuit et lancer votre projet solaire !`
       },
       solarInstallation: defaultSolarInstallation
     },
@@ -143,7 +215,7 @@ const var83: Department = {
         "Installation marine adaptée",
         "Matériel anticorrosion",
         "Suivi personnalisé",
-        "Maintenance régulière"
+        "Service premium"
       ],
       reviews: [
         {
@@ -240,16 +312,44 @@ const var83: Department = {
         },
         faqSchema: [
           {
-            question: "Quel est le coût d'une installation solaire à Fréjus ?",
-            answer: "Le coût moyen d'une installation solaire à Fréjus varie entre 8000€ et 15000€. Les aides régionales PACA et départementales peuvent réduire ce coût jusqu'à 50%."
+            question: "Pourquoi installer des panneaux solaires à Fréjus ?",
+            answer: "Fréjus bénéficie d'un ensoleillement optimal dans le Var, offrant un potentiel énergétique idéal pour l'installation de panneaux solaires photovoltaïques. Produire sa propre électricité solaire permet de réduire sa facture énergétique et de contribuer à la transition écologique."
           },
           {
-            question: "Quel est le potentiel solaire à Fréjus ?",
-            answer: "Fréjus bénéficie d'un ensoleillement exceptionnel avec 2800 heures de soleil par an, ce qui en fait un lieu idéal pour l'installation de panneaux solaires avec un excellent rendement énergétique."
+            question: "Quels sont les avantages de l'autoconsommation solaire ?",
+            answer: "L'autoconsommation permet de produire et consommer directement son électricité photovoltaïque, réduisant ainsi la dépendance au réseau électrique et offrant une réduction significative des dépenses. Le surplus peut être revendu à EDF, optimisant ainsi la rentabilité de votre installation photovoltaïque."
           },
           {
-            question: "Quelles sont les aides disponibles à Fréjus ?",
-            answer: "À Fréjus, vous pouvez bénéficier des aides nationales (MaPrimeRénov'), régionales PACA, et départementales du Var. Les économies peuvent atteindre jusqu'à 8000€ sur votre installation."
+            question: "Quel est le prix d'une installation de panneaux solaires à Fréjus ?",
+            answer: "Le coût d'une installation solaire dépend de plusieurs facteurs : la puissance installée (kWc), le type de panneaux photovoltaïques, la configuration de la toiture et les éventuelles batteries de stockage. En moyenne, une installation de 3 kWc coûte environ 7 000 à 9 000 € TTC, installation comprise."
+          },
+          {
+            question: "Existe-t-il des aides financières pour l'installation photovoltaïque ?",
+            answer: "Oui ! Vous pouvez bénéficier de plusieurs aides et subventions : Prime à l'autoconsommation, Crédit d'impôt pour la transition énergétique, Éco-prêt à taux zéro, Subventions locales et régionales. Ces aides permettent de réduire considérablement le montant d'une installation et d'améliorer la rentabilité de votre projet solaire."
+          },
+          {
+            question: "Quelle est la durée de vie des panneaux solaires ?",
+            answer: "Les panneaux photovoltaïques ont une durée de vie moyenne de 25 à 30 ans avec une garantie de performance sur 20 à 25 ans. Leur rendement reste élevé pendant des décennies, assurant une production énergétique fiable sur le long terme."
+          },
+          {
+            question: "Comment choisir le meilleur installateur de panneaux solaires à Fréjus ?",
+            answer: "Il est essentiel d'opter pour un installateur certifié RGE (Reconnu Garant de l'Environnement) et QualiPV, garantissant un travail de qualité conforme aux normes électriques. Une entreprise spécialisée et expérimentée vous assure une installation fiable et un suivi professionnel."
+          },
+          {
+            question: "Quelle est la différence entre panneaux solaires thermiques et photovoltaïques ?",
+            answer: "Les panneaux solaires photovoltaïques transforment le soleil en électricité solaire. Les panneaux solaires thermiques utilisent l'énergie solaire pour chauffer l'eau sanitaire."
+          },
+          {
+            question: "Peut-on financer son installation solaire avec un crédit ou des facilités de paiement ?",
+            answer: "Oui, plusieurs solutions existent pour financer une installation photovoltaïque, comme l'éco-prêt à taux zéro, des crédits spécialisés, ou encore des offres de paiement en plusieurs fois proposées par certaines entreprises du secteur."
+          },
+          {
+            question: "Quelle est la rentabilité d'une installation solaire à Fréjus ?",
+            answer: "Grâce à un fort ensoleillement, une réduction de facture énergétique et des aides financières, une installation de panneaux solaires peut être rentabilisée en 7 à 10 ans. La production photovoltaïque permet ensuite de bénéficier d'une électricité gratuite sur le long terme."
+          },
+          {
+            question: "Comment obtenir un devis gratuit pour une installation photovoltaïque ?",
+            answer: "Pour un devis gratuit, vous pouvez contacter un installateur certifié RGE à Fréjus. Une évaluation personnalisée sera réalisée pour proposer une solution adaptée à votre toiture, votre consommation et votre budget."
           }
         ],
         images: [
@@ -266,6 +366,24 @@ const var83: Department = {
             alt: "Réalisations panneaux solaires Fréjus"
           }
         ]
+      },
+      seoContent: {
+        title: "Installation de Panneaux Solaires à Fréjus - Expert Photovoltaïque Certifié RGE",
+        content: `Vous envisagez l'installation de panneaux solaires à Fréjus ? Notre entreprise spécialisée dans l'énergie solaire vous accompagne dans votre projet d'installation photovoltaïque. Profitez de l'excellent ensoleillement de la région PACA et de notre expertise pour une transition énergétique réussie.
+
+Située dans le Var, Fréjus bénéficie d'un ensoleillement exceptionnel de plus de 2800 heures par an, ce qui en fait un lieu idéal pour l'installation de panneaux solaires. Nos installateurs certifiés RGE vous proposent des solutions personnalisées pour votre maison ou votre entreprise, adaptées à vos besoins énergétiques et à votre budget.
+
+Que vous optiez pour une installation en autoconsommation ou avec revente du surplus à EDF, nos experts vous conseillent sur la meilleure solution. Nous utilisons des panneaux solaires de dernière génération (TopCon, monocristallins) garantissant un rendement optimal et une durabilité maximale. Notre équipe assure une installation professionnelle, respectant toutes les normes en vigueur et les spécificités architecturales de votre propriété.
+
+Bénéficiez des nombreuses aides financières disponibles pour votre projet solaire à Fréjus : prime à l'autoconsommation, MaPrimeRénov', éco-prêt à taux zéro, et autres subventions locales. Notre équipe vous accompagne dans toutes les démarches administratives pour optimiser votre investissement.
+
+Nous intervenons dans tous les quartiers de Fréjus : Fréjus-Plage, Saint-Aygulf, Tour de Mare, Caïs, ainsi que dans les communes environnantes. Nos installateurs qualifiés garantissent une pose soignée et un service après-vente réactif. La satisfaction de nos clients est notre priorité, comme en témoignent nos nombreux avis positifs.
+
+L'installation de panneaux solaires à Fréjus représente un investissement durable et rentable. Grâce à notre expertise et à nos équipements de qualité, vous pouvez réduire significativement votre facture d'électricité tout en contribuant à la protection de l'environnement. Nos systèmes photovoltaïques sont conçus pour résister aux conditions climatiques méditerranéennes et garantissent une production stable sur le long terme.
+
+Chaque projet d'installation solaire à Fréjus commence par une étude personnalisée gratuite. Nos experts analysent votre consommation électrique, l'orientation de votre toiture, et vos objectifs pour vous proposer la solution la plus adaptée. Nous vous accompagnons ensuite à chaque étape : choix des équipements, démarches administratives, installation, mise en service et suivi de production.
+
+Contactez-nous dès aujourd'hui pour un devis gratuit et découvrez comment l'énergie solaire peut transformer votre habitat à Fréjus. Notre équipe d'experts est à votre disposition pour répondre à toutes vos questions et vous guider vers une installation photovoltaïque performante et économique.`
       },
       solarInstallation: defaultSolarInstallation
     },
@@ -315,28 +433,28 @@ const var83: Department = {
           "installation panneaux solaires draguignan",
           "installateur panneaux solaires draguignan",
           "aide panneaux solaires draguignan",
-          
+
           // Variations panneau solaire (singulier)
           "panneau solaire draguignan",
           "installation panneau solaire draguignan",
           "installateur panneau solaire draguignan",
-          
+
           // Variations photovoltaïque
           "installateur panneaux photovoltaïques draguignan",
           "installation panneaux photovoltaiques draguignan",
           "panneau photovoltaique draguignan",
-          
+
           // Variations avec "de"
           "installation de panneaux solaires draguignan",
           "installation de panneau solaire draguignan",
           "installateur de panneaux solaires draguignan",
           "installateur de panneau solaire draguignan",
-          
+
           // Variations prix/devis
           "prix panneaux solaires draguignan",
           "prix panneau solaire draguignan",
           "devis panneaux solaires draguignan",
-          
+
           // Variations locales
           "energie solaire draguignan",
           "pose panneaux solaires draguignan",
@@ -376,7 +494,7 @@ const var83: Department = {
             answer: "En tant qu'installateur local à Draguignan, nous réalisons l'installation complète en 2 à 3 jours après validation du projet. Le délai total, incluant l'étude et les démarches administratives, est d'environ 2-3 mois."
           },
           {
-            question: "Quelles sont les aides disponibles pour l'installation de panneaux solaires à Draguignan ?",
+            question: "Quelles sont les aides disponibles à Draguignan ?",
             answer: "À Draguignan, vous pouvez bénéficier de plusieurs aides : MaPrimeRénov', la prime à l'autoconsommation, l'éco-PTZ, et les aides régionales PACA. Le montant total des aides peut atteindre jusqu'à 7500€ selon votre situation."
           }
         ]
@@ -474,7 +592,7 @@ const var83: Department = {
         {
           author: "Sylvie R.",
           rating: 5,
-          comment: "Excellent service et production optimale.",
+          comment: "Excellent service et résultats conformes.",
           date: "2023-11-21",
           location: "La Planquette"
         }

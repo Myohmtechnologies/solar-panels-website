@@ -11,6 +11,7 @@ interface InstallationType {
   image: string;
   surface: string;
   production: string;
+  economiesAnnuelles: string;
   avantages: string[];
 }
 
@@ -18,8 +19,9 @@ const installations: InstallationType[] = [
   {
     capacite: '3kW',
     image: '/images/3kwh.png',
-    surface: '13m²',
+
     production: '6 400 kWh/an',
+    economiesAnnuelles: '≈800€',
     avantages: [
       'Idéal pour les petites maisons',
       'Retour sur investissement rapide',
@@ -29,8 +31,9 @@ const installations: InstallationType[] = [
   {
     capacite: '6kW',
     image: '/images/6kwh.png',
-    surface: '26m²',
+
     production: '12 800 kWh/an',
+    economiesAnnuelles: '≈1600€',
     avantages: [
       'Solution la plus populaire',
       'Excellent rapport qualité/prix',
@@ -40,8 +43,9 @@ const installations: InstallationType[] = [
   {
     capacite: '9kW',
     image: '/images/9kwh.png',
-    surface: '39m²',
+
     production: '21 600 kWh/an',
+    economiesAnnuelles: '≈2700€',
     avantages: [
       'Production maximale',
       'Idéal pour les grandes maisons',
@@ -53,15 +57,15 @@ const installations: InstallationType[] = [
 const features = [
   {
     icon: SunIcon,
-    text: 'Production garantie'
+    text: 'Panneaux solaires Made in France'
+  },
+  {
+    icon: BoltIcon,
+    text: 'Micro-onduleurs américains haut de gamme'
   },
   {
     icon: HomeIcon,
     text: 'Installation sur-mesure'
-  },
-  {
-    icon: BoltIcon,
-    text: 'Garantie 25 ans'
   },
   {
     icon: ChartBarIcon,
@@ -69,7 +73,7 @@ const features = [
   },
   {
     icon: ShieldCheckIcon,
-    text: 'Maintenance incluse'
+    text: 'Garantie 25 ans'
   },
   {
     icon: BanknotesIcon,
@@ -91,10 +95,10 @@ export const PrixInstallation: React.FC<{ cityName?: string }> = ({ cityName = "
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Solutions photovoltaïques à {cityName}
+              Réalisez jusqu'à 3600€ d'économies par an à {cityName}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Des installations solaires adaptées à tous les besoins, avec un accompagnement personnalisé et des aides financières attractives
+              Profitez des meilleurs composants du marché avec nos panneaux solaires français et micro-onduleurs américains, pour maximiser vos économies d'énergie
             </p>
           </motion.div>
 
@@ -137,13 +141,30 @@ export const PrixInstallation: React.FC<{ cityName?: string }> = ({ cityName = "
                   />
                 </div>
 
-                <div className="p-6">
+                <div className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                   <div className="mb-4">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
                       Installation {installation.capacite}
                     </h3>
-                    <p className="text-gray-600">Surface requise : {installation.surface}</p>
-                    <p className="text-gray-600">Production : {installation.production}</p>
+                  </div>
+
+                  <div className="space-y-4 mb-6">
+                    <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                      <div className="flex items-center space-x-2 text-lg font-semibold text-green-700">
+                        <CurrencyEuroIcon className="h-8 w-8 text-green-600" />
+                        <span>Économies annuelles :</span>
+                      </div>
+                      <div className="text-2xl font-bold text-green-800 mt-2">
+                        {installation.economiesAnnuelles}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-2 text-gray-600">
+                      <SunIcon className="h-6 w-6 text-amber-500" />
+                      <span>Production : {installation.production}</span>
+                    </div>
+
+                  
                   </div>
 
                   <div className="space-y-2 mb-6">

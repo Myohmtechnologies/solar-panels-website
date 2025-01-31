@@ -68,7 +68,7 @@ const CityHeroVideo = ({ cityName, departmentName, description, population, suns
               {/* Titre et Description */}
               <div className="space-y-4">
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-                  Installation de panneaux solaires à {cityName} | Votre entrepriseInstallateur photovoltaïque RGE
+                  Installation de panneaux solaires à {cityName} | Votre entreprise Installateur photovoltaïque RGE
                 </h1>
                 <p className="text-gray-600 text-lg">
                   {description}

@@ -7,7 +7,7 @@ const alpesMaritimes: Department = {
   cities: {
     nice: {
       name: "Nice",
-      code: "06088",
+      code: "06000",
       population: 342669,
       sunshineHours: 2800,
       heroImage: {

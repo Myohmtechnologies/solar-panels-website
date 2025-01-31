@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { City, Department } from '@/types';
-import CityHero from '@/components/sections/CityHero';
+import CityHeroVideo from '@/components/sections/CityHeroVideo';
 import CitySolarAdvantages from '@/components/sections/CitySolarAdvantages';
 import ContactCTASection from '@/components/sections/ContactCTASection';
 import CityFAQ from '@/components/sections/CityFAQ';
@@ -25,6 +25,7 @@ import { BuildingLibraryIcon, DocumentCheckIcon, ShieldCheckIcon, MapPinIcon } f
 import RealisationCityInstallNew from '@/components/sections/RealisationCityInstallNew';
 import CitySeoContent from '@/components/sections/CitySeoContent';
 import CitySchemaMarkup from '@/components/CitySchemaMarkup';
+import VideoTestimonial from '@/components/sections/VideoTestimonial';
 import { useState, useEffect } from 'react';
 
 interface CityPageContentProps {
@@ -57,14 +58,25 @@ export default function CityPageContent({ cityData, departmentName, cities }: Ci
       <CityActionButtons />
       
       {/* Section Hero */}
-      <CityHero 
+      <CityHeroVideo 
         cityName={cityData.name}
         departmentName={departmentName}
         description={cityData.description || `Découvrez le potentiel solaire de ${cityData.name}, une ville du département ${departmentName}`}
         population={cityData.population}
-        sunshineHours={2750}
+        sunshineHours={cityData.sunshineHours || 2750}
         heroImage={cityData.heroImage}
       />
+
+      {/* Section Témoignage Vidéo */}
+      {cityData.videoTestimonial && (
+        <VideoTestimonial
+          videoUrl={cityData.videoTestimonial.videoUrl}
+          clientName={cityData.videoTestimonial.clientName}
+          city={cityData.name}
+          savings={cityData.videoTestimonial.savings}
+          reviews={cityData.reviews}
+        />
+      )}
 
       {/* Section Bénéfices Solaires */}
       <SolarBenefitsSection

@@ -16,6 +16,11 @@ export interface City {
     url: string;
     alt: string;
   };
+  videoTestimonial?: {
+    videoUrl: string;
+    clientName: string;
+    savings: string;
+  };
   faq?: FAQItem[];
   regulations?: {
     title: string;

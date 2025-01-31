@@ -46,6 +46,11 @@ const bouchesdurhone: Department = {
           location: "Marseille 12ème"
         }
       ],
+      videoTestimonial: {
+        videoUrl: "https://res.cloudinary.com/dz5sry4jz/video/upload/v1737742571/MyOhm-Testimonial_sd8nwb.mp4",
+        clientName: "Laurent M.",
+        savings: "2100€/an"
+      },
       seo: {
         title: "Installation Panneaux Solaires Marseille (13) | Expert Certifié RGE 2025",
         metaDescription: "✓ Installation de panneaux solaires à Marseille par un installateur certifié RGE. 2800h d'ensoleillement/an, devis gratuit !",
@@ -195,72 +200,15 @@ const bouchesdurhone: Department = {
       code: "13100",
       population: 143097,
       sunshineHours: 2800,
-      description: "",
       heroImage: {
-        url: '/images/installation-de-panneaux-solaire-aix-en-provence.jpeg',
-        alt: 'Installation de panneaux solaires à Aix-en-Provence par un expert RGE'
+        url: '/images/regions/bg-aix-en-provence.webp',
+        alt: 'Vue panoramique d\'Aix-en-Provence'
       },
-      realisations: {
-        title: "Nos réalisations de panneaux solaires à Aix-en-Provence",
-        description: "Découvrez nos installations de panneaux solaires réalisées à Aix-en-Provence par nos experts certifiés RGE. Chaque projet est unique et adapté aux besoins spécifiques de nos clients.",
-        images: [
-          {
-            url: '/images/installateur-de-panneaux-photovoltaiques-aix-en-provence.jpeg',
-            alt: 'Installation professionnelle de panneaux photovoltaïques à Aix-en-Provence'
-          },
-          {
-            url: '/images/installateur-rge-panneaux-solaire.jpeg',
-            alt: 'Installateur RGE de panneaux solaires en action à Aix-en-Provence'
-          },
-          {
-            url: '/images/installation-de-panneaux-solaire-aix-en-provence.jpeg',
-            alt: 'Réalisation d\'une installation solaire complète à Aix-en-Provence'
-          },
-          {
-            url: '/images/realisation-panneaux-solaire-aix-en-provence.jpeg',
-            alt: 'Projet solaire terminé à Aix-en-Provence par notre équipe RGE'
-          }
-        ]
+      videoTestimonial: {
+        videoUrl: "https://res.cloudinary.com/dz5sry4jz/video/upload/v1737742571/MyOhm-Testimonial_sd8nwb.mp4",
+        clientName: "Sophie D.",
+        savings: "1800€/an"
       },
-      realisationsNew: [
-        {
-          _id: "aix1",
-          title: "Nos réalisations de panneaux solaires à Aix-en-Provence",
-          description: "Installation de panneaux solaires à Aix-en-Provence certifiée RGE",
-          mainImage: '/images/installateur-de-panneaux-photovoltaiques-aix-en-provence.jpeg',
-          secondaryImage: '/images/installateur-rge-panneaux-solaire.jpeg',
-          date: "2024-01-15",
-          region: "PACA",
-          city: "Aix-en-Provence",
-          type: "Résidentiel",
-          year: 2024,
-          specifications: {
-            puissance: 4.2,
-            pannels: 12,
-            surface: 24,
-            economie: 850,
-        
-          }
-        },
-        {
-          _id: "aix2",
-          title: "Nos réalisations de panneaux solaires à Aix-en-Provence",
-          description: "Installation de panneaux photovoltaiques",
-          mainImage: '/images/installation-de-panneaux-solaire-aix-en-provence.jpeg',
-          secondaryImage: '/images/realisation-panneaux-solaire-aix-en-provence.jpeg',
-          date: "2023-12-20",
-          region: "PACA",
-          city: "Aix-en-Provence",
-          type: "Résidentiel",
-          year: 2023,
-          specifications: {
-            puissance: 9.6,
-            pannels: 28,
-            surface: 56,
-            economie: 2100
-          }
-        }
-      ],
       solarAdvantages: [
         "Ensoleillement méditerranéen optimal",
         "Position géographique privilégiée",

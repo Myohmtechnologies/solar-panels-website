@@ -49,14 +49,13 @@ export default function MerciPage() {
         'send_to': 'G-ET19PN3YHF',
         'event_category': 'lead',
         'event_label': 'simulator_complete',
-        'value': 100.0,
-        'currency': 'EUR'
+        'value': 1
       });
 
-      // Track Google Ads conversion
+      // Track Google Ads conversion avec les identifiants corrects
       window.gtag('event', 'conversion', {
-        'send_to': 'AW-16817660787/CL_7CKqY9IQZEO_Ej6Qp',  // Ajout du label de conversion
-        'value': 100.0,
+        'send_to': 'AW-16817660787/selKClb6ypcaEPPGpNM-',
+        'value': 1.0,
         'currency': 'EUR',
         'transaction_id': new Date().getTime().toString()
       });

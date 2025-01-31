@@ -3,6 +3,7 @@
 import React from 'react';
 import { WhyChooseSection } from '@/components/WhyChooseSection';
 import { LocalFAQSection } from '@/components/LocalFAQSection';
+import VideoTestimonial from '@/components/sections/VideoTestimonial';
 
 interface Review {
   author: string;
@@ -19,6 +20,11 @@ interface CityContentProps {
     solarAdvantages?: string[];
     keyPoints?: string[];
     reviews?: Review[];
+    videoTestimonial?: {
+      videoUrl: string;
+      clientName: string;
+      savings: string;
+    };
     seo?: {
       title?: string;
       metaDescription?: string;
@@ -49,6 +55,17 @@ export const CityContent: React.FC<CityContentProps> = ({ city }) => {
         )}
       </section>
 
+      {/* Video Testimonial Section */}
+      {city.videoTestimonial && (
+        <VideoTestimonial
+          videoUrl={city.videoTestimonial.videoUrl}
+          clientName={city.videoTestimonial.clientName}
+          city={city.name}
+          savings={city.videoTestimonial.savings}
+          reviews={city.reviews}
+        />
+      )}
+
       {/* Advantages Section */}
       {city.solarAdvantages && city.solarAdvantages.length > 0 && (
         <WhyChooseSection advantages={city.solarAdvantages} />
@@ -73,40 +90,9 @@ export const CityContent: React.FC<CityContentProps> = ({ city }) => {
         </section>
       )}
 
-      {/* Reviews Section */}
-      {city.reviews && city.reviews.length > 0 && (
-        <section className="my-16">
-          <h2 className="text-3xl font-semibold text-gray-900 mb-8">
-            Avis de nos clients à {city.name}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {city.reviews.map((review, index) => (
-              <div
-                key={index}
-                className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-              >
-                <div className="flex items-center mb-4">
-                  <span className="text-xl font-semibold text-gray-900">
-                    {review.author}
-                  </span>
-                  <span className="ml-4 text-yellow-500">
-                    {"★".repeat(review.rating)}
-                  </span>
-                </div>
-                <p className="text-gray-700 mb-4">{review.comment}</p>
-                <div className="text-sm text-gray-500">
-                  <p>{review.location}</p>
-                  <p>{review.date}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
       {/* FAQ Section */}
       {city.seo?.faqSchema && city.seo.faqSchema.length > 0 && (
-        <LocalFAQSection faqs={city.seo.faqSchema} />
+        <LocalFAQSection faqItems={city.seo.faqSchema} />
       )}
     </div>
   );

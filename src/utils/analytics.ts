@@ -195,13 +195,25 @@ export const conversionEvents = {
     conversion_type: 'simulator',
   }),
 
-  leadGenerated: (source: string, value: number) => trackEvent('lead_generated', {
-    source,
-    value,
-    currency: 'EUR',
-    conversion_type: 'lead',
-    user_type: 'prospect',
-  }),
+  leadGenerated: (source: string, value: number) => {
+    // Envoyer l'événement à Google Analytics
+    trackEvent('lead_generated', {
+      source,
+      value,
+      currency: 'EUR',
+      conversion_type: 'lead',
+      user_type: 'prospect',
+    });
+
+    // Envoyer l'événement de conversion à Google Ads
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-1681766d787/899-677-7088',
+        'value': value,
+        'currency': 'EUR'
+      });
+    }
+  },
 
   quoteRequested: (serviceType: string, location: string) => trackEvent('quote_requested', {
     service_type: serviceType,

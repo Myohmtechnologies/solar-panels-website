@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import RegionHero from '@/components/sections/RegionHero';
 import RegionStats from '@/components/sections/RegionStats';
-import RegionSolarInstallationSection from '@/components/sections/RegionSolarInstallationSection';
 import RegionAids from '@/components/sections/RegionAids';
 import RegionFAQ from '@/components/sections/RegionFAQ';
 import ContactCTASection from '@/components/sections/ContactCTASection';
@@ -83,7 +82,6 @@ export default function BouchesduRhonePage() {
         potentielSolaire={departementData.potentielSolaire}
       />
       <RegionStats stats={departementData.stats} />
-      <RegionSolarInstallationSection region={departementData.name} />
       <PrixInstallation />
       <RegionAids region={departementData.name} advantages={departementData.advantages} />
       <LocalReviews region={departementData.name} />

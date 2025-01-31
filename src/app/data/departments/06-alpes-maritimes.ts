@@ -26,6 +26,11 @@ const alpesMaritimes: Department = {
         "Aides régionales attractives",
         "Service après-vente réactif"
       ],
+      videoTestimonial: {
+        videoUrl: "https://res.cloudinary.com/dz5sry4jz/video/upload/v1737742571/MyOhm-Testimonial_sd8nwb.mp4",
+        clientName: "Philippe R.",
+        savings: "2300€/an"
+      },
       faq: [
         {
           question: "Pourquoi choisir des panneaux solaires à Nice ?",
@@ -72,8 +77,15 @@ const alpesMaritimes: Department = {
         {
           author: "Jean-Pierre M.",
           rating: 5,
-          date: "2023-12-15",
+          date: "2024-12-15",
           comment: "Installation parfaite, équipe très professionnelle",
+          location: "Nice Centre"
+        },
+        {
+          author: "David & Sarah",
+          rating: 5,
+          date: "2025-01-05",
+          comment: "Super expérience avec My ohm technologies pour l’installation de mes panneaux solaires à Nice ! L’équipe a été très professionnelle du début à la fin. Je recommande sans hésiter !",
           location: "Nice Centre"
         }
       ],

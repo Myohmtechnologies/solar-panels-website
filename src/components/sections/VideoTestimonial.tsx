@@ -95,7 +95,6 @@ const VideoTestimonial: React.FC<VideoTestimonialProps> = ({
                       <h4 className="text-lg font-semibold text-gray-900">
                         {review.author}
                       </h4>
-                      <p className="text-sm text-gray-500">{review.location}</p>
                     </div>
                   </div>
                   <div className="flex mb-3">

@@ -61,6 +61,11 @@ const var83: Department = {
         "Suivi production optimisé",
         "Service client premium"
       ],
+      videoTestimonial: {
+        videoUrl: "https://res.cloudinary.com/dz5sry4jz/video/upload/v1737742571/MyOhm-Testimonial_sd8nwb.mp4",
+        clientName: "Michel D.",
+        savings: "1950€/an"
+      },
       reviews: [
         {
           author: "Marc D.",
@@ -270,6 +275,11 @@ Notre expert en panneaux solaires, certifié QualiPV, vous conseille sur le mont
         "Aides régionales attractives",
         "Installation sur mesure"
       ],
+      videoTestimonial: {
+        videoUrl: "https://res.cloudinary.com/dz5sry4jz/video/upload/v1737742571/MyOhm-Testimonial_sd8nwb.mp4",
+        clientName: "Jean-Marc P.",
+        savings: "2050€/an"
+      },
       reviews: [
         {
           author: "Philippe R.",
@@ -402,6 +412,11 @@ En choisissant notre entreprise spécialisée en panneaux solaires à Fréjus, v
         "Aides régionales attractives",
         "Service après-vente réactif"
       ],
+      videoTestimonial: {
+        videoUrl: "https://res.cloudinary.com/dz5sry4jz/video/upload/v1737742571/MyOhm-Testimonial_sd8nwb.mp4",
+        clientName: "Antoine L.",
+        savings: "1850€/an"
+      },
       reviews: [
         {
           author: "Patrick M.",

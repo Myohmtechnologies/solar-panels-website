@@ -42,6 +42,20 @@ const GA4Initialize = () => {
             send_page_view: false // Désactivé car géré par notre service analytics
           });
           gtag('config', '${GOOGLE_ADS_ID}');
+
+          // Configuration des conversions Google Ads
+          gtag('event', 'page_view', {
+            'send_to': '${GOOGLE_ADS_ID}'
+          });
+
+          // Fonction globale pour suivre les conversions
+          window.trackGoogleAdsConversion = function() {
+            gtag('event', 'conversion', {
+              'send_to': '${GOOGLE_ADS_ID}/selKClb6ypcaEPPGpNM',
+              'value': 1.0,
+              'currency': 'EUR'
+            });
+          }
         `}
       </Script>
     </>

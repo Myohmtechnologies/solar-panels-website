@@ -43,25 +43,13 @@ export default function MerciPage() {
     trackConversion('thank_you_page', 100);
     
     // Track Google Ads conversion
-    if (typeof window !== 'undefined' && window.gtag) {
-      // Track GA4 conversion event
-      window.gtag('event', 'conversion', {
-        'send_to': 'G-ET19PN3YHF',
-        'event_category': 'lead',
-        'event_label': 'simulator_complete',
-        'value': 1
-      });
-
-      // Track Google Ads conversion avec les identifiants corrects
-      window.gtag('event', 'conversion', {
-        'send_to': 'AW-16817660787/selKClb6ypcaEPPGpNM-',
-        'value': 1.0,
-        'currency': 'EUR',
-        'transaction_id': new Date().getTime().toString()
-      });
+    if (typeof window !== 'undefined' && window.gtag && (window as any).trackGoogleAdsConversion) {
+      (window as any).trackGoogleAdsConversion();
     }
 
-    setLeadInfo(leadInfo);
+    if (storedLeadInfo) {
+      setLeadInfo(JSON.parse(storedLeadInfo));
+    }
   }, []);
 
   return (

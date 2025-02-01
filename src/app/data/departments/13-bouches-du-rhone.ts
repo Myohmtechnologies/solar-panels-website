@@ -201,7 +201,7 @@ const bouchesdurhone: Department = {
       population: 143097,
       sunshineHours: 2800,
       heroImage: {
-        url: '/images/regions/bg-aix-en-provence.webp',
+        url: '/images/regions/aix-en-provence.jpg',
         alt: 'Vue panoramique d\'Aix-en-Provence'
       },
       videoTestimonial: {

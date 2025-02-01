@@ -16,7 +16,7 @@ const SolarPanelSection = () => {
         {/* Panneau Solaire Image */}
         <div className="relative rounded-3xl overflow-hidden shadow-2xl transform transition-transform hover:scale-[1.02]">
           <Image 
-            src="/images/panneau-solaire-500w.png" 
+            src="/images/panneau-solaire-500w.webp" 
             alt="Panneau Solaire Haute Performance" 
             width={800}
             height={600}

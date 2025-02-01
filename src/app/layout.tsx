@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.myohmtechnologies.com'),
   title: 'MY OHM Technologies - Solutions Solaires Innovantes',
   description: 'MY OHM Technologies propose des solutions solaires sur mesure pour les particuliers et les entreprises.',
+  verification: {
+    google: 'bshllqo6MIhoBv2oLuo-5lh9FzoXSYWFaQmCOzx62rA',
+  },
   icons: {
     icon: [
       { url: '/favicon.ico' },

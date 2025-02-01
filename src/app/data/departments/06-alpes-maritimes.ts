@@ -10,10 +10,7 @@ const alpesMaritimes: Department = {
       code: "06000",
       population: 342669,
       sunshineHours: 2800,
-      heroImage: {
-        url: '/images/regions/bg-nice.webp',
-        alt: 'Vue panoramique de Nice et de la Promenade des Anglais'
-      },
+     
       solarAdvantages: [
         "Ensoleillement méditerranéen optimal",
         "Position géographique privilégiée",

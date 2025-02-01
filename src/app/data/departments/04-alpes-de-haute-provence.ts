@@ -10,10 +10,7 @@ const alpesDeHauteProvence: Department = {
       code: "04100",
       population: 22801,
       sunshineHours: 2800,
-      heroImage: {
-        url: '/images/hero-section-manosque.jpeg',
-        alt: 'Vue panoramique de Manosque, ville idéale pour l\'installation de panneaux solaires'
-      },
+     
       neighborhoods: [
         "Centre-ville",
         "Les Plantiers",

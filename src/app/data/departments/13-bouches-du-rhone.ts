@@ -14,10 +14,7 @@ const bouchesdurhone: Department = {
       code: "13055",
       population: 863310,
       sunshineHours: 2850,
-      heroImage: {
-        url: '/images/regions/bg-marseille.webp',
-        alt: 'Vue panoramique de Marseille et de Notre-Dame de la Garde'
-      },
+     
       solarAdvantages: [
         "Ensoleillement méditerranéen optimal",
         "Position géographique privilégiée",
@@ -200,10 +197,7 @@ const bouchesdurhone: Department = {
       code: "13100",
       population: 143097,
       sunshineHours: 2800,
-      heroImage: {
-        url: '/images/regions/aix-en-provence.jpg',
-        alt: 'Vue panoramique d\'Aix-en-Provence'
-      },
+   
       videoTestimonial: {
         videoUrl: "https://res.cloudinary.com/dz5sry4jz/video/upload/v1737742571/MyOhm-Testimonial_sd8nwb.mp4",
         clientName: "Sophie D.",

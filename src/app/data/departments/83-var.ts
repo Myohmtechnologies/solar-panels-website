@@ -45,10 +45,7 @@ const var83: Department = {
       code: "83000",
       population: 171953,
       sunshineHours: 2800,
-      heroImage: {
-        url: '/images/regions/bg-toulon.webp',
-        alt: 'Vue panoramique de Toulon et de sa rade'
-      },
+     
       solarAdvantages: [
         "Plus de 300 jours de soleil par an",
         "Fort potentiel d'économies",
@@ -259,10 +256,7 @@ Notre expert en panneaux solaires, certifié QualiPV, vous conseille sur le mont
       population: 54023,
       sunshineHours: 2800,
       individualHouses: 6500,
-      heroImage: {
-        url: '/images/regions/bg-frejus.jpg',
-        alt: 'Vue panoramique de Fréjus et de son port'
-      },
+     
       solarAdvantages: [
         "Ensoleillement exceptionnel méditerranéen",
         "Position côtière idéale pour l'énergie solaire",
@@ -396,10 +390,7 @@ En choisissant notre entreprise spécialisée en panneaux solaires à Fréjus, v
       code: "83050",
       population: 40054,
       sunshineHours: 2800,
-      heroImage: {
-        url: '/images/regions/bg-draguinan.webp',
-        alt: 'Vue panoramique de Draguignan'
-      },
+    
       solarAdvantages: [
         "Ensoleillement méditerranéen optimal",
         "Position géographique privilégiée",

@@ -39,12 +39,14 @@ export default function MerciPage() {
     // Track the source of the user
     const source = trackUserSource();
     
-    // Track final conversion
-    trackConversion('thank_you_page', 100);
-    
-    // Track Google Ads conversion
-    if (typeof window !== 'undefined' && window.gtag && (window as any).trackGoogleAdsConversion) {
-      (window as any).trackGoogleAdsConversion();
+    // Track Google Ads conversion avec l'ID et le label corrects
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-16817660787/selkClb6ypcaEPPGpNM',
+        'value': 100.0,
+        'currency': 'EUR',
+        'transaction_id': new Date().getTime().toString()
+      });
     }
 
     if (storedLeadInfo) {

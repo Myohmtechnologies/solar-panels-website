@@ -31,7 +31,7 @@
     "date-fns": "4.1.0",
     "dotenv": "^16.4.7",
     "encoding": "^0.1.13",
-    "framer-motion": "^11.13.1",
+    "framer-motion": "^11.18.2",
     "googleapis": "144.0.0",
     "isomorphic-dompurify": "^2.19.0",
     "jose": "5.9.6",

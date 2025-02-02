@@ -64,6 +64,23 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Script
+          id="google-ads"
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16817660787"
+        />
+        <Script
+          id="google-ads-config"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-16817660787');
+            `,
+          }}
+        />
         {/* Google Analytics */}
         <Script
           id="ga-script"
@@ -81,25 +98,6 @@ export default function RootLayout({
               gtag('config', 'G-ET19PN3YHF', {
                 page_path: window.location.pathname,
               });
-            `,
-          }}
-        />
-        
-        {/* Google Ads */}
-        <Script
-          id="google-ads"
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=AW-16817660787"
-        />
-        <Script
-          id="google-ads-config"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'AW-16817660787');
             `,
           }}
         />

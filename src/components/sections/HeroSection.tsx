@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { MapPinIcon, UserIcon, ChartBarIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { engagementEvents, navigationEvents } from '@/utils/analytics';
 import ContactForm from '../forms/ContactForm';
+import QuickLeadForm from '../forms/QuickLeadForm';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { motion } from 'framer-motion';
@@ -178,129 +179,93 @@ const HeroSection = () => {
       )}
 
       {/* Contenu principal */}
-      <section data-section="city-hero" className="hero-section relative min-h-[70vh] md:min-h-screen w-full bg-gradient-to-br from-white to-gray-100">
+      <div className="relative min-h-screen flex flex-col lg:flex-row lg:items-center">
         {/* Vidéo de fond */}
-        <div className='relative h-[50vh] md:h-screen min-h-[400px] w-full overflow-hidden'>
-          <div className="absolute inset-0 overflow-hidden">
-            <video
-              src="https://res.cloudinary.com/dz5sry4jz/video/upload/q_auto:eco,f_auto,c_scale,w_1280/societe-installation-de-panneaux-solaires"
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              loading="lazy"
-              className="w-full h-full object-cover"
-              aria-hidden="true"
-            >
-              <source
-                src="https://res.cloudinary.com/dz5sry4jz/video/upload/q_auto:eco,f_auto,c_scale,w_1280/societe-installation-de-panneaux-solaires"
-                type="video/mp4"
-              />
-            </video>
-            <div className="absolute inset-0 bg-black/40"></div>
+        <div className="relative h-[33vh] lg:h-auto lg:absolute lg:inset-0 -z-10">
+          <video
+            src="https://res.cloudinary.com/dz5sry4jz/video/upload/q_auto:eco,f_auto,c_scale,w_1280/societe-installation-de-panneaux-solaires"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+          />
+          {/* Overlay sur la vidéo */}
+          <div className="absolute inset-0 bg-black/50"></div>
+          
+          {/* Titre sur la vidéo - visible uniquement sur mobile */}
+          <div className="absolute inset-0 flex items-center justify-center p-3 lg:hidden">
+            <h1 className="text-xl md:text-4xl font-bold text-white text-center">
+              Économisez jusqu&apos;à -70%
+              <span className="block text-base md:text-2xl mt-1">
+                sur vos factures d&apos;électricité
+              </span>
+            </h1>
           </div>
         </div>
 
-        {/* Contenu principal */}
-        <div className="relative bg-white md:bg-transparent flex items-center px-4 md:px-8 lg:px-12 py-6 md:py-0 md:absolute md:inset-0">
-          <div className="bg-light-yellow rounded-2xl p-6 md:p-8 max-w-xl backdrop-blur-sm w-full md:ml-[5%] shadow-2xl hover:scale-[1.02] transition-transform duration-300">
+        {/* Contenu */}
+        <div className="flex-1 w-full bg-gray-100 lg:bg-transparent">
+          <div className="container mx-auto px-4 lg:px-8 py-6 lg:py-0">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between max-w-7xl mx-auto">
+              {/* Formulaire */}
+              <div className="w-full lg:w-[500px] xl:w-[550px] lg:order-1">
+                <div className="bg-white rounded-xl p-6 md:p-8 lg:p-10 shadow-2xl">
+                  <div className="text-center mb-6">
+                    <p className="text-green-600 font-semibold text-xl mb-3">
+                      Bénéficiez des aides de l&apos;État 2025
+                    </p>
+                    <h2 className="text-2xl font-bold text-gray-900">
+                      Étude gratuite et sans engagement
+                    </h2>
+                  </div>
+                  
+                  <QuickLeadForm />
 
-
-            <div className="text-center mb-6">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 mb-3 leading-tight">
-                <span className="block mb-2">Économisez jusqu&apos;à 70%</span>
-                <span className="block text-xl md:text-2xl lg:text-3xl">sur vos factures d&apos;électricité</span>
-                <span className="block mt-2 text-xl md:text-2xl lg:text-3xl text-green-700">et bénéficiez des aides de l&apos;État 2025</span>
-              </h1>
-              <p className="text-lg md:text-xl text-gray-700 font-medium mb-4 max-w-md mx-auto">
-                Découvrez votre potentiel d&apos;économies
-              </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/simulator"
-                onClick={handleSimulatorClick}
-                className="group w-full py-4 rounded-full bg-gradient-solar inline-flex items-center justify-center relative overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-95"
-              >
-                {/* Effet de brillance permanent */}
-                <div className="absolute inset-0 w-1/4 h-full bg-white/20 skew-x-[45deg] transform -translate-x-full animate-shine"></div>
-                
-                {/* Contenu du bouton */}
-                <span className="flex items-center justify-center gap-3 relative">
-                  <ChartBarIcon className="w-6 h-6 transition-transform group-hover:scale-110" />
-                  <span className="text-lg md:text-xl font-bold">
-                    Simulation gratuite
-                  </span>
-                  <ArrowRightIcon className="w-5 h-5 transition-all duration-300 group-hover:translate-x-1" />
-                </span>
-              </Link>
-            </div>
-
-            {/* Détails */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-600 text-sm">
-              <span className="flex items-center">
-                <svg className="w-4 h-4 text-AFC97E mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Estimation gratuite en 2 mins
-              </span>
-              <span className="flex items-center">
-                <svg className="w-4 h-4 text-AFC97E mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                Gratuit et sans engagement
-              </span>
-            </div>
-
-            {/* Logos des certifications */}
-            <div className="flex items-center justify-center gap-4 mt-4">
-              <Image
-                src="/images/rge1.png"
-                alt="Certification RGE"
-                width={90}
-                height={40}
-                className="h-8 w-auto object-contain"
-              />
-              <Image
-                src="/images/qualipv1.png"
-                alt="Certification QualiPV"
-                width={100}
-                height={40}
-                className="h-8 w-auto object-contain"
-              />
-              <Image
-                src="/images/garantie-decennale-p2a-construction.webp"
-                alt="Certification Decinel"
-                width={100}
-                height={50}
-                className="h-8 w-auto object-contain"
-              />
-            </div>
-
-            {/* Note Google */}
-            <div className="flex flex-col items-center justify-center mt-4">
-              <div className="flex items-center">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <svg
-                    key={star}
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-yellow-500"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
+                  {/* Badges */}
+                  <div className="flex justify-center items-center gap-6 mt-6">
+                    <Image
+                      src="/images/rge1.png"
+                      alt="Certification RGE"
+                      width={85}
+                      height={40}
+                      className="h-10 w-auto object-contain"
+                    />
+                    <Image
+                      src="/images/qualipv1.png"
+                      alt="Certification QualiPV"
+                      width={95}
+                      height={40}
+                      className="h-10 w-auto object-contain"
+                    />
+                    <div className="flex items-center gap-1">
+                      <Image
+                        src="/images/google.png"
+                        alt="Google"
+                        width={20}
+                        height={20}
+                        className="w-6 h-6 object-contain"
+                      />
+                      <span className="text-lg font-medium text-gray-700">4,8/5</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <span className="text-sm text-gray-600 mt-1">
-                5/5 sur Google
-              </span>
+
+              {/* Titre desktop */}
+              <div className="hidden lg:block lg:w-[500px] xl:w-[600px] lg:order-2">
+                <h1 className="text-6xl font-bold text-white">
+                  Économisez<br />
+                  jusqu&apos;à <span className="text-green-400">70%</span><br />
+                  <span className="text-4xl mt-4 block">
+                    sur vos factures d&apos;électricité
+                  </span>
+                </h1>
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Commercial Contact Modal */}
       <ContactModal

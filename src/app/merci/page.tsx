@@ -25,33 +25,17 @@ export default function MerciPage() {
     const storedLeadInfo = sessionStorage.getItem('leadInfo');
     const leadInfo = storedLeadInfo ? JSON.parse(storedLeadInfo) : null;
 
-    // Track la conversion finale
-    conversionEvents.simulatorConversion('thank_you_page', {
-      source: 'simulator_complete',
-      property_type: leadInfo?.logementType,
-      energy_bill: leadInfo?.energyBill,
-      equipment: leadInfo?.equipment
-    });
-
-    // Track la génération du lead
-    conversionEvents.leadGenerated('simulator_thank_you', 100);
-
-    // Track the source of the user
-    const source = trackUserSource();
-    
-    // Track Google Ads conversion avec l'ID et le label corrects
+    // Track la conversion Google Ads
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'conversion', {
-        'send_to': 'AW-16817660787/selkClb6ypcaEPPGpNM',
+        'send_to': 'AW-16817660787/selKCIb6ypcaEPPGpNM',
         'value': 100.0,
         'currency': 'EUR',
         'transaction_id': new Date().getTime().toString()
       });
     }
 
-    if (storedLeadInfo) {
-      setLeadInfo(JSON.parse(storedLeadInfo));
-    }
+    setLeadInfo(leadInfo);
   }, []);
 
   return (

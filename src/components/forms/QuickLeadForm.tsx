@@ -48,12 +48,8 @@ export default function QuickLeadForm() {
 
       // Track la conversion Google Ads
       if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'conversion', {
-          'send_to': 'AW-16817660787/selKCIb6ypcaEPPGpNM',
-          'value': 100.0,
-          'currency': 'EUR',
-          'transaction_id': new Date().getTime().toString()
-        });
+        // @ts-ignore
+        window.trackLeadConversion(100.0);
       }
 
       // Redirection vers la page de remerciement

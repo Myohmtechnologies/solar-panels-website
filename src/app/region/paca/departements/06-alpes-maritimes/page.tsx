@@ -8,6 +8,8 @@ import ContactCTASection from '@/components/sections/ContactCTASection';
 import LocalReviews from '@/components/sections/LocalReviews';
 import CityActionButtons from '@/components/sections/CityActionButtons';
 import PrixInstallation from '@/components/PrixInstallation';
+import TransactionalHero from '@/components/sections/TransactionalHero';
+import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
 
 export const metadata: Metadata = {
   title: 'Installation Panneaux Solaires Alpes-Maritimes (06) | My Ohm Technologies',
@@ -100,11 +102,14 @@ export default function AlpesMaritimesPage() {
   return (
     <main className="min-h-screen bg-gray-50">
       <CityActionButtons />
-      <RegionHero
-        title={`Installation Panneaux Solaires ${departementData.name} (${departementData.code})`}
-        description="Profitez d'un ensoleillement exceptionnel et d'aides avantageuses pour votre installation solaire"
-        image={departementData.heroImage}
+      <TransactionalHero
+        region="PACA"
+        departement={departementData.name}
+        code={departementData.code}
+        ensoleillement={departementData.ensoleillement}
+        potentielSolaire={departementData.potentielSolaire}
       />
+      <ClientTestimonialsSection />
 
       <RegionStats
         title="Le Potentiel Solaire des Alpes-Maritimes"

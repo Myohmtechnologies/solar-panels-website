@@ -27,20 +27,8 @@ export default function MerciPage() {
 
     // Track la conversion Google Ads
     if (typeof window !== 'undefined' && window.gtag) {
-      // Track la conversion lead
-      window.gtag('event', 'conversion', {
-        'send_to': 'AW-16817660787/selKCIb6ypcaEPPGpNM',
-        'value': 100.0,
-        'currency': 'EUR',
-        'transaction_id': new Date().getTime().toString()
-      });
-
-      // Track l'événement standard
-      window.gtag('event', 'generate_lead', {
-        'send_to': 'AW-16817660787',
-        'value': 100.0,
-        'currency': 'EUR'
-      });
+      // @ts-ignore
+      window.trackLeadConversion(100.0);
     }
 
     setLeadInfo(leadInfo);

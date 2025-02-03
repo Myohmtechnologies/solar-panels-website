@@ -37,25 +37,37 @@ const GA4Initialize = () => {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
+          
+          // Configuration GA4
           gtag('config', '${GA_MEASUREMENT_ID}', {
             page_path: window.location.pathname,
-            send_page_view: false // Désactivé car géré par notre service analytics
+            send_page_view: false
           });
-          gtag('config', '${GOOGLE_ADS_ID}');
 
-          // Configuration des conversions Google Ads
-          gtag('event', 'page_view', {
-            'send_to': '${GOOGLE_ADS_ID}'
+          // Configuration Google Ads avec conversion linker
+          gtag('config', '${GOOGLE_ADS_ID}');
+          gtag('config', '${GOOGLE_ADS_ID}/selKCIb6ypcaEPPGpNM');
+
+          // Activer le conversion linker
+          gtag('set', 'linker', {
+            'domains': ['myohmtechnologies.com']
           });
 
           // Fonction globale pour suivre les conversions
-          window.trackGoogleAdsConversion = function() {
+          window.trackLeadConversion = function(value = 100.0) {
             gtag('event', 'conversion', {
-              'send_to': '${GOOGLE_ADS_ID}/selKClb6ypcaEPPGpNM',
-              'value': 1.0,
+              'send_to': '${GOOGLE_ADS_ID}/selKCIb6ypcaEPPGpNM',
+              'value': value,
+              'currency': 'EUR',
+              'transaction_id': new Date().getTime().toString()
+            });
+
+            gtag('event', 'generate_lead', {
+              'send_to': '${GOOGLE_ADS_ID}',
+              'value': value,
               'currency': 'EUR'
             });
-          }
+          };
         `}
       </Script>
     </>

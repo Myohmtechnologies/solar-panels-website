@@ -7,6 +7,8 @@ import RegionFAQ from '@/components/sections/RegionFAQ';
 import ContactCTASection from '@/components/sections/ContactCTASection';
 import LocalReviews from '@/components/sections/LocalReviews';
 import PrixInstallation from '@/components/PrixInstallation';
+import TransactionalHero from '@/components/sections/TransactionalHero';
+import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
 
 export const metadata: Metadata = {
   title: 'Installation Panneaux Solaires Hautes-Alpes (05) | My Ohm Technologies',
@@ -76,12 +78,14 @@ const departementData = {
 export default function HautesAlpesPage() {
   return (
     <main className="overflow-x-hidden">
-      <RegionHero 
-        region={departementData.name}
-        imagePath={departementData.heroImage}
+      <TransactionalHero
+        region="PACA"
+        departement={departementData.name}
+        code={departementData.code}
         ensoleillement={departementData.ensoleillement}
         potentielSolaire={departementData.potentielSolaire}
       />
+      <ClientTestimonialsSection />
       <RegionStats stats={departementData.stats} />
       <RegionSolarInstallationSection region={departementData.name} />
       <PrixInstallation />

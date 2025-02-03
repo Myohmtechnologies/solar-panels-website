@@ -52,11 +52,15 @@ export default function QuickLeadForm() {
 
       // Track la conversion Google Ads
       if (typeof window !== 'undefined' && window.gtag) {
+        console.log('🔍 Sending Google Ads conversion...');
         window.gtag('event', 'conversion', {
           'send_to': 'AW-16817660787/bCJ6CKu725gaEPPGpNM-',
           'value': 1.0,
           'currency': 'EUR'
         });
+        console.log('✅ Google Ads conversion sent');
+      } else {
+        console.error('❌ Google Ads tracking not available');
       }
 
       // Redirection vers la page de remerciement

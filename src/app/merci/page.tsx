@@ -27,11 +27,15 @@ export default function MerciPage() {
 
     // Track la conversion Google Ads
     if (typeof window !== 'undefined' && window.gtag) {
+      console.log('🔍 Sending Google Ads conversion from thank you page...');
       window.gtag('event', 'conversion', {
         'send_to': 'AW-16817660787/bCJ6CKu725gaEPPGpNM-',
         'value': 1.0,
         'currency': 'EUR'
       });
+      console.log('✅ Google Ads conversion sent from thank you page');
+    } else {
+      console.error('❌ Google Ads tracking not available on thank you page');
     }
 
     setLeadInfo(leadInfo);

@@ -16,24 +16,41 @@ export default function QuickLeadForm() {
     e.preventDefault();
     
     try {
+      // Envoie des données à l'API
       const response = await fetch('/api/leads', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          ...formData,
-          source: 'quick_lead_form',
-          leadType: 'google_ads'
+          name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          notes: formData.message || '',
+          energyBill: formData.electricityBill ? parseInt(formData.electricityBill) : null,
+          source: 'QUICK_FORM',
+          projectType: 'SOLAR_PANELS',
+          createdAt: new Date(),
+          status: 'NEW'
         }),
       });
 
-      if (response.ok) {
-        // Redirection vers la page de remerciement
-        window.location.href = '/merci';
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'envoi du formulaire');
       }
+
+      // Stocker les infos du lead pour la page de remerciement
+      const leadInfo = {
+        name: formData.fullName,
+        energyBill: formData.electricityBill
+      };
+      sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
+
+      // Redirection vers la page de remerciement
+      window.location.href = '/merci';
     } catch (error) {
       console.error('Error submitting form:', error);
+      alert('Une erreur est survenue. Veuillez réessayer.');
     }
   };
 

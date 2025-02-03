@@ -17,6 +17,7 @@ const TrackingInitializer = dynamic(() => import('@/components/tracking/Tracking
 const FacebookPixel = dynamic(() => import('@/components/analytics/FacebookPixel'), { ssr: false });
 const ScrollTracker = dynamic(() => import('@/components/analytics/ScrollTracker'), { ssr: false });
 const TeamAuth = dynamic(() => import('@/components/admin/TeamAuth'), { ssr: false });
+const ConversionTracker = dynamic(() => import('@/components/tracking/ConversionTracker'), { ssr: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.myohmtechnologies.com'),
@@ -105,9 +106,10 @@ export default function RootLayout({
       <body className="min-h-screen bg-white">
         <Toaster position="top-center" />
         <GA4Initialize />
-        <TrackingInitializer />
         <FacebookPixel />
         <ScrollTracker />
+        <TrackingInitializer />
+        <ConversionTracker />
         <TeamAuth />
         <ClientLayout>{children}</ClientLayout>
       </body>

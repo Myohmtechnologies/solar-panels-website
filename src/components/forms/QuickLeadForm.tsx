@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { conversionEvents } from '@/utils/analytics';
+import { trackConversion } from '../tracking/ConversionTracker';
 
 export default function QuickLeadForm() {
   const [formData, setFormData] = useState({
@@ -46,11 +47,8 @@ export default function QuickLeadForm() {
       };
       sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
 
-      // Track la conversion Google Ads
-      if (typeof window !== 'undefined' && window.gtag) {
-        // @ts-ignore
-        window.trackLeadConversion(100.0);
-      }
+      // Track la conversion
+      trackConversion();
 
       // Redirection vers la page de remerciement
       window.location.href = '/merci';

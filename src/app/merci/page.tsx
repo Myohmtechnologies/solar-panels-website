@@ -25,12 +25,6 @@ export default function MerciPage() {
     const storedLeadInfo = sessionStorage.getItem('leadInfo');
     const leadInfo = storedLeadInfo ? JSON.parse(storedLeadInfo) : null;
 
-    // Track la conversion Google Ads
-    if (typeof window !== 'undefined' && window.gtag) {
-      // @ts-ignore
-      window.trackLeadConversion(100.0);
-    }
-
     setLeadInfo(leadInfo);
   }, []);
 

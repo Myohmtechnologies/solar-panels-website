@@ -46,6 +46,16 @@ export default function QuickLeadForm() {
       };
       sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
 
+      // Track la conversion Google Ads
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'conversion', {
+          'send_to': 'AW-16817660787/selKCIb6ypcaEPPGpNM',
+          'value': 100.0,
+          'currency': 'EUR',
+          'transaction_id': new Date().getTime().toString()
+        });
+      }
+
       // Redirection vers la page de remerciement
       window.location.href = '/merci';
     } catch (error) {

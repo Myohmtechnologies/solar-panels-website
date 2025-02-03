@@ -5,12 +5,38 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { SunIcon, BoltIcon, HomeIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import { regions } from '@/config/seo';
+import alpesDeHauteProvence from '@/app/data/departments/04-alpes-de-haute-provence';
+import bouchesdurhone from '@/app/data/departments/13-bouches-du-rhone';
+import var83 from '@/app/data/departments/83-var';
 
 interface Props {
   region: string;
+  advantages: Array<{
+    title: string;
+    description: string;
+  }>;
 }
 
-const RegionSolarInstallationSection = ({ region }: Props) => {
+const RegionSolarInstallationSection = ({ region, advantages = [] }: Props) => {
+  // Détermine le bon département en fonction du nom de la région
+  const getDepartmentData = (regionName: string) => {
+    switch (regionName) {
+      case 'Alpes-de-Haute-Provence':
+        return alpesDeHauteProvence;
+      case 'Bouches-du-Rhône':
+        return bouchesdurhone;
+      case 'Var':
+        return var83;
+      default:
+        return alpesDeHauteProvence; // Fallback par défaut
+    }
+  };
+
+  const departmentData = getDepartmentData(region);
+  const cities = Object.values(departmentData.cities || {})
+    .sort((a, b) => b.population - a.population)
+    .slice(0, 12);
+
   const currentRegion = regions.find(r => r.name === region);
   const features = [
     {
@@ -31,23 +57,39 @@ const RegionSolarInstallationSection = ({ region }: Props) => {
   ];
 
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-12 bg-gradient-to-br from-f0f4f8 to-e1e7f0">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-          Installation Solaire en {region}
-        </h2>
+    <section className="py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Content */}
+        <div className="text-center mb-12">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-bold text-gray-900"
+          >
+            Installation Panneaux Solaires {region}
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto"
+          >
+            Découvrez nos solutions d&apos;installation de panneaux solaires adaptées à votre région
+          </motion.p>
+        </div>
 
-        <div className="flex flex-col lg:flex-row gap-8 mb-12">
-          {/* Colonne de gauche avec image */}
+        {/* Image and Advantages */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:w-1/2"
           >
             <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-lg">
               <Image
-                src="/images/06-installation.jpg"
+                src="/images/installation-purchasse.jpg"
                 alt={`Installation de panneaux solaires en ${region}`}
                 fill
                 className="object-cover"
@@ -55,32 +97,70 @@ const RegionSolarInstallationSection = ({ region }: Props) => {
             </div>
           </motion.div>
 
-          {/* Colonne de droite avec features */}
-          <div className="lg:w-1/2 space-y-6">
-            {features.map((feature, index) => (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="space-y-6"
+          >
+            {advantages.map((advantage, index) => (
+              <div key={index} className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+                    <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900">{advantage.title}</h3>
+                  <p className="mt-2 text-gray-600">{advantage.description}</p>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Cities Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">
+            Nos Services dans les Principales Villes du {region}
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {cities.map((city, index) => (
               <motion.div
-                key={index}
+                key={city.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-start space-x-4"
+                transition={{ delay: index * 0.1 }}
+                className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow"
               >
-                <div className="flex-shrink-0">
-                  <feature.icon className="w-12 h-12 text-FFDF64" />
+                <div className="flex items-center justify-between mb-4">
+                  <h4 className="text-xl font-semibold text-gray-900">{city.name}</h4>
+                  <span className="text-sm text-gray-500">{city.code}</span>
                 </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600">
-                    {feature.description}
-                  </p>
+                <div className="space-y-2 text-gray-600 text-sm mb-4">
+                  <p>Population : {city.population.toLocaleString()} habitants</p>
+                  {city.sunshineHours && (
+                    <p>Ensoleillement : {city.sunshineHours} heures/an</p>
+                  )}
                 </div>
+                <Link 
+                  href={`/villes/${city.code.toLowerCase()}`}
+                  className="inline-block w-full text-center py-2 px-4 border border-green-600 text-green-600 rounded-lg hover:bg-green-600 hover:text-white transition-colors"
+                >
+                  En savoir plus
+                </Link>
               </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Section des départements */}
         {currentRegion && currentRegion.departments.length > 0 && (
@@ -91,7 +171,7 @@ const RegionSolarInstallationSection = ({ region }: Props) => {
             className="mt-16"
           >
             <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">
-              Nos Services par Département
+              Nos Services dans toutes les villes du Départementales 
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {currentRegion.departments.map((department, index) => (

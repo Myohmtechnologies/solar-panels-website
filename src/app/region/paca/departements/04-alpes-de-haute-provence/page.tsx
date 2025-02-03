@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import RegionHero from '@/components/sections/RegionHero';
+import TransactionalHero from '@/components/sections/TransactionalHero';
 import RegionStats from '@/components/sections/RegionStats';
 import RegionSolarInstallationSection from '@/components/sections/RegionSolarInstallationSection';
 import RegionAids from '@/components/sections/RegionAids';
@@ -7,23 +7,23 @@ import RegionFAQ from '@/components/sections/RegionFAQ';
 import ContactCTASection from '@/components/sections/ContactCTASection';
 import LocalReviews from '@/components/sections/LocalReviews';
 import PrixInstallation from '@/components/PrixInstallation';
+import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
 
 export const metadata: Metadata = {
-  title: 'Installation Panneaux Solaires Alpes-de-Haute-Provence (04) | My Ohm Technologies',
-  description: 'Découvrez nos solutions d\'installation de panneaux solaires dans les Alpes-de-Haute-Provence. Profitez d\'un ensoleillement exceptionnel et des aides départementales.',
+  title: 'Installation Panneaux Solaires Alpes-de-Haute-Provence (04) | Devis Gratuit',
+  description: 'Demandez votre devis gratuit pour l\'installation de panneaux solaires dans les Alpes-de-Haute-Provence (04). Profitez des aides de l\'État et réduisez vos factures d\'électricité.',
   keywords: [
-    'panneaux solaires Alpes-de-Haute-Provence',
-    'installation solaire 04',
-    'énergie solaire Digne-les-Bains',
-    'aide installation solaire 04',
-    'photovoltaïque Alpes-de-Haute-Provence',
+    'devis panneaux solaires 04',
+    'installation solaire Alpes-de-Haute-Provence',
+    'prix panneaux solaires 04',
+    'installateur solaire Digne-les-Bains',
+    'cout installation solaire 04',
   ],
 };
 
 const departementData = {
   name: 'Alpes-de-Haute-Provence',
   code: '04',
-  heroImage: '/images/regions/alpes-de-haute-provence-hero.webp',
   ensoleillement: '2750 heures/an',
   potentielSolaire: '1580 kWh/m²/an',
   stats: [
@@ -76,14 +76,16 @@ const departementData = {
 export default function AlpesDeHauteProvencePage() {
   return (
     <main className="overflow-x-hidden">
-      <RegionHero 
-        region={departementData.name}
-        imagePath={departementData.heroImage}
+      <TransactionalHero
+        region="PACA"
+        departement={departementData.name}
+        code={departementData.code}
         ensoleillement={departementData.ensoleillement}
         potentielSolaire={departementData.potentielSolaire}
       />
+      <ClientTestimonialsSection />
       <RegionStats stats={departementData.stats} />
-      <RegionSolarInstallationSection region={departementData.name} />
+      <RegionSolarInstallationSection region={departementData.name} advantages={departementData.advantages} />
       <PrixInstallation />
       <RegionAids region={departementData.name} advantages={departementData.advantages} />
       <LocalReviews region={departementData.name} />

@@ -7,6 +7,8 @@ import RegionFAQ from '@/components/sections/RegionFAQ';
 import ContactCTASection from '@/components/sections/ContactCTASection';
 import LocalReviews from '@/components/sections/LocalReviews';
 import PrixInstallation from '@/components/PrixInstallation';
+import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
+import TransactionalHero from '@/components/sections/TransactionalHero';
 
 export const metadata: Metadata = {
   title: 'Installation Panneaux Solaires Var (83) | My Ohm Technologies',
@@ -76,14 +78,16 @@ const departementData = {
 export default function VarPage() {
   return (
     <main className="overflow-x-hidden">
-      <RegionHero 
-        region={departementData.name}
-        imagePath={departementData.heroImage}
+      <TransactionalHero
+        region="PACA"
+        departement={departementData.name}
+        code={departementData.code}
         ensoleillement={departementData.ensoleillement}
         potentielSolaire={departementData.potentielSolaire}
       />
+      <ClientTestimonialsSection />
       <RegionStats stats={departementData.stats} />
-      <RegionSolarInstallationSection region={departementData.name} />
+      <RegionSolarInstallationSection region={departementData.name} advantages={departementData.advantages} />
       <PrixInstallation />
       <RegionAids region={departementData.name} advantages={departementData.advantages} />
       <LocalReviews region={departementData.name} />

@@ -246,7 +246,7 @@ const HeroSection = () => {
                         height={20}
                         className="w-6 h-6 object-contain"
                       />
-                      <span className="text-lg font-medium text-gray-700">4,8/5</span>
+                      <span className="text-lg font-medium text-gray-700">4,9/5</span>
                     </div>
                   </div>
                 </div>

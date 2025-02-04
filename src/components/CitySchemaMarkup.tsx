@@ -30,6 +30,12 @@ const CitySchemaMarkup = ({ cityData, departmentName }: CitySchemaMarkupProps) =
         },
         "telephone": "+33413680384",
         "priceRange": "€€€",
+        "openingHoursSpecification": [{
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        }],
         "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "4.6",
@@ -37,40 +43,67 @@ const CitySchemaMarkup = ({ cityData, departmentName }: CitySchemaMarkupProps) =
           "bestRating": "5",
           "worstRating": "1"
         },
-        "review": [
-          {
-            "@type": "Review",
-            "reviewRating": {
-              "@type": "Rating",
-              "ratingValue": "5",
-              "bestRating": "5",
-              "worstRating": "1"
-            },
-            "author": {
-              "@type": "Person",
-              "name": "Jean Martin"
-            },
-            "datePublished": "2024-12-15",
-            "reviewBody": "Excellent service, installation rapide et professionnelle. Je recommande vivement !"
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": `Installation Panneaux Solaires ${cityData.name}`,
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Installation Panneaux Photovoltaïques",
+                "description": `Installation complète de panneaux solaires à ${cityData.name}`,
+                "provider": {
+                  "@type": "LocalBusiness",
+                  "@id": "https://www.myohmtechnologies.com"
+                }
+              },
+              "priceSpecification": {
+                "@type": "PriceSpecification",
+                "price": "7300",
+                "priceCurrency": "EUR",
+                "validFrom": "2024-01-01"
+              }
+            }
+          ]
+        },
+        "review": cityData.reviews?.map(review => ({
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": review.rating.toString(),
+            "bestRating": "5",
+            "worstRating": "1"
           },
-          {
-            "@type": "Review",
-            "reviewRating": {
-              "@type": "Rating",
-              "ratingValue": "5",
-              "bestRating": "5",
-              "worstRating": "1"
-            },
-            "author": {
-              "@type": "Person",
-              "name": "Marie Dubois"
-            },
-            "datePublished": "2024-12-10",
-            "reviewBody": "Très satisfaite de l'installation. L'équipe est compétente et à l'écoute."
+          "author": {
+            "@type": "Person",
+            "name": review.author
+          },
+          "datePublished": review.date,
+          "reviewBody": review.comment,
+          "publisher": {
+            "@type": "Organization",
+            "name": "My Ohm Technologies"
           }
-        ]
+        })) || []
       },
-      // Service Schema
+      // Service Schema avec focus informationnel
+      {
+        "@type": "Service",
+        "name": `Guide Installation Panneaux Solaires ${cityData.name}`,
+        "provider": {
+          "@type": "LocalBusiness",
+          "@id": "https://www.myohmtechnologies.com"
+        },
+        "areaServed": {
+          "@type": "City",
+          "name": cityData.name
+        },
+        "description": `Guide complet sur l'installation de panneaux solaires à ${cityData.name}. Découvrez les aides, subventions et le processus d'installation.`,
+        "category": ["Guide Solaire", "Aides et Subventions"],
+        "serviceType": "Information et Conseil"
+      },
+      // Service Schema avec focus transactionnel
       {
         "@type": "Service",
         "name": `Installation Panneaux Solaires ${cityData.name}`,
@@ -82,42 +115,29 @@ const CitySchemaMarkup = ({ cityData, departmentName }: CitySchemaMarkupProps) =
           "@type": "City",
           "name": cityData.name
         },
-        "description": cityData.description || `Installation de panneaux solaires à ${cityData.name} par My Ohm Technologies`,
-        "category": ["Panneaux Solaires", "Panneaux Photovoltaïques"],
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.6",
-          "ratingCount": "3068",
-          "bestRating": "5",
-          "worstRating": "1"
+        "description": cityData.description || `Installation professionnelle de panneaux solaires à ${cityData.name}. Devis gratuit et installation par des experts certifiés RGE.`,
+        "category": ["Installation Solaire", "Panneaux Photovoltaïques"],
+        "serviceType": "Installation",
+        "offers": {
+          "@type": "Offer",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "price": "7300",
+            "priceCurrency": "EUR"
+          }
         }
       },
-      // Organization Schema
+      // FAQ Schema
       {
-        "@type": "Organization",
-        "@id": "https://www.myohmtechnologies.com",
-        "name": "My Ohm Technologies",
-        "url": "https://www.myohmtechnologies.com",
-        "logo": "https://www.myohmtechnologies.com/images/logo.webp",
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "telephone": "+33492766858",
-          "contactType": "customer service",
-          "areaServed": "FR",
-          "availableLanguage": ["French"]
-        }
-      },
-      // AggregateRating Schema
-      {
-        "@type": "AggregateRating",
-        "itemReviewed": {
-          "@type": "LocalBusiness",
-          "@id": "https://www.myohmtechnologies.com"
-        },
-        "ratingValue": "4.9",
-        "reviewCount": "50",
-        "bestRating": "5",
-        "worstRating": "1"
+        "@type": "FAQPage",
+        "mainEntity": cityData.seo?.faqSchema?.map(faq => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.answer
+          }
+        })) || []
       }
     ]
   };

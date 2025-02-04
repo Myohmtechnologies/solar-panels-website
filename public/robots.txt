@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://myohmtechnologies.fr
+Host: https://www.myohmtechnologies.com
 
 # Sitemaps
-Sitemap: https://myohmtechnologies.fr/sitemap.xml
+Sitemap: https://www.myohmtechnologies.com/sitemap.xml

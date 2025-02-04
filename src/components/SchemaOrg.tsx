@@ -6,7 +6,7 @@ type SchemaOrgProps = {
 
 export function SchemaOrg({
   name,
-  description = 'Solar panel installation services',
+  description = 'Service d\'installations de panneaux solaires',
   image = '/images/logo.png'
 }: SchemaOrgProps) {
   const jsonLd = {
@@ -15,13 +15,13 @@ export function SchemaOrg({
     name,
     description,
     image,
-    url: 'https://myohmtechnologies.fr',
-    telephone: '+33 9 87 65 43 21',
+    url: 'https://www.myohmtechnologies.com',
+    telephone: '+334 92 76 68 58',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '123 Rue de la Technologie',
-      addressLocality: 'Paris',
-      postalCode: '75001',
+      streetAddress: '544 avenue Frédéric Mistral ',
+      addressLocality: 'Manosque',
+      postalCode: '04100',
       addressCountry: 'FR'
     },
     geo: {
@@ -33,7 +33,8 @@ export function SchemaOrg({
       '@type': 'Country',
       name: 'France'
     },
-    serviceType: 'Solar Panel Installation'
+    serviceType: 'installateur de panneaux solaires',
+    priceRange: '7300€',
   };
 
   return (

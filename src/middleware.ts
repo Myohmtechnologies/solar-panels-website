@@ -6,13 +6,28 @@ export const config = {
     '/api/:path*',
     '/dashboard/:path*',
     '/login',
+    '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
 };
 
+// URLs à rediriger (anciennes vers nouvelles)
+const redirects = new Map([
+  ['/panneaux-solaires', '/guide-aides-subventions'],
+  ['/installation', '/qui-sommes-nous'],
+  // Ajoutez d'autres redirections ici
+]);
+
 export function middleware(request: NextRequest) {
-  const isApiRoute = request.nextUrl.pathname.startsWith('/api');
-  const isDashboardRoute = request.nextUrl.pathname.startsWith('/dashboard');
-  const isLoginRoute = request.nextUrl.pathname === '/login';
+  const { pathname } = request.nextUrl;
+  
+  // Gestion des redirections
+  if (redirects.has(pathname)) {
+    return NextResponse.redirect(new URL(redirects.get(pathname)!, request.url));
+  }
+
+  const isApiRoute = pathname.startsWith('/api');
+  const isDashboardRoute = pathname.startsWith('/dashboard');
+  const isLoginRoute = pathname === '/login';
 
   // Allow all API routes to be dynamic
   if (isApiRoute) {
@@ -35,6 +50,18 @@ export function middleware(request: NextRequest) {
       return NextResponse.next();
     } catch {
       return NextResponse.redirect(new URL('/login', request.url));
+    }
+  }
+
+  // Log 404s
+  if (!isApiRoute && !isDashboardRoute && !isLoginRoute) {
+    const response = NextResponse.next();
+    response.headers.set('x-middleware-cache', 'no-cache');
+    
+    // Log 404s to your analytics or monitoring system
+    if (response.status === 404) {
+      console.error(`404 Error: ${pathname}`);
+      // Vous pouvez ajouter ici un appel à votre système d'analytics
     }
   }
 

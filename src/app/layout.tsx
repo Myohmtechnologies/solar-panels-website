@@ -9,9 +9,9 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
-  preload: true,
 });
 
+// Chargement différé des composants non-critiques
 const ClientLayout = dynamic(() => import('@/components/layout/ClientLayout'), { 
   ssr: false,
   loading: () => <div className="min-h-screen" /> 
@@ -129,7 +129,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-white">
+      <body className="font-sans min-h-screen bg-white">
         <Toaster position="top-center" />
         <GA4Initialize />
         <FacebookPixel />

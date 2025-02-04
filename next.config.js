@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  compress: true,
+  poweredByHeader: false,
+  generateEtags: true,
   images: {
     domains: ['images.unsplash.com', 'res.cloudinary.com'],
     formats: ['image/avif', 'image/webp'],
@@ -40,7 +43,11 @@ const nextConfig = {
     ];
   },
   experimental: {
+    scrollRestoration: true,
     serverActions: true,
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
   },
   eslint: {
     ignoreDuringBuilds: true,
@@ -48,16 +55,16 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  async rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: '/api/:path*',
-          destination: '/api/:path*',
-          has: [{ type: 'query', key: 'dynamic', value: 'true' }],
-        },
-      ],
-    };
+  webpack: (config, { dev, isServer }) => {
+    if (!dev && !isServer) {
+      config.optimization.splitChunks.cacheGroups.styles = {
+        name: 'styles',
+        test: /\.(css|scss)$/,
+        chunks: 'all',
+        enforce: true,
+      };
+    }
+    return config;
   },
 };
 

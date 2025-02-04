@@ -286,7 +286,7 @@ export default function BorneDeRechargePage() {
               },
               {
                 image: '/images/borne/realisation-borne-irve.jpeg',
-                title: 'Appartement à Digne',
+                title: 'Maison à Digne',
                 description: 'Borne de recharge 3.7kW',
                 details: 'Installation en parking souterrain'
               },

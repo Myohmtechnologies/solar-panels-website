@@ -1,5 +1,10 @@
 import { MetadataRoute } from 'next'
 import bouchesdurhone from './data/departments/13-bouches-du-rhone'
+import alpesdehauteprovence from './data/departments/04-alpes-de-haute-provence'
+import hautesalpes from './data/departments/05-hautes-alpes'
+import alpesmaritimes from './data/departments/06-alpes-maritimes'
+import var83 from './data/departments/83-var'
+import vaucluse from './data/departments/84-vaucluse'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Base URLs
@@ -36,13 +41,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   ];
 
-  // Generate URLs for all cities
-  const cityUrls = Object.keys(bouchesdurhone.cities).map(citySlug => ({
-    url: `https://www.myohmtechnologies.com/region/paca/departements/13-bouches-du-rhone/villes/${citySlug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7
-  }));
+  // Function to generate URLs for a department
+  const generateDepartmentUrls = (departmentCode: string, cities: any) => {
+    return Object.keys(cities).map(citySlug => ({
+      url: `https://www.myohmtechnologies.com/region/paca/departements/${departmentCode}/villes/${citySlug}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7
+    }));
+  };
 
-  return [...baseUrls, ...cityUrls];
+  // Generate URLs for all departments
+  const allCityUrls = [
+    ...generateDepartmentUrls('04-alpes-de-haute-provence', alpesdehauteprovence.cities),
+    ...generateDepartmentUrls('05-hautes-alpes', hautesalpes.cities),
+    ...generateDepartmentUrls('06-alpes-maritimes', alpesmaritimes.cities),
+    ...generateDepartmentUrls('13-bouches-du-rhone', bouchesdurhone.cities),
+    ...generateDepartmentUrls('83-var', var83.cities),
+    ...generateDepartmentUrls('84-vaucluse', vaucluse.cities)
+  ];
+
+  return [...baseUrls, ...allCityUrls];
 }

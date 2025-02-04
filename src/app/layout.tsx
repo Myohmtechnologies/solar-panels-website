@@ -9,9 +9,13 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
+  preload: true,
 });
 
-const ClientLayout = dynamic(() => import('@/components/layout/ClientLayout'), { ssr: false });
+const ClientLayout = dynamic(() => import('@/components/layout/ClientLayout'), { 
+  ssr: false,
+  loading: () => <div className="min-h-screen" /> 
+});
 const GA4Initialize = dynamic(() => import('@/components/analytics/GA4Initialize'), { ssr: false });
 const TrackingInitializer = dynamic(() => import('@/components/tracking/TrackingInitializer'), { ssr: false });
 const FacebookPixel = dynamic(() => import('@/components/analytics/FacebookPixel'), { ssr: false });
@@ -21,8 +25,8 @@ const ConversionTracker = dynamic(() => import('@/components/tracking/Conversion
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.myohmtechnologies.com'),
-  title: 'MY OHM Technologies - Solutions Solaires Innovantes',
-  description: 'MY OHM Technologies propose des solutions solaires sur mesure pour les particuliers et les entreprises.',
+  title: 'MY OHM Technologies - Entreprise d\'installation de panneaux solaires',
+  description: 'MY OHM Technologies société d\'installation de panneaux solaires sur mesure pour les particuliers et les entreprises.',
   robots: {
     index: true,
     follow: true,
@@ -53,8 +57,8 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: 'MY OHM Technologies - Solutions Solaires Innovantes',
-    description: 'MY OHM Technologies propose des solutions solaires sur mesure pour les particuliers et les entreprises.',
+    title: 'MY OHM Technologies - Entreprise d\'installation de panneaux solaire',
+    description: 'MY OHM Technologies Société qui propose des solutions solaires sur mesure pour les particuliers et les entreprises.',
     url: 'https://www.myohmtechnologies.com',
     siteName: 'MY OHM Technologies',
     images: [

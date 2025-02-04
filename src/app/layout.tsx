@@ -18,7 +18,6 @@ const ClientLayout = dynamic(() => import('@/components/layout/ClientLayout'), {
 });
 const GA4Initialize = dynamic(() => import('@/components/analytics/GA4Initialize'), { ssr: false });
 const TrackingInitializer = dynamic(() => import('@/components/tracking/TrackingInitializer'), { ssr: false });
-const FacebookPixel = dynamic(() => import('@/components/analytics/FacebookPixel'), { ssr: false });
 const ScrollTracker = dynamic(() => import('@/components/analytics/ScrollTracker'), { ssr: false });
 const TeamAuth = dynamic(() => import('@/components/admin/TeamAuth'), { ssr: false });
 const ConversionTracker = dynamic(() => import('@/components/tracking/ConversionTracker'), { ssr: false });
@@ -132,7 +131,6 @@ export default function RootLayout({
       <body className="font-sans min-h-screen bg-white">
         <Toaster position="top-center" />
         <GA4Initialize />
-        <FacebookPixel />
         <ScrollTracker />
         <TrackingInitializer />
         <ConversionTracker />

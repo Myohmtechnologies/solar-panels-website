@@ -1,9 +1,6 @@
 'use client';
 
 import Script from 'next/script';
-import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
-import { trackPageView } from '@/services/analytics';
 
 declare global {
   interface Window {
@@ -12,64 +9,42 @@ declare global {
   }
 }
 
-const GA_MEASUREMENT_ID = 'G-ET19PN3YHF';
-const GOOGLE_ADS_ID = 'AW-16817660787';
-
 const GA4Initialize = () => {
-  const pathname = usePathname();
-
-  useEffect(() => {
-    // Track page view whenever the path changes
-    trackPageView(pathname);
-  }, [pathname]);
-
   return (
     <>
       <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_ID}`}
+        strategy="lazyOnload"
+        id="ga4-script"
       />
       <Script
-        id="google-analytics"
-        strategy="afterInteractive"
-      >
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          
-          // Configuration GA4
-          gtag('config', '${GA_MEASUREMENT_ID}', {
-            page_path: window.location.pathname,
-            send_page_view: false
-          });
-
-          // Configuration Google Ads avec conversion linker
-          gtag('config', '${GOOGLE_ADS_ID}');
-          gtag('config', '${GOOGLE_ADS_ID}/selKCIb6ypcaEPPGpNM');
-
-          // Activer le conversion linker
-          gtag('set', 'linker', {
-            'domains': ['myohmtechnologies.com']
-          });
-
-          // Fonction globale pour suivre les conversions
-          window.trackLeadConversion = function(value = 100.0) {
-            gtag('event', 'conversion', {
-              'send_to': '${GOOGLE_ADS_ID}/selKCIb6ypcaEPPGpNM',
-              'value': value,
-              'currency': 'EUR',
-              'transaction_id': new Date().getTime().toString()
+        id="ga4-init"
+        strategy="lazyOnload"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GA4_ID}', {
+              page_path: window.location.pathname,
+              transport_type: 'beacon'
             });
-
-            gtag('event', 'generate_lead', {
-              'send_to': '${GOOGLE_ADS_ID}',
-              'value': value,
-              'currency': 'EUR'
-            });
-          };
-        `}
-      </Script>
+          `
+        }}
+      />
+      <Script
+        id="gtm-init"
+        strategy="lazyOnload"
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM_ID}');
+          `
+        }}
+      />
     </>
   );
 };

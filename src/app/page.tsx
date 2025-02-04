@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import HeroSection from '@/components/sections/HeroSection';
+import OptimizedImage from '@/components/OptimizedImage';
 
 import CaseStudySection from '@/components/sections/CaseStudySection';
 import SolarBenefitsSection from '@/components/sections/SolarBenefitsSection';
@@ -86,19 +87,34 @@ export default function Home() {
       />
       <main className="overflow-x-hidden">
         <ChatBot />
-       
-        <HeroSection />
+        <section className="relative h-screen">
+          <OptimizedImage
+            src="/images/hero-local.jpeg"
+            alt="Showroom My Ohm Technologie"
+            width={1920}
+            height={1080}
+            priority={true}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-50">
+            <div className="container mx-auto px-4 h-full flex items-center">
+              <div className="max-w-2xl text-white">
+                <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                  Étude gratuite et sans engagement
+                </h1>
+                {/* ... reste du contenu ... */}
+              </div>
+            </div>
+          </div>
+        </section>
         <ClientTestimonialsSection />
         <HomeSchemaMarkup />
         <CityActionButtons />
         <ShowroomSection />
-       
         <SolarBenefitsSection />
-        
         <CaseStudySection />
         <SolarPanelSection />
         <SolarInstallationStepsSection />
-        
         <FaqSection />
         <RegionMapSection region={defaultRegionName} />
       </main>

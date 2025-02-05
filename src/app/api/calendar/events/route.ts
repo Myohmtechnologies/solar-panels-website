@@ -1,5 +1,6 @@
 import { google } from 'googleapis';
 import { NextResponse } from 'next/server';
+import { headers } from 'next/headers';
 
 const isCalendarEnabled = 
   process.env.GOOGLE_CLIENT_ID && 
@@ -26,11 +27,13 @@ if (isCalendarEnabled) {
   }
 }
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   try {
-    const url = new URL(request.url);
-    const start = url.searchParams.get('start');
-    const end = url.searchParams.get('end');
+    const headersList = headers();
+    const start = headersList.get('x-start-date');
+    const end = headersList.get('x-end-date');
 
     if (!start || !end) {
       return NextResponse.json({ 

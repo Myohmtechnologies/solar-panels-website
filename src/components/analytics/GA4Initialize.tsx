@@ -1,6 +1,8 @@
 'use client';
 
+import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
+import { useEffect } from 'react';
 
 declare global {
   interface Window {
@@ -9,27 +11,58 @@ declare global {
   }
 }
 
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA4_ID;
+
 const GA4Initialize = () => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (pathname && window.gtag) {
+      let url = window.origin + pathname;
+      if (searchParams?.toString()) {
+        url = url + `?${searchParams.toString()}`;
+      }
+      
+      window.gtag('config', GA_MEASUREMENT_ID, {
+        page_path: url,
+        transport_type: 'beacon',
+        debug_mode: false
+      });
+    }
+  }, [pathname, searchParams]);
+
   return (
     <>
       <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA4_ID}`}
-        strategy="lazyOnload"
-        id="ga4-script"
-      />
-      <Script
-        id="ga4-init"
-        strategy="lazyOnload"
+        id="gtag-base"
+        strategy="worker"
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
             gtag('js', new Date());
-            gtag('config', '${process.env.NEXT_PUBLIC_GA4_ID}', {
+          `,
+        }}
+      />
+      <Script
+        id="gtag-load"
+        strategy="worker"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+      />
+      <Script
+        id="gtag-init"
+        strategy="worker"
+        dangerouslySetInnerHTML={{
+          __html: `
+            gtag('config', '${GA_MEASUREMENT_ID}', {
               page_path: window.location.pathname,
-              transport_type: 'beacon'
+              transport_type: 'beacon',
+              debug_mode: false,
+              send_page_view: false
             });
-          `
+          `,
         }}
       />
       <Script

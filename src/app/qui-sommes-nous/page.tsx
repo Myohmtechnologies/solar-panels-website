@@ -46,20 +46,45 @@ export default function AboutUs() {
             <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border border-gray-100 space-y-6">
               <div>
                 <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                  MyOhm Technologies : Votre Partenaire Solaire
+                  MyOhm Technologies : Notre Histoire
                 </h2>
-              
+                <div className="space-y-4">
+                  <p className="text-gray-700 leading-relaxed">
+                    Fondée par Ali, un expert en électricité avec plus de 15 ans d'expérience, MyOhm Technologies est née d'une vision claire : 
+                    démocratiser l'accès à l'énergie solaire tout en accélérant la transition écologique en France.
+                  </p>
+                  <p className="text-gray-700 leading-relaxed">
+                    Fort de son expertise dans le domaine électrique, Ali a constaté un besoin croissant de solutions énergétiques durables et économiques. 
+                    Cette observation l'a conduit à créer MyOhm Technologies, avec l'ambition d'offrir aux particuliers et aux entreprises 
+                    une alternative concrète pour réduire significativement leurs factures d'électricité.
+                  </p>
+                </div>
               </div>
 
               <div className="bg-f9fafb p-6 rounded-lg border border-gray-200">
                 <div className="flex items-start space-x-4 mb-4">
                   <ShieldCheckIcon className="w-10 h-10 text-FFDF64" />
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">Notre Engagement</h3>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">Notre Expertise</h3>
                     <p className="text-gray-700 leading-relaxed">
-                      Certifiés RGE, MY OHM vous permet de bénéficier des aides de l&apos;État et du rachat garanti par EDF pour vos projets photovoltaïques, que vous soyez particulier ou professionnel. 
-                      Grâce à notre showroom et à la qualité de nos produits, nous avons su nous démarquer de la concurrence et sommes aujourd&apos;hui un acteur clé dans le domaine du solaire sur le bassin manosquin.
+                      Après des mois de recherche et d'études approfondies, notre équipe a sélectionné les meilleurs composants du marché : 
+                      des panneaux solaires Made in France, alliant performance et durabilité, couplés aux micro-onduleurs les plus performants 
+                      pour maximiser votre production d'énergie.
                     </p>
+                    <div className="mt-4 space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <SparklesIcon className="w-5 h-5 text-FFDF64" />
+                        <span className="text-gray-700">Certification RGE garantissant l'accès aux aides de l'État</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <SparklesIcon className="w-5 h-5 text-FFDF64" />
+                        <span className="text-gray-700">Partenariat avec EDF pour le rachat d'énergie</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <SparklesIcon className="w-5 h-5 text-FFDF64" />
+                        <span className="text-gray-700">Showroom pour découvrir nos solutions en conditions réelles</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3 text-gray-600">
@@ -70,8 +95,8 @@ export default function AboutUs() {
 
               <div className="text-center">
                 <p className="text-gray-700 mb-4">
-                  Faites confiance à notre expertise pour concrétiser vos projets énergétiques. 
-                  Contactez-nous ou venez visiter notre showroom pour découvrir toutes nos offres !
+                  Découvrez comment nous pouvons vous aider à réduire votre empreinte carbone tout en réalisant des économies substantielles. 
+                  Venez échanger avec notre équipe d'experts dans notre showroom !
                 </p>
                 <Link 
                   href="/contact" 

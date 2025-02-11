@@ -70,6 +70,7 @@ const Footer = () => {
               { name: "Accueil", href: "/" },
               { name: "Simulateur", href: "/simulator" },
               { name: "Conditions Générales", href: "/terms-and-conditions" },
+              { name: "Mentions Légales", href: "/mentions-legales" },
               { name: "Politique de Confidentialité ", href: "/privacy-policy" },
               { name: "Contact", href: "/contact" }
             ].map((link) => (

@@ -32,7 +32,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: 'https://www.myohmtechnologies.com/terms-and-conditions',
       lastModified: new Date(),
-    
+      
+    },
+    {
+      url: 'https://www.myohmtechnologies.com/mentions-legales',
+      lastModified: new Date(),
+      
     }
   ];
 
@@ -41,8 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return Object.keys(cities).map(citySlug => ({
       url: `https://www.myohmtechnologies.com/region/paca/departements/${departmentCode}/villes/${citySlug}`,
       lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.7
+      
     }));
   };
 

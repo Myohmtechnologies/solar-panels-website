@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/dashboard/', '/api/'],
     },
-    sitemap: 'https://myohm-technologies.fr/sitemap.xml',
+    sitemap: 'https://myohmtechnologies.com/sitemap.xml',
   };
 }

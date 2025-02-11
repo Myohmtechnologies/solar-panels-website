@@ -12,32 +12,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: 'https://www.myohmtechnologies.com',
       lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 1,
+      
     },
     {
       url: 'https://www.myohmtechnologies.com/simulator',
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
+      
     },
     {
       url: 'https://www.myohmtechnologies.com/qui-sommes-nous',
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
+      
     },
     {
       url: 'https://www.myohmtechnologies.com/guide-aides-subventions',
       lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
+     
     },
     {
       url: 'https://www.myohmtechnologies.com/terms-and-conditions',
       lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.3,
+    
     }
   ];
 

@@ -121,85 +121,8 @@ const RegionSolarInstallationSection = ({ region, advantages = [] }: Props) => {
           </motion.div>
         </div>
 
-        {/* Cities Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-16"
-        >
-          <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">
-            Nos Services dans les Principales Villes du {region}
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {cities.map((city, index) => (
-              <motion.div
-                key={city.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <h4 className="text-xl font-semibold text-gray-900">{city.name}</h4>
-                  <span className="text-sm text-gray-500">{city.code}</span>
-                </div>
-                <div className="space-y-2 text-gray-600 text-sm mb-4">
-                  <p>Population : {city.population.toLocaleString()} habitants</p>
-                  {city.sunshineHours && (
-                    <p>Ensoleillement : {city.sunshineHours} heures/an</p>
-                  )}
-                </div>
-                <Link 
-                  href={`/villes/${city.code.toLowerCase()}`}
-                  className="inline-block w-full text-center py-2 px-4 border border-green-600 text-green-600 rounded-lg hover:bg-green-600 hover:text-white transition-colors"
-                >
-                  En savoir plus
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Section des départements */}
-        {currentRegion && currentRegion.departments.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-16"
-          >
-            <h3 className="text-2xl font-bold text-gray-900 text-center mb-8">
-              Nos Services dans toutes les villes du Départementales 
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {currentRegion.departments.map((department, index) => (
-                <motion.div
-                  key={department.code}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Link href={`/region/${department.name.toLowerCase().replace(/\s+/g, '-')}`}>
-                    <div className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group">
-                      <div className="flex items-center space-x-4 mb-4">
-                        <MapPinIcon className="w-8 h-8 text-FFDF64 group-hover:text-ffb700 transition-colors" />
-                        <h4 className="text-xl font-semibold text-gray-800 group-hover:text-gray-900">
-                          {department.name}
-                        </h4>
-                      </div>
-                      <p className="text-gray-600 group-hover:text-gray-700">
-                        Département {department.code}
-                      </p>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
+       
+         
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

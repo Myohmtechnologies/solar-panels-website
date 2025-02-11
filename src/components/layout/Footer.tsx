@@ -10,7 +10,7 @@ import {
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-br from-232323 to-1a1a1a text-white py-16 px-4 md:px-8 lg:px-12">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-12">
         {/* Colonne Entreprise */}
         <div className="space-y-6">
           <div className="flex items-center space-x-3">
@@ -83,6 +83,48 @@ const Footer = () => {
                 </Link>
               </li>
             ))}
+          </ul>
+        </div>
+
+        {/* Colonne Régions */}
+        <div className="space-y-6">
+          <h4 className="text-xl font-bold mb-4 flex items-center space-x-2">
+            <MapPinIcon className="w-6 h-6 text-FFDF64" />
+            <span>Nos Régions</span>
+          </h4>
+          <ul className="space-y-3">
+            <li>
+              <Link 
+                href="/region/paca" 
+                className="text-gray-400 hover:text-AFC97E transition-colors text-sm font-semibold"
+              >
+                Provence-Alpes-Côte d'Azur (PACA)
+              </Link>
+            </li>
+            <li>
+              <Link 
+                href="/region/paca/departements/13-bouches-du-rhone" 
+                className="text-gray-400 hover:text-AFC97E transition-colors text-sm"
+              >
+                Bouches-du-Rhône (13)
+              </Link>
+            </li>
+            <li>
+              <Link 
+                href="/region/paca/departements/84-vaucluse" 
+                className="text-gray-400 hover:text-AFC97E transition-colors text-sm"
+              >
+                Vaucluse (84)
+              </Link>
+            </li>
+            <li>
+              <Link 
+                href="/region/paca/departements/83-var" 
+                className="text-gray-400 hover:text-AFC97E transition-colors text-sm"
+              >
+                Var (83)
+              </Link>
+            </li>
           </ul>
         </div>
 

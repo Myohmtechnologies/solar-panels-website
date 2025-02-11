@@ -27,7 +27,7 @@ const Footer = () => {
           </p>
           <div className="flex space-x-4">
             <Link 
-              href="https://www.facebook.com/myohmtechnologies" 
+              href="https://www.facebook.com/share/1BQoBr1EoT/?mibextid=wwXIfr" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-AFC97E hover:text-white transition-colors"
@@ -47,7 +47,7 @@ const Footer = () => {
               </svg>
             </Link>
             <Link 
-              href="https://www.tiktok.com/@myohmtechnologies" 
+              href="https://www.tiktok.com/@my.ohm.technologi?_t=ZN-8tpgX1bUSoA&_r=1" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-AFC97E hover:text-white transition-colors"

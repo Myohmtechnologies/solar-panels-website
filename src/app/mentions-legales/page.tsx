@@ -13,12 +13,12 @@ const MentionsLegales = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Informations Légales</h2>
             <div className="text-gray-900">
-              <p><strong>Raison sociale :</strong> MyOhm Technologies</p>
+              <p><strong>Raison sociale :</strong>MY OHM TECHNOLOGIES</p>
               <p><strong>Forme juridique :</strong> SASU</p>
-              <p><strong>Capital social :</strong> 1 000 €</p>
+              <p><strong>Capital social :</strong> 5 000 €</p>
               <p><strong>SIRET :</strong> 91760190800010</p>
-              <p><strong>Siège social :</strong> 544 Avenue Frédéric Mistral, 04100 Manosque</p>
-              <p><strong>Téléphone :</strong> 09 75 66 68 58</p>
+              <p><strong>Siège social :</strong> 30 RUE DE LA SAUNERIE PLACE DES ORMEAUX, 04100 MANOSQUE France</p>
+              <p><strong>Téléphone :</strong> 04 92 76 68 58</p>
               <p><strong>Email :</strong> contact@myohmtechnologies.com</p>
             </div>
           </section>
@@ -26,7 +26,7 @@ const MentionsLegales = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. Représentant Légal</h2>
             <p className="text-gray-900">
-              <strong>Président :</strong> M. Riadh MAHIEDDINE
+              <strong>Président :</strong> M. Ali ABED
             </p>
           </section>
 

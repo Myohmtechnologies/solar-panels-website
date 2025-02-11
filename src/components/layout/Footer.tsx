@@ -90,7 +90,7 @@ const Footer = () => {
         <div className="space-y-6">
           <h4 className="text-xl font-bold mb-4 flex items-center space-x-2">
             <MapPinIcon className="w-6 h-6 text-FFDF64" />
-            <span>Nos Régions</span>
+            <span>Nos Agences</span>
           </h4>
           <ul className="space-y-3">
             <li>

@@ -65,7 +65,7 @@ export default function AboutUs() {
                     <ShieldCheckIcon className="w-6 h-6 text-FFDF64" />
                     <span className="font-semibold">Certifié RGE</span>
                   </div>
-                  <p className="text-sm">Plus de 15 ans d'expertise en électricité</p>
+                
                 </div>
               </div>
             </motion.div>
@@ -129,7 +129,7 @@ export default function AboutUs() {
                     { icon: ShieldCheckIcon, text: "Certification RGE", delay: 0 },
                     { icon: SunIcon, text: "Panneaux Made in France", delay: 0.1 },
                     { icon: BuildingOfficeIcon, text: "Showroom Démonstratif", delay: 0.2 },
-                    { icon: SparklesIcon, text: "Partenaire EDF", delay: 0.3 }
+                    { icon: SparklesIcon, text: "+15 ans d'expertise en électricité", delay: 0.3 }
                   ].map((item, index) => (
                     <motion.div
                       key={index}

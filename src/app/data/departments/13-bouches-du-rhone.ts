@@ -49,7 +49,7 @@ const bouchesdurhone: Department = {
         savings: "2100€/an"
       },
       seo: {
-        title: "Installation Panneaux Solaires Marseille (13) | Expert Certifié RGE 2025",
+        title: "Installation de panneaux solaires à Marseille | Installateur photovoltaïque RGE",
         metaDescription: "✓ Installation de panneaux solaires à Marseille par un installateur certifié RGE. 2800h d'ensoleillement/an, devis gratuit !",
         keywords: [
           "panneaux solaires marseille",

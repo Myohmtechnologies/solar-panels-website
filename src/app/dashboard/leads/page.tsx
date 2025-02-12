@@ -28,6 +28,7 @@ export default function LeadsPage() {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('ALL');
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortOrder, setSortOrder] = useState('next-action-asc');
 
   const fetchLeads = async () => {
     try {
@@ -67,8 +68,18 @@ export default function LeadsPage() {
       );
     }
 
+    // Trier les leads par date de prochaine action
+    filtered.sort((a, b) => {
+      const dateA = a.nextAction?.plannedDate ? new Date(a.nextAction.plannedDate).getTime() : Number.MAX_SAFE_INTEGER;
+      const dateB = b.nextAction?.plannedDate ? new Date(b.nextAction.plannedDate).getTime() : Number.MAX_SAFE_INTEGER;
+      
+      return sortOrder === 'next-action-asc' 
+        ? dateA - dateB  // Plus proche en premier
+        : dateB - dateA; // Plus loin en premier
+    });
+
     setFilteredLeads(filtered);
-  }, [leads, activeTab, searchTerm]);
+  }, [leads, activeTab, searchTerm, sortOrder]);
 
   if (isLoading) {
     return (
@@ -116,11 +127,12 @@ export default function LeadsPage() {
         {/* Filtres et recherche */}
         <div className="bg-white rounded-lg shadow p-6">
           <LeadsFilters
-            tabs={TABS}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+            tabs={TABS}
+            onSortChange={setSortOrder}
           />
         </div>
 

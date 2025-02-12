@@ -150,17 +150,15 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
                     {STATUS_LABELS[lead.status]}
                   </span>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {lead.nextAction ? (
-                    <div>
-                      <div>{formatDate(lead.nextAction.plannedDate || lead.nextAction.date)}</div>
-                      <div className="text-xs text-gray-400 truncate max-w-[200px]" title={lead.nextAction.description}>
-                        {lead.nextAction.description}
-                      </div>
-                    </div>
-                  ) : (
-                    <span className="text-sm text-gray-500">-</span>
-                  )}
+                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                  <div className="flex flex-col">
+                    <span className="font-medium">
+                      {lead.nextAction?.plannedDate ? formatDate(lead.nextAction.plannedDate) : '-'}
+                    </span>
+                    <span className="text-xs text-gray-400">
+                      {lead.nextAction?.description || ''}
+                    </span>
+                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <Menu as="div" className="relative inline-block text-left">

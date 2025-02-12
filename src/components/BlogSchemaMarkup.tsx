@@ -2,13 +2,15 @@ interface BlogPost {
   title: string;
   description: string;
   mainImage: string;
-  author: {
+  author?: {
     name: string;
     image: string;
   };
-  publishDate: string;
-  modifiedDate: string;
+  publishDate?: string;
+  modifiedDate?: string;
   slug: string;
+  createdAt?: string | Date;
+  updatedAt?: string | Date;
 }
 
 interface BlogSchemaMarkupProps {
@@ -16,6 +18,12 @@ interface BlogSchemaMarkupProps {
 }
 
 const BlogSchemaMarkup = ({ blog }: BlogSchemaMarkupProps) => {
+  // Valeurs par défaut pour l'auteur
+  const defaultAuthor = {
+    name: "My Ohm Technologies",
+    image: "https://myohmtechnologies.com/images/logo.png"
+  };
+
   const schemas = {
     "@context": "https://schema.org",
     "@graph": [
@@ -28,8 +36,8 @@ const BlogSchemaMarkup = ({ blog }: BlogSchemaMarkupProps) => {
         "image": blog.mainImage || "https://myohmtechnologies.com/images/blog-default.jpg",
         "author": {
           "@type": "Person",
-          "name": blog.author.name,
-          "image": blog.author.image
+          "name": blog.author?.name || defaultAuthor.name,
+          "image": blog.author?.image || defaultAuthor.image
         },
         "publisher": {
           "@type": "Organization",
@@ -40,8 +48,8 @@ const BlogSchemaMarkup = ({ blog }: BlogSchemaMarkupProps) => {
             "url": "https://myohmtechnologies.com/images/logo.png"
           }
         },
-        "datePublished": blog.publishDate,
-        "dateModified": blog.modifiedDate,
+        "datePublished": blog.publishDate || blog.createdAt || new Date().toISOString(),
+        "dateModified": blog.modifiedDate || blog.updatedAt || new Date().toISOString(),
         "mainEntityOfPage": {
           "@type": "WebPage",
           "@id": `https://myohmtechnologies.com/blog/${blog.slug}`

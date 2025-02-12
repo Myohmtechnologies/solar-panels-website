@@ -92,21 +92,21 @@ export const MyLightCalculator = () => {
       size: 3, 
       label: "3 kWc - Petite famille", 
       description: "Idéal pour un couple ou une petite famille", 
-      price: 6890,
+      price: 9890,
       production: 6400 // 3kWc × 1400 kWh/kWc
     },
     { 
       size: 6, 
       label: "6 kWc - Famille moyenne", 
       description: "Parfait pour une famille de 3-4 personnes", 
-      price: 6890,
+      price: 14890,
       production: 12800 // 6kWc × 1400 kWh/kWc
     },
     { 
       size: 9, 
       label: "9 kWc - Grande famille", 
       description: "Adapté pour une grande famille ou une grande maison", 
-      price: 6890,
+      price: 19890,
       production: 21600 // 9kWc × 1400 kWh/kWc
     }
   ];
@@ -320,7 +320,6 @@ export const MyLightCalculator = () => {
                 >
                   <h3 className="font-semibold text-[#232323]">{option.label}</h3>
                   <p className="text-sm text-gray-600 mt-1">{option.description}</p>
-                  <p className="text-sm text-gray-600 mt-1">À partir de {option.price.toLocaleString('fr-FR')} €</p>
                   <p className="text-sm text-gray-600 mt-1">Production : {option.production} kWh/an</p>
                 </button>
               ))}

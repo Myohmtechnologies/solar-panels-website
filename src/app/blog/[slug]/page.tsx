@@ -1,9 +1,6 @@
 import { notFound } from 'next/navigation';
 import BlogHead from '@/components/sections/BlogHead';
 import BlogSection from '@/components/sections/BlogSection';
-import BlogAuthor from '@/components/blog/BlogAuthor';
-import BlogCTA from '@/components/blog/BlogCTA';
-import BlogRelated from '@/components/blog/BlogRelated';
 import BlogSocialShare from '@/components/blog/BlogSocialShare';
 import BlogSchemaMarkup from '@/components/BlogSchemaMarkup';
 import { BlogService } from '@/services/blogService';
@@ -101,15 +98,8 @@ export default async function BlogDetailPage({ params }: Props) {
             tableOfContents={tableOfContents}
           />
 
-          {/* Author Bio */}
-          <div className="container mx-auto px-4 py-12">
-            <BlogAuthor />
-          </div>
 
-          {/* Main CTA */}
-          <div className="container mx-auto px-4 py-12">
-            <BlogCTA />
-          </div>
+          
 
          
         </main>

@@ -125,6 +125,30 @@ const Footer = () => {
                 Var (83)
               </Link>
             </li>
+            <li>
+              <Link 
+                href="/region/paca/departements/06-alpes-maritimes" 
+                className="text-gray-400 hover:text-AFC97E transition-colors text-sm"
+              >
+                Alpes maritimes (06)
+              </Link>
+            </li>
+            <li>
+              <Link 
+                href="/region/paca/departements/04-alpes-de-haute-provence/" 
+                className="text-gray-400 hover:text-AFC97E transition-colors text-sm"
+              >
+                Alpes de hautes provence (04)
+              </Link>
+            </li>
+            <li>
+              <Link 
+                href="/region/paca/departements/05-hautes-alpes" 
+                className="text-gray-400 hover:text-AFC97E transition-colors text-sm"
+              >
+                Hautes alpes (05)
+              </Link>
+            </li>
           </ul>
         </div>
 

@@ -13,7 +13,7 @@ export default function SolarProductionProcessSection() {
         {/* Image Section */}
         <div className="relative rounded-3xl overflow-hidden shadow-2xl transform transition-transform hover:scale-[1.02]">
           <Image
-            src='/images/autoconsomation.webp'
+            src='/images/Autoconsommation.webp'
             alt="Processus de production d&apos;énergie solaire"
             width={800}
             height={800}

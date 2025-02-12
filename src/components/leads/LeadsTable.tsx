@@ -113,7 +113,7 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
                 Client
               </th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Email
+                Ville
               </th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Téléphone
@@ -138,8 +138,8 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900 truncate" title={lead.email}>
-                    {lead.email}
+                  <div className="text-sm text-gray-900 truncate" title={lead.city}>
+                    {lead.city || '-'}
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">

@@ -94,6 +94,7 @@ export interface Lead {
   name: string;
   email: string;
   phone: string;
+  city?: string;
   residentialStatus: ResidentialStatus;
   logementType: LogementType;
   energyBill: string;

@@ -155,9 +155,7 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
                     <span className="font-medium">
                       {lead.nextAction?.plannedDate ? formatDate(lead.nextAction.plannedDate) : '-'}
                     </span>
-                    <span className="text-xs text-gray-400">
-                      {lead.nextAction?.description || ''}
-                    </span>
+                    
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

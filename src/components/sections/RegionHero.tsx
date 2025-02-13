@@ -108,19 +108,29 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
                         height={80}
                         className="rounded-lg object-cover hidden md:block"
                       />
-                      <div>
-                        <div className="mb-1">
-                          <span className="text-sm text-gray-500">À partir de</span>
-                          <span className="text-xl md:text-2xl font-bold text-gray-900 ml-2">7 900€*</span>
+                      <div className="w-full">
+                        <div className="mb-2 bg-gradient-to-r from-yellow-50 to-transparent p-3 rounded-lg border-l-4 border-FFDF64">
+                          <div className="flex items-baseline gap-2">
+                            <span className="text-sm text-gray-500">À partir de</span>
+                            <span className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">7 890€*</span>
+                          </div>
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-sm text-gray-600">Soit</span>
+                            <span className="text-base md:text-lg font-semibold text-gray-800">68€/mois**</span>
+                          </div>
                         </div>
-                        <p className="text-sm text-gray-600">Soit 68€/mois**</p>
-                        <p className="text-sm mt-2 bg-green-100 text-green-700 px-2 py-1 rounded inline-block">
-                          <span className="font-medium">Jusqu'à 3 600€</span> d'aides de l'État
-                        </p>
+                        <div className="flex items-center gap-2 bg-green-100 px-3 py-2 rounded-lg">
+                          <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span className="text-sm font-medium text-green-800">
+                            Jusqu'à <span className="font-bold">3 600€</span> d'aides de l'État
+                          </span>
+                        </div>
                       </div>
                     </div>
                     <div className="w-full md:w-auto text-center md:text-right">
-                      <p className="text-sm bg-FFDF64 text-black px-3 py-1 rounded-full font-medium inline-block">
+                      <p className="text-sm bg-FFDF64 text-black px-4 py-1.5 rounded-full font-medium animate-pulse inline-block">
                         Offre limitée
                       </p>
                     </div>

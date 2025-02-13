@@ -104,8 +104,8 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
                       <Image
                         src="/images/panneaux-solaire.jpg"
                         alt="Panneau solaire"
-                        width={80}
-                        height={80}
+                        width={150}
+                        height={150}
                         className="rounded-lg object-cover hidden md:block"
                       />
                       <div className="w-full">

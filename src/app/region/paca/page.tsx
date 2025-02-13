@@ -2,13 +2,16 @@ import { Metadata } from 'next';
 import RegionHero from '@/components/sections/RegionHero';
 import RegionStats from '@/components/sections/RegionStats';
 import RegionSolarInstallationSection from '@/components/sections/RegionSolarInstallationSection';
-import RegionAids from '@/components/sections/RegionAids';
 import RegionFAQ from '@/components/sections/RegionFAQ';
 import ContactCTASection from '@/components/sections/ContactCTASection';
 import LocalReviews from '@/components/sections/LocalReviews';
 import RegionDepartments from '@/components/sections/RegionDepartments';
 import PrixInstallation from '@/components/PrixInstallation';
 import CitiesList from '@/components/sections/CitiesList';
+import FinancialIncentivesSection from '@/components/sections/FinancialIncentivesSection';
+import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Installation Panneaux Solaires PACA | My Ohm Technologies',
@@ -79,21 +82,46 @@ const regionData = {
 export default function PACASolarPage() {
   return (
     <main className="overflow-x-hidden">
+      <header className="fixed top-0 left-0 right-0 bg-white text-black shadow-sm z-50 px-[10%] py-4 flex justify-between items-center">
+          <Link href="/" className="logo">
+            <Image
+              src="/images/logo.png"
+              alt="Logo"
+              width={150}
+              height={40}
+              className="w-auto h-auto"
+              priority
+            />
+          </Link>
+          <Link 
+            href="tel:0422145236" 
+            className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-all duration-300 shadow-md hover:shadow-lg"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+            </svg>
+            <span className="font-bold">04 92 76 68 58</span>
+            <span className="text-xs bg-green-500 px-2 py-1 rounded-full ml-2">Appel gratuit</span>
+          </Link>
+        </header>
       <RegionHero 
         region={regionData.fullName}
         imagePath={regionData.heroImage}
         ensoleillement={regionData.ensoleillement}
         potentielSolaire={regionData.potentielSolaire}
       />
+      <ClientTestimonialsSection />
       <RegionStats stats={regionData.stats} />
       <RegionSolarInstallationSection region={regionData.name} />
+      <FinancialIncentivesSection />
       <PrixInstallation />
-      <CitiesList />
-      <RegionAids region={regionData.name} advantages={regionData.advantages} />
-      <RegionDepartments region={regionData.fullName} />
-      <LocalReviews region={regionData.fullName} />
       <RegionFAQ faqs={regionData.faqs} />
       <ContactCTASection />
+      <CitiesList />
+     
+      <RegionDepartments region={regionData.fullName} />
+      <LocalReviews region={regionData.fullName} />
+      
     </main>
   );
 }

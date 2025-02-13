@@ -86,24 +86,77 @@ export const PrixInstallation: React.FC<{ cityName?: string }> = ({ cityName = "
 
   return (
     <>
-      <section className="py-16 px-4 md:px-8 lg:px-12 bg-white">
-        <div className="max-w-7xl mx-auto">
+      <section className="relative min-h-screen flex items-center py-12 md:py-24 bg-white">
+        <div className="absolute inset-0 bg-white" />
+        
+        <div className="relative container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Réalisez jusqu'à 3600€ d'économies par an à {cityName}
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.3 }}
+              className="inline-block bg-gradient-to-br from-ffeb99 to-ffb700 text-black px-4 py-2 rounded-full font-bold mb-6"
+            >
+              🎯 Offre Spéciale 2025
+            </motion.div>
+
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-black mb-4">
+              Réalisez jusqu'à <span className="text-FFDF64">3600€</span> d'économies par an à {cityName}
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Profitez des meilleurs composants du marché avec nos panneaux solaires français et micro-onduleurs américains, pour maximiser vos économies d'énergie
+            <p className="text-gray-300 max-w-2xl mx-auto text-lg">
+              Profitez des meilleurs composants du marché avec nos panneaux solaires français et micro-onduleurs américains
             </p>
           </motion.div>
 
-          {/* Grille des avantages */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-16">
+          {/* Grid des installations */}
+          <div className="grid md:grid-cols-3 gap-6 mb-16">
+            {installations.map((install, index) => (
+              <motion.div
+                key={install.capacite}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+                className="bg-white rounded-xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 hover:border-FFDF64"
+              >
+                <div className="relative h-48 mb-6">
+                  <Image
+                    src={install.image}
+                    alt={`Installation ${install.capacite}`}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Pack {install.capacite}</h3>
+                <div className="bg-green-100 p-3 rounded-lg mb-4">
+                  <p className="text-green-700 font-medium text-lg">Production: {install.production}</p>
+                  <p className="text-green-600">Économies: {install.economiesAnnuelles}/an</p>
+                </div>
+                <ul className="space-y-2">
+                  {install.avantages.map((avantage, i) => (
+                    <li key={i} className="flex items-center text-gray-700">
+                      <SparklesIcon className="h-5 w-5 text-yellow-500 mr-2" />
+                      {avantage}
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="w-full mt-6 bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg text-black font-semibold py-3 px-6 rounded-lg hover:shadow-lg transition-all duration-300"
+                >
+                  Obtenir un devis gratuit
+                </button>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Features grid */}
+          <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -111,107 +164,16 @@ export const PrixInstallation: React.FC<{ cityName?: string }> = ({ cityName = "
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl p-4 text-center shadow-md"
+                className="bg-gray-800 backdrop-blur-sm p-4 rounded-xl text-center"
               >
-                <feature.icon className="w-8 h-8 mx-auto text-yellow-600 mb-2" />
-                <p className="text-sm font-medium text-gray-700">{feature.text}</p>
+                <feature.icon className="h-8 w-8 text-FFDF64 mx-auto mb-2" />
+                <p className="text-white text-sm">{feature.text}</p>
               </motion.div>
             ))}
           </div>
-
-          {/* Grille des installations */}
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {installations.map((installation, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                className="bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden group"
-              >
-                {/* Image Container */}
-                <div className="relative h-40 overflow-hidden">
-                  <Image
-                    src={installation.image}
-                    alt={`Installation solaire ${installation.capacite}`}
-                    fill
-                    className="object-contain transform group-hover:scale-105 transition-transform duration-500"
-                    style={{ objectPosition: 'center center' }}
-                  />
-                </div>
-
-                <div className="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-                  <div className="mb-4">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      Installation {installation.capacite}
-                    </h3>
-                  </div>
-
-                  <div className="space-y-4 mb-6">
-                    <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                      <div className="flex items-center space-x-2 text-lg font-semibold text-green-700">
-                        <CurrencyEuroIcon className="h-8 w-8 text-green-600" />
-                        <span>Économies annuelles :</span>
-                      </div>
-                      <div className="text-2xl font-bold text-green-800 mt-2">
-                        {installation.economiesAnnuelles}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-2 text-gray-600">
-                      <SunIcon className="h-6 w-6 text-amber-500" />
-                      <span>Production : {installation.production}</span>
-                    </div>
-
-                  
-                  </div>
-
-                  <div className="space-y-2 mb-6">
-                    {installation.avantages.map((avantage, i) => (
-                      <div key={i} className="flex items-center text-gray-700">
-                        <SparklesIcon className="w-5 h-5 text-yellow-600 mr-2" />
-                        <span>{avantage}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="w-full bg-gradient-solar text-black font-semibold py-3 px-6 rounded-xl hover:opacity-90 transition-opacity shadow-md hover:shadow-lg"
-                  >
-                    Obtenir un devis gratuit
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <p className="text-gray-600 text-lg mb-8">
-              Nos experts sont à votre disposition pour étudier votre projet et vous proposer une solution adaptée à vos besoins.
-              Bénéficiez des dernières aides de l'État et optimisez votre investissement.
-            </p>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="bg-gradient-solar text-black font-semibold py-4 px-8 rounded-xl hover:opacity-90 transition-opacity shadow-md hover:shadow-lg"
-            >
-              Demander une étude gratuite
-            </button>
-          </motion.div>
         </div>
       </section>
-
-      <ContactModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        cityName={cityName}
-      />
+      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} cityName={cityName} />
     </>
   );
 };

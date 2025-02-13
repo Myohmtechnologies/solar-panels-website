@@ -67,7 +67,7 @@ const RegionSolarInstallationSection = ({ region, advantages = [] }: Props) => {
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-bold text-gray-900"
           >
-            Installation Panneaux Solaires {region}
+            Installation Panneaux photovoltaiques en {region}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}

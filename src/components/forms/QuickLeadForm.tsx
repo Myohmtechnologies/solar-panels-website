@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { conversionEvents } from '@/utils/analytics';
 import { trackConversion } from '../tracking/ConversionTracker';
+import { formTracking } from '@/utils/analytics/formTracking';
 
 export default function QuickLeadForm() {
   const [formData, setFormData] = useState({
@@ -12,10 +13,25 @@ export default function QuickLeadForm() {
     message: ''
   });
 
+  const [startTime] = useState(Date.now());
+
+  // Track la vue du formulaire au chargement
+  useEffect(() => {
+    formTracking.trackFormView();
+  }, []);
+
+  const handleFieldFocus = (fieldName: string) => {
+    formTracking.trackFieldInteraction(fieldName);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     try {
+      // Track le temps passé sur le formulaire
+      const timeSpent = Math.floor((Date.now() - startTime) / 1000);
+      formTracking.trackFormTime(timeSpent);
+
       // Envoie des données à l'API
       const response = await fetch('/api/leads', {
         method: 'POST',
@@ -46,6 +62,7 @@ export default function QuickLeadForm() {
 
       // Track la conversion
       trackConversion();
+      formTracking.trackFormSubmission(true);
 
       // Track la conversion Google Ads
       if (typeof window !== 'undefined' && window.gtag) {
@@ -64,6 +81,7 @@ export default function QuickLeadForm() {
       window.location.href = '/merci';
     } catch (error) {
       console.error('Error submitting form:', error);
+      formTracking.trackFormSubmission(false);
       alert('Une erreur est survenue. Veuillez réessayer.');
     }
   };
@@ -79,6 +97,7 @@ export default function QuickLeadForm() {
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
           value={formData.fullName}
           onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+          onFocus={() => handleFieldFocus('fullName')}
         />
       </div>
       
@@ -91,6 +110,7 @@ export default function QuickLeadForm() {
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          onFocus={() => handleFieldFocus('email')}
         />
         
         <input
@@ -101,38 +121,27 @@ export default function QuickLeadForm() {
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          onFocus={() => handleFieldFocus('phone')}
         />
       </div>
-
+      
       <div>
         <textarea
           name="message"
           placeholder="Message (optionnel)"
-          rows={3}
+          rows={4}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+          onFocus={() => handleFieldFocus('message')}
         />
       </div>
-
-      <button
+      
+      <button 
         type="submit"
-        className="w-full bg-gradient-solar hover:opacity-90 text-gray-900 font-bold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-[1.02] flex items-center justify-center gap-2 shadow-lg backdrop-blur-lg"
+        className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold py-3 px-6 rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-md hover:shadow-lg"
       >
-        <span className="text-lg">Je demande mon étude gratuite</span>
-        <svg 
-          className="h-5 w-5 animate-bounce" 
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor"
-        >
-          <path 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            strokeWidth={2} 
-            d="M17 8l4 4m0 0l-4 4m4-4H3" 
-          />
-        </svg>
+        Obtenir mon devis gratuit
       </button>
       
       <p className="text-xs text-gray-500 text-center">

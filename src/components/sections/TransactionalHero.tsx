@@ -51,19 +51,40 @@ const TransactionalHero = ({ region, departement, code, ensoleillement, potentie
                 transition={{ duration: 0.8 }}
                 className="bg-white rounded-xl p-6 md:p-8 lg:p-10 shadow-2xl"
               >
+               
+
                 <div className="text-center mb-6">
                   <h2 className="text-2xl font-bold text-gray-900 mb-2">
                     Étude gratuite et sans engagement
                   </h2>
-                  <p className="text-green-600 font-semibold text-lg">
-                    Département {code} - {departement}
-                  </p>
-                  <p className="text-gray-600 mt-2 text-sm">
-                    Un expert vous rappelle sous 24h
-                  </p>
+                </div>
+
+                {/* Preuve sociale */}
+                <div className="flex flex-col gap-2 mb-6">
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Rejoingnez + de 500 propriétaires satisfaits</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <svg className="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Nous nous occupons de toutes les démarches administratives</span>
+                  </div>
                 </div>
 
                 <QuickLeadForm />
+
+                {/* Sécurisation */}
+                <div className="text-xs text-gray-500 mt-4 text-center">
+                  🔒 Vos données sont protégées et ne seront jamais partagées
+                  <br />
+                  <a href="/confidentialite" className="underline hover:text-gray-700">
+                    Politique de confidentialité
+                  </a>
+                </div>
 
                 {/* Trust Badges */}
                 <div className="flex justify-center items-center gap-6 mt-6">

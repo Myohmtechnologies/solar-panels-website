@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 const regionData = {
   name: 'PACA',
   fullName: 'Provence-Alpes-Côte d\'Azur',
-  heroImage: '/images/regions/paca-region.webp', // Image existante du dossier public/images
+  heroImage: '/images/installateur-de-panneaux-photovoltaiques-aix-en-provence.jpeg',
   ensoleillement: '2800 heures/an',
   potentielSolaire: '1600 kWh/m²/an',
   stats: [

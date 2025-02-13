@@ -9,7 +9,6 @@ export default function QuickLeadForm() {
     fullName: '',
     email: '',
     phone: '',
-    electricityBill: '',
     message: ''
   });
 
@@ -28,7 +27,6 @@ export default function QuickLeadForm() {
           email: formData.email,
           phone: formData.phone,
           notes: formData.message || '',
-          energyBill: formData.electricityBill ? parseInt(formData.electricityBill) : null,
           source: 'QUICK_FORM',
           projectType: 'SOLAR_PANELS',
           createdAt: new Date(),
@@ -42,8 +40,7 @@ export default function QuickLeadForm() {
 
       // Stocker les infos du lead pour la page de remerciement
       const leadInfo = {
-        name: formData.fullName,
-        energyBill: formData.electricityBill
+        name: formData.fullName
       };
       sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
 
@@ -107,29 +104,35 @@ export default function QuickLeadForm() {
         />
       </div>
 
-      <input
-        type="number"
-        name="electricityBill"
-        placeholder="Montant facture électricité (€)"
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-        value={formData.electricityBill}
-        onChange={(e) => setFormData({ ...formData, electricityBill: e.target.value })}
-      />
-
-      <textarea
-        name="message"
-        placeholder="Message (optionnel)"
-        rows={2}
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-        value={formData.message}
-        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-      />
+      <div>
+        <textarea
+          name="message"
+          placeholder="Message (optionnel)"
+          rows={3}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+          value={formData.message}
+          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+        />
+      </div>
 
       <button
         type="submit"
-        className="w-full py-3 px-6 text-black bg-gradient-solar hover:bg-green-700 rounded-lg font-semibold transition-colors duration-200"
+        className="w-full bg-gradient-solar hover:opacity-90 text-gray-900 font-bold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-[1.02] flex items-center justify-center gap-2 shadow-lg backdrop-blur-lg"
       >
-        Envoyer
+        <span className="text-lg">Je demande mon étude gratuite</span>
+        <svg 
+          className="h-5 w-5 animate-bounce" 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <path 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            strokeWidth={2} 
+            d="M17 8l4 4m0 0l-4 4m4-4H3" 
+          />
+        </svg>
       </button>
       
       <p className="text-xs text-gray-500 text-center">

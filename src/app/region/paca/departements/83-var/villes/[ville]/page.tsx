@@ -1,8 +1,8 @@
-import var83 from '@/app/data/departments/83-var';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import CityPageContent from '@/components/CityPageContent';
 import { generateCityMetadata } from '@/utils/seo';
+import var83 from '@/app/data/departments/83-var';
+import CityPageContent from './CityPageContent';
 
 interface Props {
   params: {
@@ -10,40 +10,61 @@ interface Props {
   };
 }
 
-export default function VillePage({ params }: Props) {
-  const cityData = var83.cities[params.ville];
+const slugToCityKey = (slug: string): string => {
+  // Convertit les slugs en camelCase pour correspondre aux clés des villes
+  return slug
+    .split('-')
+    .map((word, index) => 
+      index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    )
+    .join('');
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const villeSlug = params.ville;
+  const cityKey = slugToCityKey(villeSlug) as keyof typeof var83.cities;
+  const cityData = var83.cities[cityKey];
 
   if (!cityData) {
     notFound();
   }
 
-  return (
-    <CityPageContent 
-      cityData={{
-        ...cityData,
-        slug: params.ville
-      }}
-      departmentName="83-var"
-      cities={var83.cities}
-    />
-  );
+  return generateCityMetadata({
+    cityName: cityData.name,
+    department: "Var",
+    region: "PACA",
+    sunshineHours: cityData.sunshineHours || 2800,
+    description: `Installation de panneaux solaires à ${cityData.name}. Profitez d'une expertise locale et d'un service personnalisé pour votre transition énergétique dans le Var.`,
+    keywords: [
+      `panneaux solaires ${cityData.name}`,
+      `installation solaire ${cityData.name}`,
+      `énergie solaire ${cityData.name}`,
+      `photovoltaïque ${cityData.name}`,
+      'autoconsommation solaire',
+      'installation panneaux solaires',
+      'devis gratuit solaire',
+      'aide installation solaire',
+      'prix panneaux solaires',
+      'solaire Var',
+      'énergie solaire PACA'
+    ]
+  });
+}
+
+export default function CityPage({ params }: Props) {
+  const villeSlug = params.ville;
+  const cityKey = slugToCityKey(villeSlug) as keyof typeof var83.cities;
+  const cityData = var83.cities[cityKey];
+
+  if (!cityData) {
+    notFound();
+  }
+
+  return <CityPageContent ville={villeSlug} cityData={cityData} />;
 }
 
 export function generateStaticParams() {
   return Object.keys(var83.cities).map((citySlug) => ({
     ville: citySlug,
   }));
-}
-
-export function generateMetadata({ params }: Props): Metadata {
-  const cityData = var83.cities[params.ville];
-  
-  if (!cityData) {
-    return {
-      title: 'Ville non trouvée',
-      description: 'Cette ville n\'existe pas dans notre base de données.'
-    };
-  }
-
-  return generateCityMetadata(cityData);
 }

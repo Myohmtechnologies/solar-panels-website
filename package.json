@@ -22,6 +22,7 @@
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "2.2.0",
     "@radix-ui/react-slot": "^1.1.1",
+    "@react-google-maps/api": "^2.20.6",
     "@tinymce/tinymce-react": "^5.1.1",
     "@types/video.js": "^7.3.58",
     "autoprefixer": "10.4.16",

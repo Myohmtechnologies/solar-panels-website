@@ -9,23 +9,18 @@ import CityFAQ from '@/components/sections/CityFAQ';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SolarInstallationSchema from '@/components/SolarInstallationSchema';
 import LocalStatistics from '@/components/sections/LocalStatistics';
-import TestimonialsSection from './sections/TestimonialsSection';
-import SocialMediaSection from './sections/SocialMediaSection';
-import InstallationsSection from './sections/InstallationsSection';
-import FinancialAidsSection from './sections/FinancialAidsSection';
-import SolarBenefitsSection from './sections/SolarBenefitsSection';
-import SolarSimulator from './sections/SolarSimulator';
+import SolarBenefitsSection from '@/components/sections/SolarBenefitsSection';
 import ElectricityPriceChart from '@/components/ElectricityPriceChart';
-import NearbyTownsSection from './sections/NearbyTownsSection';
+import NearbyTownsSection from '@/components/sections/NearbyTownsSection';
 import PrixInstallation from '@/components/PrixInstallation';
 import { CheckIcon } from '@heroicons/react/24/outline';
-import CityActionButtons from './sections/CityActionButtons';
+import CityActionButtons from '@/components/sections/CityActionButtons';
 import CityRegulations from '@/components/sections/CityRegulations';
 import { BuildingLibraryIcon, DocumentCheckIcon, ShieldCheckIcon, MapPinIcon } from '@heroicons/react/24/outline';
-import RealisationCityInstallNew from '@/components/sections/RealisationCityInstallNew';
 import CitySeoContent from '@/components/sections/CitySeoContent';
-import CitySchemaMarkup from '@/components/CitySchemaMarkup';
-import VideoTestimonial from '@/components/sections/VideoTestimonial';
+import FinancialAids from '@/components/sections/FinancialAids';
+import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
+import RegionSolarInstallationSection from '@/components/sections/RegionSolarInstallationSection';
 import { useState, useEffect } from 'react';
 
 interface CityPageContentProps {
@@ -54,7 +49,12 @@ export default function CityPageContent({ cityData, departmentName, cities }: Ci
 
   return (
     <main className="bg-white">
-      <CitySchemaMarkup cityData={cityData} departmentName={departmentName} />
+      <SolarInstallationSchema 
+        cityName={cityData.name}
+        cityCode={cityData.postalCode}
+        description={cityData.description || `Installation de panneaux solaires à ${cityData.name}`}
+        reviews={cityData.reviews}
+      />
       <CityActionButtons />
       
       {/* Section Hero */}
@@ -67,16 +67,7 @@ export default function CityPageContent({ cityData, departmentName, cities }: Ci
         heroImage={cityData.heroImage}
       />
 
-      {/* Section Témoignage Vidéo */}
-      {cityData.videoTestimonial && (
-        <VideoTestimonial
-          videoUrl={cityData.videoTestimonial.videoUrl}
-          clientName={cityData.videoTestimonial.clientName}
-          city={cityData.name}
-          savings={cityData.videoTestimonial.savings}
-          reviews={cityData.reviews}
-        />
-      )}
+     
 
       {/* Section Bénéfices Solaires */}
       <SolarBenefitsSection
@@ -142,25 +133,19 @@ export default function CityPageContent({ cityData, departmentName, cities }: Ci
         </div>
       </section>
 
-      {/* Simulateur d'économies solaires */}
-      <SolarSimulator 
-        cityName={cityData.name}
-        sunshineHours={cityData.sunshineHours}
-      />
-
       {/* Section Aides Financières */}
-      <FinancialAidsSection cityName={cityData.name} />
+      <FinancialAids cityName={cityData.name} />
 
       {/* Section Témoignages */}
-      <TestimonialsSection 
+      <ClientTestimonialsSection 
         cityName={cityData.name}
         reviews={cityData.reviews}
       />
 
-      {/* Section Installations */}
-      <InstallationsSection
+      {/* Section Réalisations */}
+      <RegionSolarInstallationSection
         cityName={cityData.name}
-        installation={cityData.installation}
+        installations={cityData.installation}
       />
 
       {/* Section FAQ */}
@@ -194,9 +179,6 @@ export default function CityPageContent({ cityData, departmentName, cities }: Ci
       )}
 
       {/* Section Réseaux Sociaux */}
-      <SocialMediaSection />
-
-      {/* Section Villes Voisines */}
       <NearbyTownsSection
         currentCity={cityData.slug}
         cities={cities}

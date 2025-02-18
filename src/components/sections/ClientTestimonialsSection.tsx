@@ -12,7 +12,7 @@ const ClientTestimonialsSection = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-12 bg-gradient-to-br from-f2f6fa to-e3e9f0">
+    <section className="py-16 px-4 md:px-8 lg:px-12 bg-white">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <div className="flex items-center justify-center space-x-4 mb-4">
@@ -23,7 +23,7 @@ const ClientTestimonialsSection = () => {
           </div>
 
           <p className="text-gray-700 max-w-2xl mx-auto leading-relaxed">
-            Découvrez les expériences réelles de nos clients qui ont transformé leur consommation énergétique grâce à MY OHM.
+            Découvrez les expériences réelles de nos clients qui ont transformé leur consommation énergétique grâce à My ohm technologies.
           </p>
         </div>
 

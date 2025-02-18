@@ -171,10 +171,6 @@ const Header = () => {
                 )}
               </Popover>
 
-              <Link href="/blog" className="text-gray-700 hover:text-gray-900 font-bold text-base">
-                Blog
-              </Link>
-
               <Link href="/nos-realisation" className="text-gray-700 hover:text-gray-900 font-bold text-base">
                 Nos réalisations
               </Link>
@@ -234,7 +230,6 @@ const Header = () => {
                 height="44" 
                 viewBox="0 0 24 24" 
                 fill="none"
-                className="text-gray-700"
               >
                 <path d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z" fill="currentColor"/>
               </svg>

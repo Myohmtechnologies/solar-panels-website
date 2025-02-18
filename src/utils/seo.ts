@@ -9,7 +9,7 @@ interface CityData {
 
 export function generateCityMetadata(cityData: CityData): Metadata {
   return {
-    title: cityData.seoTitle || `Installation Panneaux Solaires ${cityData.name} | Expert Photovoltaïque`,
+    title: cityData.seoTitle || `Installation de Panneaux Solaires à ${cityData.name} | Devis Gratuit - Entreprise RGE`,
     description: cityData.seoDescription || `Expert en installation de panneaux solaires à ${cityData.name}. Profitez d'un service premium, certifié RGE, et d'une garantie décennale. Devis gratuit et personnalisé.`,
     keywords: cityData.seoKeywords || [`panneaux solaires ${cityData.name}`, `installation photovoltaïque ${cityData.name}`, 'énergie solaire Provence', 'MyOhm Technologies'],
     robots: {

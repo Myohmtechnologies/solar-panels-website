@@ -1,7 +1,6 @@
 'use client';
 
 import ChatBot from '@/components/ChatBot';
-import RecentInstallations from '@/components/RecentInstallations';
 
 interface CityLayoutProps {
   children: React.ReactNode;
@@ -19,9 +18,7 @@ export default function CityLayout({ children }: CityLayoutProps) {
 
       {/* ChatBot et RecentInstallations */}
       <ChatBot />
-      <div className="hidden md:block">
-        <RecentInstallations />
-      </div>
+      
 
       {/* Contenu de la page */}
       {children}

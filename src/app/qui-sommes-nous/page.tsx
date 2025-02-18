@@ -182,8 +182,7 @@ export default function AboutUs() {
         </div>
       </section>
 
-      <TechnologicalApproachSection />
-      <CompanyValuesSection />
+
     </main>
   );
 }

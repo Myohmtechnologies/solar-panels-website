@@ -11,13 +11,7 @@ const alpesDeHauteProvence: Department = {
       population: 22801,
       sunshineHours: 2800,
      
-      neighborhoods: [
-        "Centre-ville",
-        "Les Plantiers",
-        "Saint-Lazare",
-        "La Rochette",
-        "Les Serrets"
-      ],
+      
       localStatistics: {
         averageElectricityConsumption: "6500 kWh/an",
         solarPotential: "1350 kWh/kWc/an",
@@ -32,24 +26,9 @@ const alpesDeHauteProvence: Department = {
         "Subventions locales attractives",
         "Réseau d'installateurs certifiés"
       ],
-      reviews: [
-        {
-          author: "Jean-Pierre M.",
-          location: "Centre-ville",
-          comment: "Installation impeccable par l'équipe. Production supérieure aux estimations après 6 mois d'utilisation. Je recommande !",
-          rating: 5,
-          date: "2023-12-10"
-        },
-        {
-          author: "Marie L.",
-          location: "Les Plantiers",
-          comment: "Très satisfaite du service et du suivi. L'équipe est professionnelle et à l'écoute.",
-          rating: 5,
-          date: "2023-11-25"
-        }
-      ],
+     
       seo: {
-        title: "Installation Panneaux Solaires Manosque (04) | Expert Certifié RGE 2025",
+        title: "Entreprise Panneaux Solaires Manosque (04) | Expert Certifié RGE 2025",
         metaDescription: "✓ Expert installation panneaux solaires à Manosque. 2800h d'ensoleillement/an, installation certifiée RGE. Profitez des aides locales ! Devis gratuit.",
         keywords: [
           "panneau solaire manosque",
@@ -149,22 +128,6 @@ const alpesDeHauteProvence: Department = {
         },
        
       ],
-      seoContent: {
-        title: "Tout ce qu'il faut savoir sur l'installation photovoltaïque et les solutions énergétiques modernes",
-        paragraphs: [
-          "Les panneaux photovoltaïques sont devenus une solution incontournable pour réduire ses factures énergétiques tout en adoptant une démarche respectueuse de l'environnement. Grâce à l'expertise des entreprises spécialisées, il est désormais simple et rentable de passer à une énergie verte et propre. Ces installations permettent de produire de l'électricité renouvelable directement depuis le toit de votre maison, tout en bénéficiant d'un fonctionnement garanti et optimisé pour plusieurs décennies.",
-          "Installer des panneaux photovoltaïques sur votre toit représente un investissement qui permet de réaliser des économies significatives sur vos factures. Les modules de dernière génération, conçus avec des technologies avancées, garantissent un rendement élevé et une durabilité optimale. Par exemple, le surplus d'électricité produit peut être stocké ou revendu au réseau, ce qui maximise la rentabilité de votre installation.",
-          "En parallèle, les solutions solaires thermodynamiques, telles que les chauffe-eaux solaires et les pompes à chaleur, offrent une alternative efficace pour produire de l'eau chaude sanitaire ou alimenter un circuit de climatisation et de chauffage. Ces systèmes combinent efficacité énergétique et réduction d'empreinte carbone, tout en répondant aux besoins spécifiques des particuliers et des professionnels.",
-          "Que ce soit pour une maison individuelle ou une industrie, les entreprises spécialisées, comme My ohm technologies, accompagnent les clients dans toutes les étapes de leur projet. Cela inclut la pose de panneaux photovoltaïques, l'isolation thermique, ou encore la mise en conformité d'une installation électrique. Une estimation précise est réalisée en amont pour garantir un budget maîtrisé et des résultats en adéquation avec les attentes.",
-          "Les services d'installation de panneaux photovoltaïques incluent également l'entretien et le dépannage. Cela garantit une performance optimale tout au long de la durée de vie du système. Par exemple, un dépannage rapide en cas de panne sur un panneau solaire thermique ou une pompe à chaleur est assuré par des experts locaux qualifiés. De plus, des solutions innovantes, comme les systèmes de recharge pour véhicules électriques, s'intègrent parfaitement dans cette démarche énergétique globale.",
-          "Les entreprises spécialisées, reconnues pour leur réputation et leur expertise, accompagnent leurs clients à chaque étape : Étude et conception du projet avec analyse de la faisabilité technique, pose et mise en service selon les normes en vigueur, et entretien régulier pour garantir le bon fonctionnement à long terme.",
-          "En plus de réduire les factures, les panneaux photovoltaïques contribuent à la réduction des gaz à effet de serre. L'utilisation d'une énergie propre, comme celle produite par les panneaux solaires thermiques ou les systèmes photovoltaïques, est un atout majeur pour lutter contre le changement climatique. L'intégration de technologies telles que le stockage de l'énergie et les pompes à chaleur permet également d'optimiser l'efficacité énergétique.",
-          "Faire appel à des installateurs certifiés RGE est essentiel pour garantir la qualité des travaux. Ces professionnels possèdent les compétences nécessaires pour intervenir sur différents modèles de panneaux et de systèmes solaires. Le respect des normes est également un point clé, notamment pour la mise en conformité d'une installation existante ou le dépannage d'un système solaire thermodynamique.",
-          "Les entreprises proposent également des services complémentaires comme la pose de carrelage et travaux d'isolation thermique, la recherche de fuite et dépannage de chaudières, ainsi que la planification et réalisation de rénovations globales pour maximiser les économies d'énergie.",
-          "En conclusion, investir dans le photovoltaïque ou les solutions solaires thermiques est un choix judicieux, tant pour les particuliers que pour les professionnels. Ces systèmes, garantis pour leur longévité et leur performance, permettent de réaliser des économies significatives tout en respectant l'environnement. Avec des produits de qualité, des garanties solides, et une expertise reconnue, l'installation de panneaux solaires représente une opportunité durable et rentable. Contactez une société de confiance pour bénéficier de conseils personnalisés et d'un service complet."
-        ]
-      },
-      solarInstallation: defaultSolarInstallation
     },
     castellane: {
       name: "Castellane",

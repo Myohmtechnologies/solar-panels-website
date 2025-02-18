@@ -1,134 +1,174 @@
 'use client';
 
-import CityHero from '@/components/sections/CityHero';
-import CitySolarAdvantages from '@/components/sections/CitySolarAdvantages';
-import ContactCTASection from '@/components/sections/ContactCTASection';
-import ElectricityPriceChart from '@/components/ElectricityPriceChart';
-import { CheckIcon } from '@heroicons/react/24/outline';
-import { City } from '@/app/data/types';
+import { capitalizeFirstLetter } from '@/utils/stringUtils';
 
-interface CityPageContentProps {
-  cityData: City;
-  departmentName: string;
+// Components imports
+import CityHeroVideo from '@/components/sections/CityHeroVideo';
+import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
+import SolarProductionProcessSection from '@/components/sections/SolarProductionProcessSection';
+import CityIntroSection from '@/components/sections/CityIntroSection';
+import InstallationPricingSection from '@/components/sections/InstallationPricingSection';
+import StateAidsSection from '@/components/sections/StateAidsSection';
+import SolarComponentsSection from '@/components/sections/SolarComponentsSection';
+import LastInstallationsSection from '@/components/sections/LastInstallationsSection';
+import SolarServicesSection from '@/components/sections/SolarServicesSection';
+import SolarComparisonSection from '@/components/sections/SolarComparisonSection';
+import LocalPresenceSection from '@/components/sections/LocalPresenceSection';
+import CityFaqSection from '@/components/sections/CityFaqSection';
+import LastBlogPostsSection from '@/components/sections/LastBlogPostsSection';
+import ContactCTASection from '@/components/sections/ContactCTASection';
+import SolarPowerSection from '@/components/sections/SolarPowerSection';
+import RequestQuoteSection from '@/components/sections/RequestQuoteSection';
+
+interface CityData {
+  name: string;
+  code: string;
+  coordinates?: {
+    lat: number;
+    lng: number;
+  };
+  heroImage?: {
+    url: string;
+    alt: string;
+  };
+  sunshineHours?: number;
+  population?: number;
+  description?: string;
+  seo?: {
+    faqSchema: {
+      question: string;
+      answer: string;
+    }[];
+  };
 }
 
-export default function CityPageContent({ cityData, departmentName }: CityPageContentProps) {
+interface CityPageContentProps {
+  ville: string;
+  cityData: CityData;
+}
+
+export default function CityPageContent({ ville, cityData }: CityPageContentProps) {
+  const villeName = capitalizeFirstLetter(cityData.name.replace(/-/g, ' '));
+
+  // Données pour la section de présence locale
+  const localPresenceData = {
+    name: cityData.name,
+    coordinates: {
+      lat: cityData.coordinates?.lat || 43.7102,
+      lng: cityData.coordinates?.lng || 7.2620
+    },
+    googleReviews: {
+      rating: 4.8,
+      totalReviews: 142,
+      recentReviews: [
+        {
+          author: "Michel R.",
+          rating: 5,
+          comment: "Installation parfaite, équipe très professionnelle. Je recommande !",
+          date: "Il y a 5 jours"
+        },
+        {
+          author: "Claire D.",
+          rating: 5,
+          comment: "Excellent service, installation soignée et équipe à l'écoute.",
+          date: "Il y a 2 semaines"
+        },
+        {
+          author: "Patrick L.",
+          rating: 4,
+          comment: "Très satisfait de l'installation. Équipe réactive et professionnelle.",
+          date: "Il y a 1 mois"
+        }
+      ]
+    },
+    interventionArea: {
+      radius: 50,
+      cities: [
+        cityData.name,
+        "Nice",
+        "Cannes",
+        "Antibes",
+        "Grasse",
+        "Menton"
+      ]
+    }
+  };
+
+  const cityDescription = cityData.description || `Découvrez les avantages de l'installation de panneaux solaires à ${villeName}. Notre équipe d'experts vous accompagne dans votre projet de transition énergétique avec des solutions adaptées au climat méditerranéen de la Côte d'Azur.`;
+
+  // Données du commercial
+  const commercialData = {
+    name: "Nicolas",
+    role: "Expert en solutions solaires",
+    image: "/images/team/nicolas.jpg",
+    phone: "06 47 76 07 25",
+    email: "contact@myohmtechnologies.com",
+    location: "Alpes-Maritimes"
+  };
+
   return (
-    <main className="overflow-x-hidden">
-      <CityHero 
-        cityName={cityData.name}
-        departmentName={departmentName}
-        description={cityData.description || `Découvrez le potentiel solaire de ${cityData.name}, une ville du département ${departmentName}`}
-        population={cityData.population}
-        sunshineHours={2750}
+    <main className="bg-white">
+      {/* 1. Section Hero Video */}
+      <CityHeroVideo 
+        cityName={villeName}
+        departmentName="Alpes-Maritimes"
+        description={cityDescription}
+        population={cityData.population || 20000}
+        sunshineHours={cityData.sunshineHours || 2900}
+        heroImage={cityData.heroImage}
       />
-      
-      {/* Solar Advantages Section */}
-      {cityData.solarAdvantages && (
-        <CitySolarAdvantages advantages={cityData.solarAdvantages} />
+
+      {/* 2. Section Témoignages Clients */}
+      <ClientTestimonialsSection />
+
+      {/* 3. Section Production Solaire */}
+      <SolarProductionProcessSection />
+
+      {/* 4. Section Introduction Ville */}
+      <CityIntroSection 
+        cityName={cityData.name}
+        region="PACA"
+        department="Alpes-Maritimes"
+        sunshineHours={cityData.sunshineHours || 2900}
+      />
+
+      {/* 5. Section Puissance Solaire */}
+      <SolarPowerSection 
+        cityName={villeName}
+        sunshineHours={cityData.sunshineHours || 2900}
+      />
+
+      {/* 6. Section Aides d'État */}
+      <StateAidsSection ville={villeName} />
+
+      {/* 7. Section Prix Installation */}
+      <InstallationPricingSection ville={cityData.name} />
+
+      {/* 8. Section Composants Solaires */}
+      <SolarComponentsSection />
+
+      {/* 9. Section Dernières Installations */}
+      <LastInstallationsSection />
+
+      {/* 10. Section Services Solaires */}
+      <SolarServicesSection cityName={cityData.name} />
+
+      {/* 11. Section Comparaison Solaire */}
+      <SolarComparisonSection />
+
+      {/* 12. Section Présence Locale */}
+      <LocalPresenceSection cityData={localPresenceData} />
+
+      {/* 13. Section Devis Gratuit */}
+      <RequestQuoteSection commercial={commercialData} />
+
+      {/* 14. Section FAQ */}
+      {cityData.seo?.faqSchema && (
+        <CityFaqSection faqItems={cityData.seo.faqSchema} />
       )}
 
-      {/* Electricity Price Chart Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="flex flex-col justify-center space-y-6">
-              <h2 className="text-3xl font-bold text-black">
-                Pourquoi investir dans le solaire maintenant ?
-              </h2>
-              <p className="text-black/70">
-                Le prix de l'électricité ne cesse d'augmenter en France.
-                Investir dans des panneaux solaires aujourd'hui vous permet de :
-              </p>
-              <ul className="space-y-3 text-black/80">
-                <li className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg rounded-full flex items-center justify-center">
-                    <CheckIcon className="w-4 h-4 text-black" />
-                  </div>
-                  Réduire votre facture énergétique
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg rounded-full flex items-center justify-center">
-                    <CheckIcon className="w-4 h-4 text-black" />
-                  </div>
-                  Protéger contre la hausse des prix
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg rounded-full flex items-center justify-center">
-                    <CheckIcon className="w-4 h-4 text-black" />
-                  </div>
-                  Valoriser votre patrimoine
-                </li>
-              </ul>
-            </div>
-            <ElectricityPriceChart />
-          </div>
-        </div>
-      </section>
-
-      {/* Technical Specifications Section */}
-      {cityData.technicalSpecs && (
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8">Spécifications Techniques</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-white p-6 rounded-lg shadow">
-                <h3 className="font-semibold mb-2">Rendement Moyen</h3>
-                <p>{cityData.technicalSpecs.averageYield}</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow">
-                <h3 className="font-semibold mb-2">Angle Optimal</h3>
-                <p>{cityData.technicalSpecs.optimalAngle}</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow">
-                <h3 className="font-semibold mb-2">Charge de Neige</h3>
-                <p>{cityData.technicalSpecs.snowLoad}</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow">
-                <h3 className="font-semibold mb-2">Résistance au Vent</h3>
-                <p>{cityData.technicalSpecs.windResistance}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Local Incentives Section */}
-      {cityData.localIncentives && cityData.localIncentives.length > 0 && (
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8">Aides Locales</h2>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {cityData.localIncentives.map((incentive, index) => (
-                <li key={index} className="flex items-start">
-                  <svg className="w-6 h-6 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  {incentive}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
-
-      {/* Key Points Section */}
-      {cityData.keyPoints && cityData.keyPoints.length > 0 && (
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8">Points Clés</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {cityData.keyPoints.map((point, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow">
-                  <p className="text-lg">{point}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      <ContactCTASection />
+      {/* 15. Section Derniers Articles */}
+      <LastBlogPostsSection />
     </main>
   );
 }

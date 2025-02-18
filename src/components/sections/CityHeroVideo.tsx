@@ -11,10 +11,10 @@ import {
   KeyIcon, 
   ClockIcon, 
   CheckCircleIcon, 
-  StarIcon,
   ChartBarIcon,
   CalculatorIcon
 } from '@heroicons/react/24/outline';
+import { StarIcon } from '@heroicons/react/24/solid';
 
 interface CityHeroVideoProps {
   cityName: string;
@@ -68,25 +68,66 @@ const CityHeroVideo = ({ cityName, departmentName, description, population, suns
               {/* Titre et Description */}
               <div className="space-y-4">
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-                  Installation de panneaux solaires à {cityName} | Votre entreprise Installateur photovoltaïque RGE
+                  Installation de Panneaux Solaires à {cityName} - Votre Expert Photovoltaïque
                 </h1>
                 <p className="text-gray-600 text-lg">
                   {description}
                 </p>
               </div>
 
+              {/* Prix Attractif */}
+              <div className="bg-gradient-to-br from-ffeb99 to-ffb700 p-6 rounded-2xl transform hover:scale-[1.02] transition-all duration-300">
+                <div className="flex items-center gap-6">
+                  {/* Image et Badge Promo */}
+                  <div className="relative">
+                    <div className="relative w-24 h-24 rounded-xl overflow-hidden shadow-lg">
+                      <Image
+                        src="/images/panneaux-solaire.jpg"
+                        alt="Panneau solaire"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    {/* Badge Promo */}
+                    <div className="absolute -top-3 -right-3 bg-black text-primary font-bold px-3 py-1 rounded-full text-sm transform rotate-12">
+                      -22%
+                    </div>
+                  </div>
+
+                  {/* Contenu Prix */}
+                  <div className="flex-1">
+                    <div className="space-y-1">
+                      <p className="text-black/90 font-medium text-lg">Installation à partir de</p>
+                      <div className="flex items-baseline gap-3">
+                        <p className="text-4xl font-bold text-black">À partir de 7 890€</p>
+                        <p className="text-lg text-black/60 line-through">9890€</p>
+                      </div>
+                      <div className="flex items-center gap-2 mt-1">
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Flèche */}
+                  <div className="hidden md:flex items-center">
+                    <svg className="w-8 h-8 text-black/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
               {/* Boutons CTA */}
               <div className="grid sm:grid-cols-2 gap-4">
                 <button
                   onClick={handleSimulatorClick}
-                  className="flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg text-white rounded-2xl hover:bg-primary/90 transition-all text-lg font-semibold"
+                  className="flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg text-black rounded-2xl hover:bg-primary/90 transition-all text-lg font-semibold"
                 >
                   <ChartBarIcon className="w-6 h-6" />
                   Simuler mes économies
                 </button>
                 <button
                   onClick={handleDevisClick}
-                  className="flex items-center justify-center gap-3 px-6 py-4 border-2 bg-black text-primary rounded-2xl hover:bg-primary/10 transition-all text-lg font-semibold"
+                  className="flex items-center justify-center gap-3 px-6 py-4 border-2 bg-black text-primary rounded-2xl transition-all text-lg font-semibold"
                 >
                   <CalculatorIcon className="w-6 h-6" />
                   Devis gratuit
@@ -109,7 +150,7 @@ const CityHeroVideo = ({ cityName, departmentName, description, population, suns
               <div className="flex items-center gap-2">
                 <div className="flex">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <StarIcon key={star} className="w-5 h-5 text-[#FFDF64]" />
+                    <StarIcon key={star} className="w-5 h-5 text-yellow-400" />
                   ))}
                 </div>
                 <span className="text-gray-600">(5.0) sur Google</span>
@@ -118,8 +159,8 @@ const CityHeroVideo = ({ cityName, departmentName, description, population, suns
               {/* Certifications */}
               <div className="flex flex-wrap gap-4 items-center pt-4">
                 <Image src="/images/rge1.png" alt="RGE" width={80} height={40} className="h-8 w-auto object-contain" />
-                <Image src="/images/qualipv1.png" alt="Qualibat" width={80} height={40} className="h-8 w-auto object-contain" />
-                <Image src="/images/garantie-decennale-p2a-construction.webp" alt="garantie-decennale-p2a-construction" width={80} height={40} className="h-8 w-auto object-contain" />
+                <Image src="/images/qualipv1.png" alt="Qualibat" width={80} height={40} className="h-11 w-auto object-contain" />
+                <Image src="/images/garantie-decennale-p2a-construction.webp" alt="garantie-decennale-p2a-construction" width={180} height={40} className="h-12 w-auto object-contain" />
                 {/* Ajoutez d'autres certifications selon besoin */}
               </div>
             </div>

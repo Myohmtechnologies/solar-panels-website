@@ -1,16 +1,29 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { MapPinIcon, UserIcon, ChartBarIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { engagementEvents, navigationEvents } from '@/utils/analytics';
-import ContactForm from '../forms/ContactForm';
-import QuickLeadForm from '../forms/QuickLeadForm';
-import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { motion } from 'framer-motion';
+
+// Chargement dynamique des composants non-critiques
+const ContactForm = dynamic(() => import('../forms/ContactForm'), { ssr: false });
+const QuickLeadForm = dynamic(() => import('../forms/QuickLeadForm'), { ssr: false });
+const Dialog = dynamic(() => import('@headlessui/react').then(mod => mod.Dialog), { ssr: false });
+const Transition = dynamic(() => import('@headlessui/react').then(mod => mod.Transition), { ssr: false });
+
+// Préchargement du contenu critique
+const preloadContent = () => {
+  const link = document.createElement('link');
+  link.rel = 'preload';
+  link.as = 'style';
+  link.href = '/styles/critical.css';
+  document.head.appendChild(link);
+};
 
 // Hook personnalisé pour détecter le défilement
 const useScrollPosition = () => {
@@ -20,10 +33,8 @@ const useScrollPosition = () => {
     const updatePosition = () => {
       setScrollPosition(window.pageYOffset);
     };
-
-    window.addEventListener('scroll', updatePosition);
-    updatePosition(); // Set initial position
-
+    window.addEventListener('scroll', updatePosition, { passive: true });
+    updatePosition();
     return () => window.removeEventListener('scroll', updatePosition);
   }, []);
 
@@ -31,7 +42,7 @@ const useScrollPosition = () => {
 };
 
 // Composant Modal de Contact amélioré
-const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+const ContactModal = dynamic(() => Promise.resolve(({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -49,46 +60,23 @@ const ContactModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                <div className="flex justify-between items-center mb-4">
-                  <Dialog.Title as="h3" className="text-2xl font-bold leading-6 text-black">
-                    Contactez un Expert
-                  </Dialog.Title>
-                  <button
-                    onClick={onClose}
-                    className="text-gray-500 hover:text-gray-800 transition-colors"
-                  >
-                    <span className="sr-only">Fermer</span>
-                    ✕
-                  </button>
-                </div>
-
-                <div className="mt-4">
-                  <ContactForm />
-                </div>
-              </Dialog.Panel>
-            </Transition.Child>
+            <ContactForm onClose={onClose} />
           </div>
         </div>
       </Dialog>
     </Transition>
   );
-};
+}), { ssr: false });
 
 const HeroSection = () => {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const scrollPosition = useScrollPosition();
   const [heroHeight, setHeroHeight] = useState(0);
+
+  useEffect(() => {
+    preloadContent();
+  }, []);
 
   useEffect(() => {
     const hero = document.getElementById('hero');
@@ -119,8 +107,14 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 text-[#146390]">
-                Divisez par 2 votre facture d'électricité
+              <h1 
+                className="text-4xl md:text-6xl font-bold leading-tight mb-6 text-[#146390]"
+                style={{
+                  contentVisibility: 'auto',
+                  containIntrinsicSize: '0 50px'
+                }}
+              >
+                Divisez par 2 votre facture d&apos;électricité
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 mb-8">
                 Réduisez votre facture d'électricité jusqu'à 70%

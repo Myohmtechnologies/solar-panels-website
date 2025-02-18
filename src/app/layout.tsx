@@ -16,11 +16,22 @@ const ClientLayout = dynamic(() => import('@/components/layout/ClientLayout'), {
   ssr: false,
   loading: () => <div className="min-h-screen" /> 
 });
+
+const OptimizedGTM = dynamic(() => import('@/components/analytics/OptimizedGTM'), { 
+  ssr: false 
+});
+
+const ScrollTracker = dynamic(() => import('@/components/analytics/ScrollTracker'), { 
+  ssr: false 
+});
+
+const ConversionTracker = dynamic(() => import('@/components/tracking/ConversionTracker'), { 
+  ssr: false 
+});
+
 const GA4Initialize = dynamic(() => import('@/components/analytics/GA4Initialize'), { ssr: false });
 const TrackingInitializer = dynamic(() => import('@/components/tracking/TrackingInitializer'), { ssr: false });
-const ScrollTracker = dynamic(() => import('@/components/analytics/ScrollTracker'), { ssr: false });
 const TeamAuth = dynamic(() => import('@/components/admin/TeamAuth'), { ssr: false });
-const ConversionTracker = dynamic(() => import('@/components/tracking/ConversionTracker'), { ssr: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.myohmtechnologies.com'),
@@ -78,51 +89,15 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* Google Tag Manager */}
-        <Script id="google-tag-manager" strategy="afterInteractive">
-          {`
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-XXXXXXX');
-          `}
-        </Script>
-
-        {/* Google Ads */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=AW-16817660787`}
-          strategy="afterInteractive"
+        <link
+          rel="preload"
+          href="/styles/critical.css"
+          as="style"
+          onLoad="this.onload=null;this.rel='stylesheet'"
         />
-        <Script id="google-ads" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-16817660787');
-          `}
-        </Script>
-
-        {/* Google Analytics */}
-        <Script
-          id="ga-script"
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-ET19PN3YHF"
-        />
-        <Script
-          id="ga-config"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-ET19PN3YHF', {
-                page_path: window.location.pathname,
-              });
-            `,
-          }}
-        />
+        <noscript>
+          <link rel="stylesheet" href="/styles/critical.css" />
+        </noscript>
       </head>
       <body className="font-sans min-h-screen bg-white">
         <Toaster position="top-center" />
@@ -131,7 +106,10 @@ export default function RootLayout({
         <TrackingInitializer />
         <ConversionTracker />
         <TeamAuth />
-        <ClientLayout>{children}</ClientLayout>
+        <ClientLayout>
+          <OptimizedGTM />
+          {children}
+        </ClientLayout>
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"

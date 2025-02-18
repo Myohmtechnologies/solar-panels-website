@@ -19,8 +19,8 @@ export default function SolarProductionProcessSection() {
             height={800}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/40 flex items-end p-6">
-            <div className="text-white">
+          <div className="absolute inset-0 bg-black/40 hover:bg-white/20 flex items-end p-6">
+            <div className="text-white hover:text-black">
               <h3 className="text-2xl font-bold mb-2">Production d&apos;Énergie Solaire</h3>
               <p className="text-sm">Le processus de transformation lumière-électricité</p>
             </div>

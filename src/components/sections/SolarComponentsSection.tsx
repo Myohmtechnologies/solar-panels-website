@@ -120,42 +120,7 @@ const components = [
     ],
     image: "/images/components/mounting.jpg"
   },
-  {
-    id: 4,
-    title: "Système de Monitoring",
-    description: `Le système de monitoring Huawei FusionSolar transforme votre installation solaire en une centrale intelligente. Cette plateforme de nouvelle génération vous permet de suivre et d'optimiser votre production d'énergie en temps réel, directement depuis votre smartphone ou votre ordinateur.
-
-    Grâce à l'intelligence artificielle intégrée, le système analyse en permanence les données de production et de consommation pour vous fournir des recommandations personnalisées :`,
-    details: [
-      "Interface intuitive accessible sur tous vos appareils",
-      "Notifications instantanées en cas d'anomalie",
-      "Prévisions de production basées sur la météo locale",
-      "Analyse détaillée de votre autoconsommation"
-    ],
-    specs: [
-      {
-        title: "Fonctionnalités Avancées",
-        items: [
-          "Suivi de production en temps réel",
-          "Historique détaillé sur 25 ans",
-          "Calcul automatique des économies réalisées",
-          "Détection précoce des anomalies",
-          "Export des données au format Excel"
-        ]
-      },
-      {
-        title: "Sécurité et Connectivité",
-        items: [
-          "Communication cryptée SSL",
-          "Sauvegarde automatique dans le cloud",
-          "Compatible WiFi, 4G et Ethernet",
-          "Mises à jour automatiques",
-          "Support technique intégré"
-        ]
-      }
-    ],
-    image: "/images/components/monitoring.jpg"
-  }
+ 
 ];
 
 export default function SolarComponentsSection() {

@@ -88,10 +88,7 @@ const CityHeroVideo = ({ cityName, departmentName, description, population, suns
                         className="object-cover"
                       />
                     </div>
-                    {/* Badge Promo */}
-                    <div className="absolute -top-3 -right-3 bg-black text-primary font-bold px-3 py-1 rounded-full text-sm transform rotate-12">
-                      -22%
-                    </div>
+                  
                   </div>
 
                   {/* Contenu Prix */}
@@ -100,7 +97,7 @@ const CityHeroVideo = ({ cityName, departmentName, description, population, suns
                       <p className="text-black/90 font-medium text-lg">Installation à partir de</p>
                       <div className="flex items-baseline gap-3">
                         <p className="text-4xl font-bold text-black">À partir de 7 890€</p>
-                        <p className="text-lg text-black/60 line-through">9890€</p>
+                    
                       </div>
                       <div className="flex items-center gap-2 mt-1">
                       </div>

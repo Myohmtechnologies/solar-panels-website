@@ -82,11 +82,11 @@ export default function SolarPowerSection({ cityName, sunshineHours = 2800 }: So
 
               <div className="space-y-4">
                 <div className="flex items-center justify-between border-b border-gray-100 pb-2">
-                  <span className="text-gray-600">Puissance</span>
+                  <span className="text-gray-600">Puissance de l'installation</span>
                   <span className="font-semibold text-FFDF64">{option.power}</span>
                 </div>
                 <div className="flex items-center justify-between border-b border-gray-100 pb-2">
-                  <span className="text-gray-600">Surface</span>
+                  <span className="text-gray-600">Surface du toit</span>
                   <span className="font-semibold text-gray-900">{option.surface}</span>
                 </div>
                 <div className="flex items-center justify-between border-b border-gray-100 pb-2">

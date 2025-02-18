@@ -1,6 +1,24 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
+Allow: /_next/static/
+Allow: /_next/image
+Allow: /_next/media/
+Allow: /images/
+
+# Googlebot specific rules
+User-agent: Googlebot
+Allow: /
+Allow: /_next/static/
+Allow: /_next/image
+Allow: /_next/media/
+Allow: /images/
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.webp$
+Allow: /*.woff2$
 
 # Host
 Host: https://www.myohmtechnologies.com

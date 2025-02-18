@@ -24,6 +24,12 @@ export default function OptimizedImage({
 }: OptimizedImageProps) {
   const [isLoading, setLoading] = useState(true);
 
+  // Générer un petit SVG de placeholder
+  const generatePlaceholder = (w: number, h: number) => {
+    const svg = `<svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg"><rect width="${w}" height="${h}" fill="#F3F4F6"/></svg>`;
+    return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
+  };
+
   return (
     <div className={`relative overflow-hidden ${className}`}>
       <Image
@@ -42,10 +48,10 @@ export default function OptimizedImage({
             : 'scale-100 blur-0 grayscale-0'}
         `}
         onLoadingComplete={() => setLoading(false)}
+        onError={() => setLoading(false)}
         placeholder="blur"
-        blurDataURL={`data:image/svg+xml;base64,${Buffer.from(
-          `<svg width="${width}" height="${height}" version="1.1" xmlns="http://www.w3.org/2000/svg"><rect width="${width}" height="${height}" fill="#F3F4F6"/></svg>`
-        ).toString('base64')}`}
+        blurDataURL={generatePlaceholder(width, height)}
+        fetchPriority={priority ? 'high' : 'auto'}
       />
     </div>
   );

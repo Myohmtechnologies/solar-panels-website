@@ -19,7 +19,16 @@ module.exports = {
         '1a1a1a': '#1a1a1a',
         'primary': {
           DEFAULT: '#ffeb99',
-          light: '#ffb700',
+          '50': '#fffdf5',
+          '100': '#fffbeb',
+          '200': '#fff4c7',
+          '300': '#ffeb99',
+          '400': '#ffdf64',
+          '500': '#ffb700',
+          '600': '#e6a600',
+          '700': '#bf8a00',
+          '800': '#996f00',
+          '900': '#7d5b00'
         },
         'secondary': {
           DEFAULT: '#AFC97E',
@@ -96,4 +105,8 @@ module.exports = {
   plugins: [
     require('@tailwindcss/typography'),
   ],
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
+  },
 }

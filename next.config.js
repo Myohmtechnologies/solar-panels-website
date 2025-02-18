@@ -21,29 +21,13 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**.myohmtechnologies.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'maps.googleapis.com',
-        port: '',
-        pathname: '/maps/api/staticmap/**',
+        hostname: '**',
       },
     ],
   },
   experimental: {
-    serverActions: true,
     optimizeCss: true,
-    optimizePackageImports: ['@heroicons/react', '@headlessui/react'],
-    serverComponentsExternalPackages: [],
+    optimizePackageImports: ['@heroicons/react', 'framer-motion', '@headlessui/react'],
   },
   webpack: (config, { isServer }) => {
     // Fix for the webpack error
@@ -92,6 +76,45 @@ const nextConfig = {
         },
       };
     }
+
+    // Optimize CSS
+    if (!isServer) {
+      config.optimization.splitChunks.cacheGroups.styles = {
+        name: 'styles',
+        test: /\.(css|scss)$/,
+        chunks: 'all',
+        enforce: true,
+      };
+    }
+
+    // Optimize images
+    config.module.rules.push({
+      test: /\.(png|jpe?g|gif|svg|webp|avif)$/i,
+      use: [
+        {
+          loader: 'image-webpack-loader',
+          options: {
+            mozjpeg: {
+              progressive: true,
+              quality: 65,
+            },
+            optipng: {
+              enabled: false,
+            },
+            pngquant: {
+              quality: [0.65, 0.90],
+              speed: 4,
+            },
+            gifsicle: {
+              interlaced: false,
+            },
+            webp: {
+              quality: 75,
+            },
+          },
+        },
+      ],
+    });
 
     return config;
   },

@@ -44,7 +44,10 @@ const Header = () => {
                 width={170}
                 height={60}
                 className="w-auto h-12 md:h-14"
-                priority
+                priority={false}
+                loading="eager"
+                sizes="(max-width: 768px) 120px, 170px"
+                quality={85}
               />
             </Link>
 

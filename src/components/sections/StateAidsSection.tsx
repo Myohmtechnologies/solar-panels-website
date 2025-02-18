@@ -32,7 +32,7 @@ const aids = [
     title: "Prime à l'Autoconsommation",
     description: "Une aide financière directe couvrant entre 5% et 10% du coût total de votre installation, particulièrement avantageuse pour les petites installations.",
     details: [
-      " 3 kWc :660 €/kWc",
+      " 3 kWc : 660 €/kWc",
       " 6 kWc : 960 €/kWc",
       " 9 kWc : 1440 €/kWc",
 

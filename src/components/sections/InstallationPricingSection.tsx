@@ -30,7 +30,7 @@ const pricingData = [
     power: "6 kWc",
     price: {
       original: "14 890€",
-      final: "12 490€"
+      final: "12 890€"
     },
     details: {
       surface: "30m²",
@@ -44,7 +44,7 @@ const pricingData = [
     power: "9 kWc",
     price: {
       original: "19 890€",
-      final: "15 990€"
+      final: "15 890€"
     },
     details: {
       surface: "45m²",
@@ -58,7 +58,7 @@ const pricingData = [
     power: "12 kWc",
     price: {
       original: "30 890€",
-      final: "21 990€"
+      final: "19 890€"
     },
     details: {
       surface: "60m²",
@@ -178,9 +178,7 @@ export default function InstallationPricingSection({ ville }: InstallationPricin
                         <div className="font-semibold text-gray-900">
                           {item.price.final}
                         </div>
-                        <div className="text-sm text-gray-500 line-through">
-                          {item.price.original}
-                        </div>
+                      
                         <span className="text-xs text-gray-500">Prix après aides</span>
                       </td>
                       <td className="px-6 py-4">

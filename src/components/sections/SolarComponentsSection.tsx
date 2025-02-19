@@ -173,12 +173,12 @@ export default function SolarComponentsSection() {
             {components.map((component) => (
               component.id === activeComponent && (
                 <div key={component.id} className="space-y-8">
-                  <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-white">
+                  <div className="relative aspect-[16/9] rounded-3xl overflow-hidden bg-white">
                     <Image
                       src={component.image}
                       alt={component.title}
                       fill
-                      className="object-contain p-4 rounded-xl"
+                      className="object-contain p-4"
                       priority
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />

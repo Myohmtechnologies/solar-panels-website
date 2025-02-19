@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { CheckCircleIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
-import ContactModal from '@/components/modals/ContactModal';
+import QuoteModal from '@/components/modals/QuoteModal';
 
 interface InstallationPricingSectionProps {
   ville: string;
@@ -90,14 +90,27 @@ const services = [
 
 export default function InstallationPricingSection({ ville }: InstallationPricingSectionProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPack, setSelectedPack] = useState<typeof pricingData[0] | null>(null);
 
-  const handleDevisClick = () => {
+  const handleDevisClick = (pack: typeof pricingData[0]) => {
+    setSelectedPack(pack);
     setIsModalOpen(true);
   };
 
   return (
     <>
-      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      {selectedPack && (
+        <QuoteModal 
+          isOpen={isModalOpen} 
+          closeModal={() => setIsModalOpen(false)}
+          cityName={ville}
+          estimations={{
+            production: parseInt(selectedPack.details.production.replace(/[^0-9]/g, '')),
+            totalAnnualSavings: parseInt(selectedPack.details.savings.replace(/[^0-9]/g, '')),
+            systemSize: parseInt(selectedPack.power.replace(/[^0-9]/g, ''))
+          }}
+        />
+      )}
       
       <section className="py-16 bg-gradient-to-br from-white to-gray-50">
         <div className="container mx-auto px-4">
@@ -180,7 +193,7 @@ export default function InstallationPricingSection({ ville }: InstallationPricin
                       </td>
                       <td className="px-6 py-4">
                         <button
-                          onClick={handleDevisClick}
+                          onClick={() => handleDevisClick(item)}
                           className="flex items-center justify-center gap-2 px-4 py-2 bg-black text-primary rounded-xl transition-all text-sm font-semibold hover:bg-black/90"
                         >
                           Devis gratuit

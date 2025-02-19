@@ -74,7 +74,7 @@ const SolarServicesSection: React.FC<SolarServicesSectionProps> = ({ cityName })
       title: "Installation de panneaux solaires",
       description: "Solutions photovoltaïques haute performance",
       icon: <BoltIcon className="w-6 h-6 text-FFDF64" />,
-      imagePath: "/images/services/installation-panneaux.jpg",
+      imagePath: "/images/produit/panneau-solaire.jpeg",
       features: [
         "Panneaux monocristallins haute efficacité",
         "Installation sur toiture ou au sol",
@@ -86,7 +86,7 @@ const SolarServicesSection: React.FC<SolarServicesSectionProps> = ({ cityName })
       title: "Batteries de stockage",
       description: "Optimisez votre autoconsommation",
       icon: <Battery100Icon className="w-6 h-6 text-FFDF64" />,
-      imagePath: "/images/services/batterie-stockage.jpg",
+      imagePath: "/images/produit/batterie-de-stockage-enphase.png",
       features: [
         "Stockage de l'énergie excédentaire",
         "Utilisation en cas de besoin",
@@ -98,7 +98,7 @@ const SolarServicesSection: React.FC<SolarServicesSectionProps> = ({ cityName })
       title: "Batterie virtuelle",
       description: "Solution innovante de stockage",
       icon: <CloudIcon className="w-6 h-6 text-FFDF64" />,
-      imagePath: "/images/services/batterie-virtuelle.jpg",
+      imagePath: "/images/produit/batterie-virtuelle-mylight.png",
       features: [
         "Stockage intelligent d'énergie",
         "Gestion automatisée des surplus",
@@ -110,7 +110,7 @@ const SolarServicesSection: React.FC<SolarServicesSectionProps> = ({ cityName })
       title: "Bornes de recharge IRVE",
       description: "Recharge pour véhicules électriques",
       icon: <PowerIcon className="w-6 h-6 text-FFDF64" />,
-      imagePath: "/images/services/borne-recharge.jpg",
+      imagePath: "/images/produit/borne-de-recharge.png",
       features: [
         "Installation pour particuliers et entreprises",
         "Compatible avec tous les véhicules",
@@ -122,7 +122,7 @@ const SolarServicesSection: React.FC<SolarServicesSectionProps> = ({ cityName })
       title: "Ballon thermodynamique",
       description: "Eau chaude écologique",
       icon: <BeakerIcon className="w-6 h-6 text-FFDF64" />,
-      imagePath: "/images/services/ballon-thermodynamique.jpg",
+      imagePath: "/images/produit/ballon-thermodynamique.png",
       features: [
         "Chauffe-eau économique",
         "Fonctionnement écologique",

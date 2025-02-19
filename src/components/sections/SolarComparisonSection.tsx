@@ -8,7 +8,7 @@ const comparisonData = {
     title: "Panneaux Solaires Photovoltaïques",
     icon: BoltIcon,
     description: "Transforment la lumière du soleil en électricité",
-    image: "/images/panneau-solaire-photovoltaique.jpg",
+    image: "/images/produit/panneau-solaire.jpeg",
     advantages: [
       "Production d'électricité pour tous vos besoins",
       "Rentabilité assurée grâce aux aides de l'État",
@@ -32,7 +32,7 @@ const comparisonData = {
     title: "Panneaux Solaires Thermiques",
     icon: FireIcon,
     description: "Chauffent directement l'eau par l'énergie solaire",
-    image: "/images/panneaux-solaire-thermique.webp",
+    image: "/images/produit/panneaux-solaire-thermodynamique.png",
     advantages: [
       "Excellent rendement pour l'eau chaude",
       "Économies sur la facture de chauffage",
@@ -81,7 +81,7 @@ export default function SolarComparisonSection() {
               </div>
 
               {/* Image */}
-              <div className="relative h-64 bg-gray-100">
+              <div className="relative h-72 bg-gray-100">
                 <Image
                   src={data.image}
                   alt={data.title}

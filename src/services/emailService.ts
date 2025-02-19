@@ -31,17 +31,6 @@ const headerHtml = `
   </div>
 `;
 
-const projectSummaryHtml = `
-  <div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
-    <h3 style="color: #333; margin: 0 0 15px 0;">Récapitulatif de votre projet</h3>
-    <ul style="list-style: none; padding: 0; margin: 0;">
-      <li style="margin-bottom: 10px;">🏠 <strong>Type de maison :</strong> ${houseSizes[leadData.houseSize]}</li>
-      <li style="margin-bottom: 10px;">💡 <strong>Facture actuelle :</strong> ${billRanges[leadData.monthlyBill]}</li>
-      <li style="margin-bottom: 10px;">🧭 <strong>Orientation :</strong> ${leadData.orientation}</li>
-    </ul>
-  </div>
-`;
- 
 const contactSectionHtml = `
   <div style="text-align: center; margin-top: 30px;">
     <img src="https://www.myohmtechnologies.com/_next/image?url=%2Fimages%2Flogo.png&w=384&q=85" 
@@ -64,6 +53,17 @@ const contactSectionHtml = `
 `;
 
 export async function sendLeadNotificationEmail(leadData: LeadData) {
+  const projectSummaryHtml = `
+    <div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+      <h3 style="color: #333; margin: 0 0 15px 0;">Récapitulatif de votre projet</h3>
+      <ul style="list-style: none; padding: 0; margin: 0;">
+        <li style="margin-bottom: 10px;">🏠 <strong>Type de maison :</strong> ${houseSizes[leadData.houseSize]}</li>
+        <li style="margin-bottom: 10px;">💡 <strong>Facture actuelle :</strong> ${billRanges[leadData.monthlyBill]}</li>
+        <li style="margin-bottom: 10px;">🧭 <strong>Orientation :</strong> ${leadData.orientation}</li>
+      </ul>
+    </div>
+  `;
+
   const clientEmailHtml = `
     <!DOCTYPE html>
     <html>
@@ -74,24 +74,20 @@ export async function sendLeadNotificationEmail(leadData: LeadData) {
     <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f5f5f5;">
       <div style="max-width: 600px; margin: 0 auto; background-color: white;">
         ${headerHtml}
-
         <div style="padding: 30px;">
           <h1 style="color: #333; margin: 0 0 20px 0; font-size: 24px; text-align: center;">
             Merci pour votre demande d'estimation, ${leadData.name} !
           </h1>
-
           <p style="font-size: 16px; line-height: 1.6; color: #333;">
             Nous avons bien reçu votre demande d'estimation pour l'installation de panneaux solaires. 
             Un expert MyOhm vous contactera dans les plus brefs délais.
           </p>
-
           ${projectSummaryHtml}
           ${contactSectionHtml}
         </div>
-
         <div style="text-align: center; padding: 20px; background-color: #333; color: white;">
           <p style="margin: 0; font-size: 12px;">
-            © 2025 MyOhm Technologies. Tous droits réservés.
+            2025 MyOhm Technologies. Tous droits réservés.
           </p>
         </div>
       </div>
@@ -149,7 +145,7 @@ export async function sendLeadNotificationEmail(leadData: LeadData) {
       html: adminEmailHtml
     });
 
-    console.log('Emails envoyés:', { clientResponse, adminResponse });
+    return { clientResponse, adminResponse };
   } catch (error) {
     console.error('Erreur lors de l\'envoi des emails:', error);
     throw error;
@@ -187,7 +183,7 @@ export async function sendCalculationEmail(email: string, name: string, result: 
         </div>
         <div style="text-align: center; padding: 20px; background-color: #333; color: white;">
           <p style="margin: 0; font-size: 12px;">
-            © 2025 MyOhm Technologies. Tous droits réservés.
+            2025 MyOhm Technologies. Tous droits réservés.
           </p>
         </div>
       </div>

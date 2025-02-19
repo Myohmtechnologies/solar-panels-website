@@ -266,8 +266,8 @@ const bouchesdurhone: Department = {
         },
         faqSchema: [
           {
-            question: "Les panneaux photovoltaïques offrent de nombreux avantages :",
-            answer: "Production d’énergie renouvelable à partir du soleil, réduisant votre empreinte carbone.Réduction de votre facture d’électricité jusqu’à 70 % grâce à l’autoconsommation.Possibilité de revendre le surplus d’énergie produite, générant un revenu supplémentaire.Longue durée de vie et faible besoin en maintenance, notamment pour des équipements de qualité comme les panneaux DualSun.Les panneaux sont particulièrement rentables dans les Bouches-du-Rhône et à Aix-en-Provence, où l’ensoleillement est optimal."
+            question: "Quels sont les avantages des panneaux solaires à Aix-en-Provence ?",
+            answer: "Les panneaux photovoltaïques à Aix-en-Provence offrent de nombreux avantages : production d'énergie renouvelable à partir du soleil, réduction de votre facture d'électricité jusqu'à 70% grâce à l'autoconsommation, possibilité de revendre le surplus d'énergie produite, longue durée de vie et faible besoin en maintenance. Les panneaux sont particulièrement rentables à Aix-en-Provence grâce à son ensoleillement optimal."
           },
           {
             question: "Quel est le coût d'une installation photovoltaïque à Aix-en-Provence ?",
@@ -2052,7 +2052,7 @@ const bouchesdurhone: Department = {
     },
     "saint-remy-de-provence": {
       name: "Saint-Rémy-de-Provence",
-      code: "13100",
+      code: "13210",
       population: 9893,
       sunshineHours: 2800,
       solarAdvantages: [

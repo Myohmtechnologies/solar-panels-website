@@ -11,13 +11,10 @@ interface Props {
 }
 
 const slugToCityKey = (slug: string): string => {
-  // Convertit les slugs en camelCase pour correspondre aux clés des villes
-  return slug
-    .split('-')
-    .map((word, index) => 
-      index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-    )
-    .join('');
+  // On retourne le slug tel quel car les clés sont déjà en kebab-case
+  console.log('Input slug:', slug);
+  console.log('Available city keys:', Object.keys(bouchesdurhone.cities));
+  return slug;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

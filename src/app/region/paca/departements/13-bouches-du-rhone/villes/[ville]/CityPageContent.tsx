@@ -1,6 +1,7 @@
 'use client';
 
 import { capitalizeFirstLetter } from '@/utils/stringUtils';
+import bouchesdurhone from '@/app/data/departments/13-bouches-du-rhone';
 
 // Components imports
 import CityHeroVideo from '@/components/sections/CityHeroVideo';
@@ -50,6 +51,13 @@ interface CityPageContentProps {
 export default function CityPageContent({ ville, cityData }: CityPageContentProps) {
   const villeName = capitalizeFirstLetter(cityData.name.replace(/-/g, ' '));
 
+  // Récupérer les 5 plus grandes villes du département (en excluant la ville actuelle)
+  const nearbyDepartmentCities = Object.entries(bouchesdurhone.cities)
+    .filter(([key]) => key !== ville)
+    .sort((a, b) => (b[1].population || 0) - (a[1].population || 0))
+    .slice(0, 5)
+    .map(([_, city]) => city.name);
+
   // Données pour la section de présence locale
   const localPresenceData = {
     name: cityData.name,
@@ -83,14 +91,7 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
     },
     interventionArea: {
       radius: 50,
-      cities: [
-        cityData.name,
-        "Marseille",
-        "Aix-en-Provence",
-        "Aubagne",
-        "La Ciotat",
-        "Martigues"
-      ]
+      cities: [cityData.name, ...nearbyDepartmentCities]
     }
   };
 

@@ -104,48 +104,15 @@ const LocalPresenceSection: React.FC<LocalPresenceSectionProps> = ({ cityData })
                     autour de {cityData.name}, couvrant notamment :
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    <Link 
-                      href="/region/paca/departements/04-alpes-de-haute-provence/villes/manosque"
-                      className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-FFDF64/10 hover:text-FFDF64 transition-colors"
-                    >
-                      Manosque
-                    </Link>
-                    <Link 
-                      href="/region/paca/departements/04-alpes-de-haute-provence/villes/digne-les-bains"
-                      className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-FFDF64/10 hover:text-FFDF64 transition-colors"
-                    >
-                      Digne-les-Bains
-                    </Link>
-                    <Link 
-                      href="/region/paca/departements/04-alpes-de-haute-provence/villes/forcalquier"
-                      className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-FFDF64/10 hover:text-FFDF64 transition-colors"
-                    >
-                      Forcalquier
-                    </Link>
-                    <Link 
-                      href="/region/paca/departements/04-alpes-de-haute-provence/villes/sisteron"
-                      className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-FFDF64/10 hover:text-FFDF64 transition-colors"
-                    >
-                      Sisteron
-                    </Link>
-                    <Link 
-                      href="/region/paca/departements/04-alpes-de-haute-provence/villes/oraison"
-                      className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-FFDF64/10 hover:text-FFDF64 transition-colors"
-                    >
-                      Oraison
-                    </Link>
-                    <Link 
-                      href="/region/paca/departements/04-alpes-de-haute-provence/villes/chateau-arnoux-saint-auban"
-                      className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-FFDF64/10 hover:text-FFDF64 transition-colors"
-                    >
-                      Château-Arnoux
-                    </Link>
-                    <Link 
-                      href="/region/paca/departements/04-alpes-de-haute-provence/villes/greoux-les-bains"
-                      className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-FFDF64/10 hover:text-FFDF64 transition-colors"
-                    >
-                      Gréoux-les-Bains
-                    </Link>
+                    {cityData.interventionArea.cities.map((city, index) => (
+                      <Link 
+                        key={index}
+                        href={`/region/paca/departements/13-bouches-du-rhone/villes/${city.toLowerCase().replace(/ /g, '-')}`}
+                        className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-FFDF64/10 hover:text-FFDF64 transition-colors"
+                      >
+                        {city}
+                      </Link>
+                    ))}
                   </div>
                 </div>
               </div>

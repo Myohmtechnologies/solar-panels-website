@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { OptimizedImage } from '@/components/OptimizedImage';
+import OptimizedImage from '@/components/OptimizedImage';
 
 interface InstallationOption {
   id: string;

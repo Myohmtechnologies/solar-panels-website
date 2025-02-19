@@ -87,9 +87,9 @@ export default function PACASolarPage() {
             <Image
               src="/images/logo.png"
               alt="Logo"
-              width={150}
-              height={32}
-              className="w-[170px] h-auto md:w-[190px]"
+              width={190}
+              height={50}
+              className="w-[190px] h-auto md:w-[210px]"
               priority
             />
           </Link>
@@ -110,18 +110,18 @@ export default function PACASolarPage() {
         ensoleillement={regionData.ensoleillement}
         potentielSolaire={regionData.potentielSolaire}
       />
-      <ClientTestimonialsSection />
-      <RegionStats stats={regionData.stats} />
-      <RegionSolarInstallationSection region={regionData.name} />
-      <FinancialIncentivesSection />
-      <PrixInstallation />
-      <RegionFAQ faqs={regionData.faqs} />
-      <ContactCTASection />
-      <CitiesList />
-     
-      <RegionDepartments region={regionData.fullName} />
-      <LocalReviews region={regionData.fullName} />
-      
+      <div className="max-w-[1920px] mx-auto">
+        <ClientTestimonialsSection />
+        <RegionStats stats={regionData.stats} />
+        <RegionSolarInstallationSection region={regionData.name} />
+        <FinancialIncentivesSection />
+        <PrixInstallation />
+        <RegionFAQ faqs={regionData.faqs} />
+        <ContactCTASection />
+        <CitiesList />
+        <RegionDepartments region={regionData.fullName} />
+        <LocalReviews region={regionData.fullName} />
+      </div>
     </main>
   );
 }

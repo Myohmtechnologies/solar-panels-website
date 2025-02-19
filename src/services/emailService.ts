@@ -41,7 +41,7 @@ const projectSummaryHtml = `
     </ul>
   </div>
 `;
-
+ 
 const contactSectionHtml = `
   <div style="text-align: center; margin-top: 30px;">
     <img src="https://www.myohmtechnologies.com/_next/image?url=%2Fimages%2Flogo.png&w=384&q=85" 

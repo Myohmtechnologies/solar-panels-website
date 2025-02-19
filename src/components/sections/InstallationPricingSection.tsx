@@ -44,7 +44,7 @@ const pricingData = [
     power: "9 kWc",
     price: {
       original: "19 890€",
-      final: "15 890€"
+      final: "17 890€"
     },
     details: {
       surface: "45m²",
@@ -53,20 +53,7 @@ const pricingData = [
       panels: "18 panneaux"
     }
   },
-  {
-    title: "Pack Ultra",
-    power: "12 kWc",
-    price: {
-      original: "30 890€",
-      final: "19 890€"
-    },
-    details: {
-      surface: "60m²",
-      production: "17 400 kWh/an",
-      savings: "3 480€/an",
-      panels: "24 panneaux"
-    }
-  }
+ 
 ];
 
 const services = [

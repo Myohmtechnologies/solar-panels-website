@@ -8,7 +8,7 @@ const components = [
   {
     id: 1,
     title: "Panneaux Solaires Photovoltaïques",
-    description: `My ohm technologies équipe ses clients avec les panneaux solaires panneau solaire DualSun FLASH 500 Half-Cut Glass-Glass TOPCon, une référence sur le marché du photovoltaïque. Ces panneaux monocristallins de dernière génération offrent une puissance exceptionnelle de 455Wc et un rendement remarquable de 21,3%.
+    description: `My ohm technologies équipe ses clients avec les panneaux solaires DualSun FLASH 500 Half-Cut Glass-Glass TOPCon, une référence sur le marché du photovoltaïque. Ces panneaux monocristallins de dernière génération offrent une puissance exceptionnelle de 455Wc et un rendement remarquable de 21,3%.
 
     La technologie PERC (Passivated Emitter and Rear Cell) utilisée dans ces panneaux permet de capturer plus de lumière et de convertir plus efficacement l'énergie solaire en électricité. Les cellules half-cut réduisent les pertes de résistance et améliorent les performances en cas d'ombrage partiel.
 
@@ -23,11 +23,11 @@ const components = [
       {
         title: "Caractéristiques Techniques",
         items: [
-          "Puissance nominale : 455W",
+          "Puissance nominale : 500W",
           "Rendement : 21,3%",
-          "Dimensions : 1722 x 1134 x 30mm",
+          "Dimensions : 182,2 x 187,5",
           "Poids : 21,5 kg",
-          "Cellules : 108 cellules monocristallines Half-Cut",
+          "Cellules : 120 cellules monocristallines Half-Cut",
           "Tension maximale : 41,52V",
           "Courant maximal : 10,96A"
         ]

@@ -62,7 +62,7 @@ const SolarServicesSection: React.FC<SolarServicesSectionProps> = ({ cityName })
       title: "Étude et diagnostic personnalisé",
       description: "Analyse complète de votre projet solaire",
       icon: <WrenchScrewdriverIcon className="w-6 h-6 text-FFDF64" />,
-      imagePath: "/images/services/diagnostic-solaire.jpg",
+      imagePath: "/images/produit/diagnostic-personnalise.png",
       features: [
         "Analyse détaillée des besoins énergétiques",
         "Étude de faisabilité technique",

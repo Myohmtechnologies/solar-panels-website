@@ -111,10 +111,11 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
       {/* 1. Section Hero Video */}
       <CityHeroVideo 
         cityName={villeName}
+        departmentCode="84"
         departmentName="Vaucluse"
         description={cityDescription}
-        population={cityData.population || 10000}
-        sunshineHours={cityData.sunshineHours || 2750}
+        population={cityData.population || 15000}
+        sunshineHours={cityData.sunshineHours || 2850}
         heroImage={cityData.heroImage}
       />
 
@@ -129,13 +130,13 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
         cityName={cityData.name}
         region="PACA"
         department="Vaucluse"
-        sunshineHours={cityData.sunshineHours || 2750}
+        sunshineHours={cityData.sunshineHours || 2850}
       />
 
       {/* 5. Section Puissance Solaire */}
       <SolarPowerSection 
         cityName={villeName}
-        sunshineHours={cityData.sunshineHours || 2750}
+        sunshineHours={cityData.sunshineHours || 2850}
       />
 
       {/* 6. Section Aides d'État */}

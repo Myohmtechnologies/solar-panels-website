@@ -111,10 +111,11 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
       {/* 1. Section Hero Video */}
       <CityHeroVideo 
         cityName={villeName}
+        departmentCode="05"
         departmentName="Hautes-Alpes"
         description={cityDescription}
-        population={cityData.population || 8000}
-        sunshineHours={cityData.sunshineHours || 2700}
+        population={cityData.population || 5000}
+        sunshineHours={cityData.sunshineHours || 2800}
         heroImage={cityData.heroImage}
       />
 

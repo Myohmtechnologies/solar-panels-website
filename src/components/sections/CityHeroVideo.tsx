@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Link from 'next/link';
-import ContactModal from '@/components/modals/ContactModal';
+import QuoteModal from '@/components/modals/QuoteModal';
 import Image from 'next/image';
 import { 
   ArrowLeftIcon, 
@@ -15,9 +15,11 @@ import {
   CalculatorIcon
 } from '@heroicons/react/24/outline';
 import { StarIcon } from '@heroicons/react/24/solid';
+import { getDepartmentSlug } from '@/utils/departments';
 
 interface CityHeroVideoProps {
   cityName: string;
+  departmentCode: string;
   departmentName: string;
   description: string;
   population: number;
@@ -28,7 +30,15 @@ interface CityHeroVideoProps {
   };
 }
 
-const CityHeroVideo = ({ cityName, departmentName, description, population, sunshineHours, heroImage }: CityHeroVideoProps) => {
+const CityHeroVideo = ({ 
+  cityName, 
+  departmentCode, 
+  departmentName, 
+  description, 
+  population, 
+  sunshineHours, 
+  heroImage 
+}: CityHeroVideoProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
 
@@ -42,14 +52,23 @@ const CityHeroVideo = ({ cityName, departmentName, description, population, suns
 
   return (
     <>
-      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <QuoteModal 
+        isOpen={isModalOpen} 
+        closeModal={() => setIsModalOpen(false)}
+        cityName={cityName}
+        estimations={{
+          production: 8500, // Production moyenne pour une installation standard
+          totalAnnualSavings: 1200, // Économies moyennes annuelles
+          systemSize: 6 // Taille moyenne du système en kWc
+        }}
+      />
 
       {/* Contenu principal */}
       <section ref={heroRef} data-section="city-hero" className="relative w-full bg-gradient-to-br from-white via-[#FFF9E5] to-white">
         <div className="container mx-auto px-4 py-8 md:py-12">
           {/* Fil d'Ariane */}
           <div className="mb-6">
-            <Link href={`/region/paca/departements/${departmentName.toLowerCase().replace(/ /g, '-')}`} 
+            <Link href={`/region/paca/departements/${departmentCode}-${departmentName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ /g, '-')}`}
                   className="text-gray-600 hover:text-primary flex items-center gap-2">
               <ArrowLeftIcon className="w-4 h-4" />
               Installer des panneaux solaires dans {departmentName}

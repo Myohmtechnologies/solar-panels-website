@@ -8,9 +8,10 @@ import Image from 'next/image';
 interface CommercialModalProps {
   isOpen: boolean;
   closeModal: () => void;
+  cityName?: string;
 }
 
-export default function CommercialModal({ isOpen, closeModal }: CommercialModalProps) {
+export default function CommercialModal({ isOpen, closeModal, cityName }: CommercialModalProps) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={closeModal}>

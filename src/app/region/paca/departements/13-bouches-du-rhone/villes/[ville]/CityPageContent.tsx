@@ -112,6 +112,7 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
       {/* 1. Section Hero Video */}
       <CityHeroVideo 
         cityName={villeName}
+        departmentCode="13"
         departmentName="Bouches-du-Rhône"
         description={cityDescription}
         population={cityData.population || 15000}

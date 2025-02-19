@@ -111,6 +111,7 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
       {/* 1. Section Hero Video */}
       <CityHeroVideo 
         cityName={villeName}
+        departmentCode="04"
         departmentName="Alpes-de-Haute-Provence"
         description={cityDescription}
         population={cityData.population || 5000}

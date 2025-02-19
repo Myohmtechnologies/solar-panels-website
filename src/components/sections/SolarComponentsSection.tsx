@@ -43,7 +43,7 @@ const components = [
         ]
       }
     ],
-    image: "/images/panneaux-solaire-photovoltaique-dualsun.jpeg"
+    image: "/images/produit/panneau-solaire.jpeg"
   },
   {
     id: 2,
@@ -82,7 +82,7 @@ const components = [
         ]
       }
     ],
-    image: "/images/components/enphase-iq8.jpg"
+    image: "/images/produit/micro-onduleur.jpeg"
   },
   {
     id: 3,
@@ -118,7 +118,7 @@ const components = [
         ]
       }
     ],
-    image: "/images/components/mounting.jpg"
+    image: "/images/produit/systeme-fixation.jpeg"
   },
  
 ];
@@ -178,7 +178,7 @@ export default function SolarComponentsSection() {
                       src={component.image}
                       alt={component.title}
                       fill
-                      className="object-contain p-4"
+                      className="object-contain p-4 rounded-xl"
                       priority
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />

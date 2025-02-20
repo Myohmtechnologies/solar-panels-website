@@ -27,28 +27,38 @@ export default function MerciPage() {
     const leadInfo = storedLeadInfo ? JSON.parse(storedLeadInfo) : null;
     setLeadInfo(leadInfo);
 
-    // Track la conversion Google Ads
+    // Track la conversion Google Ads seulement si l'utilisateur vient d'une annonce
     if (typeof window !== 'undefined' && window.gtag) {
-      console.log('🔍 Sending Google Ads conversion from thank you page...');
+      // Vérifier si l'utilisateur vient de Google Ads
+      const urlParams = new URLSearchParams(window.location.search);
+      const gclid = urlParams.get('gclid');
+
+      if (gclid) {
+        console.log('🔍 Sending Google Ads conversion from thank you page...');
+        
+        // Valeur de conversion basée sur le type de formulaire
+        const conversionValue = leadInfo?.type === 'quick_form' ? 75 : 
+                              leadInfo?.estimate ? leadInfo.estimate : 100;
+
+        window.gtag('event', 'conversion', {
+          'send_to': 'AW-16817660787/bCJ6CKu725gaEPPGpNM-',
+          'value': conversionValue,
+          'currency': 'EUR',
+          'gclid': gclid
+        });
+        
+        console.log('✅ Google Ads conversion sent from thank you page');
+      }
       
-      // Valeur de conversion basée sur le type de formulaire
+      // Event analytics standard (pour tous les utilisateurs)
       const conversionValue = leadInfo?.type === 'quick_form' ? 75 : 
                             leadInfo?.estimate ? leadInfo.estimate : 100;
-
-      window.gtag('event', 'conversion', {
-        'send_to': 'AW-16817660787/bCJ6CKu725gaEPPGpNM-',
-        'value': conversionValue,
-        'currency': 'EUR'
-      });
-      
-      // Event analytics standard
       window.gtag('event', 'form_submission_success', {
         'event_category': 'Lead',
         'event_label': leadInfo?.type || 'unknown',
-        'value': conversionValue
+        'value': conversionValue,
+        'source': gclid ? 'google_ads' : 'organic'
       });
-
-      console.log('✅ Google Ads conversion sent from thank you page');
     } else {
       console.error('❌ Google Ads tracking not available on thank you page');
     }

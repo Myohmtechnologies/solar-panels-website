@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import ContactModal from '../modals/ContactModal';
 import { formAnalytics } from '@/services/formAnalytics';
 import { trackConversion } from '../tracking/ConversionTracker';
+import { sendCalculationEmail } from '@/services/emailService';
 
 type HouseSize = 'small' | 'medium' | 'large';
 type BillRange = 'low' | 'medium' | 'high';
@@ -132,6 +133,36 @@ export default function PriceCalculator() {
         }
 
         formAnalytics.trackFormSubmission('price_calculator', true);
+
+        // Envoyer l'email avec les résultats via l'API
+        try {
+          const emailResponse = await fetch('/api/email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              type: 'calculation',
+              data: {
+                email: contactInfo.email,
+                name: contactInfo.name,
+                result: {
+                  savings: annualSavings.toFixed(0),
+                  production: annualProduction.toFixed(0),
+                  co2: (annualProduction * 0.0006).toFixed(1) // 0.6kg CO2 évité par kWh solaire
+                }
+              }
+            }),
+          });
+
+          if (!emailResponse.ok) {
+            console.error('❌ Erreur lors de l\'envoi de l\'email');
+          } else {
+            console.log('✅ Email envoyé avec succès');
+          }
+        } catch (error) {
+          console.error('❌ Erreur lors de l\'envoi de l\'email:', error);
+        }
 
         // Stocker les infos du lead pour la page de remerciement
         const leadInfo = {

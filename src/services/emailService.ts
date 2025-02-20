@@ -1,6 +1,20 @@
+'use server';
+
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Déplacer la création de l'instance Resend dans une fonction
+const getResendClient = () => {
+  if (typeof window !== 'undefined') return null; // Ne pas créer le client côté client
+  
+  if (!process.env.RESEND_API_KEY) {
+    console.error('❌ RESEND_API_KEY manquante dans .env.local');
+    console.error('👉 Créez un fichier .env.local à la racine du projet avec :');
+    console.error('RESEND_API_KEY=re_votre_cle_api');
+    console.error('Obtenez votre clé sur https://resend.com');
+    return null;
+  }
+  return new Resend(process.env.RESEND_API_KEY);
+};
 
 interface LeadData {
   houseSize: 'small' | 'medium' | 'large';
@@ -53,6 +67,9 @@ const contactSectionHtml = `
 `;
 
 export async function sendLeadNotificationEmail(leadData: LeadData) {
+  const resend = getResendClient();
+  if (!resend) return null;
+
   const projectSummaryHtml = `
     <div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
       <h3 style="color: #333; margin: 0 0 15px 0;">Récapitulatif de votre projet</h3>
@@ -153,6 +170,9 @@ export async function sendLeadNotificationEmail(leadData: LeadData) {
 }
 
 export async function sendCalculationEmail(email: string, name: string, result: any) {
+  const resend = getResendClient();
+  if (!resend) return null;
+
   const emailHtml = `
     <!DOCTYPE html>
     <html>

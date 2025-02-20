@@ -10,15 +10,8 @@ interface Props {
   };
 }
 
-const slugToCityKey = (slug: string): string => {
-  // Convertit les slugs en camelCase pour correspondre aux clés des villes
-  return slug
-    .split('-')
-    .map((word, index) => 
-      index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-    )
-    .join('');
-};
+// Pas de conversion, utilise directement la clé
+const slugToCityKey = (slug: string): string => slug;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const villeSlug = params.ville;

@@ -158,7 +158,11 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
       <SolarComparisonSection />
 
       {/* 12. Section Présence Locale */}
-      <LocalPresenceSection cityData={localPresenceData} />
+      <LocalPresenceSection 
+        cityData={localPresenceData}
+        departmentCode="05"
+        departmentName="Hautes-Alpes"
+      />
 
       {/* 13. Section Devis Gratuit */}
       <RequestQuoteSection commercial={commercialData} />

@@ -159,7 +159,11 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
       <SolarComparisonSection />
 
       {/* 12. Section Présence Locale */}
-      <LocalPresenceSection cityData={localPresenceData} />
+      <LocalPresenceSection 
+        cityData={localPresenceData}
+        departmentCode="13"
+        departmentName="Bouches-du-Rhône"
+      />
 
       {/* 13. Section Devis Gratuit */}
       <RequestQuoteSection commercial={commercialData} />

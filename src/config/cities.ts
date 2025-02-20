@@ -55,11 +55,32 @@ export const citiesByDepartment: { [key: string]: City[] } = {
   ],
   '83': [
     {
+      name: 'La Garde',
+      slug: 'laGarde',
+      population: 25336,
+      sunshineHours: 2800,
+      description: 'Ville dynamique du Var, idéalement située pour l\'énergie solaire'
+    },
+    {
       name: 'Toulon',
       slug: 'toulon',
       population: 171953,
-      sunshineHours: 2900,
-      description: 'Préfecture du Var et port militaire majeur'
+      sunshineHours: 2800,
+      description: 'Préfecture du Var, ville portuaire majeure de la région'
+    },
+    {
+      name: 'La Valette-du-Var',
+      slug: 'laValetteDuVar',
+      population: 23824,
+      sunshineHours: 2800,
+      description: 'Commune résidentielle proche de Toulon'
+    },
+    {
+      name: 'Hyères',
+      slug: 'hyeres',
+      population: 57635,
+      sunshineHours: 2800,
+      description: 'Station balnéaire réputée du Var'
     },
     {
       name: 'Fréjus',

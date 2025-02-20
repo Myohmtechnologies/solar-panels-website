@@ -131,40 +131,24 @@ const var83: Department = {
             answer: "Grâce à son excellent ensoleillement, Toulon est une ville idéale pour l'installation de panneaux solaires. Cette solution vous permettra de produire votre propre électricité solaire, de réduire vos factures énergétiques et de contribuer à la transition énergétique."
           },
           {
-            question: "Quels sont les avantages d'une installation solaire pour un domicile ?",
-            answer: "Installer des panneaux solaires photovoltaïques permet de réaliser une économie d'énergie significative, d'alléger votre facture, et d'augmenter la valeur de votre habitation. C'est aussi une démarche écologique pour une production photovoltaïque durable."
+            question: "Quelles sont les aides disponibles à Toulon ?",
+            answer: "Les habitants de Toulon peuvent bénéficier de plusieurs aides : la prime à l'autoconsommation, MaPrimeRénov', l'éco-PTZ, la TVA à 10%, ainsi que des aides locales spécifiques. My Ohm Technologies vous accompagne dans l'obtention de ces aides pour optimiser votre investissement."
           },
           {
-            question: "Quel est le coût d'une installation photovoltaïque à Toulon ?",
-            answer: "Le prix d'une installation standard dépend de la puissance installée, de la configuration de votre toiture, et du matériel choisi (TopCon, monocristallin, polycristallin). Un kit de 3 kWc coûte environ 7 000 €, tandis qu'un système solaire plus puissant peut atteindre 15 000 €."
+            question: "Quelle est la durée d'installation des panneaux solaires ?",
+            answer: "L'installation complète des panneaux solaires prend généralement 1 à 2 jours pour une maison individuelle. Ce délai peut varier selon la complexité du projet et la configuration de votre toiture. Notre équipe s'engage à minimiser les perturbations pendant les travaux."
           },
           {
-            question: "Existe-t-il des aides pour l'installation de panneaux solaires ?",
-            answer: "Oui ! Vous pouvez bénéficier de plusieurs aides financières, comme la prime à l'autoconsommation, le crédit d'impôt pour la transition énergétique, l'éco-prêt à taux zéro, et d'autres subventions disponibles."
+            question: "Quelle est la durée de vie des panneaux solaires ?",
+            answer: "Les panneaux solaires que nous installons ont une durée de vie moyenne de 25 à 30 ans, avec une garantie de performance de 25 ans. Leur rendement reste supérieur à 80% même après 25 ans d'utilisation, assurant un investissement durable."
           },
           {
-            question: "Comment choisir le meilleur installateur de panneaux photovoltaïques à Toulon ?",
-            answer: "Il est recommandé d'opter pour un installateur certifié RGE (Reconnu Garant de l'Environnement), garantissant une pose conforme aux normes QualiPV et Qualifelec. Consultez les avis Google et les témoignages clients pour choisir un artisan qualifié et expérimenté."
+            question: "L'installation nécessite-t-elle une autorisation à Toulon ?",
+            answer: "Oui, une déclaration préalable de travaux est généralement nécessaire. Dans certaines zones (sites classés, proximité de monuments historiques), des autorisations supplémentaires peuvent être requises. My Ohm Technologies vous accompagne dans toutes les démarches administratives."
           },
           {
-            question: "Combien de temps dure une installation de panneaux solaires ?",
-            answer: "La mise en place d'un système solaire prend généralement 1 à 3 jours, selon la configuration de votre toiture et la puissance installée. Un installateur qualifié vous accompagne à chaque étape du projet."
-          },
-          {
-            question: "Peut-on revendre l'électricité produite par les panneaux photovoltaïques ?",
-            answer: "Oui ! Vous pouvez revendre votre électricité photovoltaïque à EDF via un contrat d'obligation d'achat. Cela vous permet de rentabiliser plus rapidement votre investissement et d'optimiser votre rendement des panneaux solaires."
-          },
-          {
-            question: "Quelle est la durée de vie d'un panneau photovoltaïque ?",
-            answer: "Un panneau photovoltaïque a une durée de vie moyenne de 25 à 30 ans. Son efficacité reste élevée durant plusieurs décennies, avec une légère baisse de production annuelle après 20 ans."
-          },
-          {
-            question: "Quelle est la différence entre panneaux solaires thermiques et photovoltaïques ?",
-            answer: "Les panneaux solaires photovoltaïques transforment le soleil en électricité solaire. Les panneaux solaires thermiques utilisent l'énergie solaire pour chauffer l'eau sanitaire."
-          },
-          {
-            question: "Comment obtenir un devis pour une installation solaire à Toulon ?",
-            answer: "Vous pouvez prendre contact avec notre équipe pour une demande de devis gratuit. Nous analyserons votre configuration, votre toiture inclinée, et vos besoins énergétiques pour vous proposer la meilleure solution."
+            question: "Quel est le retour sur investissement à Toulon ?",
+            answer: "Grâce à l'excellent ensoleillement de Toulon et aux différentes aides disponibles, le retour sur investissement moyen est de 6 à 8 ans. Cette période peut varier selon votre consommation, la puissance installée et votre mode de financement."
           }
         ],
         images: [
@@ -566,54 +550,6 @@ En choisissant notre entreprise spécialisée en panneaux solaires à Fréjus, v
     },
     laGarde: {
       name: "La Garde",
-      code: "83062",
-      population: 25336,
-      individualHouses: 3100,
-      solarAdvantages: [
-        "Position géographique idéale",
-        "Ensoleillement optimal",
-        "Rentabilité élevée",
-        "Impact environnemental"
-      ],
-      keyPoints: [
-        "Installation adaptée",
-        "Matériel certifié",
-        "Suivi technique",
-        "Maintenance régulière"
-      ],
-      reviews: [
-        {
-          author: "Patrick M.",
-          rating: 5,
-          comment: "Très satisfait de l'installation et du suivi.",
-          date: "2023-12-06",
-          location: "Centre-ville"
-        },
-        {
-          author: "Sylvie R.",
-          rating: 5,
-          comment: "Excellent service et résultats conformes.",
-          date: "2023-11-21",
-          location: "La Planquette"
-        }
-      ],
-      seo: {
-        title: "La Garde : Installation solaire en Provence",
-        metaDescription: "Installation solaire à La Garde. Profitez d'un ensoleillement optimal toute l'année.",
-        keywords: ["installation solaire", "La Garde", "Provence", "énergie solaire"],
-        images: [
-          {
-            url: "https://example.com/la-garde-solaire.jpg",
-            width: 800,
-            height: 600,
-            alt: "Installation solaire à La Garde"
-          }
-        ]
-      },
-      solarInstallation: defaultSolarInstallation
-    },
-    laValetteDuVar: {
-      name: "La Valette-du-Var",
       code: "83144",
       population: 23824,
       individualHouses: 2900,
@@ -646,15 +582,15 @@ En choisissant notre entreprise spécialisée en panneaux solaires à Fréjus, v
         }
       ],
       seo: {
-        title: "La Valette-du-Var : Installation solaire en Provence",
-        metaDescription: "Installation solaire à La Valette-du-Var. Optimisez votre consommation énergétique.",
-        keywords: ["installation solaire", "La Valette-du-Var", "Provence", "énergie renouvelable"],
+        title: "La Garde : Installation solaire en Provence",
+        metaDescription: "Installation solaire à La Garde. Optimisez votre consommation énergétique.",
+        keywords: ["installation solaire", "La Garde", "Provence", "énergie renouvelable"],
         images: [
           {
-            url: "https://example.com/la-valette-du-var-solaire.jpg",
+            url: "https://example.com/la-garde-solaire.jpg",
             width: 800,
             height: 600,
-            alt: "Installation solaire à La Valette-du-Var"
+            alt: "Installation solaire à La Garde"
           }
         ]
       },

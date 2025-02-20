@@ -27,9 +27,11 @@ interface LocalPresenceSectionProps {
       cities: string[];
     };
   };
+  departmentCode: string;
+  departmentName: string;
 }
 
-const LocalPresenceSection: React.FC<LocalPresenceSectionProps> = ({ cityData }) => {
+const LocalPresenceSection: React.FC<LocalPresenceSectionProps> = ({ cityData, departmentCode, departmentName }) => {
   const renderStars = (rating: number) => {
     return [...Array(5)].map((_, index) => (
       <StarIcon
@@ -107,14 +109,14 @@ const LocalPresenceSection: React.FC<LocalPresenceSectionProps> = ({ cityData })
                     {cityData.interventionArea.cities.map((city, index) => (
                       <Link 
                         key={index}
-                        href={`/region/paca/departements/13-bouches-du-rhone/villes/${city.toLowerCase().replace(/ /g, '-')}`}
+                        href={`/region/paca/departements/${departmentCode}-${departmentName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ /g, '-')}/villes/${city.toLowerCase().replace(/ /g, '-')}`}
                         className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-FFDF64/10 hover:text-FFDF64 transition-colors"
                       >
                         {city}
                       </Link>
                     ))}
                   </div>
-                </div>
+                </div> 
               </div>
             </div>
 

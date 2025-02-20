@@ -190,13 +190,6 @@ const HeroSection = () => {
                 Calculer mes économies
                 <ArrowRightIcon className="ml-2 h-5 w-5" />
               </Link>
-              <a
-                href="tel:0492766858"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-xl border-2 border-[#116290] text-[#116290] font-medium hover:bg-[#116290] hover:text-white transition-colors duration-200"
-              >
-                04 92 76 68 58
-                <PhoneIcon className="ml-2 h-5 w-5" />
-              </a>
             </div>
           </div>
 

@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ContactModal from '../modals/ContactModal';
-import { formTracking } from '@/utils/analytics/formTracking';
+import { formAnalytics } from '@/services/formAnalytics';
 import { trackConversion } from '../tracking/ConversionTracker';
 
 type HouseSize = 'small' | 'medium' | 'large';
@@ -21,6 +21,10 @@ export default function PriceCalculator() {
     orientation: 'sud',
     showContactForm: false
   });
+
+  useEffect(() => {
+    formAnalytics.trackFormView('price_calculator', 2);
+  }, []);
 
   const [contactInfo, setContactInfo] = useState({
     name: '',
@@ -50,9 +54,27 @@ export default function PriceCalculator() {
 
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
-    formTracking.trackFormView();
+    formAnalytics.trackStepComplete('price_calculator', 1, 2);
     setFormData(prev => ({ ...prev, showContactForm: true }));
   };
+
+  const handleFieldChange = (field: keyof FormData, value: string) => {
+    formAnalytics.trackFieldFocus('price_calculator', field);
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (formData.showContactForm) {
+        formAnalytics.trackFormAbandonment('price_calculator', 'contact_form');
+      } else if (formData.houseSize !== 'medium' || formData.monthlyBill !== 'medium' || formData.orientation !== 'sud') {
+        formAnalytics.trackFormAbandonment('price_calculator', 'calculator_form');
+      }
+    };
+    
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [formData]);
 
   const calculateEstimate = () => {
     const roofArea = formData.houseSize === 'small' ? 30 : formData.houseSize === 'medium' ? 55 : 95;
@@ -105,7 +127,7 @@ export default function PriceCalculator() {
 
       // Track la conversion
       trackConversion();
-      formTracking.trackFormSubmission(true);
+      formAnalytics.trackFormSubmission('price_calculator', true);
 
       // Track la conversion Google Ads
       if (typeof window !== 'undefined' && window.gtag) {
@@ -147,7 +169,7 @@ export default function PriceCalculator() {
       window.location.href = '/merci';
     } catch (error) {
       console.error('Erreur:', error);
-      formTracking.trackFormSubmission(false);
+      formAnalytics.trackFormSubmission('price_calculator', false, error instanceof Error ? error.message : 'Unknown error');
       setModalState({ isOpen: true, type: 'error' });
     }
   };
@@ -190,7 +212,7 @@ export default function PriceCalculator() {
                         ? 'border-FFDF64 bg-FFDF64/10'
                         : 'border-gray-200 hover:border-FFDF64'
                     }`}
-                    onClick={() => setFormData(prev => ({ ...prev, houseSize: size.value as HouseSize }))}
+                    onClick={() => handleFieldChange('houseSize', size.value)}
                   >
                     <h3 className="font-bold mb-2">{size.label}</h3>
                     <p className="text-sm text-gray-600">Surface de toit estimée : {size.roofArea}</p>
@@ -213,7 +235,7 @@ export default function PriceCalculator() {
                         ? 'border-FFDF64 bg-FFDF64/10'
                         : 'border-gray-200 hover:border-FFDF64'
                     }`}
-                    onClick={() => setFormData(prev => ({ ...prev, monthlyBill: bill.value as BillRange }))}
+                    onClick={() => handleFieldChange('monthlyBill', bill.value)}
                   >
                     <h3 className="font-bold">{bill.label}</h3>
                   </div>
@@ -228,7 +250,7 @@ export default function PriceCalculator() {
               </label>
               <select
                 value={formData.orientation}
-                onChange={(e) => setFormData(prev => ({ ...prev, orientation: e.target.value }))}
+                onChange={(e) => handleFieldChange('orientation', e.target.value)}
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-FFDF64"
               >
                 <option value="sud">Sud (Optimal)</option>

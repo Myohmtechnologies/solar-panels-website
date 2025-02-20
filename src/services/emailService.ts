@@ -1,5 +1,3 @@
-'use server';
-
 import { Resend } from 'resend';
 
 // Déplacer la création de l'instance Resend dans une fonction

@@ -28,6 +28,9 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ['@heroicons/react', 'framer-motion', '@headlessui/react'],
+    serverActions: {
+      bodySizeLimit: '2mb'
+    }
   },
   webpack: (config, { isServer }) => {
     // Fix for the webpack error

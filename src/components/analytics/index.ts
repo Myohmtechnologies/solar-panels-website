@@ -1,3 +1,2 @@
-export { default as GoogleAnalytics } from './GoogleAnalytics';
-export { default as GoogleTagManagerBody } from './GoogleTagManagerBody';
-export { default as GoogleTagManagerHead } from './GoogleTagManagerHead';
+export { GTM } from './GTM';
+export { default as CookieConsent } from './CookieConsent';

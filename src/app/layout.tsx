@@ -17,21 +17,15 @@ const ClientLayout = dynamic(() => import('@/components/layout/ClientLayout'), {
   loading: () => <div className="min-h-screen" /> 
 });
 
-const OptimizedGTM = dynamic(() => import('@/components/analytics/OptimizedGTM'), { 
-  ssr: false 
-});
-
-const ScrollTracker = dynamic(() => import('@/components/analytics/ScrollTracker'), { 
-  ssr: false 
-});
-
 const ConversionTracker = dynamic(() => import('@/components/tracking/ConversionTracker'), { 
   ssr: false 
 });
 
-const GA4Initialize = dynamic(() => import('@/components/analytics/GA4Initialize'), { ssr: false });
 const TrackingInitializer = dynamic(() => import('@/components/tracking/TrackingInitializer'), { ssr: false });
 const TeamAuth = dynamic(() => import('@/components/admin/TeamAuth'), { ssr: false });
+
+// Import des composants analytics avec 'use client'
+const Analytics = dynamic(() => import('@/components/analytics/Analytics'), { ssr: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.myohmtechnologies.com'),
@@ -49,33 +43,28 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://www.myohmtechnologies.com',
-  },
-  verification: {
-    google: 'bshllqo6MIhoBv2oLuo-5lh9FzoXSYWFaQmCOzx62rA',
-  },
-  icons: {
-    icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
-    ],
+    canonical: '/',
   },
   openGraph: {
-    title: 'MY OHM Technologies - Entreprise d\'installation de panneaux solaire',
-    description: 'MY OHM Technologies Société qui propose des solutions solaires sur mesure pour les particuliers et les entreprises.',
+    title: 'MY OHM Technologies - Installation de panneaux solaires',
+    description: 'Installation de panneaux solaires sur mesure pour les particuliers et les entreprises.',
     url: 'https://www.myohmtechnologies.com',
     siteName: 'MY OHM Technologies',
     images: [
       {
-        url: '/images/og-image.jpg',
+        url: 'https://www.myohmtechnologies.com/og-image.jpg',
         width: 1200,
         height: 630,
       },
     ],
     locale: 'fr_FR',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'MY OHM Technologies - Installation de panneaux solaires',
+    description: 'Installation de panneaux solaires sur mesure pour les particuliers et les entreprises.',
+    images: ['https://www.myohmtechnologies.com/og-image.jpg'],
   },
 };
 
@@ -101,23 +90,13 @@ export default function RootLayout({
       </head>
       <body className="font-sans min-h-screen bg-white">
         <Toaster position="top-center" />
-        <GA4Initialize />
-        <ScrollTracker />
+        <Analytics />
         <TrackingInitializer />
         <ConversionTracker />
         <TeamAuth />
         <ClientLayout>
-          <OptimizedGTM />
           {children}
         </ClientLayout>
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
-            height="0"
-            width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
-          />
-        </noscript>
       </body>
     </html>
   );

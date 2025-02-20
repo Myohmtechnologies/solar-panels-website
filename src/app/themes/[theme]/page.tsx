@@ -1,6 +1,5 @@
 import React from 'react';
 import CitySchema from '@/components/schemas/CitySchema';
-import CityContent from '@/components/sections/CityContent';
 import { getCityData } from '@/lib/city';
 
 interface ThemePageProps {
@@ -23,7 +22,7 @@ export default async function ThemePage({ params }: ThemePageProps) {
   return (
     <main className="min-h-screen bg-gray-50">
       <CitySchema city={cityData} />
-      <CityContent city={cityData} />
+      {/* Vous pouvez ajouter d'autres composants ici si nécessaire */}
     </main>
   );
 }

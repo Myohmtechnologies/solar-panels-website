@@ -75,6 +75,10 @@ export default function QuickLeadForm() {
       });
 
       if (response.ok) {
+        // Track la conversion après une soumission réussie
+        trackConversion('lead_form_submit', 75);
+        formAnalytics.trackFormSubmission('quick_lead_form', true);
+        
         setSubmitStatus('success');
         setFormData(initialFormData);
         
@@ -87,8 +91,6 @@ export default function QuickLeadForm() {
           });
         }
 
-        formAnalytics.trackFormSubmission('quick_lead_form', true);
-        
         // Stocker les infos du lead
         const leadInfo = {
           name: formData.fullName,
@@ -97,7 +99,17 @@ export default function QuickLeadForm() {
         sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
 
         // Redirection vers la page de remerciement
-        window.location.href = '/merci';
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectUrl = new URL('/merci', window.location.origin);
+        
+        // Ajout des paramètres de tracking
+        redirectUrl.searchParams.set('source', 'quick_form');
+        redirectUrl.searchParams.set('gclid', urlParams.get('gclid') || '');
+        redirectUrl.searchParams.set('utm_source', urlParams.get('utm_source') || '');
+        redirectUrl.searchParams.set('utm_medium', urlParams.get('utm_medium') || '');
+        redirectUrl.searchParams.set('utm_campaign', urlParams.get('utm_campaign') || '');
+        
+        window.location.href = redirectUrl.toString();
       } else {
         throw new Error('Erreur lors de l\'envoi');
       }

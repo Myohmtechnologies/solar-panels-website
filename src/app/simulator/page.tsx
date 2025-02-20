@@ -301,7 +301,19 @@ const SimulateurPage = () => {
         };
         
         sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
-        window.location.href = '/merci';
+        
+        // Redirection vers la page de remerciement avec les paramètres de tracking
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectUrl = new URL('/merci', window.location.origin);
+        
+        // Ajout des paramètres de tracking
+        redirectUrl.searchParams.set('source', 'simulator');
+        redirectUrl.searchParams.set('gclid', urlParams.get('gclid') || '');
+        redirectUrl.searchParams.set('utm_source', urlParams.get('utm_source') || '');
+        redirectUrl.searchParams.set('utm_medium', urlParams.get('utm_medium') || '');
+        redirectUrl.searchParams.set('utm_campaign', urlParams.get('utm_campaign') || '');
+        
+        window.location.href = redirectUrl.toString();
         
       } catch (error: any) {
         console.error('Detailed Error:', {

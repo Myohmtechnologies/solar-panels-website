@@ -121,52 +121,32 @@ export default function PriceCalculator() {
         }),
       });
 
-      if (!response.ok) {
+      if (response.ok) {
+        // Track dans Google Analytics
+        if (typeof window !== 'undefined' && window.gtag) {
+          window.gtag('event', 'calculator_submission', {
+            'event_category': 'Form',
+            'event_label': 'PriceCalculator',
+            'value': estimate
+          });
+        }
+
+        formAnalytics.trackFormSubmission('price_calculator', true);
+
+        // Stocker les infos du lead pour la page de remerciement
+        const leadInfo = {
+          name: contactInfo.name,
+          estimate: estimate,
+          systemSize: systemSize,
+          annualSavings: annualSavings
+        };
+        sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
+
+        // Redirection vers la page de remerciement
+        window.location.href = '/merci';
+      } else {
         throw new Error('Erreur lors de l\'envoi');
       }
-
-      // Track la conversion
-      trackConversion();
-      formAnalytics.trackFormSubmission('price_calculator', true);
-
-      // Track la conversion Google Ads
-      if (typeof window !== 'undefined' && window.gtag) {
-        console.log('🔍 Sending Google Ads conversion...');
-        window.gtag('event', 'conversion', {
-          'send_to': 'AW-16817660787/bCJ6CKu725gaEPPGpNM-',
-          'value': estimate,
-          'currency': 'EUR'
-        });
-        console.log('✅ Google Ads conversion sent');
-      }
-
-      // Stocker les infos du lead pour la page de remerciement
-      const leadInfo = {
-        name: contactInfo.name,
-        estimate: estimate,
-        systemSize: systemSize,
-        annualSavings: annualSavings
-      };
-      sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
-
-      // Afficher le modal de succès
-      setModalState({ isOpen: true, type: 'success' });
-      
-      // Réinitialisation du formulaire
-      setFormData({
-        houseSize: 'medium',
-        monthlyBill: 'medium',
-        orientation: 'sud',
-        showContactForm: false
-      });
-      setContactInfo({
-        name: '',
-        email: '',
-        phone: ''
-      });
-
-      // Redirection vers la page de remerciement
-      window.location.href = '/merci';
     } catch (error) {
       console.error('Erreur:', error);
       formAnalytics.trackFormSubmission('price_calculator', false, error instanceof Error ? error.message : 'Unknown error');

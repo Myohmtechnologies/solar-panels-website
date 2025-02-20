@@ -28,7 +28,37 @@ const Header = () => {
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
+    // Empêcher le scroll quand le menu est ouvert
+    if (!isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
   };
+
+  // Fermer le menu quand on change de page
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setMobileMenuOpen(false);
+      document.body.style.overflow = 'unset';
+    };
+
+    window.addEventListener('popstate', handleRouteChange);
+    return () => window.removeEventListener('popstate', handleRouteChange);
+  }, []);
+
+  // Fermer le menu avec la touche Escape
+  useEffect(() => {
+    const handleEscapeKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        setMobileMenuOpen(false);
+        document.body.style.overflow = 'unset';
+      }
+    };
+
+    document.addEventListener('keydown', handleEscapeKey);
+    return () => document.removeEventListener('keydown', handleEscapeKey);
+  }, [isMobileMenuOpen]);
 
   return (
     <>
@@ -249,33 +279,61 @@ const Header = () => {
 
       {/* Header Mobile */}
       <header className={`md:hidden fixed top-0 left-0 right-0 bg-white z-50 shadow-sm transition-transform duration-300 ${showMobileHeader ? 'translate-y-0' : '-translate-y-full'}`}>
-        <div className="px-4 py-2 flex justify-between items-center">
+        <div className="flex justify-between items-center px-4 h-16">
           <Link href="/" className="flex-shrink-0">
             <Image 
               src="/images/logo.png" 
               alt="Logo MY OHM" 
               width={120}
               height={40}
-              className="w-auto h-10"
-              priority
+              className="w-auto h-8"
+              priority={false}
+              loading="eager"
+              sizes="120px"
+              quality={85}
             />
           </Link>
-          <button
-            onClick={toggleMobileMenu}
-            className="p-2 rounded-md text-gray-700 hover:bg-gray-100"
-            aria-label="Menu mobile"
-          >
-            {isMobileMenuOpen ? (
-              <XMarkIcon className="h-6 w-6" />
-            ) : (
-              <Bars3Icon className="h-6 w-6" />
-            )}
-          </button>
+
+          <div className="flex items-center gap-4">
+            <Link 
+              href="tel:0492766858"
+              className="flex items-center gap-1 px-3 py-1.5 bg-green-600 text-white text-sm rounded-full hover:bg-green-700 transition-colors"
+            >
+              <PhoneIcon className="w-4 h-4" />
+              <span>04 92 76 68 58</span>
+            </Link>
+
+            <button
+              onClick={toggleMobileMenu}
+              className="p-2 -mr-2 text-gray-500 hover:text-gray-700"
+              aria-label={isMobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            >
+              {isMobileMenuOpen ? (
+                <XMarkIcon className="w-6 h-6" />
+              ) : (
+                <Bars3Icon className="w-6 h-6" />
+              )}
+            </button>
+          </div>
         </div>
       </header>
 
       {/* Menu Mobile */}
-      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => {
+        setMobileMenuOpen(false);
+        document.body.style.overflow = 'unset';
+      }} />
+
+      {/* Overlay pour fermer le menu */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={() => {
+            setMobileMenuOpen(false);
+            document.body.style.overflow = 'unset';
+          }}
+        />
+      )}
     </>
   );
 };

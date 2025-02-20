@@ -3,14 +3,19 @@
 import { useState, useEffect } from 'react';
 import { trackConversion } from '../tracking/ConversionTracker';
 import { formAnalytics } from '../../services/formAnalytics';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function QuickLeadForm() {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     fullName: '',
     email: '',
     phone: '',
     message: ''
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   // Track la vue du formulaire au chargement
   useEffect(() => {
@@ -35,6 +40,18 @@ export default function QuickLeadForm() {
     formAnalytics.trackFieldBlur('quick_lead_form', fieldName, value.length > 0);
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleFieldInteraction = (fieldName: string, interactionType: 'focus' | 'blur') => {
+    if (interactionType === 'focus') {
+      handleFieldFocus(fieldName);
+    } else {
+      handleFieldBlur(fieldName, formData[fieldName as keyof typeof formData]);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -57,28 +74,33 @@ export default function QuickLeadForm() {
         }),
       });
 
-      if (!response.ok) {
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData(initialFormData);
+        
+        // Track dans Google Analytics
+        if (typeof window !== 'undefined' && window.gtag) {
+          window.gtag('event', 'form_submission', {
+            'event_category': 'Form',
+            'event_label': 'QuickLeadForm',
+            'value': 1
+          });
+        }
+
+        formAnalytics.trackFormSubmission('quick_lead_form', true);
+        
+        // Stocker les infos du lead
+        const leadInfo = {
+          name: formData.fullName,
+          type: 'quick_form'
+        };
+        sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
+
+        // Redirection vers la page de remerciement
+        window.location.href = '/merci';
+      } else {
         throw new Error('Erreur lors de l\'envoi');
       }
-
-      // Track la conversion
-      trackConversion();
-      formAnalytics.trackFormSubmission('quick_lead_form', true);
-
-      // Track la conversion Google Ads
-      if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', 'conversion', {
-          'send_to': 'AW-16817660787/bCJ6CKu725gaEPPGpNM-'
-        });
-      }
-
-      // Réinitialisation du formulaire
-      setFormData({
-        fullName: '',
-        email: '',
-        phone: '',
-        message: ''
-      });
 
     } catch (error) {
       console.error('Erreur:', error);
@@ -87,60 +109,84 @@ export default function QuickLeadForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <input
-          type="text"
-          required
-          value={formData.fullName}
-          onChange={(e) => setFormData(prev => ({ ...prev, fullName: e.target.value }))}
-          onFocus={() => handleFieldFocus('fullName')}
-          onBlur={(e) => handleFieldBlur('fullName', e.target.value)}
-          className="w-full px-4 py-2 rounded-lg focus:ring-2 focus:ring-FFDF64 bg-white/10 text-white placeholder-white/70"
-          placeholder="Nom complet"
-        />
-      </div>
-      <div>
-        <input
-          type="email"
-          required
-          value={formData.email}
-          onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-          onFocus={() => handleFieldFocus('email')}
-          onBlur={(e) => handleFieldBlur('email', e.target.value)}
-          className="w-full px-4 py-2 rounded-lg focus:ring-2 focus:ring-FFDF64 bg-white/10 text-white placeholder-white/70"
-          placeholder="Email"
-        />
-      </div>
-      <div>
-        <input
-          type="tel"
-          required
-          value={formData.phone}
-          onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-          onFocus={() => handleFieldFocus('phone')}
-          onBlur={(e) => handleFieldBlur('phone', e.target.value)}
-          className="w-full px-4 py-2 rounded-lg focus:ring-2 focus:ring-FFDF64 bg-white/10 text-white placeholder-white/70"
-          placeholder="Téléphone"
-        />
-      </div>
-      <div>
-        <textarea
-          value={formData.message}
-          onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
-          onFocus={() => handleFieldFocus('message')}
-          onBlur={(e) => handleFieldBlur('message', e.target.value)}
-          className="w-full px-4 py-2 rounded-lg focus:ring-2 focus:ring-FFDF64 bg-white/10 text-white placeholder-white/70"
-          placeholder="Message (optionnel)"
-          rows={3}
-        />
-      </div>
-      <button
-        type="submit"
-        className="w-full bg-FFDF64 text-black font-bold py-3 px-6 rounded-lg hover:bg-yellow-400 transition-colors"
-      >
-        Demander un devis gratuit
-      </button>
-    </form>
+    <div className="bg-white rounded-lg shadow-lg p-6">
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
+            Nom complet
+          </label>
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            value={formData.fullName}
+            onChange={handleInputChange}
+            onFocus={() => handleFieldInteraction('fullName', 'focus')}
+            onBlur={() => handleFieldInteraction('fullName', 'blur')}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent"
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            onFocus={() => handleFieldInteraction('email', 'focus')}
+            onBlur={() => handleFieldInteraction('email', 'blur')}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent"
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+            Téléphone
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleInputChange}
+            onFocus={() => handleFieldInteraction('phone', 'focus')}
+            onBlur={() => handleFieldInteraction('phone', 'blur')}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent"
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+            Message (optionnel)
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            value={formData.message}
+            onChange={handleInputChange}
+            onFocus={() => handleFieldInteraction('message', 'focus')}
+            onBlur={() => handleFieldInteraction('message', 'blur')}
+            rows={3}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-green-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-primary-dark transition-colors"
+        >
+          Demander un devis gratuit
+        </button>
+
+      </form>
+    </div>
   );
 }

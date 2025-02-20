@@ -3,13 +3,31 @@
 import Script from 'next/script';
 
 const GOOGLE_ADS_ID = 'AW-16817660787';
-const CONVERSION_ID = 'selKCIb6ypcaEPPGpNM';
 
-export const trackConversion = () => {
+// Types de conversion et leurs IDs
+export const CONVERSION_TYPES = {
+  LEAD_FORM: 'selKCIb6ypcaEPPGpNM',  // Form principal
+  QUICK_FORM: 'selKCIb6ypcaEPPGpNM',  // QuickLeadForm
+  PRICE_CALCULATOR: 'selKCIb6ypcaEPPGpNM',  // PriceCalculator
+  CONTACT_FORM: 'selKCIb6ypcaEPPGpNM',  // Page contact
+} as const;
+
+export type ConversionType = keyof typeof CONVERSION_TYPES;
+
+export const trackConversion = (type: ConversionType, value: number = 1.0) => {
   if (typeof window !== 'undefined' && window.gtag) {
     // Conversion spécifique
     window.gtag('event', 'conversion', {
-      send_to: `${GOOGLE_ADS_ID}/${CONVERSION_ID}`,
+      send_to: `${GOOGLE_ADS_ID}/${CONVERSION_TYPES[type]}`,
+      value: value,
+      currency: 'EUR',
+    });
+
+    // Event analytics standard
+    window.gtag('event', `form_submission_${type.toLowerCase()}`, {
+      event_category: 'Lead',
+      event_label: window.location.pathname,
+      value: value
     });
   }
 };

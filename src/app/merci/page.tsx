@@ -5,13 +5,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CheckCircleIcon, ClockIcon, SunIcon, PhoneIcon } from '@heroicons/react/24/solid';
 import { conversionEvents, navigationEvents } from '@/utils/analytics';
-import { trackConversion, trackUserSource } from '@/utils/sourceTracking';
 
 export default function MerciPage() {
   const [leadInfo, setLeadInfo] = useState<{
     name?: string;
-    logementType?: string;
-    energyBill?: string;
+    type?: string;
+    estimate?: number;
+    systemSize?: number;
+    annualSavings?: number;
   } | null>(null);
 
   const [showPanelInfo, setShowPanelInfo] = useState(false);
@@ -24,21 +25,36 @@ export default function MerciPage() {
     // Récupérer les infos du lead
     const storedLeadInfo = sessionStorage.getItem('leadInfo');
     const leadInfo = storedLeadInfo ? JSON.parse(storedLeadInfo) : null;
+    setLeadInfo(leadInfo);
 
     // Track la conversion Google Ads
     if (typeof window !== 'undefined' && window.gtag) {
       console.log('🔍 Sending Google Ads conversion from thank you page...');
+      
+      // Valeur de conversion basée sur le type de formulaire
+      const conversionValue = leadInfo?.type === 'quick_form' ? 75 : 
+                            leadInfo?.estimate ? leadInfo.estimate : 100;
+
       window.gtag('event', 'conversion', {
         'send_to': 'AW-16817660787/bCJ6CKu725gaEPPGpNM-',
-        'value': 1.0,
+        'value': conversionValue,
         'currency': 'EUR'
       });
+      
+      // Event analytics standard
+      window.gtag('event', 'form_submission_success', {
+        'event_category': 'Lead',
+        'event_label': leadInfo?.type || 'unknown',
+        'value': conversionValue
+      });
+
       console.log('✅ Google Ads conversion sent from thank you page');
     } else {
       console.error('❌ Google Ads tracking not available on thank you page');
     }
 
-    setLeadInfo(leadInfo);
+    // Nettoyer le sessionStorage après avoir récupéré les infos
+    sessionStorage.removeItem('leadInfo');
   }, []);
 
   return (
@@ -76,7 +92,7 @@ export default function MerciPage() {
                 Merci {leadInfo?.name ? `${leadInfo.name} !` : '!'}
               </h1>
               <p className="text-gray-700 mb-6">
-                Nous vous remercions de l&apos;intérêt que vous portez à notre entreprise. Votre demande d&apos;estimation pour un projet {leadInfo?.logementType ? `${leadInfo.logementType}` : 'solaire'} a bien été reçue. 
+                Nous vous remercions de l&apos;intérêt que vous portez à notre entreprise. Votre demande d&apos;estimation pour un projet {leadInfo?.type ? `${leadInfo.type}` : 'solaire'} a bien été reçue. 
                 Nous allons analyser votre projet en détail.
               </p>
             </div>

@@ -91,23 +91,30 @@ export default function QuickLeadForm() {
           });
         }
 
-        // Stocker les infos du lead
-        const leadInfo = {
-          name: formData.fullName,
-          type: 'quick_form'
-        };
-        sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
-
         // Redirection vers la page de remerciement
         const urlParams = new URLSearchParams(window.location.search);
         const redirectUrl = new URL('/merci', window.location.origin);
         
         // Ajout des paramètres de tracking
         redirectUrl.searchParams.set('source', 'quick_form');
-        redirectUrl.searchParams.set('gclid', urlParams.get('gclid') || '');
-        redirectUrl.searchParams.set('utm_source', urlParams.get('utm_source') || '');
-        redirectUrl.searchParams.set('utm_medium', urlParams.get('utm_medium') || '');
-        redirectUrl.searchParams.set('utm_campaign', urlParams.get('utm_campaign') || '');
+        
+        // Conservation du gclid et des UTM s'ils existent
+        const trackingParams = ['gclid', 'utm_source', 'utm_medium', 'utm_campaign'];
+        trackingParams.forEach(param => {
+          const value = urlParams.get(param);
+          if (value) {
+            redirectUrl.searchParams.set(param, value);
+          }
+        });
+
+        // Stockage des infos pour la page de remerciement
+        const leadInfo = {
+          name: formData.fullName,
+          type: 'quick_form',
+          gclid: urlParams.get('gclid'), // On stocke aussi le gclid
+          source: urlParams.get('utm_source') || 'direct'
+        };
+        sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
         
         window.location.href = redirectUrl.toString();
       } else {

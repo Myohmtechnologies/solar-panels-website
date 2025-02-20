@@ -298,6 +298,8 @@ const SimulateurPage = () => {
           name: formState.name,
           logementType: formState.logementType,
           energyBill: formState.energyBill,
+          gclid: new URLSearchParams(window.location.search).get('gclid'), // On stocke le gclid
+          source: new URLSearchParams(window.location.search).get('utm_source') || 'direct'
         };
         
         sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
@@ -308,10 +310,15 @@ const SimulateurPage = () => {
         
         // Ajout des paramètres de tracking
         redirectUrl.searchParams.set('source', 'simulator');
-        redirectUrl.searchParams.set('gclid', urlParams.get('gclid') || '');
-        redirectUrl.searchParams.set('utm_source', urlParams.get('utm_source') || '');
-        redirectUrl.searchParams.set('utm_medium', urlParams.get('utm_medium') || '');
-        redirectUrl.searchParams.set('utm_campaign', urlParams.get('utm_campaign') || '');
+        
+        // Conservation du gclid et des UTM s'ils existent
+        const trackingParams = ['gclid', 'utm_source', 'utm_medium', 'utm_campaign'];
+        trackingParams.forEach(param => {
+          const value = urlParams.get(param);
+          if (value) {
+            redirectUrl.searchParams.set(param, value);
+          }
+        });
         
         window.location.href = redirectUrl.toString();
         

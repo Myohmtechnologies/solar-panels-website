@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import ContactModal from '../modals/ContactModal';
+import { formTracking } from '@/utils/analytics/formTracking';
+import { trackConversion } from '../tracking/ConversionTracker';
 
 type HouseSize = 'small' | 'medium' | 'large';
 type BillRange = 'low' | 'medium' | 'high';
@@ -48,27 +50,82 @@ export default function PriceCalculator() {
 
   const handleCalculate = (e: React.FormEvent) => {
     e.preventDefault();
+    formTracking.trackFormView();
     setFormData(prev => ({ ...prev, showContactForm: true }));
+  };
+
+  const calculateEstimate = () => {
+    const roofArea = formData.houseSize === 'small' ? 30 : formData.houseSize === 'medium' ? 55 : 95;
+    const consumption = formData.monthlyBill === 'low' ? 90 : formData.monthlyBill === 'medium' ? 160 : 250;
+    
+    // Prix de base par m² de panneau solaire
+    const basePrice = 250;
+    
+    // Facteurs d'ajustement
+    const roofTypeFactor = 1;
+    const orientationFactor = formData.orientation === 'sud' ? 1 : 1.15;
+    
+    // Calcul de l'estimation
+    const estimate = roofArea * basePrice * roofTypeFactor * orientationFactor;
+    
+    return Math.round(estimate);
   };
 
   const handleSubmitContact = async (e: React.FormEvent) => {
     e.preventDefault();
     
     try {
-      const response = await fetch('/api/solar-estimate', {
+      const estimate = calculateEstimate();
+      const systemSize = formData.houseSize === 'small' ? 3 : formData.houseSize === 'medium' ? 6 : 9;
+      const annualProduction = systemSize * 1200; // Estimation de la production annuelle en kWh
+      const annualSavings = (annualProduction * 0.2); // Estimation des économies annuelles (0.2€/kWh)
+
+      // Envoie des données à l'API leads
+      const response = await fetch('/api/leads', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          ...formData,
-          ...contactInfo
+          name: contactInfo.name,
+          email: contactInfo.email,
+          phone: contactInfo.phone,
+          city: '',
+          source: 'PRICE_CALCULATOR',
+          projectType: 'SOLAR_PANELS',
+          notes: `Estimation : ${estimate}€, Taille du système : ${systemSize}kWc, Production annuelle : ${annualProduction}kWh, Économies annuelles : ${annualSavings}€`,
+          createdAt: new Date(),
+          status: 'NEW'
         }),
       });
 
       if (!response.ok) {
         throw new Error('Erreur lors de l\'envoi');
       }
+
+      // Track la conversion
+      trackConversion();
+      formTracking.trackFormSubmission(true);
+
+      // Track la conversion Google Ads
+      if (typeof window !== 'undefined' && window.gtag) {
+        console.log('🔍 Sending Google Ads conversion...');
+        window.gtag('event', 'conversion', {
+          'send_to': 'AW-16817660787/bCJ6CKu725gaEPPGpNM-',
+          'value': estimate,
+          'currency': 'EUR'
+        });
+        console.log('✅ Google Ads conversion sent');
+      }
+
+      // Stocker les infos du lead pour la page de remerciement
+      const leadInfo = {
+        name: contactInfo.name,
+        estimate: estimate,
+        systemSize: systemSize,
+        annualSavings: annualSavings
+      };
+      sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
 
       // Afficher le modal de succès
       setModalState({ isOpen: true, type: 'success' });
@@ -85,9 +142,13 @@ export default function PriceCalculator() {
         email: '',
         phone: ''
       });
+
+      // Redirection vers la page de remerciement
+      window.location.href = '/merci';
     } catch (error) {
-      setModalState({ isOpen: true, type: 'error' });
       console.error('Erreur:', error);
+      formTracking.trackFormSubmission(false);
+      setModalState({ isOpen: true, type: 'error' });
     }
   };
 

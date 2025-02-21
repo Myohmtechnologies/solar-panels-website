@@ -8,7 +8,7 @@ const faqs = [
   {
     question: "Quel est le prix des panneaux solaires photovoltaïques en région PACA ?",
     answer: "En région PACA, le prix d'une installation solaire varie selon plusieurs critères :\n\n" +
-           "• Installation 3kWc (15m²) : 8 000€ - 10 000€\n" +
+           "• Installation 3kWc (15m²) : 7890€ - 10 000€\n" +
            "• Installation 6kWc (30m²) : 15 000€ - 18 000€\n" +
            "• Installation 9kWc (45m²) : 20 000€ - 25 000€\n\n" +
            "Ces prix incluent :\n" +
@@ -16,11 +16,11 @@ const faqs = [
            "✓ L'installation complète par nos équipes certifiées\n" +
            "✓ Les démarches administratives\n" +
            "✓ La garantie décennale\n\n" +
-           "Important : Ces prix sont AVANT déduction des aides de l'État qui peuvent réduire votre investissement de 4 000€ à 8 000€ selon votre situation. De plus, en région PACA, l'excellent ensoleillement permet un retour sur investissement plus rapide (5-7 ans en moyenne)."
+           "Important : Ces prix sont AVANT déduction des aides de l'État qui peuvent réduire votre investissement de 640€ à 1440€ selon votre situation. De plus, en région PACA, l'excellent ensoleillement permet un retour sur investissement plus rapide (5-7 ans en moyenne)."
   },
   {
     question: "Quel est le tarif d'achat de l'électricité photovoltaïque en France en 2024 ?",
-    answer: "En 2024, le tarif d'achat varie selon la puissance installée : pour une installation ≤ 3kWc, le tarif est d'environ 0,2196€/kWh, pour 3-9kWc environ 0,1870€/kWh, et pour 9-36kWc environ 0,1170€/kWh. Ces tarifs sont garantis sur 20 ans par l'État français. L'autoconsommation avec vente du surplus est souvent la solution la plus avantageuse pour les particuliers."
+    answer: "En 2024, le tarif d'achat varie selon la puissance installée : pour une installation ≤ 3kWc, le tarif est d'environ 0,2196€/kWh, pour 3-9kWc environ 0,1270€/kWh, et pour 9-36kWc environ 0,1270€/kWh. Ces tarifs sont garantis sur 20 ans par l'État français. L'autoconsommation avec vente du surplus est souvent la solution la plus avantageuse pour les particuliers."
   },
   {
     question: "Quel est le rendement des panneaux photovoltaïques ?",

@@ -50,7 +50,7 @@ const SolarPanelSection = () => {
               <CheckCircleIcon className="w-6 h-6 text-FFDF64 mt-1" />
               <div>
                 <h3 className="font-semibold text-gray-900">Durabilité Garantie</h3>
-                <p className="text-gray-600">Résistance aux intempéries et garantie de 25 ans</p>
+                <p className="text-gray-600">Résistance aux intempéries et garantie de 30 ans</p>
               </div>
             </div>
           </div>

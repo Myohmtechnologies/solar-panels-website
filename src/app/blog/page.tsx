@@ -4,6 +4,7 @@ import BlogHeader from '@/components/sections/BlogHeader';
 import BlogCard from '@/components/sections/BlogCard';
 import { useEffect, useState } from 'react';
 import SolarChoiceSection from '@/components/sections/SolarChoiceSection';
+import RelatedCitiesSection from '@/components/sections/RelatedCitiesSection';
 import type { BlogPost } from '@/services/blogService';
 
 interface BlogWithId extends BlogPost {
@@ -58,20 +59,16 @@ export default function BlogPage() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12 bg-white rounded-2xl shadow-lg p-8 mx-auto max-w-xl">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Aucun article disponible</h2>
-              <p className="text-gray-700 mb-6">Revenez bientôt pour découvrir nos nouveaux articles !</p>
-              <a 
-                href="/" 
-                className="bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                Retour à l&apos;accueil
-              </a>
-            </div>
+            <p className="text-center text-gray-600">Aucun article de blog disponible pour le moment.</p>
           )}
         </div>
-        
-        <SolarChoiceSection />
+
+        {/* Section des villes liées */}
+        <RelatedCitiesSection />
+
+        <div className="mt-16">
+          <SolarChoiceSection />
+        </div>
       </main>
     </div>
   );

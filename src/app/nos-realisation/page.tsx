@@ -14,6 +14,7 @@ import {
   SunIcon,
   BoltIcon
 } from '@heroicons/react/24/outline';
+import RelatedCitiesSection from '@/components/sections/RelatedCitiesSection';
 
 const filterOptions = [
   { id: 'all', name: 'Tous les projets' },
@@ -275,6 +276,9 @@ export default function RealisationsPage() {
           </div>
         </div>
       </section>
+
+      {/* Section des villes liées */}
+      <RelatedCitiesSection />
     </main>
   );
 }

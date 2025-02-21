@@ -15,7 +15,7 @@ export function generateCityMetadata(cityData: CityData): Metadata {
   const region = cityData.region;
 
   return {
-    title: `Installation de Panneaux Solaires à ${cityName} (${department}) | Prix, Aides, Devis Gratuit`,
+    title: `Installation Panneaux Solaires à ${cityName} (${department}) | Prix, Aides, Devis Gratuit`,
     description: cityData.description || `Expert en installation de panneaux solaires à ${cityName}. Profitez d'un service premium, certifié RGE, et d'une garantie décennale. Devis gratuit et personnalisé.`,
     keywords: cityData.keywords || [
       `panneaux solaires ${cityName}`,

@@ -42,9 +42,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  alternates: {
-    canonical: '/',
-  },
+
   openGraph: {
     title: 'MY OHM Technologies - Installation de panneaux solaires',
     description: 'Installation de panneaux solaires sur mesure pour les particuliers et les entreprises.',

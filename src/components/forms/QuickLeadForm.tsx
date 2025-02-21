@@ -75,19 +75,32 @@ export default function QuickLeadForm() {
       });
 
       if (response.ok) {
-        // Track la conversion après une soumission réussie
-        trackConversion('lead_form_submit', 75);
-        formAnalytics.trackFormSubmission('quick_lead_form', true);
-        
-        setSubmitStatus('success');
-        setFormData(initialFormData);
-        
-        // Track dans Google Analytics
+        // Stockage des infos pour la page de remerciement
+        const leadInfo = {
+          name: formData.fullName,
+          type: 'quick_form',
+          gclid: new URLSearchParams(window.location.search).get('gclid'),
+          source: new URLSearchParams(window.location.search).get('utm_source') || 'direct'
+        };
+        sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
+
+        // Track la conversion Google Ads UNIQUEMENT si gclid est présent
+        const gclid = new URLSearchParams(window.location.search).get('gclid');
         if (typeof window !== 'undefined' && window.gtag) {
-          window.gtag('event', 'form_submission', {
-            'event_category': 'Form',
-            'event_label': 'QuickLeadForm',
-            'value': 1
+          if (gclid) {
+            // Conversion Google Ads
+            window.gtag('event', 'conversion', {
+              'send_to': 'AW-16817660787/FFX8CKXqk6EaEPPGpNM-',
+              'value': 100.0,
+              'currency': 'EUR'
+            });
+          }
+          
+          // Dans tous les cas, on track une conversion dans Analytics
+          window.gtag('event', 'generate_lead', {
+            'event_category': 'Conversion',
+            'event_label': 'quick_form',
+            'source': gclid ? 'google_ads' : 'organic'
           });
         }
 
@@ -106,15 +119,6 @@ export default function QuickLeadForm() {
             redirectUrl.searchParams.set(param, value);
           }
         });
-
-        // Stockage des infos pour la page de remerciement
-        const leadInfo = {
-          name: formData.fullName,
-          type: 'quick_form',
-          gclid: urlParams.get('gclid'), // On stocke aussi le gclid
-          source: urlParams.get('utm_source') || 'direct'
-        };
-        sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
         
         window.location.href = redirectUrl.toString();
       } else {

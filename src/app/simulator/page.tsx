@@ -296,13 +296,22 @@ const SimulateurPage = () => {
 
         const leadInfo = {
           name: formState.name,
-          logementType: formState.logementType,
-          energyBill: formState.energyBill,
-          gclid: new URLSearchParams(window.location.search).get('gclid'), // On stocke le gclid
+          type: 'simulator',
+          gclid: new URLSearchParams(window.location.search).get('gclid'),
           source: new URLSearchParams(window.location.search).get('utm_source') || 'direct'
         };
         
         sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
+
+        // Track la conversion Google Ads si l'utilisateur vient d'une annonce
+        const gclid = new URLSearchParams(window.location.search).get('gclid');
+        if (typeof window !== 'undefined' && window.gtag && gclid) {
+          window.gtag('event', 'conversion', {
+            'send_to': 'AW-16817660787/FFX8CKXqk6EaEPPGpNM-',
+            'value': 100.0,
+            'currency': 'EUR'
+          });
+        }
         
         // Redirection vers la page de remerciement avec les paramètres de tracking
         const urlParams = new URLSearchParams(window.location.search);

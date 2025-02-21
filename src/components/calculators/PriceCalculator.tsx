@@ -174,7 +174,32 @@ export default function PriceCalculator() {
         sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
 
         // Redirection vers la page de remerciement
-        window.location.href = '/merci';
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectUrl = new URL('/merci', window.location.origin);
+        
+        // Ajout des paramètres de tracking
+        redirectUrl.searchParams.set('source', 'price_calculator');
+        
+        // Conservation du gclid et des UTM s'ils existent
+        const trackingParams = ['gclid', 'utm_source', 'utm_medium', 'utm_campaign'];
+        trackingParams.forEach(param => {
+          const value = urlParams.get(param);
+          if (value) {
+            redirectUrl.searchParams.set(param, value);
+          }
+        });
+        
+        // Track la conversion Google Ads si l'utilisateur vient d'une annonce
+        const gclid = new URLSearchParams(window.location.search).get('gclid');
+        if (typeof window !== 'undefined' && window.gtag && gclid) {
+          window.gtag('event', 'conversion', {
+            'send_to': 'AW-16817660787/FFX8CKXqk6EaEPPGpNM-',
+            'value': 100.0,
+            'currency': 'EUR'
+          });
+        }
+
+        window.location.href = redirectUrl.toString();
       } else {
         throw new Error('Erreur lors de l\'envoi');
       }

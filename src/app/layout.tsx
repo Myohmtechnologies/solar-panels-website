@@ -78,6 +78,21 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        {/* Google Ads Tag - Ajouté en premier pour s'assurer qu'il est chargé */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16817660787"
+          strategy="afterInteractive"
+        />
+        <Script id="google-ads-config" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-16817660787');
+          `}
+        </Script>
+
         <link
           rel="preload"
           href="/styles/critical.css"
@@ -92,7 +107,6 @@ export default function RootLayout({
         <Toaster position="top-center" />
         <Analytics />
         <TrackingInitializer />
-        <ConversionTracker />
         <TeamAuth />
         <ClientLayout>
           {children}

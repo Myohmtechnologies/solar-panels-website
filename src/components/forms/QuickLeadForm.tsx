@@ -76,19 +76,30 @@ export default function QuickLeadForm() {
       if (response.ok) {
         // Vérifier si c'est une visite Google Ads
         const gclid = new URLSearchParams(window.location.search).get('gclid');
-        
+        console.log('GCLID trouvé:', gclid); // Debug
+
         if (typeof window !== 'undefined' && window.gtag) {
+          console.log('GTM disponible'); // Debug
+          
           // Conversion Google Ads UNIQUEMENT si gclid présent
           if (gclid) {
+            console.log('Envoi conversion Google Ads...'); // Debug
             window.gtag('event', 'conversion', {
               'send_to': 'AW-16817660787/FFX8CKXqk6EaEPPGpNM-'
             });
-            console.log('Conversion Google Ads envoyée');
+            console.log('Conversion Google Ads envoyée !'); // Debug
+          } else {
+            console.log('Pas de GCLID - aucune conversion Google Ads envoyée'); // Debug
           }
+        } else {
+          console.log('GTM non disponible !'); // Debug
         }
 
-        // Redirection vers la page merci
-        window.location.href = '/merci';
+        // Attendre que le tracking soit envoyé
+        setTimeout(() => {
+          console.log('Redirection vers /merci'); // Debug
+          window.location.href = '/merci';
+        }, 1000);
       } else {
         throw new Error('Erreur lors de l\'envoi');
       }

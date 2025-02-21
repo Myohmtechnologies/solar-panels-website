@@ -23,8 +23,8 @@ export default function SolarPowerSection({ cityName, sunshineHours = 2800 }: So
     {
       title: "Petite maison",
       power: "3 kWc",
-      surface: "15 m²",
-      production: "4 200 kWh/an",
+      surface: "13 m²",
+      production: "6 400 kWh/an",
       savings: "700€/an",
       icon: HomeIcon,
       description: "Idéal pour un couple ou une petite famille avec une consommation modérée"
@@ -32,8 +32,8 @@ export default function SolarPowerSection({ cityName, sunshineHours = 2800 }: So
     {
       title: "Maison moyenne",
       power: "6 kWc",
-      surface: "30 m²",
-      production: "8 400 kWh/an",
+      surface: "26 m²",
+      production: "12 600 kWh/an",
       savings: "1 400€/an",
       icon: BoltIcon,
       description: "Parfait pour une famille de 4 personnes avec une consommation standard"
@@ -41,8 +41,8 @@ export default function SolarPowerSection({ cityName, sunshineHours = 2800 }: So
     {
       title: "Grande maison",
       power: "9 kWc",
-      surface: "45 m²",
-      production: "12 600 kWh/an",
+      surface: "39 m²",
+      production: "21 600 kWh/an",
       savings: "2 100€/an",
       icon: ChartBarIcon,
       description: "Adapté aux grandes familles ou aux maisons très équipées"

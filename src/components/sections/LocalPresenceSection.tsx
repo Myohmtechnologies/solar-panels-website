@@ -31,6 +31,19 @@ interface LocalPresenceSectionProps {
   departmentName: string;
 }
 
+// Fonction pour obtenir le slug complet du département
+const getDepartmentFullSlug = (code: string): string => {
+  const slugs: { [key: string]: string } = {
+    '04': '04-alpes-de-haute-provence',
+    '05': '05-hautes-alpes',
+    '06': '06-alpes-maritimes',
+    '13': '13-bouches-du-rhone',
+    '83': '83-var',
+    '84': '84-vaucluse'
+  };
+  return slugs[code] || code;
+};
+
 const LocalPresenceSection: React.FC<LocalPresenceSectionProps> = ({ cityData, departmentCode, departmentName }) => {
   const renderStars = (rating: number) => {
     return [...Array(5)].map((_, index) => (
@@ -109,7 +122,7 @@ const LocalPresenceSection: React.FC<LocalPresenceSectionProps> = ({ cityData, d
                     {cityData.interventionArea.cities.map((city, index) => (
                       <Link 
                         key={index}
-                        href={`/region/paca/departements/${departmentCode}-${departmentName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ /g, '-')}/villes/${city.toLowerCase().replace(/ /g, '-')}`}
+                        href={`/region/paca/departements/${getDepartmentFullSlug(departmentCode)}/villes/${city.toLowerCase().replace(/ /g, '-')}`}
                         className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-FFDF64/10 hover:text-FFDF64 transition-colors"
                       >
                         {city}

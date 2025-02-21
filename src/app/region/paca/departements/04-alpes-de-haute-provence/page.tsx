@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
-import TransactionalHero from '@/components/sections/TransactionalHero';
-import RegionStats from '@/components/sections/RegionStats';
-import RegionSolarInstallationSection from '@/components/sections/RegionSolarInstallationSection';
+import DepartmentCitiesList from '@/components/sections/DepartmentCitiesList';
+import alpesDeHauteProvence from '@/app/data/departments/04-alpes-de-haute-provence';
+import RegionHero from '@/components/sections/RegionHero';
 import RegionAids from '@/components/sections/RegionAids';
 import RegionFAQ from '@/components/sections/RegionFAQ';
 import ContactCTASection from '@/components/sections/ContactCTASection';
@@ -10,86 +10,82 @@ import PrixInstallation from '@/components/PrixInstallation';
 import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
 
 export const metadata: Metadata = {
-  title: 'Installation Panneaux Solaires Alpes-de-Haute-Provence (04) | Devis Gratuit',
-  description: 'Demandez votre devis gratuit pour l\'installation de panneaux solaires dans les Alpes-de-Haute-Provence (04). Profitez des aides de l\'État et réduisez vos factures d\'électricité.',
+  title: 'Installation Panneaux Solaires Alpes-de-Haute-Provence (04) | Prix et Devis',
+  description: 'Installation de panneaux solaires dans les Alpes-de-Haute-Provence. Profitez de l\'excellent ensoleillement du 04 pour votre transition énergétique. Devis gratuit et aides disponibles.',
   keywords: [
-    'devis panneaux solaires 04',
-    'installation solaire Alpes-de-Haute-Provence',
+    'panneaux solaires Alpes-de-Haute-Provence',
+    'installation solaire 04',
+    'photovoltaïque Alpes-de-Haute-Provence',
     'prix panneaux solaires 04',
-    'installateur solaire Digne-les-Bains',
-    'cout installation solaire 04',
+    'aides panneaux solaires Alpes-de-Haute-Provence'
   ],
 };
 
 const departementData = {
-  name: 'Alpes-de-Haute-Provence',
-  code: '04',
-  ensoleillement: '2750 heures/an',
-  potentielSolaire: '1580 kWh/m²/an',
-  stats: [
-    {
-      value: '2750',
-      label: 'Heures d\'ensoleillement par an',
-      description: 'Un des départements les plus ensoleillés'
-    },
-    {
-      value: '1580',
-      label: 'kWh/m²/an',
-      description: 'Excellent potentiel solaire'
-    },
-    {
-      value: '35%',
-      label: 'D\'économies moyennes',
-      description: 'Sur votre facture d\'électricité'
-    }
-  ],
+  name: "Alpes-de-Haute-Provence",
+  code: "04",
   advantages: [
     {
-      title: 'Climat Alpin Ensoleillé',
-      description: 'Les Alpes-de-Haute-Provence bénéficient d\'un ensoleillement exceptionnel, idéal pour le solaire.'
+      title: "Ensoleillement Exceptionnel",
+      description: "Plus de 2800 heures d'ensoleillement par an, idéal pour le photovoltaïque"
     },
     {
-      title: 'Aides Départementales',
-      description: 'Profitez des aides spécifiques du département en plus des aides nationales.'
+      title: "Aides Régionales",
+      description: "Bénéficiez des aides spécifiques à la région PACA et au département"
     },
     {
-      title: 'Expertise Locale',
-      description: 'Notre équipe connaît parfaitement le territoire et ses spécificités.'
+      title: "Expertise Locale",
+      description: "Une équipe d'installateurs certifiés connaissant parfaitement le territoire"
     }
   ],
   faqs: [
     {
-      question: 'Pourquoi installer des panneaux solaires dans les Alpes-de-Haute-Provence ?',
-      answer: 'Les Alpes-de-Haute-Provence bénéficient d\'un ensoleillement exceptionnel de 2750 heures par an, ce qui en fait un département idéal pour l\'installation de panneaux solaires. L\'altitude et le climat sec favorisent également une production optimale.'
+      question: "Quel est le coût d'une installation solaire dans les Alpes-de-Haute-Provence ?",
+      answer: "Le coût varie selon la taille de l'installation. Pour une installation standard de 3kWc, comptez entre 7890€ et 10 000€ avant aides. Les aides peuvent réduire ce montant de 640€ à 1440€."
     },
     {
-      question: 'Quelles sont les aides disponibles dans le 04 ?',
-      answer: 'Le département propose des aides spécifiques pour l\'installation de panneaux solaires, en complément des aides nationales comme MaPrimeRénov\'. Contactez-nous pour une estimation personnalisée.'
+      question: "Quelles sont les aides disponibles dans le 04 ?",
+      answer: "Vous pouvez bénéficier de plusieurs aides : la prime à l'autoconsommation, les aides régionales PACA, et la TVA réduite à 10%. De plus, le département offre parfois des bonus supplémentaires."
     },
     {
-      question: 'Les panneaux solaires sont-ils adaptés au climat montagnard ?',
-      answer: 'Oui, les panneaux solaires modernes sont parfaitement adaptés au climat montagnard. Ils sont conçus pour résister aux conditions climatiques extrêmes et peuvent même être plus efficaces en altitude grâce à un air plus pur et des températures plus fraîches.'
+      question: "Combien de temps faut-il pour installer des panneaux solaires ?",
+      answer: "L'installation elle-même prend généralement 1 à 2 jours. Le processus complet, incluant les démarches administratives, peut prendre 2 à 3 mois."
     }
   ]
 };
 
-export default function AlpesDeHauteProvencePage() {
+export default function DepartmentPage() {
   return (
-    <main className="overflow-x-hidden">
-      <TransactionalHero
-        region="PACA"
-        departement={departementData.name}
-        code={departementData.code}
-        ensoleillement={departementData.ensoleillement}
-        potentielSolaire={departementData.potentielSolaire}
+    <main className="min-h-screen bg-gradient-to-br from-f2f6fa to-e3e9f0">
+      <RegionHero 
+        title={`Installation Panneaux Solaires ${departementData.name}`}
+        description="Profitez de l'excellent ensoleillement des Alpes-de-Haute-Provence pour votre installation solaire"
+        region={departementData.name}
       />
-      <ClientTestimonialsSection />
-      <RegionStats stats={departementData.stats} />
-      <RegionSolarInstallationSection region={departementData.name} advantages={departementData.advantages} />
+      
+      <DepartmentCitiesList 
+        departmentCode={departementData.code}
+        departmentName={departementData.name}
+        cities={alpesDeHauteProvence.cities}
+      />
+
       <PrixInstallation />
-      <RegionAids region={departementData.name} advantages={departementData.advantages} />
-      <LocalReviews region={departementData.name} />
-      <RegionFAQ faqs={departementData.faqs} />
+      
+      <RegionAids 
+        region={departementData.name} 
+        advantages={departementData.advantages} 
+      />
+      
+      <LocalReviews 
+        region={departementData.name}
+      />
+      
+      <ClientTestimonialsSection />
+      
+      <RegionFAQ 
+        faqs={departementData.faqs}
+      />
+      
       <ContactCTASection />
     </main>
   );

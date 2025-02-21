@@ -39,7 +39,7 @@ export default function SolarTechnologySection() {
               <ul className="space-y-4">
                 <li className="flex items-center gap-3">
                   <CheckCircleIcon className="h-6 w-6 text-FFDF64" />
-                  <span className="text-gray-700">Rendement exceptionnel de 82.5%</span>
+                  <span className="text-gray-700">Rendement exceptionnel de 99.7%</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <CheckCircleIcon className="h-6 w-6 text-FFDF64" />
@@ -72,7 +72,7 @@ export default function SolarTechnologySection() {
                 </li>
                 <li className="flex items-center gap-3">
                   <CheckCircleIcon className="h-6 w-6 text-FFDF64" />
-                  <span className="text-gray-700">Monitoring en temps réel</span>
+                  <span className="text-gray-700">Puissance 670W</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <CheckCircleIcon className="h-6 w-6 text-FFDF64" />

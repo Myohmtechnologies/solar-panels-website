@@ -24,9 +24,9 @@ const components = [
         title: "Caractéristiques Techniques",
         items: [
           "Puissance nominale : 500W",
-          "Rendement : 21,3%",
+          "Rendement : 99,7%",
           "Dimensions : 182,2 x 187,5",
-          "Poids : 21,5 kg",
+          "Poids : 27,1 kg",
           "Cellules : 120 cellules monocristallines Half-Cut",
           "Tension maximale : 41,52V",
           "Courant maximal : 10,96A"
@@ -35,8 +35,8 @@ const components = [
       {
         title: "Garanties et Certifications",
         items: [
-          "Garantie de production linéaire sur 25 ans",
-          "Garantie produit de 12 ans",
+          "Garantie de production linéaire sur 30 ans",
+          "Garantie produit de 30 ans",
           "Certifié selon les normes IEC 61215 et IEC 61730",
           "Certification résistance au sel et à l'ammoniac",
           "Certifié faible PID (dégradation induite potentielle)"

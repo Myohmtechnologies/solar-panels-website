@@ -44,11 +44,11 @@ const features = [
 const batteryTypes = [
   {
     name: 'Pack Essentiel',
-    capacity: '5 kWh',
+    capacity: '6 kWh',
     idealFor: 'Petite maison',
     description: 'Solution idéale pour les petits foyers souhaitant commencer leur transition énergétique.',
     features: [
-      'Capacité de stockage de 5 kWh',
+      'Capacité de stockage de 6 kWh',
       'Idéal pour 2-3 personnes',
       'Garantie de 10 ans',
       'Monitoring via application mobile',

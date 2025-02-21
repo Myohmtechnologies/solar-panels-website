@@ -1,97 +1,91 @@
 import { Metadata } from 'next';
+import DepartmentCitiesList from '@/components/sections/DepartmentCitiesList';
+import var83 from '@/app/data/departments/83-var';
 import RegionHero from '@/components/sections/RegionHero';
-import RegionStats from '@/components/sections/RegionStats';
-import RegionSolarInstallationSection from '@/components/sections/RegionSolarInstallationSection';
 import RegionAids from '@/components/sections/RegionAids';
 import RegionFAQ from '@/components/sections/RegionFAQ';
 import ContactCTASection from '@/components/sections/ContactCTASection';
 import LocalReviews from '@/components/sections/LocalReviews';
 import PrixInstallation from '@/components/PrixInstallation';
 import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
-import TransactionalHero from '@/components/sections/TransactionalHero';
 
 export const metadata: Metadata = {
-  title: 'Installation Panneaux Solaires Var (83) | My Ohm Technologies',
-  description: 'Découvrez nos solutions d\'installation de panneaux solaires dans le Var. Profitez du climat méditerranéen idéal et des aides départementales.',
+  title: 'Installation Panneaux Solaires Var (83) | Prix et Devis',
+  description: 'Installation de panneaux solaires dans le Var. Profitez de l\'excellent ensoleillement du 83 pour votre transition énergétique. Devis gratuit et aides disponibles.',
   keywords: [
     'panneaux solaires Var',
     'installation solaire 83',
-    'énergie solaire Toulon',
-    'aide installation solaire 83',
     'photovoltaïque Var',
+    'prix panneaux solaires 83',
+    'aides panneaux solaires Var'
   ],
 };
 
 const departementData = {
-  name: 'Var',
-  code: '83',
-  heroImage: '/images/regions/var-hero.webp',
-  ensoleillement: '2800 heures/an',
-  potentielSolaire: '1620 kWh/m²/an',
-  stats: [
-    {
-      value: '2800',
-      label: 'Heures d\'ensoleillement par an',
-      description: 'Parmi les plus ensoleillés de France'
-    },
-    {
-      value: '1620',
-      label: 'kWh/m²/an',
-      description: 'Excellent potentiel solaire'
-    },
-    {
-      value: '45%',
-      label: 'D\'économies moyennes',
-      description: 'Sur votre facture d\'électricité'
-    }
-  ],
+  name: "Var",
+  code: "83",
   advantages: [
     {
-      title: 'Climat Méditerranéen Optimal',
-      description: 'Le Var bénéficie d\'un ensoleillement exceptionnel toute l\'année.'
+      title: "Ensoleillement Exceptionnel",
+      description: "Plus de 2800 heures d'ensoleillement par an, idéal pour le photovoltaïque"
     },
     {
-      title: 'Aides Départementales',
-      description: 'Le département propose des aides attractives pour la transition énergétique.'
+      title: "Aides Régionales",
+      description: "Bénéficiez des aides spécifiques à la région PACA et au département"
     },
     {
-      title: 'Expertise Locale',
-      description: 'Notre équipe connaît parfaitement le territoire varois et ses spécificités.'
+      title: "Expertise Locale",
+      description: "Une équipe d'installateurs certifiés connaissant parfaitement le territoire"
     }
   ],
   faqs: [
     {
-      question: 'Pourquoi installer des panneaux solaires dans le Var ?',
-      answer: 'Le Var bénéficie d\'un ensoleillement exceptionnel avec 2800 heures par an. Le climat méditerranéen est idéal pour optimiser la production d\'énergie solaire.'
+      question: "Quel est le coût d'une installation solaire dans le Var ?",
+      answer: "Le coût varie selon la taille de l'installation. Pour une installation standard de 3kWc, comptez entre 7890€ et 10 000€ avant aides. Les aides peuvent réduire ce montant de 640€ à 1440€."
     },
     {
-      question: 'Les panneaux résistent-ils au climat méditerranéen ?',
-      answer: 'Oui, nos panneaux sont parfaitement adaptés au climat méditerranéen. Ils sont conçus pour résister à la chaleur, au sel marin et aux conditions climatiques locales.'
+      question: "Quelles sont les aides disponibles dans le 83 ?",
+      answer: "Vous pouvez bénéficier de plusieurs aides : la prime à l'autoconsommation, les aides régionales PACA, et la TVA réduite à 10%. De plus, le département offre parfois des bonus supplémentaires."
     },
     {
-      question: 'Quelles sont les aides disponibles dans le 83 ?',
-      answer: 'Le département du Var propose des aides spécifiques pour l\'installation de panneaux solaires, en complément des aides nationales comme MaPrimeRénov\'.'
+      question: "Combien de temps faut-il pour installer des panneaux solaires ?",
+      answer: "L'installation elle-même prend généralement 1 à 2 jours. Le processus complet, incluant les démarches administratives, peut prendre 2 à 3 mois."
     }
   ]
 };
 
-export default function VarPage() {
+export default function DepartmentPage() {
   return (
-    <main className="overflow-x-hidden">
-      <TransactionalHero
-        region="PACA"
-        departement={departementData.name}
-        code={departementData.code}
-        ensoleillement={departementData.ensoleillement}
-        potentielSolaire={departementData.potentielSolaire}
+    <main className="min-h-screen bg-gradient-to-br from-f2f6fa to-e3e9f0">
+      <RegionHero 
+        title={`Installation Panneaux Solaires ${departementData.name}`}
+        description="Profitez de l'excellent ensoleillement du Var pour votre installation solaire"
+        region={departementData.name}
       />
-      <ClientTestimonialsSection />
-      <RegionStats stats={departementData.stats} />
-      <RegionSolarInstallationSection region={departementData.name} advantages={departementData.advantages} />
+      
+      <DepartmentCitiesList 
+        departmentCode={departementData.code}
+        departmentName={departementData.name}
+        cities={var83.cities}
+      />
+
       <PrixInstallation />
-      <RegionAids region={departementData.name} advantages={departementData.advantages} />
-      <LocalReviews region={departementData.name} />
-      <RegionFAQ faqs={departementData.faqs} />
+      
+      <RegionAids 
+        region={departementData.name} 
+        advantages={departementData.advantages} 
+      />
+      
+      <LocalReviews 
+        region={departementData.name}
+      />
+      
+      <ClientTestimonialsSection />
+      
+      <RegionFAQ 
+        faqs={departementData.faqs}
+      />
+      
       <ContactCTASection />
     </main>
   );

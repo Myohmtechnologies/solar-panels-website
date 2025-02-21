@@ -86,16 +86,17 @@ const CityIntroSection: React.FC<CityIntroSectionProps> = ({
 
           <div>
             <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02]">
-              <div className="relative h-[300px] w-full">
+              <div className="relative h-[400px] w-full">
                 <Image
-                  src="/images/showroom.jpg"
+                  src="/images/local-my-ohm-technologies.jpg"
                   alt="Showroom My Ohm Technologies - Panneaux solaires à Manosque"
                   fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover object-[center_5%]"
+                  sizes="100vw"
                   priority
+                  quality={100}
                 />
-                <div className="absolute inset-0 bg-black/40 flex items-end p-6">
+                <div className="absolute inset-0 bg-black/20 flex items-end p-6">
                   <div className="text-white">
                     <h3 className="text-2xl font-bold mb-2">Notre Showroom</h3>
                     <p className="text-sm">Découvrez nos solutions solaires en exposition</p>

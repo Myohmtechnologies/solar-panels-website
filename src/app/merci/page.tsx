@@ -1,42 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
 
 export default function MerciPage() {
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const [isValid, setIsValid] = useState<boolean | null>(null);
 
-  useEffect(() => {
-    // On attend que le DOM soit chargé pour vérifier le sessionStorage
-    const checkLeadInfo = () => {
-      const leadInfo = sessionStorage.getItem('leadInfo');
-      
-      if (!leadInfo) {
-        console.log('Accès direct à la page merci détecté - redirection');
-        router.push('/');
-        setIsValid(false);
-        return;
-      }
-
-      setIsValid(true);
-      // On nettoie le storage après validation
-      sessionStorage.removeItem('leadInfo');
-    };
-
-    // On attend un peu pour s'assurer que le sessionStorage est disponible
-    setTimeout(checkLeadInfo, 100);
-  }, [router]);
-
-  // Pendant la vérification, on montre rien
-  if (isValid === null) return null;
-
-  // Si invalide, on ne montre rien (la redirection va se faire)
-  if (isValid === false) return null;
-
-  // Si valide, on montre la page de remerciement
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#d7f0fc] to-white py-16">
       <div className="container mx-auto px-4">

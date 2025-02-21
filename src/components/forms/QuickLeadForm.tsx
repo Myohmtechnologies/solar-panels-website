@@ -75,20 +75,10 @@ export default function QuickLeadForm() {
       });
 
       if (response.ok) {
-        // Stockage des infos pour la page de remerciement
-        const leadInfo = {
-          name: formData.fullName,
-          type: 'quick_form',
-          gclid: new URLSearchParams(window.location.search).get('gclid'),
-          source: new URLSearchParams(window.location.search).get('utm_source') || 'direct'
-        };
-        sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
-
-        // Track la conversion Google Ads UNIQUEMENT si gclid est présent
+        // Track la conversion Google Ads si nécessaire
         const gclid = new URLSearchParams(window.location.search).get('gclid');
         if (typeof window !== 'undefined' && window.gtag) {
           if (gclid) {
-            // Conversion Google Ads
             window.gtag('event', 'conversion', {
               'send_to': 'AW-16817660787/FFX8CKXqk6EaEPPGpNM-',
               'value': 100.0,
@@ -96,7 +86,6 @@ export default function QuickLeadForm() {
             });
           }
           
-          // Dans tous les cas, on track une conversion dans Analytics
           window.gtag('event', 'generate_lead', {
             'event_category': 'Conversion',
             'event_label': 'quick_form',
@@ -104,23 +93,8 @@ export default function QuickLeadForm() {
           });
         }
 
-        // Redirection vers la page de remerciement
-        const urlParams = new URLSearchParams(window.location.search);
-        const redirectUrl = new URL('/merci', window.location.origin);
-        
-        // Ajout des paramètres de tracking
-        redirectUrl.searchParams.set('source', 'quick_form');
-        
-        // Conservation du gclid et des UTM s'ils existent
-        const trackingParams = ['gclid', 'utm_source', 'utm_medium', 'utm_campaign'];
-        trackingParams.forEach(param => {
-          const value = urlParams.get(param);
-          if (value) {
-            redirectUrl.searchParams.set(param, value);
-          }
-        });
-        
-        window.location.href = redirectUrl.toString();
+        // Redirection simple vers la page merci
+        window.location.href = '/merci';
       } else {
         throw new Error('Erreur lors de l\'envoi');
       }

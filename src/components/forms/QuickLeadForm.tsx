@@ -74,32 +74,28 @@ export default function QuickLeadForm() {
       });
 
       if (response.ok) {
-        // Vérifier si c'est une visite Google Ads
+        // En mode debug ou avec gclid, on envoie la conversion
+        const isDebugMode = window.location.href.includes('gtm_debug');
         const gclid = new URLSearchParams(window.location.search).get('gclid');
-        console.log('GCLID trouvé:', gclid); // Debug
+        
+        console.log('Mode debug:', isDebugMode);
+        console.log('GCLID:', gclid);
 
         if (typeof window !== 'undefined' && window.gtag) {
-          console.log('GTM disponible'); // Debug
-          
-          // Conversion Google Ads UNIQUEMENT si gclid présent
-          if (gclid) {
-            console.log('Envoi conversion Google Ads...'); // Debug
+          // Envoyer la conversion en mode debug OU si gclid présent
+          if (isDebugMode || gclid) {
+            console.log('Envoi conversion pour test...');
             window.gtag('event', 'conversion', {
               'send_to': 'AW-16817660787/FFX8CKXqk6EaEPPGpNM-'
             });
-            console.log('Conversion Google Ads envoyée !'); // Debug
-          } else {
-            console.log('Pas de GCLID - aucune conversion Google Ads envoyée'); // Debug
+            console.log('Conversion envoyée !');
           }
-        } else {
-          console.log('GTM non disponible !'); // Debug
         }
 
-        // Attendre que le tracking soit envoyé
+        // Redirection avec délai pour debug
         setTimeout(() => {
-          console.log('Redirection vers /merci'); // Debug
           window.location.href = '/merci';
-        }, 1000);
+        }, 2000); // 2 secondes pour être sûr
       } else {
         throw new Error('Erreur lors de l\'envoi');
       }

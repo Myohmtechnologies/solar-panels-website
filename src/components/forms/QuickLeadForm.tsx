@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { trackConversion } from '../tracking/ConversionTracker';
 import { formAnalytics } from '../../services/formAnalytics';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -82,22 +81,10 @@ export default function QuickLeadForm() {
           // Conversion Google Ads UNIQUEMENT si gclid présent
           if (gclid) {
             window.gtag('event', 'conversion', {
-              'send_to': 'AW-16817660787/FFX8CKXqk6EaEPPGpNM-',
-              'value': 100.0,
-              'currency': 'EUR'
+              'send_to': 'AW-16817660787/FFX8CKXqk6EaEPPGpNM-'
             });
-            
-            console.log('Conversion Google Ads trackée - gclid présent');
-          } else {
-            console.log('Lead organique - pas de tracking Google Ads');
+            console.log('Conversion Google Ads envoyée');
           }
-
-          // Event Analytics pour tous les leads
-          window.gtag('event', 'generate_lead', {
-            'event_category': 'Lead',
-            'event_label': 'QuickLeadForm',
-            'source': gclid ? 'google_ads' : 'organic'
-          });
         }
 
         // Redirection vers la page merci

@@ -75,25 +75,32 @@ export default function QuickLeadForm() {
       });
 
       if (response.ok) {
-        // Track la conversion Google Ads si nécessaire
+        // Vérifier si c'est une visite Google Ads
         const gclid = new URLSearchParams(window.location.search).get('gclid');
+        
         if (typeof window !== 'undefined' && window.gtag) {
+          // Conversion Google Ads UNIQUEMENT si gclid présent
           if (gclid) {
             window.gtag('event', 'conversion', {
               'send_to': 'AW-16817660787/FFX8CKXqk6EaEPPGpNM-',
               'value': 100.0,
               'currency': 'EUR'
             });
+            
+            console.log('Conversion Google Ads trackée - gclid présent');
+          } else {
+            console.log('Lead organique - pas de tracking Google Ads');
           }
-          
+
+          // Event Analytics pour tous les leads
           window.gtag('event', 'generate_lead', {
-            'event_category': 'Conversion',
-            'event_label': 'quick_form',
+            'event_category': 'Lead',
+            'event_label': 'QuickLeadForm',
             'source': gclid ? 'google_ads' : 'organic'
           });
         }
 
-        // Redirection simple vers la page merci
+        // Redirection vers la page merci
         window.location.href = '/merci';
       } else {
         throw new Error('Erreur lors de l\'envoi');

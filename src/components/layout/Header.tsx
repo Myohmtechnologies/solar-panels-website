@@ -1,80 +1,87 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import MobileMenu from './MobileMenu';
 import { Popover } from '@headlessui/react';
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { PhoneIcon } from '@heroicons/react/24/outline';
+import { throttle } from 'lodash';
 
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showMobileHeader, setShowMobileHeader] = useState(true);
 
-  useEffect(() => {
-    const handleScroll = () => {
+  // Optimisation du scroll handling avec throttle
+  const handleScroll = useCallback(
+    throttle(() => {
       const heroSection = document.querySelector('[data-section="city-hero"]');
-      
       if (heroSection && window.innerWidth < 768) {
         const heroBottom = heroSection.getBoundingClientRect().bottom;
         setShowMobileHeader(heroBottom >= 0);
       }
-    };
+    }, 100),
+    []
+  );
 
-    window.addEventListener('scroll', handleScroll);
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [handleScroll]);
 
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!isMobileMenuOpen);
-    // Empêcher le scroll quand le menu est ouvert
-    if (!isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  };
- 
-  // Fermer le menu quand on change de page
+  const toggleMobileMenu = useCallback(() => {
+    setMobileMenuOpen(prev => !prev);
+    document.body.style.overflow = !isMobileMenuOpen ? 'hidden' : 'unset';
+  }, [isMobileMenuOpen]);
+
+  // Gestion de la fermeture du menu
   useEffect(() => {
     const handleRouteChange = () => {
       setMobileMenuOpen(false);
       document.body.style.overflow = 'unset';
     };
 
-    window.addEventListener('popstate', handleRouteChange);
-    return () => window.removeEventListener('popstate', handleRouteChange);
-  }, []);
-
-  // Fermer le menu avec la touche Escape
-  useEffect(() => {
     const handleEscapeKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isMobileMenuOpen) {
-        setMobileMenuOpen(false);
-        document.body.style.overflow = 'unset';
+        handleRouteChange();
       }
     };
 
+    window.addEventListener('popstate', handleRouteChange);
     document.addEventListener('keydown', handleEscapeKey);
-    return () => document.removeEventListener('keydown', handleEscapeKey);
+    
+    return () => {
+      window.removeEventListener('popstate', handleRouteChange);
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
   }, [isMobileMenuOpen]);
 
   return (
     <>
       {/* Header Desktop */}
-      <header className="hidden md:block fixed top-0 left-0 right-0 bg-white z-50 shadow-sm">
-        <div className="mx-auto ">
-          <div className="flex justify-around items-center h-20">
+      <header 
+        className="hidden md:block fixed top-0 left-0 right-0 bg-white shadow-sm"
+        style={{ 
+          height: 'var(--header-height)',
+          zIndex: 'var(--z-header)'
+        }}
+      >
+        <div className="mx-auto h-full">
+          <div className="flex justify-around items-center h-full">
             {/* Logo */}
-            <Link href="/" className="flex-shrink-0">
+            <Link 
+              href="/" 
+              className="flex-shrink-0"
+              aria-label="Retour à l'accueil"
+            >
               <Image 
                 src="/images/logo.png" 
                 alt="Logo MY OHM" 
                 width={170}
                 height={60}
                 className="w-auto h-12 md:h-14"
-                priority={false}
+                priority={true}
                 loading="eager"
                 sizes="(max-width: 768px) 120px, 170px"
                 quality={85}
@@ -82,258 +89,181 @@ const Header = () => {
             </Link>
 
             {/* Navigation desktop */}
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-8" aria-label="Navigation principale">
               {/* Services avec sous-menu */}
               <Popover className="relative">
-                {({ open }) => (
-                  <>
-                    <Popover.Button 
-                      className={`
-                        ${open ? 'text-primary' : 'text-gray-800'}
-                        flex items-center font-bold text-base cursor-pointer gap-1
-                      `}
-                    >
+                <Popover.Button 
+                  className={({ open }) => `
+                    ${open ? 'text-[var(--color-primary)]' : 'text-[var(--color-text)]'}
+                    flex items-center font-bold text-base cursor-pointer gap-1
+                    transition-colors duration-[var(--transition-fast)]
+                  `}
+                  aria-label="Menu des services"
+                >
+                  {({ open }) => (
+                    <>
                       Nos Services
-                      <ChevronDownIcon className={`w-4 h-4 opacity-50 ${open ? 'rotate-180' : ''}`} />
-                    </Popover.Button>
+                      <ChevronDownIcon 
+                        className={`
+                          w-4 h-4 opacity-50 transition-transform duration-[var(--transition-fast)]
+                          ${open ? 'rotate-180' : ''}
+                        `}
+                      />
+                    </>
+                  )}
+                </Popover.Button>
 
-                    <Popover.Panel 
-                      className="absolute left-0 z-10 mt-3 w-56 bg-white shadow-lg rounded-lg p-2"
+                <Popover.Panel className="absolute left-0 z-[var(--z-tooltip)] mt-3 w-56 bg-white shadow-lg rounded-lg p-2">
+                  {({ close }) => (
+                    <div 
+                      className="space-y-1"
+                      onMouseLeave={() => close()}
                     >
-                      <Link 
-                        href="/panneaux-solaire" 
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md font-semibold flex items-center gap-2"
-                      >
-                        <Image 
-                          src="/images/icone-pv.png" 
-                          alt="Icône Panneaux Photovoltaïques" 
-                          width={24} 
-                          height={24} 
-                          className="w-6 h-6"
-                        />
-                        Installation Panneaux Solaires
-                      </Link>
-                      <Link 
-                        href="/borne-de-recharge" 
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md font-semibold flex items-center gap-2"
-                      >
-                        <Image 
-                          src="/images/mise-en-charge.png" 
-                          alt="Icône Borne de Recharge éléctrique"  
-                          width={24} 
-                          height={24} 
-                          className="w-6 h-6"
-                        />
-                        Installation de borne de recharge IRVE
-                      </Link>
-                      <Link 
-                        href="/batterie-de-stockage" 
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md font-semibold flex items-center gap-2"
-                      >
-                        <Image 
-                          src="/images/eclairage.png" 
-                          alt="Icône Borne de Recharge éléctrique"  
-                          width={24} 
-                          height={24} 
-                          className="w-6 h-6"
-                        />
-                        Installation de Batterie de stockage
-                      </Link>
-                      <Link 
-                        href="/ballon-thermodynamique" 
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md font-semibold flex items-center gap-2"
-                      >
-                        <Image 
-                          src="/images/icon-chauffe-eau.png" 
-                          alt="Icône Ballon thermodynamique"  
-                          width={24} 
-                          height={24} 
-                          className="w-6 h-6"
-                        />
-                        Ballon thermodynamique
-                      </Link>
-                      <Link 
-                        href="/solutions/batterie-virtuelle" 
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md font-semibold flex items-center gap-2"
-                      >
-                        <Image 
-                          src="/images/icons/icone-batterie-virtuelle.png" 
-                          alt="Icône Batterie Virtuelle"  
-                          width={24} 
-                          height={24} 
-                          className="w-6 h-6"
-                        />
-                        Batterie Virtuelle
-                      </Link>
-                    </Popover.Panel>
-                  </>
-                )}
+                      {[
+                        { href: '/panneaux-solaire', label: 'Installation Panneaux Solaires' },
+                        { href: '/borne-de-recharge', label: 'Installation de borne de recharge IRVE' },
+                        { href: '/batterie-de-stockage', label: 'Installation de Batterie de stockage' },
+                        { href: '/ballon-thermodynamique', label: 'Ballon thermodynamique' },
+                        { href: '/solutions/batterie-virtuelle', label: 'Batterie Virtuelle' },
+                      ].map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className="block px-4 py-2 text-sm text-[var(--color-text)] hover:bg-gray-50 rounded-lg transition-colors duration-[var(--transition-fast)]"
+                          onClick={() => close()}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </Popover.Panel>
               </Popover>
 
               {/* À propos avec sous-menu */}
               <Popover className="relative">
-                {({ open }) => (
-                  <>
-                    <Popover.Button 
-                      className={`
-                        ${open ? 'text-primary' : 'text-gray-800'}
-                        flex items-center font-bold text-base cursor-pointer gap-1
-                      `}
-                    >
+                <Popover.Button 
+                  className={({ open }) => `
+                    ${open ? 'text-[var(--color-primary)]' : 'text-[var(--color-text)]'}
+                    flex items-center font-bold text-base cursor-pointer gap-1
+                    transition-colors duration-[var(--transition-fast)]
+                  `}
+                  aria-label="Menu à propos"
+                >
+                  {({ open }) => (
+                    <>
                       À propos
-                      <ChevronDownIcon className={`w-4 h-4 opacity-50 ${open ? 'rotate-180' : ''}`} />
-                    </Popover.Button>
+                      <ChevronDownIcon 
+                        className={`
+                          w-4 h-4 opacity-50 transition-transform duration-[var(--transition-fast)]
+                          ${open ? 'rotate-180' : ''}
+                        `}
+                      />
+                    </>
+                  )}
+                </Popover.Button>
 
-                    <Popover.Panel 
-                      className="absolute left-0 z-10 mt-3 w-56 bg-white shadow-lg rounded-lg p-2"
+                <Popover.Panel className="absolute left-0 z-[var(--z-tooltip)] mt-3 w-56 bg-white shadow-lg rounded-lg p-2">
+                  {({ close }) => (
+                    <div 
+                      className="space-y-1"
+                      onMouseLeave={() => close()}
                     >
-                      <Link 
-                        href="/qui-sommes-nous" 
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md font-semibold"
-                      >
-                        Qui sommes-nous
-                      </Link>
-                      <Link 
-                        href="/showroom" 
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md font-semibold"
-                      >
-                        Notre Showroom
-                      </Link>
-                    </Popover.Panel>
-                  </>
-                )}
+                      {[
+                        { href: '/qui-sommes-nous', label: 'Qui sommes-nous' },
+                        { href: '/showroom', label: 'Notre Showroom' },
+                      ].map((item) => (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          className="block px-4 py-2 text-sm text-[var(--color-text)] hover:bg-gray-50 rounded-lg transition-colors duration-[var(--transition-fast)]"
+                          onClick={() => close()}
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </Popover.Panel>
               </Popover>
 
-              <Link href="/nos-realisation" className="text-gray-700 hover:text-gray-900 font-bold text-base">
+              <Link
+                href="/nos-realisation"
+                className="text-[var(--color-text)] hover:text-[var(--color-primary)] font-bold transition-colors duration-[var(--transition-fast)]"
+              >
                 Nos réalisations
               </Link>
 
-              {/* Nouveau lien Contact */}
-              <Link href="/contact" className="text-gray-700 hover:text-gray-900 font-bold text-base">
+              <Link
+                href="/contact"
+                className="text-[var(--color-text)] hover:text-[var(--color-primary)] font-bold transition-colors duration-[var(--transition-fast)]"
+              >
                 Contact
               </Link>
-               {/* Nouveau lien Contact */}
-               <Link href="/parrainage" className="text-gray-700 hover:text-gray-900 font-bold text-base">
-                Parrainage 
-              </Link>
-            </nav>
 
-            {/* Bouton CTA */}
-            <div className="hidden md:block flex-shrink-0">
+              <Link
+                href="/parrainage"
+                className="text-[var(--color-text)] hover:text-[var(--color-primary)] font-bold transition-colors duration-[var(--transition-fast)]"
+              >
+                Parrainage
+              </Link>
+
               <a
                 href="tel:+33492766858"
-                className="inline-flex items-center px-4 py-2 text-gray-900 hover:text-FFDF64 transition-colors font-semibold"
+                className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary)]/90 transition-colors duration-[var(--transition-fast)]"
               >
-                <PhoneIcon className="h-5 w-5 mr-2" />
-                04 92 76 68 58
+                <PhoneIcon className="w-5 h-5" />
+                <span>04 92 76 68 58</span>
               </a>
-              <Link
-                href="/simulator"
-                className="inline-flex items-center px-6 py-2.5 rounded-full 
-                         text-sm font-semibold text-black bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg hover:bg-gray-50 
-                         transition-colors duration-200 group"
-              >
-                <span>MA SIMULATION GRATUITE</span>
-                <div className="ml-2 w-6 h-6 border border-black rounded-full flex items-center justify-center group-hover:translate-x-1 transition-transform duration-200">
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    className="h-3 w-3" 
-                    viewBox="0 0 20 20" 
-                    fill="currentColor"
-                  >
-                    <path 
-                      fillRule="evenodd" 
-                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" 
-                      clipRule="evenodd" 
-                    />
-                  </svg>
-                </div>
-              </Link>
-            </div>
-
-            {/* Bouton menu mobile */}
-            <button
-              onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
-              aria-label="Ouvrir le menu"
-              aria-expanded={isMobileMenuOpen}
-            >
-              <svg 
-                width="44" 
-                height="44" 
-                viewBox="0 0 24 24" 
-                fill="none"
-              >
-                <path d="M3 18H21V16H3V18ZM3 13H21V11H3V13ZM3 6V8H21V6H3Z" fill="currentColor"/>
-              </svg>
-            </button>
+            </nav>
           </div>
         </div>
-
-        {/* Menu mobile */}
-        <MobileMenu 
-          isOpen={isMobileMenuOpen} 
-          onClose={() => setMobileMenuOpen(false)} 
-        />
       </header>
 
       {/* Header Mobile */}
-      <header className={`md:hidden fixed top-0 left-0 right-0 bg-white z-50 shadow-sm transition-transform duration-300 ${showMobileHeader ? 'translate-y-0' : '-translate-y-full'}`}>
-        <div className="flex justify-between items-center px-4 h-16">
-          <Link href="/" className="flex-shrink-0">
+      <header 
+        className={`
+          md:hidden fixed top-0 left-0 right-0 bg-white shadow-sm
+          transition-transform duration-[var(--transition-normal)]
+          ${showMobileHeader ? 'translate-y-0' : '-translate-y-full'}
+        `}
+        style={{ 
+          height: 'var(--header-mobile-height)',
+          zIndex: 'var(--z-header)'
+        }}
+      >
+        <div className="flex items-center justify-between h-full px-4">
+          <Link href="/" className="flex-shrink-0" aria-label="Retour à l'accueil">
             <Image 
               src="/images/logo.png" 
               alt="Logo MY OHM" 
-              width={120}
-              height={40}
-              className="w-auto h-8"
-              priority={false}
+              width={170}
+              height={60}
+              className="w-auto h-12"
+              priority={true}
               loading="eager"
-              sizes="120px"
+              sizes="170px"
               quality={85}
             />
           </Link>
 
-          <div className="flex items-center gap-4">
-            <Link 
-              href="tel:0492766858"
-              className="flex items-center gap-1 px-3 py-1.5 bg-green-600 text-white text-sm rounded-full hover:bg-green-700 transition-colors"
-            >
-              <PhoneIcon className="w-4 h-4" />
-              <span>04 92 76 68 58</span>
-            </Link>
-
-            <button
-              onClick={toggleMobileMenu}
-              className="p-2 -mr-2 text-gray-500 hover:text-gray-700"
-              aria-label={isMobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
-            >
-              {isMobileMenuOpen ? (
-                <XMarkIcon className="w-6 h-6" />
-              ) : (
-                <Bars3Icon className="w-6 h-6" />
-              )}
-            </button>
-          </div>
+          <button
+            onClick={toggleMobileMenu}
+            className="p-2"
+            aria-expanded={isMobileMenuOpen}
+            aria-label={isMobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+          >
+            {isMobileMenuOpen ? (
+              <XMarkIcon className="h-8 w-8" />
+            ) : (
+              <Bars3Icon className="h-8 w-8" />
+            )}
+          </button>
         </div>
+
+        {/* Menu mobile */}
+        <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
       </header>
-
-      {/* Menu Mobile */}
-      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => {
-        setMobileMenuOpen(false);
-        document.body.style.overflow = 'unset';
-      }} />
-
-      {/* Overlay pour fermer le menu */}
-      {isMobileMenuOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40"
-          onClick={() => {
-            setMobileMenuOpen(false);
-            document.body.style.overflow = 'unset';
-          }}
-        />
-      )}
     </>
   );
 };

@@ -1,15 +1,62 @@
 "use client";
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import '../../styles/animations.css';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const menuLinks = [
+  {
+    href: '/panneaux-solaire',
+    label: 'Installation Panneaux Solaires',
+    icon: '/images/icone-pv.png'
+  },
+  {
+    href: '/borne-de-recharge',
+    label: 'Installation Borne de Recharge',
+    icon: '/images/mise-en-charge.png'
+  },
+  {
+    href: '/batterie-de-stockage',
+    label: 'Batterie de Stockage',
+    icon: '/images/battery.png'
+  },
+  {
+    href: '/ballon-thermodynamique',
+    label: 'Ballon thermodynamique',
+    icon: '/images/icon-chauffe-eau.png'
+  },
+  {
+    href: '/qui-sommes-nous',
+    label: 'Qui sommes-nous'
+  },
+  {
+    href: '/showroom',
+    label: 'Notre Showroom'
+  },
+  {
+    href: '/nos-realisations',
+    label: 'Nos réalisations'
+  },
+  {
+    href: '/blog',
+    label: 'Blog'
+  },
+  {
+    href: '/contact',
+    label: 'Contact'
+  },
+  {
+    href: '/parrainage',
+    label: 'Parrainage'
+  }
+];
 
 const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
@@ -27,7 +74,6 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
     const diffX = touchStartX.current - e.touches[0].clientX;
     const diffY = Math.abs(touchStartY.current - e.touches[0].clientY);
     
-    // Si le mouvement est plus horizontal que vertical et vers la gauche
     if (diffX > 50 && diffX > diffY) {
       onClose();
       touchStartX.current = null;
@@ -35,128 +81,107 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
     }
   };
 
-  const handleLinkClick = () => {
-    onClose();
+  const menuVariants = {
+    closed: {
+      x: "100%",
+      transition: { type: "spring", stiffness: 300, damping: 30 }
+    },
+    open: {
+      x: 0,
+      transition: { type: "spring", stiffness: 300, damping: 30 }
+    }
   };
 
-  if (!isOpen) return null;
+  const overlayVariants = {
+    closed: { opacity: 0 },
+    open: { opacity: 1 }
+  };
 
   return (
-    <div 
-      className="fixed inset-0 z-50"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-    >
-      <div 
-        ref={menuRef}
-        className="fixed right-0 top-0 h-full w-4/5 max-w-sm bg-white shadow-xl transform transition-transform duration-300 ease-in-out overflow-y-auto"
-        style={{
-          transform: isOpen ? 'translateX(0)' : 'translateX(100%)'
-        }}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-      >
-        <div className="p-4 flex flex-col h-full">
-          <div className="flex justify-between items-center mb-8">
-            <Link href="/" onClick={handleLinkClick}>
-              <Image 
-                src="/images/logo.png" 
-                alt="Logo MY OHM" 
-                width={150} 
-                height={70}
-                className="w-auto h-10"
-              />
-            </Link>
-            <button
-              onClick={onClose}
-              className="p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100"
-              aria-label="Fermer le menu"
-            >
-              <XMarkIcon className="h-6 w-6" />
-            </button>
-          </div>
+    <AnimatePresence>
+      {isOpen && (
+        <div className="relative" style={{ zIndex: 'var(--z-mobile-menu)' }}>
+          <motion.div 
+            initial="closed"
+            animate="open"
+            exit="closed"
+            variants={overlayVariants}
+            className="fixed inset-0 bg-black/50"
+            onClick={onClose}
+          />
 
-          <nav className="flex-1">
-            <div className="space-y-4">
-              <Link 
-                href="/panneaux-solaire"
-                className="flex items-center space-x-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
-                onClick={handleLinkClick}
-              >
-                <Image 
-                  src="/images/icone-pv.png" 
-                  alt="Icône Panneaux Photovoltaïques" 
-                  width={24} 
-                  height={24}
-                  className="w-6 h-6" 
-                />
-                <span className="font-medium">Installation Panneaux Solaires</span>
-              </Link>
+          <motion.div 
+            ref={menuRef}
+            initial="closed"
+            animate="open"
+            exit="closed"
+            variants={menuVariants}
+            className="fixed right-0 top-0 h-[100dvh] w-4/5 max-w-sm bg-white shadow-xl overflow-hidden"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+          >
+            <div className="flex flex-col h-full">
+              <div className="p-4 flex justify-between items-center border-b border-gray-100">
+                <Link href="/" onClick={onClose} className="flex-shrink-0">
+                  <Image 
+                    src="/images/logo.png" 
+                    alt="Logo MY OHM" 
+                    width={170}
+                    height={60}
+                    className="w-auto h-12"
+                    priority={true}
+                  />
+                </Link>
+                <button
+                  onClick={onClose}
+                  className="p-2 rounded-md hover:bg-gray-100 transition-colors"
+                  aria-label="Fermer le menu"
+                >
+                  <XMarkIcon className="h-8 w-8 text-gray-500" />
+                </button>
+              </div>
 
-              <Link 
-                href="/borne-de-recharge"
-                className="flex items-center space-x-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
-                onClick={handleLinkClick}
-              >
-                <Image 
-                  src="/images/mise-en-charge.png" 
-                  alt="Icône Borne de Recharge" 
-                  width={24} 
-                  height={24}
-                  className="w-6 h-6"
-                />
-                <span className="font-medium">Installation Borne de Recharge</span>
-              </Link>
+              <div className="flex-1 overflow-y-auto">
+                <nav className="p-4">
+                  <div className="space-y-2">
+                    {menuLinks.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                        onClick={onClose}
+                      >
+                        {link.icon && (
+                          <Image
+                            src={link.icon}
+                            alt={`Icône ${link.label}`}
+                            width={24}
+                            height={24}
+                            className="w-6 h-6"
+                          />
+                        )}
+                        <span className="font-medium">{link.label}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </nav>
+              </div>
 
-              <Link 
-                href="/batterie-de-stockage"
-                className="flex items-center space-x-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
-                onClick={handleLinkClick}
-              >
-                <Image 
-                  src="/images/battery.png" 
-                  alt="Icône Batterie de Stockage" 
-                  width={24} 
-                  height={24}
-                  className="w-6 h-6"
-                />
-                <span className="font-medium">Batterie de Stockage</span>
-              </Link>
+              <div className="p-4 border-t border-gray-100">
+                <Link 
+                  href="tel:0492766858"
+                  className="flex items-center justify-center gap-2 w-full bg-[var(--color-primary)] text-white py-3 px-4 rounded-lg hover:bg-[var(--color-primary)]/90 transition-colors"
+                  onClick={onClose}
+                >
+                  <span className="font-bold">04 92 76 68 58</span>
+                  <span className="text-sm bg-white/20 px-2 py-1 rounded-full">Appel gratuit</span>
+                </Link>
+              </div>
             </div>
-
-            <div className="mt-8 space-y-4">
-              <Link 
-                href="/contact"
-                className="flex items-center space-x-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
-                onClick={handleLinkClick}
-              >
-                <span className="font-medium">Contact</span>
-              </Link>
-              
-              <Link 
-                href="/blog"
-                className="flex items-center space-x-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
-                onClick={handleLinkClick}
-              >
-                <span className="font-medium">Blog</span>
-              </Link>
-            </div>
-          </nav>
-
-          <div className="mt-auto pt-6">
-            <Link 
-              href="tel:0492766858"
-              className="flex items-center justify-center gap-2 w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors"
-              onClick={handleLinkClick}
-            >
-              <span className="font-bold">04 92 76 68 58</span>
-              <span className="text-sm bg-green-500 px-2 py-1 rounded-full">Appel gratuit</span>
-            </Link>
-          </div>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      )}
+    </AnimatePresence>
   );
 };
 

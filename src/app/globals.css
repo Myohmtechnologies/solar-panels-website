@@ -11,6 +11,33 @@
   --primary: #ffeb99;
   --secondary: #ffd700;
   --accent: #ffa500;
+
+  /* Variables pour le header */
+  --header-height: 5rem;
+  --header-mobile-height: 4rem;
+  
+  /* Couleurs principales */
+  --color-primary: #116290;
+  --color-secondary: #ffb700;
+  --color-text: #1f2937;
+  --color-text-light: #6b7280;
+  
+  /* Breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  
+  /* Transitions */
+  --transition-fast: 150ms;
+  --transition-normal: 300ms;
+  --transition-slow: 500ms;
+  
+  /* Z-index layers */
+  --z-header: 50;
+  --z-modal: 100;
+  --z-tooltip: 75;
+  --z-mobile-menu: 9999;
 }
 
 body {
@@ -21,6 +48,41 @@ body {
     rgb(var(--background-end-rgb))
   );
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Styles globaux */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply text-gray-900 antialiased;
+}
+
+/* Utilitaires de layout */
+.container {
+  @apply mx-auto px-4 sm:px-6 lg:px-8;
+  max-width: 1440px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Classes d'animation */
+.animate-fade-in {
+  animation: fadeIn var(--transition-normal) ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp var(--transition-normal) ease-out;
 }
 
 /* Optimisations pour le mobile */

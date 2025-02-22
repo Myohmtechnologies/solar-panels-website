@@ -1,33 +1,40 @@
 'use client';
 
-import dynamic from 'next/dynamic';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import Link from 'next/link';
+import React, { useState, useEffect, Fragment } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRightIcon, PhoneIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
-import { SunIcon, BoltIcon, CurrencyEuroIcon, StarIcon } from '@heroicons/react/24/solid';
-import { MapPinIcon, UserIcon, ChartBarIcon } from '@heroicons/react/24/outline';
-import { engagementEvents, navigationEvents } from '@/utils/analytics';
-import { Fragment } from 'react';
+import { ArrowRightIcon, CurrencyEuroIcon, SunIcon, BoltIcon, StarIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
-// Chargement dynamique des composants non-critiques
-const ContactForm = dynamic(() => import('../forms/ContactForm'), { ssr: false });
-const QuickLeadForm = dynamic(() => import('../forms/QuickLeadForm'), { ssr: false });
+// Imports dynamiques avec priorité
+const QuickLeadForm = dynamic(() => import('../forms/QuickLeadForm'), { 
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-gray-100 h-[300px] rounded-lg" />
+});
+
 const Dialog = dynamic(() => import('@headlessui/react').then(mod => mod.Dialog), { ssr: false });
 const Transition = dynamic(() => import('@headlessui/react').then(mod => mod.Transition), { ssr: false });
 
-// Préchargement du contenu critique
-const preloadContent = () => {
-  const link = document.createElement('link');
-  link.rel = 'preload';
-  link.as = 'style';
-  link.href = '/styles/critical.css';
-  document.head.appendChild(link);
+import { engagementEvents, navigationEvents } from '@/utils/analytics';
+
+// Préchargement des images critiques
+const preloadImages = () => {
+  if (typeof window !== 'undefined') {
+    const images = [
+      '/images/google.png',
+      '/images/rge1.png',
+      '/images/qualipv1.png'
+    ];
+    
+    images.forEach(src => {
+      const img = new window.Image();
+      img.src = src;
+    });
+  }
 };
 
-// Hook personnalisé pour détecter le défilement
+// Hook personnalisé pour la position de défilement
 const useScrollPosition = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -35,7 +42,7 @@ const useScrollPosition = () => {
     const updatePosition = () => {
       setScrollPosition(window.pageYOffset);
     };
-    window.addEventListener('scroll', updatePosition, { passive: true });
+    window.addEventListener('scroll', updatePosition);
     updatePosition();
     return () => window.removeEventListener('scroll', updatePosition);
   }, []);
@@ -43,41 +50,14 @@ const useScrollPosition = () => {
   return scrollPosition;
 };
 
-// Composant Modal de Contact amélioré
-const ContactModal = dynamic(() => Promise.resolve(({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
-  return (
-    <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={onClose}>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-black bg-opacity-50" />
-        </Transition.Child>
-
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
-            <ContactForm onClose={onClose} />
-          </div>
-        </div>
-      </Dialog>
-    </Transition>
-  );
-}), { ssr: false });
-
 const HeroSection = () => {
-  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const scrollPosition = useScrollPosition();
   const [heroHeight, setHeroHeight] = useState(0);
 
   useEffect(() => {
-    preloadContent();
+    // Préchargement des ressources critiques
+    preloadImages();
   }, []);
 
   useEffect(() => {
@@ -106,30 +86,23 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[85vh] bg-gradient-to-b from-[#d7f0fc] to-white">
-      {/* Cadrage blanc principal */}
-      <div className="absolute inset-0 border-[12px] border-white/80 m-6 rounded-[2rem] pointer-events-none"></div>
+    <section className="relative min-h-[85vh]">
+      {/* Fond simplifié */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#d7f0fc] to-white"></div>
       
-      {/* Motif de panneaux solaires */}
-      <div className="absolute inset-0 grid grid-cols-3 gap-4 p-12 pointer-events-none">
-        {[...Array(9)].map((_, i) => (
-          <div key={i} className="relative">
-            <div className="absolute inset-0 border-[3px] border-white/40 rounded-lg"></div>
-            <div className="absolute inset-[15%] border-[2px] border-white/30 rounded-md"></div>
-            <div className="absolute inset-[30%] border-[1px] border-white/20 rounded-sm"></div>
-          </div>
-        ))}
-      </div>
-
-      {/* Cercles décoratifs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-gradient-to-br from-[#ffeb99] to-[#ffb700] rounded-full blur-3xl opacity-20"></div>
-        <div className="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-[#116290] rounded-full blur-3xl opacity-10"></div>
+      {/* Overlay pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1"/>
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
       </div>
 
       <div className="container mx-auto px-4 h-full relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 h-full items-center py-12">
-          {/* Contenu gauche */}
+          {/* Contenu gauche - Chargé immédiatement */}
           <div className="space-y-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -193,7 +166,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Formulaire droite */}
+          {/* Formulaire droite - Chargé en différé */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -211,7 +184,9 @@ const HeroSection = () => {
                     Un expert vous rappelle sous 24h
                   </p>
                 </div>
-                <QuickLeadForm />
+                <div className="relative">
+                  <QuickLeadForm />
+                </div>
 
                 {/* Google Rating */}
                 <div className="flex items-center justify-center gap-2 mt-6 mb-4">
@@ -221,7 +196,8 @@ const HeroSection = () => {
                     width={20}
                     height={20}
                     className="w-5 h-5"
-                  /> 
+                    priority={true}
+                  />
                   <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
                       <StarIcon 
@@ -243,8 +219,8 @@ const HeroSection = () => {
                       width={60}
                       height={40}
                       className="h-10 w-auto"
+                      loading="lazy"
                     />
-                    
                   </div>
                   <div className="flex items-center gap-2">
                     <Image
@@ -253,9 +229,9 @@ const HeroSection = () => {
                       width={60}
                       height={40}
                       className="h-10 w-auto"
+                      loading="lazy"
                     />
                   </div>
-                  
                 </div>
               </div>
             </div>

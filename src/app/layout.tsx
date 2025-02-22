@@ -1,3 +1,4 @@
+import React from 'react';
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
@@ -23,8 +24,6 @@ const ConversionTracker = dynamic(() => import('@/components/tracking/Conversion
 
 const TrackingInitializer = dynamic(() => import('@/components/tracking/TrackingInitializer'), { ssr: false });
 const TeamAuth = dynamic(() => import('@/components/admin/TeamAuth'), { ssr: false });
-
-// Import des composants analytics avec 'use client'
 const Analytics = dynamic(() => import('@/components/analytics/Analytics'), { ssr: false });
 
 export const metadata: Metadata = {
@@ -42,7 +41,6 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-
   openGraph: {
     title: 'MY OHM Technologies - Installation de panneaux solaires',
     description: 'Installation de panneaux solaires sur mesure pour les particuliers et les entreprises.',
@@ -66,18 +64,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="fr" className={inter.variable}>
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        
-        {/* Google Ads Tag - Ajouté en premier pour s'assurer qu'il est chargé */}
+      <body className="font-sans min-h-screen bg-white">
+        {/* Google Ads Tag */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-16817660787"
           strategy="afterInteractive"
@@ -91,24 +86,14 @@ export default function RootLayout({
           `}
         </Script>
 
-        <link
-          rel="preload"
-          href="/styles/critical.css"
-          as="style"
-          onLoad="this.onload=null;this.rel='stylesheet'"
-        />
-        <noscript>
-          <link rel="stylesheet" href="/styles/critical.css" />
-        </noscript>
-      </head>
-      <body className="font-sans min-h-screen bg-white">
-        <Toaster position="top-center" />
+        <ClientLayout>
+          <Toaster position="top-center" />
+          {children}
+        </ClientLayout>
+
         <Analytics />
         <TrackingInitializer />
         <TeamAuth />
-        <ClientLayout>
-          {children}
-        </ClientLayout>
       </body>
     </html>
   );

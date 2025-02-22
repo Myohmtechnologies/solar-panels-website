@@ -194,14 +194,17 @@ const CityHeroVideo = ({
               ) : (
                 <div className="relative w-full h-full">
                   <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
                     className="absolute inset-0 w-full h-full object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
                   >
-                    <source src="https://res.cloudinary.com/dz5sry4jz/video/upload/q_auto:eco,f_auto,c_scale,w_1280/societe-installation-de-panneaux-solaires" type="video/mp4" />
-                    Votre navigateur ne supporte pas la lecture de vidéos.
+                    <source
+                      src="/videos/hero.mp4"
+                      type="video/mp4"
+                    />
                   </video>
                   <div className="absolute inset-0 bg-black/20"></div>
                 </div>

@@ -112,11 +112,11 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
                         <div className="mb-2 bg-gradient-to-r from-yellow-50 to-transparent p-3 rounded-lg border-l-4 border-FFDF64">
                           <div className="flex items-baseline gap-2">
                             <span className="text-sm text-gray-500">À partir de</span>
-                            <span className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">7 890€*</span>
+                            <span className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">7 890€</span>
                           </div>
                           <div className="flex items-center gap-2 mt-1">
                             <span className="text-sm text-gray-600">Soit</span>
-                            <span className="text-base md:text-lg font-semibold text-gray-800">68€/mois**</span>
+                            <span className="text-base md:text-lg font-semibold text-gray-800">68€/mois</span>
                           </div>
                         </div>
                         <div className="flex items-center gap-2 bg-green-100 px-3 py-2 rounded-lg">

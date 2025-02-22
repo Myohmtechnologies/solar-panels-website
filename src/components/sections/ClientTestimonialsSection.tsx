@@ -3,13 +3,24 @@
 import { 
   ChatBubbleLeftRightIcon, 
   StarIcon,
-  PlayCircleIcon 
+  PlayCircleIcon,
+  SpeakerWaveIcon,
+  SpeakerXMarkIcon
 } from '@heroicons/react/24/solid';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const ClientTestimonialsSection = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(!isMuted);
+    }
+  };
 
   return (
     <section className="py-16 px-4 md:px-8 lg:px-12 bg-white">
@@ -81,20 +92,34 @@ const ClientTestimonialsSection = () => {
             <div className="w-full max-w-[400px] bg-white rounded-2xl shadow-lg overflow-hidden">
               <div className="relative aspect-[9/16]">
                 <video
-                  className="w-full h-full object-cover"
-                  controls
+                  ref={videoRef}
+                  className="w-full h-full object-cover rounded-lg"
                   playsInline
-                  loop
                   muted
+                  loop
                   autoPlay
-                  src="https://res.cloudinary.com/dz5sry4jz/video/upload/v1737742571/MyOhm-Testimonial_sd8nwb.mp4"
+                  controls
+                  preload="metadata"
                 >
-                  <source 
-                    src="https://res.cloudinary.com/dz5sry4jz/video/upload/v1737742571/MyOhm-Testimonial_sd8nwb.mp4" 
-                    type="video/mp4"
+                  <source
+                    type="video/webm"
+                    src="/videos/testimonial.webm"
                   />
-                  Votre navigateur ne supporte pas la lecture de vidéos.
+                  <source
+                    type="video/mp4"
+                    src="/videos/testimonial-optimized.mp4"
+                  />
                 </video>
+                <button
+                  onClick={toggleMute}
+                  className="absolute bottom-4 right-4 p-2 bg-white/80 rounded-full hover:bg-white transition-colors"
+                >
+                  {isMuted ? (
+                    <SpeakerXMarkIcon className="w-6 h-6 text-gray-800" />
+                  ) : (
+                    <SpeakerWaveIcon className="w-6 h-6 text-gray-800" />
+                  )}
+                </button>
               </div>
             </div>
           </div>

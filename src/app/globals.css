@@ -2,6 +2,96 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary: #ffeb99;
+  --secondary: #ffd700;
+  --accent: #ffa500;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Optimisations pour le mobile */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  /* Améliorer le tap target size */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.5rem;
+  }
+}
+
+/* Améliorer le CLS */
+img, video {
+  height: auto;
+  aspect-ratio: attr(width) / attr(height);
+}
+
+/* Optimiser le chargement des polices */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-var.woff2') format('woff2');
+}
+
+/* Animations optimisées */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Classes utilitaires pour l'optimisation */
+.lazy-image {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.lazy-image.loaded {
+  opacity: 1;
+}
+
+.content-visibility-auto {
+  content-visibility: auto;
+}
+
+/* Optimisations pour le rendu */
+.backface-hidden {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  perspective: 1000px;
+}
+
+/* Optimisations pour le texte */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
 @layer utilities {
   @keyframes gradient-xy {
     0% {
@@ -75,18 +165,4 @@
     background-size: 200% auto;
     animation: shine 3s linear infinite;
   }
-}
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary: #ffeb99;
-  --secondary: #ffd700;
-  --accent: #ffa500;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
 }

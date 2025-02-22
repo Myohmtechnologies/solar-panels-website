@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, Fragment } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRightIcon, CurrencyEuroIcon, SunIcon, BoltIcon, StarIcon } from '@heroicons/react/24/outline';
+import { ArrowRightIcon, CurrencyEuroIcon, MapPinIcon, BuildingOffice2Icon } from '@heroicons/react/24/outline';
+import { StarIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
@@ -24,7 +25,8 @@ const preloadImages = () => {
     const images = [
       '/images/google.png',
       '/images/rge1.png',
-      '/images/qualipv1.png'
+      '/images/qualipv1.png',
+      '/images/france-flag.png'
     ];
     
     images.forEach(src => {
@@ -85,8 +87,16 @@ const HeroSection = () => {
     };
   }, []);
 
+  const FranceFlagIcon = () => (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="8" width="28" height="16" rx="2" fill="white"/>
+      <rect x="2" y="8" width="9.33333" height="16" fill="#002395"/>
+      <rect x="20.6667" y="8" width="9.33333" height="16" fill="#ED2939"/>
+    </svg>
+  );
+
   return (
-    <section className="relative min-h-[85vh]">
+    <section className="relative min-h-[85vh] md:mt-0 -mt-[var(--header-mobile-height)]">
       {/* Fond simplifié */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#d7f0fc] to-white"></div>
       
@@ -115,55 +125,74 @@ const HeroSection = () => {
               </span>
               
               <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900">
-                Réduisez votre facture d'électricité{' '}
-                <span className="text-[#116290]">jusqu'à 70%</span>
+              <span className="text-[#116290]">Divisez par 2 </span>
+               votre facture d'électricité{' '}
+                
               </h1>
 
               {/* Mise en avant du prix */}
-              <motion.div
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="relative mt-6 p-6 rounded-2xl overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-[#ffeb99] to-[#ffb700] backdrop-blur-lg opacity-90"></div>
-                <div className="relative flex items-center gap-4">
-                  <div className="p-3 bg-white rounded-xl">
-                    <CurrencyEuroIcon className="h-8 w-8 text-[#116290]" />
+              <Link href="/simulator">
+                <motion.div
+                  initial={{ scale: 0.95, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.2 }}
+                  className="relative mt-6 p-6 rounded-2xl overflow-hidden group cursor-pointer"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#ffeb99] to-[#ffb700] backdrop-blur-lg opacity-90"></div>
+                  <div className="relative flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 bg-white rounded-xl">
+                        <CurrencyEuroIcon className="h-8 w-8 text-[#116290]" />
+                      </div>
+                      <div>
+                        <p className="text-[#116290] font-medium">Installation complète à partir de</p>
+                        <p className="text-3xl font-bold text-[#116290]">7 890€</p>
+                        <p className="text-sm text-[#116290]/80">Éligible aux aides de l'État jusq à 1 440€</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <motion.div
+                        initial={{ x: 0 }}
+                        whileHover={{ x: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ArrowRightIcon className="h-8 w-8 text-[#116290] transition-transform duration-200" />
+                      </motion.div>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-[#116290] font-medium">Installation complète à partir de</p>
-                    <p className="text-3xl font-bold text-[#116290]">7 890€</p>
-                    <p className="text-sm text-[#116290]/80">Éligible aux aides de l'État jusq à 1 440€</p>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-
-            {/* Features */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white/80 backdrop-blur rounded-xl p-4 shadow-sm border border-[#d7f0fc]">
-                <SunIcon className="h-8 w-8 text-[#ffb700] mb-2" />
-                <h3 className="font-semibold text-[#116290]">Production optimisée</h3>
-                <p className="text-sm text-gray-600">Panneaux haute performance Made in France</p>
-              </div>
-              <div className="bg-white/80 backdrop-blur rounded-xl p-4 shadow-sm border border-[#d7f0fc]">
-                <BoltIcon className="h-8 w-8 text-[#116290] mb-2" />
-                <h3 className="font-semibold text-[#116290]">Autoconsommation</h3>
-                <p className="text-sm text-gray-600">Stockage et gestion intelligente</p>
-              </div>
-            </div>
-
-            {/* CTA */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/simulator"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-br from-[#ffeb99] to-[#ffb700] text-[#116290] font-medium hover:shadow-lg hover:shadow-[#ffb700]/20 transition-all duration-200"
-              >
-                Calculer mes économies
-                <ArrowRightIcon className="ml-2 h-5 w-5" />
+                </motion.div>
               </Link>
-            </div>
+
+              {/* Features */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white/80 backdrop-blur rounded-xl p-4 shadow-sm border border-[#d7f0fc]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <FranceFlagIcon />
+                    <h3 className="font-semibold text-[#116290]">Made in France</h3>
+                  </div>
+                  <p className="text-sm text-gray-600">Panneaux photovoltaïques fabriqués en France</p>
+                </div>
+                <div className="bg-white/80 backdrop-blur rounded-xl p-4 shadow-sm border border-[#d7f0fc]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <MapPinIcon className="h-8 w-8 text-[#116290]" />
+                    <h3 className="font-semibold text-[#116290]">100% Local</h3>
+                  </div>
+                  <p className="text-sm text-gray-600">Entreprise PACA, 0 sous-traitance</p>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/simulator"
+                  className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-br from-[#ffeb99] to-[#ffb700] text-[#116290] font-medium hover:shadow-lg hover:shadow-[#ffb700]/20 transition-all duration-200"
+                >
+                  Calculer mes économies
+                  <ArrowRightIcon className="ml-2 h-5 w-5" />
+                </Link>
+              </div>
+            </motion.div>
           </div>
 
           {/* Formulaire droite - Chargé en différé */}

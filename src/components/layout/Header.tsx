@@ -223,7 +223,7 @@ const Header = () => {
       {/* Header Mobile */}
       <header 
         className={`
-          md:hidden fixed top-0 left-0 right-0 bg-white shadow-sm
+          md:hidden fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm
           transition-transform duration-[var(--transition-normal)]
           ${showMobileHeader ? 'translate-y-0' : '-translate-y-full'}
         `}

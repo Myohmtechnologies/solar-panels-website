@@ -206,9 +206,9 @@ const HeroSection = () => {
             <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-[#d7f0fc]">
               <div className="p-6 lg:p-8">
                 <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-[#116290]">
+                  <h2 className="text-2xl font-bold text-[#116290]">
                     Demandez votre étude gratuite
-                  </h3>
+                  </h2>
                   <p className="text-gray-600 mt-2">
                     Un expert vous rappelle sous 24h
                   </p>

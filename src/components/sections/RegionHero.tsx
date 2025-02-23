@@ -39,9 +39,9 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.3 }}
-              className="inline-block bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-4 py-2 rounded-full font-bold mb-4 md:mb-6"
+              className="inline-block bg-gradient-to-br from-[#ffeb99] to-[#ffb700] backdrop-blur-lg text-black px-4 py-2 rounded-full font-bold mb-4 md:mb-6"
             >
-              🎯 Offre Spéciale 2025
+              🎯 Offre Spéciale -5% jusqu'au 31/03/2025
             </motion.div>
 
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white font-bold mb-4">
@@ -66,7 +66,8 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
                   <div className="snap-center min-w-[280px] md:min-w-0 bg-white p-4 rounded-xl border-2 border-gray-200 hover:border-FFDF64 transition-all duration-300 shadow-sm hover:shadow-md flex-shrink-0">
                     <div className="text-center mb-3">
                       <h4 className="text-lg font-bold text-gray-900">Pack 3 kWc</h4>
-                      <p className="text-sm text-gray-500">Idéal petit foyer</p>
+                      <p className="text-sm text-gray-500">Maison 60m² - 100m²</p>
+                      <p className="text-xs text-gray-600 mt-1">6 Panneaux de 500W</p>
                     </div>
                     <div className="bg-green-100 p-2 rounded-lg text-center">
                       <p className="text-green-700 font-medium">-40% sur la facture</p>
@@ -77,7 +78,8 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
                   <div className="snap-center min-w-[280px] md:min-w-0 bg-white p-4 rounded-xl border-2 border-FFDF64 shadow-lg flex-shrink-0">
                     <div className="text-center mb-3">
                       <h4 className="text-lg font-bold text-gray-900">Pack 6 kWc</h4>
-                      <p className="text-sm text-gray-500">Idéal famille</p>
+                      <p className="text-sm text-gray-500">Maison 100m² - 150m²</p>
+                      <p className="text-xs text-gray-600 mt-1">12 Panneaux de 500W</p>
                     </div>
                     <div className="bg-green-100 p-2 rounded-lg text-center">
                       <p className="text-green-700 font-medium">-60% sur la facture</p>
@@ -88,7 +90,8 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
                   <div className="snap-center min-w-[280px] md:min-w-0 bg-white p-4 rounded-xl border-2 border-gray-200 hover:border-FFDF64 transition-all duration-300 shadow-sm hover:shadow-md flex-shrink-0">
                     <div className="text-center mb-3">
                       <h4 className="text-lg font-bold text-gray-900">Pack 9 kWc</h4>
-                      <p className="text-sm text-gray-500">Grande maison</p>
+                      <p className="text-sm text-gray-500">Maison 150m² et plus</p>
+                      <p className="text-xs text-gray-600 mt-1">18 Panneaux de 500W</p>
                     </div>
                     <div className="bg-green-100 p-2 rounded-lg text-center">
                       <p className="text-green-700 font-medium">-70% sur la facture</p>
@@ -97,68 +100,37 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
                   </div>
                 </div>
 
-                {/* Prix avec image - Optimisé mobile */}
+                {/* Section incitative au lieu du prix */}
                 <div className="mt-6 space-y-4">
-                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-gray-50 p-4 rounded-lg gap-4">
-                    <div className="flex items-center gap-4 w-full md:w-auto">
-                      <Image
-                        src="/images/panneaux-solaire.jpg"
-                        alt="Panneau solaire"
-                        width={150}
-                        height={150}
-                        className="rounded-lg object-cover hidden md:block"
-                      />
-                      <div className="w-full">
-                        <div className="mb-2 bg-gradient-to-r from-yellow-50 to-transparent p-3 rounded-lg border-l-4 border-FFDF64">
-                          <div className="flex items-baseline gap-2">
-                            <span className="text-sm text-gray-500">À partir de</span>
-                            <span className="text-3xl md:text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight">7 890€</span>
-                          </div>
-                          <div className="flex items-center gap-2 mt-1">
-                            <span className="text-sm text-gray-600">Soit</span>
-                            <span className="text-base md:text-lg font-semibold text-gray-800">68€/mois</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2 bg-green-100 px-3 py-2 rounded-lg">
-                          <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <div className="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-xl border-2 border-FFDF64">
+                    <h4 className="text-xl font-bold text-gray-900 mb-3">
+                      Découvrez nos prix 2025 et vos aides personnalisées
+                    </h4>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3">
+                        <div className="bg-white p-2 rounded-full">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6 text-green-600">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                           </svg>
-                          <span className="text-sm font-medium text-green-800">
-                            Jusqu'à <span className="font-bold">3 600€</span> d'aides de l'État
-                          </span>
                         </div>
+                        <span className="text-gray-700">Prix adaptés à votre consommation</span>
                       </div>
-                    </div>
-                    <div className="w-full md:w-auto text-center md:text-right">
-                      <p className="text-sm bg-FFDF64 text-black px-4 py-1.5 rounded-full font-medium animate-pulse inline-block">
-                        Offre limitée
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Avantages - Optimisé mobile */}
-                  <div className="space-y-3 bg-gray-50 p-4 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <div className="bg-white p-2 rounded flex items-center justify-center border border-gray-200 flex-shrink-0">
-                        <span className="text-2xl">🇫🇷</span>
+                      <div className="flex items-center gap-3">
+                        <div className="bg-white p-2 rounded-full">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6 text-yellow-600">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <span className="text-gray-700">Calcul immédiat de vos aides 2025</span>
                       </div>
-                      <span className="text-sm md:text-base text-gray-700">Installation panneaux solaires garantis 25 ans</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="bg-white p-2 rounded border border-gray-200 flex-shrink-0">
-                        <svg className="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
+                      <div className="flex items-center gap-3">
+                        <div className="bg-white p-2 rounded-full">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6 text-blue-600">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 14.25l6-6m4.5-3.493V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185zM9.75 9h.008v.008H9.75V9z" />
+                          </svg>
+                        </div>
+                        <span className="text-gray-700">-5% sur votre installation (offre limitée)</span>
                       </div>
-                      <span className="text-sm md:text-base text-gray-700">Installation par nos équipes qualifiées (0 sous-traitance)</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="bg-white p-2 rounded border border-gray-200 flex-shrink-0">
-                        <svg className="w-6 h-6 text-FFDF64" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                      </div>
-                      <span className="text-sm md:text-base text-gray-700">{ensoleillement} d'ensoleillement par an</span>
                     </div>
                   </div>
                 </div>
@@ -176,18 +148,13 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
             <div className="bg-white rounded-xl p-4 md:p-6 lg:p-8 shadow-2xl">
               <div className="text-center mb-6">
                 <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
-                  Demandez votre étude gratuite
+                  Recevez vos prix et aides 2025
                 </h2>
+                <p className="text-gray-600">
+                  Un expert vous rappelle sous 24h
+                </p>
               </div>
               <QuickLeadForm />
-              {/* Sécurisation */}
-              <div className="text-xs text-gray-500 mt-4 text-center">
-                🔒 Vos données sont protégées et ne seront jamais partagées
-                <br />
-                <a href="/privacy-policy" className="underline hover:text-gray-700">
-                  Politique de confidentialité
-                </a>
-              </div>
               {/* Trust Badges */}
               <div className="flex justify-center items-center gap-4 md:gap-6 mt-6 flex-wrap">
                 <Image
@@ -204,6 +171,13 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
                   height={40}
                   className="h-8 md:h-10 w-auto object-contain"
                 />
+                 <Image
+                  src="/images/dualsun-logo.svg"
+                  alt="Certification QualiPV"
+                  width={95}
+                  height={40}
+                  className="h-8 md:h-10 w-auto object-contain"
+                />
                 <div className="flex items-center gap-1">
                   <Image
                     src="/images/google.png"
@@ -212,7 +186,7 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
                     height={20}
                     className="w-5 h-5 md:w-6 md:h-6 object-contain"
                   />
-                  <span className="text-base md:text-lg font-medium text-gray-700">4,9/5</span>
+                  <span className="text-base md:text-lg font-medium text-gray-700">4,9/5 (158 avis)</span>
                 </div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { HomeIcon, SunIcon, BanknotesIcon, CheckCircleIcon, UserCircleIcon, StarIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, SunIcon, BanknotesIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 
 const CaseStudySection = () => {
   return (
@@ -18,8 +18,8 @@ const CaseStudySection = () => {
           />
           <div className="absolute inset-0 bg-black/40 flex items-end p-6">
             <div className="text-white">
-              <h3 className="text-xl font-bold mb-2">Maison individuelle à Manosque</h3>
-              <p className="text-sm">Installation de 12 panneaux solaires</p>
+              <h3 className="text-xl font-bold mb-2">Maison individuelle en PACA</h3>
+              <p className="text-sm">Installation photovoltaïque de 6kW</p>
             </div>
           </div>
         </div>
@@ -33,48 +33,51 @@ const CaseStudySection = () => {
           <div className="space-y-6">
             {/* Détail 1 */}
             <div className="flex items-center space-x-4 bg-white p-4 rounded-xl shadow-md">
-              <HomeIcon className="w-10 h-10 text-FFDF64" />
+              <HomeIcon className="w-10 h-10 text-[#116290]" />
               <div>
                 <h4 className="font-semibold text-gray-800">Profil du Client</h4>
-                <p className="text-gray-600">Famille de 5 personnes, maison de 120m²</p>
+                <p className="text-gray-600">Maison individuelle de 120m²</p>
+                <p className="text-sm text-gray-500">Consommation annuelle : 7 500 kWh</p>
               </div>
             </div>
 
             {/* Détail 2 */}
             <div className="flex items-center space-x-4 bg-white p-4 rounded-xl shadow-md">
-              <SunIcon className="w-10 h-10 text-FFDF64" />
+              <SunIcon className="w-10 h-10 text-[#116290]" />
               <div>
                 <h4 className="font-semibold text-gray-800">Installation</h4>
-                <p className="text-gray-600">12 panneaux de 500W, orientation Sud</p>
+                <p className="text-gray-600">12 panneaux de 500W (6kW au total)</p>
+                <p className="text-sm text-gray-500">Production annuelle : 8 400 kWh</p>
               </div>
             </div>
 
             {/* Détail 3 */}
             <div className="flex items-center space-x-4 bg-white p-4 rounded-xl shadow-md">
-              <BanknotesIcon className="w-10 h-10 text-FFDF64" />
+              <BanknotesIcon className="w-10 h-10 text-[#116290]" />
               <div>
-                <h4 className="font-semibold text-gray-800">Économies Annuelles</h4>
-                <p className="text-gray-600">Réduction de 50% sur la facture électrique</p>
+                <h4 className="font-semibold text-gray-800">Économies Réalisées</h4>
+                <p className="text-gray-600">Réduction de 65% sur la facture électrique</p>
                 <div className="mt-2 flex justify-between items-center">
-                  <span className="text-sm text-red-600 line-through">250€/mois avant</span>
-                  <span className="text-sm text-green-600 font-bold">90€/mois après</span>
+                  <span className="text-sm text-red-600 line-through">280€/mois avant</span>
+                  <span className="text-sm text-green-600 font-bold">98€/mois après</span>
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
-                  Économie : <span className="font-semibold text-green-600">160€/mois</span>
+                  Économie : <span className="font-semibold text-green-600">182€/mois</span>
                 </div>
               </div>
             </div>
 
             {/* Résultats */}
-            <div className="bg-gradient-to-br from-ffeb99 to-ffb700 p-6 rounded-2xl">
+            <div className="bg-gradient-to-br from-[#ffeb99] to-[#ffb700] p-6 rounded-2xl">
               <div className="flex items-center space-x-4">
-                <CheckCircleIcon className="w-10 h-10 text-black" />
+                <CheckCircleIcon className="w-10 h-10 text-[#116290]" />
                 <div>
-                  <h4 className="font-bold text-black">Résultats Clés</h4>
-                  <ul className="text-black/80 list-disc list-inside">
-                    <li>Investissement amorti en 5 ans</li>
-                    <li>Réduction de 2.5 tonnes de CO2/an</li>
-                    <li>Éligible aux aides gouvernementales</li>
+                  <h4 className="font-bold text-[#116290]">Résultats Clés</h4>
+                  <ul className="text-[#116290]/90 list-disc list-inside space-y-1">
+                    <li>Installation : 15 990€ (avant aides)</li>
+                    <li>Aides de l'État : jusqu'à 1 440€</li>
+                    <li>Retour sur investissement : 6-7 ans</li>
+                    <li>Réduction CO2 : 3.2 tonnes/an</li>
                   </ul>
                 </div>
               </div>

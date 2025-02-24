@@ -430,34 +430,6 @@ export default function QuickSimulateur() {
         Calculer mes économies et aides 2025
       </h2>
       
-      <div className="flex justify-between items-center mb-8">
-        {['status', 'housing', 'heating', 'bill', 'surface', 'contact'].map((step, index) => (
-          <div
-            key={step}
-            className={'flex items-center ' + (index !== 0 ? 'flex-1' : '')}
-          >
-            <div
-              className={'w-8 h-8 rounded-full flex items-center justify-center ' + 
-                (currentStep === step
-                  ? 'bg-green-500 text-white'
-                  : index < steps.indexOf(currentStep)
-                  ? 'bg-green-100 text-green-600'
-                  : 'bg-gray-100 text-gray-400')}
-            >
-              {index + 1}
-            </div>
-            {index !== 5 && (
-              <div
-                className={'flex-1 h-1 ' + 
-                  (index < steps.indexOf(currentStep)
-                    ? 'bg-green-500'
-                    : 'bg-gray-200')}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-
       {renderStep()}
 
       {/* Badges et certifications */}

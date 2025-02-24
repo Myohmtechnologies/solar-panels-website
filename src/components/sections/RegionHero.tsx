@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import QuickLeadForm from '../forms/QuickLeadForm';
+import QuickSimulateur from '../simulators/QuickSimulateur';
 
 interface RegionHeroProps {
   region: string;
@@ -45,7 +46,7 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
             </motion.div>
 
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white font-bold mb-4">
-              <span className="text-FFDF64">Divisez par 2</span> votre facture d'électricité en {region}
+              <span className="text-FFDF64">Divisez par 2</span> votre facture d'électricité dans la region PACA
             </h1>
 
             {/* Prix et rentabilité */}
@@ -138,59 +139,10 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
             </div>
           </motion.div>
 
-          {/* Formulaire à droite */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="w-full lg:w-5/12"
-          >
-            <div className="bg-white rounded-xl p-4 md:p-6 lg:p-8 shadow-2xl">
-              <div className="text-center mb-6">
-                <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
-                  Recevez vos prix et aides 2025
-                </h2>
-                <p className="text-gray-600">
-                  Un expert vous rappelle sous 24h
-                </p>
-              </div>
-              <QuickLeadForm />
-              {/* Trust Badges */}
-              <div className="flex justify-center items-center gap-4 md:gap-6 mt-6 flex-wrap">
-                <Image
-                  src="/images/rge1.png"
-                  alt="Certification RGE"
-                  width={85}
-                  height={40}
-                  className="h-8 md:h-10 w-auto object-contain"
-                />
-                <Image
-                  src="/images/qualipv1.png"
-                  alt="Certification QualiPV"
-                  width={95}
-                  height={40}
-                  className="h-8 md:h-10 w-auto object-contain"
-                />
-                 <Image
-                  src="/images/dualsun-logo.svg"
-                  alt="Certification QualiPV"
-                  width={95}
-                  height={40}
-                  className="h-8 md:h-10 w-auto object-contain"
-                />
-                <div className="flex items-center gap-1">
-                  <Image
-                    src="/images/google.png"
-                    alt="Google"
-                    width={20}
-                    height={20}
-                    className="w-5 h-5 md:w-6 md:h-6 object-contain"
-                  />
-                  <span className="text-base md:text-lg font-medium text-gray-700">4,9/5 (158 avis)</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          {/* Colonne de droite - Simulateur */}
+          <div className="transition-all duration-300 bg-white rounded-xl">
+            <QuickSimulateur />
+          </div>
         </div>
       </div>
     </section>

@@ -7,6 +7,7 @@ import { StarIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import QuickSimulateur from '../simulators/QuickSimulateur';
 
 // Imports dynamiques avec priorité
 const QuickLeadForm = dynamic(() => import('../forms/QuickLeadForm'), { 
@@ -95,6 +96,10 @@ const HeroSection = () => {
     </svg>
   );
 
+  const onRequestQuote = () => {
+    // Code pour la demande de devis
+  };
+
   return (
     <section className="relative min-h-[85vh] md:mt-0 -mt-[var(--header-mobile-height)]">
       {/* Fond simplifié */}
@@ -130,39 +135,87 @@ const HeroSection = () => {
                 
               </h1>
 
-              {/* Mise en avant du prix */}
-              <Link href="/simulator">
-                <motion.div
-                  initial={{ scale: 0.95, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                  className="relative mt-6 p-6 rounded-2xl overflow-hidden group cursor-pointer"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#ffeb99] to-[#ffb700] backdrop-blur-lg opacity-90"></div>
-                  <div className="relative flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="p-3 bg-white rounded-xl">
-                        <CurrencyEuroIcon className="h-8 w-8 text-[#116290]" />
-                      </div>
-                      <div>
-                        <p className="text-[#116290] font-medium">Installation complète à partir de</p>
-                        <p className="text-3xl font-bold text-[#116290]">7 890€</p>
-                        <p className="text-sm text-[#116290]/80">Éligible aux aides de l'État jusq à 1 440€</p>
-                      </div>
+              {/* Présentation des packs */}
+              <div className="mt-8">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+                  Nos Solutions Photovoltaïques 2025 🌟
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* Pack 3kWc */}
+                  <div className="bg-white/90 backdrop-blur-lg rounded-xl p-6 shadow-lg border border-gray-100 hover:border-green-500 transition-all duration-300">
+                    <div className="text-center mb-4">
+                      <h4 className="text-lg font-bold text-gray-900">Pack 3 kWc</h4>
+                      <p className="text-sm text-gray-600">Maison 60m² - 100m²</p>
+                      <p className="text-xs text-gray-500 mt-1">6 Panneaux de 500W</p>
                     </div>
-                    <div className="flex items-center">
-                      <motion.div
-                        initial={{ x: 0 }}
-                        whileHover={{ x: 5 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <ArrowRightIcon className="h-8 w-8 text-[#116290] transition-transform duration-200" />
-                      </motion.div>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-green-600">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-sm text-gray-700">-40% sur votre facture</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-green-600">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-sm text-gray-700">≈ 500€ d'économies/an</span>
+                      </div>
                     </div>
                   </div>
-                </motion.div>
-              </Link>
+
+                  {/* Pack 6kWc */}
+                  <div className="bg-white/90 backdrop-blur-lg rounded-xl p-6 shadow-xl border-2 border-green-500 relative">
+                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                      <span className="bg-green-500 text-white text-xs px-3 py-1 rounded-full">Le plus choisi</span>
+                    </div>
+                    <div className="text-center mb-4">
+                      <h4 className="text-lg font-bold text-gray-900">Pack 6 kWc</h4>
+                      <p className="text-sm text-gray-600">Maison 100m² - 150m²</p>
+                      <p className="text-xs text-gray-500 mt-1">12 Panneaux de 500W</p>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-green-600">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-sm text-gray-700">-60% sur votre facture</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-green-600">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-sm text-gray-700">≈ 1000€ d'économies/an</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Pack 9kWc */}
+                  <div className="bg-white/90 backdrop-blur-lg rounded-xl p-6 shadow-lg border border-gray-100 hover:border-green-500 transition-all duration-300">
+                    <div className="text-center mb-4">
+                      <h4 className="text-lg font-bold text-gray-900">Pack 9 kWc</h4>
+                      <p className="text-sm text-gray-600">Maison 150m² et plus</p>
+                      <p className="text-xs text-gray-500 mt-1">18 Panneaux de 500W</p>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-green-600">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-sm text-gray-700">-70% sur votre facture</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-green-600">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-sm text-gray-700">≈ 1500€ d'économies/an</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            
+              </div>
 
               {/* Features */}
               <div className="grid grid-cols-2 gap-4">
@@ -182,89 +235,14 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              {/* CTA */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/simulator"
-                  className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-br from-[#ffeb99] to-[#ffb700] text-[#116290] font-medium hover:shadow-lg hover:shadow-[#ffb700]/20 transition-all duration-200"
-                >
-                  Calculer mes économies
-                  <ArrowRightIcon className="ml-2 h-5 w-5" />
-                </Link>
-              </div>
+
             </motion.div>
           </div>
 
-          {/* Formulaire droite - Chargé en différé */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#ffeb99] to-[#ffb700] rounded-2xl blur-2xl opacity-10"></div>
-            <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-[#d7f0fc]">
-              <div className="p-6 lg:p-8">
-                <div className="text-center mb-6">
-                  <h2 className="text-2xl font-bold text-[#116290]">
-                    Demandez votre étude gratuite
-                  </h2>
-                  <p className="text-gray-600 mt-2">
-                    Un expert vous rappelle sous 24h
-                  </p>
-                </div>
-                <div className="relative">
-                  <QuickLeadForm />
-                </div>
-
-                {/* Google Rating */}
-                <div className="flex items-center justify-center gap-2 mt-6 mb-4">
-                  <Image
-                    src="/images/google.png"
-                    alt="Google"
-                    width={20}
-                    height={20}
-                    className="w-5 h-5"
-                    priority={true}
-                  />
-                  <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <StarIcon 
-                        key={i} 
-                        className={`h-5 w-5 ${i < 4 ? 'text-yellow-400' : 'text-yellow-400/90'}`}
-                      />
-                    ))}
-                  </div>
-                  <span className="font-medium text-gray-700">4,9/5</span>
-                  <span className="text-sm text-gray-500">(108 avis)</span>
-                </div>
-
-                {/* Trust badges */}
-                <div className="flex items-center justify-center gap-6 pt-6 mt-2 border-t border-[#d7f0fc]">
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src="/images/rge1.png"
-                      alt="Certification RGE"
-                      width={60}
-                      height={40}
-                      className="h-10 w-auto"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src="/images/qualipv1.png"
-                      alt="Certification RGE"
-                      width={60}
-                      height={40}
-                      className="h-10 w-auto"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          {/* Colonne de droite - Simulateur */}
+          <div className="transition-all duration-300">
+            <QuickSimulateur />
+          </div>
         </div>
       </div>
     </section>

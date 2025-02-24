@@ -27,18 +27,23 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
 
       <div className="relative container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
-          {/* Contenu à gauche */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="w-full lg:w-1/2 space-y-6"
-          >
-           
+          <div className="w-full lg:w-1/2 flex flex-col gap-8">
+            {/* Titre */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="space-y-6"
+            >
+              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white font-bold mb-4">
+                <span className="text-FFDF64">Divisez par 2</span> votre facture d'électricité dans la region PACA
+              </h1>
+            </motion.div>
 
-            <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white font-bold mb-4">
-              <span className="text-FFDF64">Divisez par 2</span> votre facture d'électricité dans la region PACA
-            </h1>
+            {/* Simulateur - Maintenant juste après le titre */}
+            <div className="w-full lg:hidden transition-all duration-300 bg-white rounded-xl">
+              <QuickSimulateur />
+            </div>
 
             {/* Prix et rentabilité */}
             <div className="space-y-4 md:space-y-6">
@@ -129,10 +134,10 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
                 </div>
               </motion.div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Colonne de droite - Simulateur */}
-          <div className="transition-all duration-300 bg-white rounded-xl">
+          <div className="hidden lg:block transition-all duration-300 bg-white rounded-xl">
             <QuickSimulateur />
           </div>
         </div>

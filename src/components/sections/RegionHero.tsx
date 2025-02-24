@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import QuickLeadForm from '../forms/QuickLeadForm';
 import QuickSimulateur from '../simulators/QuickSimulateur';
 
 interface RegionHeroProps {
@@ -14,7 +13,7 @@ interface RegionHeroProps {
 
 const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: RegionHeroProps) => {
   return (
-    <section className="relative min-h-screen flex items-center py-6 md:py-12">
+    <section className="relative min-h-screen flex items-center py-6 md:py-12 mt-16 md:mt-0">
       {/* Image de fond */}
       <Image
         src={imagePath}
@@ -35,15 +34,7 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
             transition={{ duration: 0.5 }}
             className="w-full lg:w-1/2 space-y-6"
           >
-            {/* Badge Promo */}
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.3 }}
-              className="inline-block bg-gradient-to-br from-[#ffeb99] to-[#ffb700] backdrop-blur-lg text-black px-4 py-2 rounded-full font-bold mb-4 md:mb-6"
-            >
-              🎯 Offre Spéciale -5% jusqu'au 31/03/2025
-            </motion.div>
+           
 
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white font-bold mb-4">
               <span className="text-FFDF64">Divisez par 2</span> votre facture d'électricité dans la region PACA
@@ -63,46 +54,47 @@ const RegionHero = ({ region, imagePath, ensoleillement, potentielSolaire }: Reg
                 </h3>
 
                 {/* Grid des packs en version mobile : scroll horizontal */}
-                <div className="flex md:grid md:grid-cols-3 gap-4 overflow-x-auto pb-4 md:pb-0 snap-x snap-mandatory">
-                  <div className="snap-center min-w-[280px] md:min-w-0 bg-white p-4 rounded-xl border-2 border-gray-200 hover:border-FFDF64 transition-all duration-300 shadow-sm hover:shadow-md flex-shrink-0">
-                    <div className="text-center mb-3">
+                <div className="flex flex-col gap-4">
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="snap-center bg-white p-4 rounded-xl border-2 border-gray-200 hover:border-FFDF64 transition-all duration-300 shadow-sm hover:shadow-md">
+                      <div>
                       <h4 className="text-lg font-bold text-gray-900">Pack 3 kWc</h4>
-                      <p className="text-sm text-gray-500">Maison 60m² - 100m²</p>
-                      <p className="text-xs text-gray-600 mt-1">6 Panneaux de 500W</p>
+                        <p className="text-sm text-gray-500">Maison 60m² - 100m²</p>
+                        <p className="text-xs text-gray-600 mt-1">6 Panneaux de 500W</p>
+                      </div>
                     </div>
-                    <div className="bg-green-100 p-2 rounded-lg text-center">
-                      <p className="text-green-700 font-medium">-40% sur la facture</p>
-                      <p className="text-sm text-green-600">≈ 500€/an</p>
+
+                    <div className="snap-center bg-white p-4 rounded-xl border-2 border-FFDF64 shadow-lg">
+                      <div>
+                        <h4 className="text-lg font-bold text-gray-900">Pack 6 kWc</h4>
+                        <p className="text-sm text-gray-500">Maison 100m² - 150m²</p>
+                        <p className="text-xs text-gray-600 mt-1">12 Panneaux de 500W</p>
+                      </div>
+                    </div>
+
+                    <div className="snap-center bg-white p-4 rounded-xl border-2 border-gray-200 hover:border-FFDF64 transition-all duration-300 shadow-sm hover:shadow-md">
+                      <div>
+                        <h4 className="text-lg font-bold text-gray-900">Pack 9 kWc</h4>
+                        <p className="text-sm text-gray-500">Maison 150m² et plus</p>
+                        <p className="text-xs text-gray-600 mt-1">18 Panneaux de 500W</p>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="snap-center min-w-[280px] md:min-w-0 bg-white p-4 rounded-xl border-2 border-FFDF64 shadow-lg flex-shrink-0">
-                    <div className="text-center mb-3">
-                      <h4 className="text-lg font-bold text-gray-900">Pack 6 kWc</h4>
-                      <p className="text-sm text-gray-500">Maison 100m² - 150m²</p>
-                      <p className="text-xs text-gray-600 mt-1">12 Panneaux de 500W</p>
-                    </div>
-                    <div className="bg-green-100 p-2 rounded-lg text-center">
-                      <p className="text-green-700 font-medium">-60% sur la facture</p>
-                      <p className="text-sm text-green-600">≈ 1000€/an</p>
-                    </div>
-                  </div>
-
-                  <div className="snap-center min-w-[280px] md:min-w-0 bg-white p-4 rounded-xl border-2 border-gray-200 hover:border-FFDF64 transition-all duration-300 shadow-sm hover:shadow-md flex-shrink-0">
-                    <div className="text-center mb-3">
-                      <h4 className="text-lg font-bold text-gray-900">Pack 9 kWc</h4>
-                      <p className="text-sm text-gray-500">Maison 150m² et plus</p>
-                      <p className="text-xs text-gray-600 mt-1">18 Panneaux de 500W</p>
-                    </div>
-                    <div className="bg-green-100 p-2 rounded-lg text-center">
-                      <p className="text-green-700 font-medium">-70% sur la facture</p>
-                      <p className="text-sm text-green-600">≈ 1500€/an</p>
+                  <div className="snap-center bg-white p-4 rounded-xl border-2 border-gray-200 hover:border-FFDF64 transition-all duration-300 shadow-sm hover:shadow-md w-full">
+                    <div className="flex items-center justify-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6 text-green-600">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-base font-medium text-gray-700">Jusqu'à -70% sur votre facture</span>
+                      <span className="mx-2">•</span>
+                      <span className="text-base font-medium text-gray-700">≈ 1500€ d'économies/an</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Section incitative au lieu du prix */}
-                <div className="mt-6 space-y-4">
+                <div className="hidden md:block mt-6 space-y-4">
                   <div className="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-xl border-2 border-FFDF64">
                     <h4 className="text-xl font-bold text-gray-900 mb-3">
                       Découvrez nos prix 2025 et vos aides personnalisées

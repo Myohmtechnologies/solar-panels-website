@@ -458,7 +458,7 @@ export default function QuickSimulateur() {
                 ))}
               </div>
               <span className="ml-1 text-sm font-medium">4.9/5</span>
-              <span className="ml-2 text-xs text-gray-500">(78 avis)</span>
+          
             </div>
           </div>
 

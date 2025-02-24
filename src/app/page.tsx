@@ -60,7 +60,6 @@ export default function Home() {
       <ClientTestimonialsSection />
       <CityActionButtons />
       <SolarBenefitsSection />
-      <CaseStudySection />
       <SolarPanelSection />
       <SolarInstallationStepsSection />
       <FaqSection />

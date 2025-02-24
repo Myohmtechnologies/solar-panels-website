@@ -2,15 +2,15 @@ export interface Lead {
   fullName: string;
   email: string;
   phone: string;
-  city: string;
-  address: string;
-  postalCode: string;
+  city?: string;
+  address?: string;
+  postalCode?: string;
   source: 'hero' | 'simulator';
-  estimations?: {
-    production?: number;
-    totalAnnualSavings?: number;
-    systemSize?: number;
-  };
+  notes?: string;
+  logementType?: string;
+  equipment?: string;
+  energyBill?: string;
+  residentialStatus?: string;
   createdAt: string;
 }
 
@@ -30,7 +30,11 @@ export async function submitLead(lead: Lead): Promise<{ success: boolean; error?
         postalCode: lead.postalCode,
         source: lead.source,
         projectType: 'SOLAR_PANELS',
-        notes: lead.estimations ? `Production: ${lead.estimations.production}kWh/an, Économies: ${lead.estimations.totalAnnualSavings}€/an, Puissance: ${lead.estimations.systemSize}kWc` : '',
+        notes: lead.notes || '',
+        logementType: lead.logementType,
+        equipment: lead.equipment,
+        energyBill: lead.energyBill,
+        residentialStatus: lead.residentialStatus
       }),
     });
 

@@ -88,11 +88,37 @@ export default function QuickSimulateur() {
     setSubmitError(null);
 
     try {
+      const estimations = calculateEstimations();
+      console.log('Estimations calculées:', estimations);
+      
+      // Enregistrer le lead avec le format exact attendu par l'API
+      const leadResult = await submitLead({
+        fullName: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        city: '',
+        address: '',
+        postalCode: '',
+        source: 'simulator',
+        notes: `Production: ${estimations.production}kWh/an, Économies: ${estimations.totalAnnualSavings}€/an, Puissance: ${estimations.systemSize}kWc`,
+        logementType: formData.housing,
+        equipment: formData.heating,
+        energyBill: formData.bill,
+        residentialStatus: formData.status,
+        createdAt: new Date().toISOString()
+      });
+
+      console.log('Réponse du service de lead:', leadResult);
+
+      if (!leadResult.success) {
+        throw new Error(leadResult.error || "Une erreur s'est produite lors de l'enregistrement");
+      }
+
       // Rediriger vers la page de remerciement
       router.push('/merci');
     } catch (error) {
-      console.error('Error:', error);
-      setSubmitError("Une erreur s'est produite. Veuillez réessayer.");
+      console.error('Erreur détaillée:', error);
+      setSubmitError(error instanceof Error ? error.message : "Une erreur s'est produite. Veuillez réessayer.");
       setIsSubmitting(false);
     }
   };

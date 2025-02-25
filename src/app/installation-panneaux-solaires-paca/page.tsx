@@ -2,97 +2,106 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import RegionHero from '@/components/sections/RegionHero';
-import PriceCalculator from '@/components/calculators/PriceCalculator';
-import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
-import FaqSection from '@/components/sections/FaqSection';
-import CaseStudySection from '@/components/sections/CaseStudySection';
 import PacaPageTracker from '@/components/tracking/PacaPageTracker';
-import SolarTechnologySection from '@/components/sections/SolarTechnologySection';
+
+// Optimisation des imports dynamiques avec préchargement
+const PriceCalculator = dynamic(() => import('@/components/calculators/PriceCalculator'), {
+  loading: () => <div className="animate-pulse bg-gray-100 rounded-xl p-8" />,
+});
+
+const ClientTestimonialsSection = dynamic(() => import('@/components/sections/ClientTestimonialsSection'), {
+  loading: () => <div className="animate-pulse bg-gray-100 h-[300px]" />,
+});
+
+const SolarTechnologySection = dynamic(() => import('@/components/sections/SolarTechnologySection'), {
+  loading: () => <div className="animate-pulse bg-gray-100 h-[300px]" />,
+});
+
+const CaseStudySection = dynamic(() => import('@/components/sections/CaseStudySection'), {
+  loading: () => <div className="animate-pulse bg-gray-100 h-[300px]" />,
+});
+
+const FaqSection = dynamic(() => import('@/components/sections/FaqSection'), {
+  loading: () => <div className="animate-pulse bg-gray-100 h-[200px]" />,
+});
+
+// Préchargement des sections importantes
+const preloadComponents = () => {
+  const componentsToPreload = [
+    () => import('@/components/calculators/PriceCalculator'),
+    () => import('@/components/sections/ClientTestimonialsSection'),
+  ];
+  
+  componentsToPreload.forEach(component => {
+    component();
+  });
+};
 
 const regionData = {
   name: 'PACA',
   fullName: 'Provence-Alpes-Côte d\'Azur',
-  title: "Installation Panneaux Solaires en PACA - Devis Gratuit",
-  description: "Installation de panneaux solaires en PACA par des experts certifiés. Demandez votre devis gratuit et découvrez les aides 2025.",
+  title: "Installation Panneaux Solaires PACA - Devis Gratuit 2025",
+  description: "✓ Devis Gratuit ✓ Installation en 2-3 jours ✓ Jusqu'à -70% d'économies ✓ Aides 2025 incluses. Experts certifiés RGE en PACA.",
   heroImage: '/images/installateur-de-panneaux-photovoltaiques-aix-en-provence.jpeg',
   ensoleillement: '2800 heures/an',
   potentielSolaire: '1600 kWh/m²/an',
   stats: [
     {
+      value: '3J',
+      label: 'Installation Express',
+      description: 'Installation en 2-3 jours'
+    },
+    {
+      value: '-70%',
+      label: 'Sur votre facture',
+      description: 'Économies maximales'
+    },
+    {
       value: '100%',
-      label: 'Satisfaction Client',
-      description: 'Installateur certifié RGE'
-    },
-    {
-      value: '2800',
-      label: 'Heures d\'ensoleillement',
-      description: 'Idéal pour le solaire en PACA'
-    },
-    {
-      value: '30%',
-      label: 'D\'économies moyennes',
-      description: 'Sur votre facture d\'électricité'
+      label: 'Made in France',
+      description: 'Panneaux français'
     }
   ],
   advantages: [
     {
-      title: 'Devis Détaillé et Gratuit',
-      description: 'Obtenez une étude complète de votre projet avec estimation des coûts et des économies.'
+      title: 'Installation Express',
+      description: 'Installation professionnelle en 2-3 jours par nos experts certifiés.'
     },
     {
-      title: 'Installation Professionnelle',
-      description: 'Notre équipe d\'experts assure une installation de qualité, adaptée à votre toiture.'
+      title: 'Économies Garanties',
+      description: 'Réduisez jusqu\'à 70% votre facture d\'électricité dès la première année.'
     },
     {
-      title: 'Aides Financières',
-      description: 'Profitez des subventions locales et nationales pour réduire votre investissement.'
+      title: 'Aides 2025 Incluses',
+      description: 'Profitez des subventions maximales : MaPrimeRénov\', ECO-PTZ, et aides régionales PACA.'
     }
   ],
   faqs: [
     {
-      question: 'Comment obtenir un devis pour l\'installation de panneaux solaires en PACA ?',
-      answer: 'Vous pouvez obtenir un devis gratuit et personnalisé en quelques clics via notre formulaire en ligne. Un expert vous contactera sous 24h pour affiner votre projet et répondre à vos questions.'
+      question: 'Quel est le délai d\'installation des panneaux solaires en PACA ?',
+      answer: 'Notre équipe certifiée réalise l\'installation en 2-3 jours ouvrés après acceptation du devis. Le processus complet, incluant les démarches administratives, prend environ 2-3 mois.'
     },
     {
-      question: 'Quelles sont les aides disponibles en région PACA ?',
-      answer: 'En PACA, vous pouvez bénéficier de MaPrimeRénov\', l\'éco-prêt à taux zéro, la prime à l\'autoconsommation, et des aides régionales. Lors de votre devis, nous calculons toutes les aides auxquelles vous avez droit.'
+      question: 'Quelles économies puis-je réaliser avec des panneaux solaires en PACA ?',
+      answer: 'En PACA, grâce à l\'ensoleillement exceptionnel (2800h/an), nos clients réalisent en moyenne 70% d\'économies sur leur facture d\'électricité. Le retour sur investissement est généralement entre 4 et 6 ans avec les aides 2025.'
     },
     {
-      question: 'Quel est le délai pour une installation après acceptation du devis ?',
-      answer: 'Après validation de votre devis, le délai moyen d\'installation est de 2 à 3 jours. Le processus complet, incluant les démarches administratives, prend généralement 2 à 3 mois.'
+      question: 'Quelles sont les aides disponibles en 2025 pour la région PACA ?',
+      answer: 'En 2025, vous pouvez cumuler : MaPrimeRénov\' (jusqu\'à 4000€), la prime à l\'autoconsommation, l\'éco-PTZ (prêt à taux zéro), et les aides régionales PACA. Lors de votre devis gratuit, nous calculons toutes vos aides personnalisées.'
     }
   ]
 };
 
 export default function SolarInstallationLandingPage() {
+  preloadComponents();
+
   return (
     <>
       <PacaPageTracker />
       <main className="bg-white">
-        {/* Header minimaliste */}
-        <header className="fixed top-0 left-0 right-0 bg-white text-black shadow-sm z-50 px-4 md:px-[10%] py-4 flex justify-between items-center">
-          <Link href="/" className="logo shrink-0">
-            <Image
-              src="/images/logo.png"
-              alt="Logo"
-              width={190}
-              height={50}
-              className="w-[190px] h-auto md:w-[210px]"
-              priority
-            />
-          </Link>
-          <Link 
-            href="tel:0492766858" 
-            className="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-1.5 md:py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-all duration-300 shadow-md hover:shadow-lg ml-2"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 md:w-5 md:h-5 shrink-0">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
-            </svg>
-            <span className="font-bold text-sm md:text-base whitespace-nowrap">04 92 76 68 58</span>
-            <span className="text-[10px] md:text-xs bg-white text-green-500 px-1.5 md:px-2 py-0.5 md:py-1 rounded-full ml-1 md:ml-2 hidden sm:inline-block whitespace-nowrap">Appel gratuit</span>
-          </Link>
-        </header>
+     
 
         <RegionHero 
           region={regionData.fullName}
@@ -101,33 +110,51 @@ export default function SolarInstallationLandingPage() {
           potentielSolaire={regionData.potentielSolaire}
         />
 
+        {/* Avantages clés - Nouvelle section */}
+        <section className="py-12 px-4 bg-white">
+          <div className="container mx-auto max-w-6xl">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {regionData.advantages.map((advantage, index) => (
+                <div key={index} className="bg-gray-50 rounded-xl p-6 border border-gray-100">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{advantage.title}</h3>
+                  <p className="text-gray-600">{advantage.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        
         <ClientTestimonialsSection />
 
-        {/* Calculateur de prix */}
-        <section className="py-16 px-4 bg-gray-50">
-          <div className="container mx-auto">
+        {/* Calculateur de prix - Priorité plus haute */}
+        <section className="py-16 px-4 bg-[#116290]/5">
+          <div className="container mx-auto max-w-5xl">
             <h2 className="text-3xl font-bold mb-8 text-center">
-              Calculez vos economis
+              Calculez vos économies d'énergie
             </h2>
             <PriceCalculator />
           </div>
         </section>
 
+        
+        
         <SolarTechnologySection />
 
         <CaseStudySection />
 
-        {/* FAQ Section */}
         <FaqSection faqs={regionData.faqs} />
 
-        {/* CTA Final */}
-        <section className="py-16 px-4 bg-FFDF64">
-          <div className="container mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-8">
-              Prêts à réduire votre facture d'électricité ?
+        {/* CTA Final optimisé */}
+        <section className="py-16 px-4 bg-gradient-to-br from-[#116290] to-[#0c4668] text-white">
+          <div className="container mx-auto max-w-4xl text-center">
+            <h2 className="text-3xl font-bold mb-4">
+              Réduisez votre facture d'électricité dès maintenant
             </h2>
-            <button className="bg-black text-white px-8 py-4 rounded-full text-xl font-bold hover:bg-gray-800 transition-colors">
-              Demander un devis gratuit
+            <p className="text-lg mb-8 text-gray-100">
+              Profitez des aides 2025 et de notre installation express en 2-3 jours
+            </p>
+            <button className="bg-white text-[#116290] px-8 py-4 rounded-full text-xl font-bold hover:bg-gray-100 transition-colors shadow-xl hover:shadow-2xl transform hover:-translate-y-1">
+              Obtenir mon devis gratuit
             </button>
           </div>
         </section>

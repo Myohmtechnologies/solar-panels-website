@@ -1,110 +1,68 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import QuickSimulateur from '@/components/simulateurs/QuickSimulateur';
 
 export default function HeroSection() {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Désactiver les animations sur mobile pour améliorer les performances
+  const shouldAnimate = typeof window !== 'undefined' && window.innerWidth > 768;
+
+  const motionProps = shouldAnimate ? {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6 }
+  } : {};
 
   return (
-    <section className="relative py-20 overflow-hidden bg-white">
-      <Image
-        src="/images/hero-paca.jpg"
-        alt="Installation panneaux solaires PACA"
-        fill
-        priority
-        className="object-cover z-0"
-        quality={90}
-      />
+    <section className="relative py-20 bg-gradient-to-b from-[#126290] to-[#0c4a6e]">
       <div className="container mx-auto px-4">
-        {/* Titre visible uniquement sur mobile */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8 lg:hidden"
+          {...motionProps}
+          className="relative z-10 max-w-3xl mx-auto text-center"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">
+          {/* Titre */}
+          <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-8">
             🔆 Passez au Solaire et Économisez Jusqu'à 70% sur Votre Facture d'Électricité !
           </h1>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          {/* Contenu de gauche - visible uniquement en desktop */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6 hidden lg:block"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">
-              🔆 Passez au Solaire et Économisez Jusqu'à 70% sur Votre Facture d'Électricité !
-            </h1>
-            <div className="space-y-4">
-              <p className="text-xl text-black">
-                Profitez des Aides de l'État Jusqu'à 3 600 € – Simulation Gratuite en 2 Min
-              </p>
-              <ul className="space-y-3">
-                <li className="flex items-center text-black">
-                  <span className="mr-2">✅</span>
-                  Installation rapide avec un installateur certifié RGE
-                </li>
-                <li className="flex items-center text-black">
-                  <span className="mr-2">✅</span>
-                  Des économies garanties dès la 1ʳᵉ année
-                </li>
-              </ul>
-              <div className="bg-yellow-100 p-4 rounded-lg text-black">
-                <p className="flex items-center">
-                  <span className="mr-2">📍</span>
-                  Disponible dans toute la région PACA : Marseille, Nice, Toulon, Avignon...
-                </p>
-              </div>
-            </div>
-          </motion.div>
 
           {/* Simulateur */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:max-w-lg mx-auto w-full"
-          >
-            <QuickSimulateur onStepChange={setCurrentStep} />
-          </motion.div>
+          {isMounted && <div className="mb-12"><QuickSimulateur /></div>}
 
-          {/* Contenu restant - visible uniquement sur mobile */}
+          {/* Reste des informations */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6 lg:hidden"
+            {...motionProps}
+            className="space-y-8"
           >
-            <div className="space-y-4">
-              <p className="text-xl text-black">
-                Profitez des Aides de l'État Jusqu'à 3 600 € – Simulation Gratuite en 2 Min
+            <p className="text-lg md:text-xl text-black">
+              Profitez des Aides de l'État Jusqu'à 3 600 € – Simulation Gratuite en 2 Min
+            </p>
+            
+            <ul className="space-y-3">
+              <li className="flex items-center text-black justify-center">
+                <span className="mr-2">✅</span>
+                Installation rapide avec un installateur certifié RGE
+              </li>
+              <li className="flex items-center text-black justify-center">
+                <span className="mr-2">✅</span>
+                Des économies garanties dès la 1ʳᵉ année
+              </li>
+            </ul>
+
+            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg text-black">
+              <p className="flex items-center justify-center">
+                <span className="mr-2">📍</span>
+                Disponible dans toute la région PACA : Marseille, Nice, Toulon, Avignon...
               </p>
-              <ul className="space-y-3">
-                <li className="flex items-center text-black">
-                  <span className="mr-2">✅</span>
-                  Installation rapide avec un installateur certifié RGE
-                </li>
-                <li className="flex items-center text-black">
-                  <span className="mr-2">✅</span>
-                  Des économies garanties dès la 1ʳᵉ année
-                </li>
-              </ul>
-              <div className="bg-yellow-100 p-4 rounded-lg text-black">
-                <p className="flex items-center">
-                  <span className="mr-2">📍</span>
-                  Disponible dans toute la région PACA : Marseille, Nice, Toulon, Avignon...
-                </p>
-              </div>
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

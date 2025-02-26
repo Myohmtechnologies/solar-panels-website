@@ -224,9 +224,21 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
           animate={{ opacity: 1, x: 0 }}
           className="p-6 space-y-6"
         >
+          <div className="bg-gradient-to-r from-green-500 to-green-600 p-5 rounded-lg mb-6 shadow-lg transform -translate-y-2 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 transform translate-x-8 -translate-y-8">
+              <div className="w-full h-full bg-yellow-300 opacity-20 rounded-full"></div>
+            </div>
+            <div className="flex items-center">
+              <span className="text-4xl mr-4">🎉</span>
+              <div>
+                <h4 className="font-bold text-white text-xl mb-1">BONNE NOUVELLE !</h4>
+                <p className="text-white text-lg font-medium">Vous êtes éligible aux aides de l'État jusqu'à <span className="font-bold text-yellow-300 text-xl">3 600€</span> pour votre installation solaire.</p>
+              </div>
+            </div>
+          </div>
           <div className="space-y-4">
             <h3 className="text-xl font-semibold text-center text-black">
-              Recevez votre devis personnalisé
+              Laissez vos coordonnées, un expert en énergie va vous contacter pour vous aider
             </h3>
             <div className="space-y-4">
               <input
@@ -263,7 +275,7 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
                   : 'bg-gradient-to-r from-[#126290] to-[#1a7ab3] hover:shadow-lg'
               }`}
             >
-              {isSubmitting ? 'Envoi en cours...' : 'Obtenir mon devis gratuit'}
+              {isSubmitting ? 'Envoi en cours...' : 'Être contacté par un expert'}
             </button>
           </div>
         </motion.div>

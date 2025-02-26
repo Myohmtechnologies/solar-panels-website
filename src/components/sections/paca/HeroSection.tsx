@@ -21,48 +21,45 @@ export default function HeroSection() {
   } : {};
 
   return (
-    <section className="relative py-20 bg-gradient-to-b from-[#126290] to-[#0c4a6e]">
-      <div className="container mx-auto px-4">
-        <motion.div
-          {...motionProps}
-          className="relative z-10 max-w-3xl mx-auto text-center"
-        >
-          {/* Titre */}
-          <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-8">
+    <section className="relative min-h-screen bg-gradient-to-b from-blue-400 to-blue-200">
+      {/* Contenu */}
+      <div className="relative z-10 container mx-auto px-4 py-20">
+        <div className="max-w-4xl mx-auto text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-8">
             🔆 Passez au Solaire et Économisez Jusqu'à 70% sur Votre Facture d'Électricité !
           </h1>
+        </div>
 
-          {/* Simulateur */}
-          {isMounted && <div className="mb-12"><QuickSimulateur /></div>}
+        <div className="max-w-3xl mx-auto bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 mb-12">
+          {isMounted && <QuickSimulateur />}
+        </div>
 
-          {/* Reste des informations */}
-          <motion.div
-            {...motionProps}
-            className="space-y-8"
-          >
-            <p className="text-lg md:text-xl text-black">
-              Profitez des Aides de l'État Jusqu'à 3 600 € – Simulation Gratuite en 2 Min
+        <div className="max-w-3xl mx-auto text-white">
+          <div className="bg-white/20 backdrop-blur-sm rounded-xl p-6 mb-8">
+            <p className="text-lg font-semibold mb-4 text-center">
+              Profitez des Aides de l'État Jusqu'à 3 600€ !
             </p>
-            
-            <ul className="space-y-3">
-              <li className="flex items-center text-black justify-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-center">
                 <span className="mr-2">✅</span>
-                Installation rapide avec un installateur certifié RGE
-              </li>
-              <li className="flex items-center text-black justify-center">
+                <span>Installation rapide avec un installateur certifié RGE</span>
+              </div>
+              <div className="flex items-center">
                 <span className="mr-2">✅</span>
-                Des économies garanties dès la 1ʳᵉ année
-              </li>
-            </ul>
-
-            <div className="bg-white/10 backdrop-blur-sm p-4 rounded-lg text-black">
-              <p className="flex items-center justify-center">
-                <span className="mr-2">📍</span>
-                Disponible dans toute la région PACA : Marseille, Nice, Toulon, Avignon...
-              </p>
+                <span>Des économies garanties dès la 1ʳᵉ année</span>
+              </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+
+          <div className="text-center">
+            <p className="text-xl font-semibold mb-2">
+              Disponible dans toute la région PACA
+            </p>
+            <p className="text-sm opacity-90">
+              Marseille · Nice · Toulon · Avignon...
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

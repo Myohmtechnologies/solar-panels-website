@@ -10,7 +10,7 @@ const CaseStudySection = () => {
         {/* Image et Détails de l'Installation */}
         <div className="relative rounded-3xl overflow-hidden shadow-2xl transform transition-transform hover:scale-[1.02]">
           <Image 
-            src="/images/case-study/installation-de-panneaux-solaire-a-manosque.jpg" 
+            src="/images/installation-panneaux-solaire-a-manosque.jpg" 
             alt="Installation de panneaux solaires" 
             width={800} 
             height={700} 

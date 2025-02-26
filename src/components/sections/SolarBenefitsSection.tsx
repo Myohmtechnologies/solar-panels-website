@@ -14,7 +14,7 @@ const SolarBenefitsSection = () => {
     <section className="py-16 px-4 md:px-8 lg:px-12 bg-gradient-to-br from-f0f4f8 to-e1e7f0">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl font-bold text-gray-900 text-center mb-4">
-          Pourquoi passer à l&apos;énergie solaire ?
+          Pourquoi faut-il installer des panneaux solaires?
         </h2>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">

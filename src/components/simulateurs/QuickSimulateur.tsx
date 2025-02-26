@@ -3,12 +3,14 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { HomeIcon, BuildingOfficeIcon, BoltIcon, CurrencyEuroIcon, FireIcon } from '@heroicons/react/24/outline';
+import { useRouter } from 'next/navigation';
 
 interface QuickSimulateurProps {
   onStepChange?: (step: number) => void;
 }
 
 export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     type: '',
@@ -18,6 +20,7 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
     email: '',
     telephone: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -28,9 +31,51 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Formulaire soumis:', formData);
+    if (isSubmitting) return;
+
+    // Validation basique
+    if (!formData.nom || !formData.email || !formData.telephone) {
+      alert('Veuillez remplir tous les champs');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.nom,
+          email: formData.email,
+          phone: formData.telephone,
+          projectType: 'SOLAR_PANELS',
+          source: 'QUICK_SIMULATOR',
+          notes: `Type de logement: ${formData.type}, Type de chauffage: ${formData.chauffage}, Facture électrique: ${formData.facture}`,
+          simulatorData: {
+            logementType: formData.type,
+            equipment: formData.chauffage,
+            energyBill: formData.facture
+          }
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'envoi du formulaire');
+      }
+
+      // Redirection vers la page de remerciement
+      router.push('/merci');
+    } catch (error) {
+      console.error('Erreur:', error);
+      alert('Une erreur est survenue. Veuillez réessayer.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -179,65 +224,47 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
           animate={{ opacity: 1, x: 0 }}
           className="p-6 space-y-6"
         >
-          <div className="bg-gradient-to-br from-ffeb99 to-ffb700 p-6 rounded-xl text-black text-center mb-8">
-            <p className="text-2xl font-bold mb-2">🎉 Bonne nouvelle !</p>
-            <p className="text-lg mb-2">Vous êtes éligible aux aides de l'État jusqu'à 3 600 € !</p>
-            <p className="text-base opacity-90">Recevez gratuitement votre étude personnalisée détaillant toutes les aides disponibles et une estimation précise des coûts 📋✨</p>
-          </div>
-
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <label htmlFor="nom" className="block text-sm font-semibold text-black">
-                Nom complet
-              </label>
+          <div className="space-y-4">
+            <h3 className="text-xl font-semibold text-center text-black">
+              Recevez votre devis personnalisé
+            </h3>
+            <div className="space-y-4">
               <input
                 type="text"
-                id="nom"
+                placeholder="Votre nom"
                 value={formData.nom}
                 onChange={(e) => handleInputChange('nom', e.target.value)}
-                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-[#126290] focus:ring-2 focus:ring-[#126290] focus:ring-opacity-50 transition-all"
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#126290] focus:border-transparent"
                 required
               />
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="email" className="block text-sm font-semibold text-black">
-                Adresse e-mail
-              </label>
               <input
                 type="email"
-                id="email"
+                placeholder="Votre email"
                 value={formData.email}
                 onChange={(e) => handleInputChange('email', e.target.value)}
-                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-[#126290] focus:ring-2 focus:ring-[#126290] focus:ring-opacity-50 transition-all"
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#126290] focus:border-transparent"
                 required
               />
-            </div>
-
-            <div className="space-y-2">
-              <label htmlFor="telephone" className="block text-sm font-semibold text-black">
-                Numéro de téléphone
-              </label>
               <input
                 type="tel"
-                id="telephone"
+                placeholder="Votre téléphone"
                 value={formData.telephone}
                 onChange={(e) => handleInputChange('telephone', e.target.value)}
-                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-[#126290] focus:ring-2 focus:ring-[#126290] focus:ring-opacity-50 transition-all"
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#126290] focus:border-transparent"
                 required
               />
             </div>
-
             <button
               type="submit"
-              className="w-full bg-gradient-to-br from-[#126290] to-[#1a7ab3] text-white py-5 px-6 rounded-xl hover:shadow-lg transition-all font-semibold text-lg"
+              disabled={isSubmitting}
+              className={`w-full py-4 px-6 text-white font-semibold rounded-lg transition-all ${
+                isSubmitting
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-[#126290] to-[#1a7ab3] hover:shadow-lg'
+              }`}
             >
-              Obtenir mon devis GRATUIT
+              {isSubmitting ? 'Envoi en cours...' : 'Obtenir mon devis gratuit'}
             </button>
-
-            <p className="text-sm text-center text-gray-600">
-              Nous respectons vos données – Aucune sollicitation abusive.
-            </p>
           </div>
         </motion.div>
       )}

@@ -65,17 +65,16 @@ model Customer {
 }
 
 model Lead {
-  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
-  fullName           String
-  email              String
-  phone              String
-  city               String
-  source             String
-  production         Int?
-  totalAnnualSavings Float?
-  systemSize         Int?
-  createdAt          DateTime @default(now())
-  status             String   @default("new")
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  type      String?
+  chauffage String?
+  facture   String?
+  nom       String
+  email     String
+  telephone String
+  source    String   @default("quick-simulateur")
+  status    String   @default("nouveau")
+  createdAt DateTime @default(now())
 }
 
 enum Role {

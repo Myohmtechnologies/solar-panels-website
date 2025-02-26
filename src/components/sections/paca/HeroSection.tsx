@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import QuickSimulateur from '@/components/simulateurs/QuickSimulateur';
 
 export default function HeroSection() {
@@ -9,6 +10,14 @@ export default function HeroSection() {
 
   return (
     <section className="relative py-20 overflow-hidden bg-white">
+      <Image
+        src="/images/hero-paca.jpg"
+        alt="Installation panneaux solaires PACA"
+        fill
+        priority
+        className="object-cover z-0"
+        quality={90}
+      />
       <div className="container mx-auto px-4">
         {/* Titre visible uniquement sur mobile */}
         <motion.div

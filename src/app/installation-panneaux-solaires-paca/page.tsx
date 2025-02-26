@@ -1,9 +1,15 @@
 import HeroSection from '@/components/sections/paca/HeroSection';
-import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
+import dynamic from 'next/dynamic';
 import PricingSection from '@/components/sections/paca/PricingSection';
 import WhySolarSection from '@/components/sections/paca/WhySolarSection';
 import { Metadata } from 'next';
-import PriceCalculator from '@/components/calculators/PriceCalculator';
+import PriceCalculatorWrapper from '@/components/wrappers/PriceCalculatorWrapper';
+
+// Chargement dynamique des composants non-critiques
+const ClientTestimonialsSection = dynamic(
+  () => import('@/components/sections/ClientTestimonialsSection'),
+  { ssr: true, loading: () => <div className="h-96 bg-gray-50" /> }
+);
 
 export const metadata: Metadata = {
   title: "Installation Panneaux Solaires PACA - Économisez Jusqu'à 70% | My Ohm Technologies",
@@ -22,9 +28,9 @@ export default function PacaPage() {
   return (
     <main className="min-h-screen bg-white">
       <HeroSection />
-      <ClientTestimonialsSection />
       <WhySolarSection />
-      <PriceCalculator />
+      <ClientTestimonialsSection />
+      <PriceCalculatorWrapper />
       <PricingSection />
     </main>
   );

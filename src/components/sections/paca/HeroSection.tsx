@@ -6,13 +6,12 @@ import QuickSimulateur from '@/components/simulateurs/QuickSimulateur';
 
 export default function HeroSection() {
   const [isMounted, setIsMounted] = useState(false);
+  const [shouldAnimate, setShouldAnimate] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
+    setShouldAnimate(window.innerWidth > 768);
   }, []);
-
-  // Désactiver les animations sur mobile pour améliorer les performances
-  const shouldAnimate = typeof window !== 'undefined' && window.innerWidth > 768;
 
   const motionProps = shouldAnimate ? {
     initial: { opacity: 0, y: 20 },
@@ -34,7 +33,7 @@ export default function HeroSection() {
           {isMounted && <QuickSimulateur />}
         </div>
 
-        <div className="max-w-3xl mx-auto text-white">
+        <div className="max-w-3xl mx-auto text-black">
           <div className="bg-white/20 backdrop-blur-sm rounded-xl p-6 mb-8">
             <p className="text-lg font-semibold mb-4 text-center">
               Profitez des Aides de l'État Jusqu'à 3 600€ !

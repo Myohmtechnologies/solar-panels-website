@@ -6,20 +6,9 @@ import { Metadata } from 'next';
 import PriceCalculatorWrapper from '@/components/wrappers/PriceCalculatorWrapper';
 import MobileOptimizer from '@/components/optimizations/MobileOptimizer';
 
-// Chargement dynamique des composants non-critiques avec un délai plus long sur mobile
+// Chargement dynamique des composants non-critiques
 const ClientTestimonialsSection = dynamic(
-  () => {
-    // Délai plus long sur mobile pour prioriser le contenu critique
-    if (typeof window !== 'undefined' && window.innerWidth <= 768) {
-      return new Promise(resolve => 
-        setTimeout(() => 
-          import('@/components/sections/ClientTestimonialsSection').then(resolve), 
-          2000
-        )
-      );
-    }
-    return import('@/components/sections/ClientTestimonialsSection');
-  },
+  () => import('@/components/sections/ClientTestimonialsSection'),
   { 
     ssr: true,
     loading: () => <div className="h-96 bg-gray-50 animate-pulse" />

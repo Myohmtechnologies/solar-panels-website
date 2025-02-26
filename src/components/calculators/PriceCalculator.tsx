@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ContactModal from '../modals/ContactModal';
@@ -15,31 +17,72 @@ interface FormData {
   showContactForm: boolean;
 }
 
+const defaultFormData: FormData = {
+  houseSize: 'medium',
+  monthlyBill: 'medium',
+  orientation: 'sud',
+  showContactForm: false
+};
+
+const defaultContactInfo = {
+  name: '',
+  email: '',
+  phone: ''
+};
+
+const defaultModalState = {
+  isOpen: false,
+  type: 'success' as const
+};
+
 export default function PriceCalculator() {
-  const [formData, setFormData] = useState<FormData>({
-    houseSize: 'medium',
-    monthlyBill: 'medium',
-    orientation: 'sud',
-    showContactForm: false
-  });
+  const [isMounted, setIsMounted] = useState(false);
+  const [formData, setFormData] = useState<FormData>(defaultFormData);
+  const [contactInfo, setContactInfo] = useState(defaultContactInfo);
+  const [modalState, setModalState] = useState(defaultModalState);
 
   useEffect(() => {
+    setIsMounted(true);
     formAnalytics.trackFormView('price_calculator', 2);
   }, []);
 
-  const [contactInfo, setContactInfo] = useState({
-    name: '',
-    email: '',
-    phone: ''
-  });
+  useEffect(() => {
+    if (!isMounted) return;
 
-  const [modalState, setModalState] = useState<{
-    isOpen: boolean;
-    type: 'success' | 'error';
-  }>({
-    isOpen: false,
-    type: 'success'
-  });
+    const handleBeforeUnload = () => {
+      if (formData.showContactForm) {
+        formAnalytics.trackFormAbandonment('price_calculator', 'contact_form');
+      } else if (
+        formData.houseSize !== defaultFormData.houseSize ||
+        formData.monthlyBill !== defaultFormData.monthlyBill ||
+        formData.orientation !== defaultFormData.orientation
+      ) {
+        formAnalytics.trackFormAbandonment('price_calculator', 'calculator_form');
+      }
+    };
+    
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [formData, isMounted]);
+
+  if (!isMounted) {
+    return (
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+              🔍 Simulateur de Prix Panneaux Solaires
+            </h2>
+            <div className="bg-white rounded-xl shadow-lg p-8">
+              <p className="text-center text-lg mb-8">
+                Chargement du simulateur...
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const houseSizes = [
     { value: 'small', label: 'Petite maison (< 100m²)', roofArea: '20-40m²' },
@@ -64,62 +107,13 @@ export default function PriceCalculator() {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  useEffect(() => {
-    const handleBeforeUnload = () => {
-      if (formData.showContactForm) {
-        formAnalytics.trackFormAbandonment('price_calculator', 'contact_form');
-      } else if (formData.houseSize !== 'medium' || formData.monthlyBill !== 'medium' || formData.orientation !== 'sud') {
-        formAnalytics.trackFormAbandonment('price_calculator', 'calculator_form');
-      }
-    };
-    
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [formData]);
-
-  const calculateEstimate = () => {
-    const roofArea = formData.houseSize === 'small' ? 30 : formData.houseSize === 'medium' ? 55 : 95;
-    const consumption = formData.monthlyBill === 'low' ? 90 : formData.monthlyBill === 'medium' ? 160 : 250;
-    
-    // Prix de base par m² de panneau solaire
-    const basePrice = 250;
-    
-    // Facteurs d'ajustement
-    const roofTypeFactor = 1;
-    const orientationFactor = formData.orientation === 'sud' ? 1 : 1.15;
-    
-    // Calcul de l'estimation
-    const estimate = roofArea * basePrice * roofTypeFactor * orientationFactor;
-    
-    return Math.round(estimate);
-  };
-
-  const calculateSystemSpecs = () => {
-    const systemSize = formData.houseSize === 'small' ? 3 : formData.houseSize === 'medium' ? 6 : 9;
-    const panelCount = systemSize === 6 ? 12 : systemSize === 3 ? 6 : 18;
-    const annualProduction = systemSize * 1400; // Production annuelle en kWh
-    const annualSavings = Math.round((annualProduction * 0.2)); // Économies annuelles (0.2€/kWh)
-    const monthlySavings = Math.round(annualSavings / 12); // Économies mensuelles
-    
-    return {
-      systemSize,
-      panelCount,
-      annualProduction,
-      monthlySavings,
-      panelPower: 500 // Puissance par panneau en Watts
-    };
-  };
-
   const handleSubmitContact = async (e: React.FormEvent) => {
     e.preventDefault();
     
     try {
       const estimate = calculateEstimate();
-      const systemSize = formData.houseSize === 'small' ? 3 : formData.houseSize === 'medium' ? 6 : 9;
-      const annualProduction = systemSize * 1200; // Estimation de la production annuelle en kWh
-      const annualSavings = (annualProduction * 0.2); // Estimation des économies annuelles (0.2€/kWh)
+      const specs = calculateSystemSpecs();
 
-      // Envoie des données à l'API leads
       const response = await fetch('/api/leads', {
         method: 'POST',
         headers: {
@@ -132,98 +126,60 @@ export default function PriceCalculator() {
           city: '',
           source: 'PRICE_CALCULATOR',
           projectType: 'SOLAR_PANELS',
-          notes: `Estimation : ${estimate}€, Taille du système : ${systemSize}kWc, Production annuelle : ${annualProduction}kWh, Économies annuelles : ${annualSavings}€`,
-          createdAt: new Date(),
+          notes: `Estimation : ${estimate}€, Taille du système : ${specs.systemSize}kWc, Production annuelle : ${specs.annualProduction}kWh, Économies mensuelles : ${specs.monthlySavings}€`,
+          createdAt: new Date().toISOString(),
           status: 'NEW'
         }),
       });
 
-      if (response.ok) {
-        // Track dans Google Analytics
-        if (typeof window !== 'undefined' && window.gtag) {
-          window.gtag('event', 'calculator_submission', {
-            'event_category': 'Form',
-            'event_label': 'PriceCalculator',
-            'value': estimate
-          });
+      if (!response.ok) throw new Error('Erreur lors de l\'envoi du formulaire');
+
+      trackConversion('calculator_submission', {
+        category: 'Form',
+        label: 'PriceCalculator',
+        value: estimate
+      });
+
+      formAnalytics.trackFormSubmission('price_calculator', true);
+
+      await sendCalculationEmail({
+        email: contactInfo.email,
+        name: contactInfo.name,
+        result: {
+          savings: specs.monthlySavings.toString(),
+          production: specs.annualProduction.toString(),
+          co2: (specs.annualProduction * 0.0006).toFixed(1)
         }
+      });
 
-        formAnalytics.trackFormSubmission('price_calculator', true);
-
-        // Envoyer l'email avec les résultats via l'API
-        try {
-          const emailResponse = await fetch('/api/email', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              type: 'calculation',
-              data: {
-                email: contactInfo.email,
-                name: contactInfo.name,
-                result: {
-                  savings: annualSavings.toFixed(0),
-                  production: annualProduction.toFixed(0),
-                  co2: (annualProduction * 0.0006).toFixed(1) // 0.6kg CO2 évité par kWh solaire
-                }
-              }
-            }),
-          });
-
-          if (!emailResponse.ok) {
-            console.error('❌ Erreur lors de l\'envoi de l\'email');
-          } else {
-            console.log('✅ Email envoyé avec succès');
-          }
-        } catch (error) {
-          console.error('❌ Erreur lors de l\'envoi de l\'email:', error);
-        }
-
-        // Stocker les infos du lead pour la page de remerciement
-        const leadInfo = {
-          name: contactInfo.name,
-          estimate: estimate,
-          systemSize: systemSize,
-          annualSavings: annualSavings
-        };
-        sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
-
-        // Redirection vers la page de remerciement
-        const urlParams = new URLSearchParams(window.location.search);
-        const redirectUrl = new URL('/merci', window.location.origin);
-        
-        // Ajout des paramètres de tracking
-        redirectUrl.searchParams.set('source', 'price_calculator');
-        
-        // Conservation du gclid et des UTM s'ils existent
-        const trackingParams = ['gclid', 'utm_source', 'utm_medium', 'utm_campaign'];
-        trackingParams.forEach(param => {
-          const value = urlParams.get(param);
-          if (value) {
-            redirectUrl.searchParams.set(param, value);
-          }
-        });
-        
-        // Track la conversion Google Ads si l'utilisateur vient d'une annonce
-        const gclid = new URLSearchParams(window.location.search).get('gclid');
-        if (typeof window !== 'undefined' && window.gtag && gclid) {
-          window.gtag('event', 'conversion', {
-            'send_to': 'AW-16817660787/FFX8CKXqk6EaEPPGpNM-',
-            'value': 100.0,
-            'currency': 'EUR'
-          });
-        }
-
-        window.location.href = redirectUrl.toString();
-      } else {
-        throw new Error('Erreur lors de l\'envoi');
-      }
+      setModalState({ isOpen: true, type: 'success' });
+      
     } catch (error) {
       console.error('Erreur:', error);
-      formAnalytics.trackFormSubmission('price_calculator', false, error instanceof Error ? error.message : 'Unknown error');
       setModalState({ isOpen: true, type: 'error' });
     }
+  };
+
+  const calculateEstimate = () => {
+    const roofArea = formData.houseSize === 'small' ? 30 : formData.houseSize === 'medium' ? 55 : 95;
+    const basePrice = 250;
+    const orientationFactor = formData.orientation === 'sud' ? 1 : 1.15;
+    return Math.round(roofArea * basePrice * orientationFactor);
+  };
+
+  const calculateSystemSpecs = () => {
+    const systemSize = formData.houseSize === 'small' ? 3 : formData.houseSize === 'medium' ? 6 : 9;
+    const panelCount = Math.ceil(systemSize * 2);
+    const annualProduction = systemSize * 1400;
+    const monthlySavings = Math.round((annualProduction * 0.2) / 12);
+    
+    return {
+      systemSize,
+      panelCount,
+      annualProduction,
+      monthlySavings,
+      panelPower: 500
+    };
   };
 
   const handleCloseModal = () => {

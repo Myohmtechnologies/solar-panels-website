@@ -1,12 +1,18 @@
 import { MongoClient, ObjectId } from 'mongodb';
 import { clientPromise } from '@/lib/mongodb';
 import { Realisation } from '@/types';
+import fs from 'fs';
+import path from 'path';
 
 export class RealisationService {
   private static async getCollection() {
     const client = await clientPromise as MongoClient;
     const db = client.db('myohm');
     return db.collection('realisations');
+  }
+
+  private static getLocalImageUrl(imageName: string) {
+    return imageName ? `/images/realisations/${imageName}` : null;
   }
 
   static async getAllRealisations(page = 1, limit = 10, filter?: {
@@ -32,8 +38,8 @@ export class RealisationService {
         _id: doc._id.toString(),
         title: doc.title || '',
         description: doc.description || '',
-        mainImage: doc.mainImage || '',
-        secondaryImage: doc.secondaryImage,
+        mainImage: this.getLocalImageUrl(doc.mainImage),
+        secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : null,
         region: doc.region || '',
         city: doc.city || '',
         type: doc.type || '',
@@ -77,8 +83,8 @@ export class RealisationService {
         _id: doc._id.toString(),
         title: doc.title || '',
         description: doc.description || '',
-        mainImage: doc.mainImage || '',
-        secondaryImage: doc.secondaryImage || '',
+        mainImage: this.getLocalImageUrl(doc.mainImage),
+        secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : null,
         region: doc.region || '',
         city: doc.city || '',
         type: doc.type || '',
@@ -224,8 +230,8 @@ export class RealisationService {
       _id: doc._id.toString(),
       title: doc.title || '',
       description: doc.description || '',
-      mainImage: doc.mainImage || '',
-      secondaryImage: doc.secondaryImage,
+      mainImage: this.getLocalImageUrl(doc.mainImage),
+      secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : null,
       region: doc.region || '',
       city: doc.city || '',
       type: doc.type || '',
@@ -262,8 +268,8 @@ export class RealisationService {
       _id: doc._id.toString(),
       title: doc.title || '',
       description: doc.description || '',
-      mainImage: doc.mainImage || '',
-      secondaryImage: doc.secondaryImage,
+      mainImage: this.getLocalImageUrl(doc.mainImage),
+      secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : null,
       region: doc.region || '',
       city: doc.city || '',
       type: doc.type || '',
@@ -311,8 +317,8 @@ export class RealisationService {
       _id: doc._id.toString(),
       title: doc.title || '',
       description: doc.description || '',
-      mainImage: doc.mainImage || '',
-      secondaryImage: doc.secondaryImage,
+      mainImage: this.getLocalImageUrl(doc.mainImage),
+      secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : null,
       region: doc.region || '',
       city: doc.city || '',
       type: doc.type || '',
@@ -341,8 +347,8 @@ export class RealisationService {
       _id: doc._id.toString(),
       title: doc.title || '',
       description: doc.description || '',
-      mainImage: doc.mainImage || '',
-      secondaryImage: doc.secondaryImage,
+      mainImage: this.getLocalImageUrl(doc.mainImage),
+      secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : null,
       region: doc.region || '',
       city: doc.city || '',
       type: doc.type || '',

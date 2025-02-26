@@ -54,20 +54,25 @@ export default function RealisationContent({ realisation }: RealisationContentPr
 
       {/* Grille d'images */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-xl hover:scale-[1.02] transition-transform duration-300">
-          <Image
-            src={realisation.mainImage}
-            alt={realisation.title}
-            fill
-            className="object-cover"
-          />
-        </div>
+        {realisation.mainImage && (
+          <div className="relative aspect-[4/3] overflow-hidden rounded-xl hover:scale-[1.02] transition-transform duration-300">
+            <Image
+              src={realisation.mainImage}
+              alt={realisation.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
+              className="object-cover"
+            />
+          </div>
+        )}
         {realisation.secondaryImage && (
           <div className="relative aspect-[4/3] overflow-hidden rounded-xl hover:scale-[1.02] transition-transform duration-300">
             <Image
               src={realisation.secondaryImage}
               alt={`${realisation.title} - Image secondaire`}
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>

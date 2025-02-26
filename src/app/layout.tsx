@@ -4,27 +4,13 @@ import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import { Toaster } from 'react-hot-toast';
-import dynamic from 'next/dynamic';
+import DynamicComponents from '@/components/layout/DynamicComponents';
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
 });
-
-// Chargement différé des composants non-critiques
-const ClientLayout = dynamic(() => import('@/components/layout/ClientLayout'), { 
-  ssr: false,
-  loading: () => <div className="min-h-screen" /> 
-});
-
-const ConversionTracker = dynamic(() => import('@/components/tracking/ConversionTracker'), { 
-  ssr: false 
-});
-
-const TrackingInitializer = dynamic(() => import('@/components/tracking/TrackingInitializer'), { ssr: false });
-const TeamAuth = dynamic(() => import('@/components/admin/TeamAuth'), { ssr: false });
-const Analytics = dynamic(() => import('@/components/analytics/Analytics'), { ssr: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.myohmtechnologies.com'),
@@ -86,14 +72,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
           `}
         </Script>
 
-        <ClientLayout>
+        <DynamicComponents>
           <Toaster position="top-center" />
           {children}
-        </ClientLayout>
-
-        <Analytics />
-        <TrackingInitializer />
-        <TeamAuth />
+        </DynamicComponents>
       </body>
     </html>
   );

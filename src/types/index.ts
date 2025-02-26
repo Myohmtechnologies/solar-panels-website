@@ -2,8 +2,8 @@ export interface Realisation {
   _id?: string;
   title: string;
   description: string;
-  mainImage: string;
-  secondaryImage?: string;
+  mainImage: string | null;
+  secondaryImage?: string | null;
   date: string | Date;
   region: string;
   city: string;
@@ -13,6 +13,7 @@ export interface Realisation {
     puissance: number;
     pannels: number;
     surface: number;
+    orientation?: string;
     economie: number;
   };
   createdAt?: string;

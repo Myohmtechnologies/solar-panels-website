@@ -85,10 +85,6 @@ export async function POST(request: Request) {
               Bonjour ${name},<br><br>
               Voici le résultat de votre simulation pour l'installation de panneaux solaires :
             </p>
-            <p style="font-size: 16px; line-height: 1.6; color: #333;">
-              Vous avez oublier un un chiffre lors de la saisi de votre numéro de téléphone 061512251 ?
-              merci de nous contacter au 04 92 76 68 58 .
-            </p>
             <div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
               <h3 style="color: #333; margin: 0 0 15px 0;">Détails de l'estimation</h3>
               <ul style="list-style: none; padding: 0; margin: 0;">

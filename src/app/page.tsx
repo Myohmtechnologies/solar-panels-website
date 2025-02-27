@@ -11,6 +11,7 @@ import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsS
 import CityActionButtons from '@/components/sections/CityActionButtons';
 import ChatBot from '@/components/ChatBot';
 import CompanyPresentationSection from '@/components/sections/CompanyPresentationSection';
+import SolarServicesSection from '@/components/sections/SolarServicesSection';
 
 export const metadata: Metadata = {
   title: 'MY OHM Technologies - Installation de panneaux solaires en PACA',
@@ -63,6 +64,7 @@ export default function Home() {
       <CityActionButtons />
       <SolarBenefitsSection />
       <SolarPanelSection />
+      <SolarServicesSection cityName="PACA" />
       <CaseStudySection />
       <SolarInstallationStepsSection />
       <FaqSection />

@@ -49,7 +49,7 @@ const batteryTypes = [
     description: 'Solution idéale pour les petits foyers souhaitant commencer leur transition énergétique.',
     features: [
       'Capacité de stockage de 6 kWh',
-      'Idéal pour 2-3 personnes',
+      'Idéal pour un couple',
       'Garantie de 10 ans',
       'Monitoring via application mobile',
     ],
@@ -61,7 +61,7 @@ const batteryTypes = [
     description: 'Notre bestseller pour les maisons familiales cherchant une autonomie optimale.',
     features: [
       'Capacité de stockage de 10 kWh',
-      'Idéal pour 4-5 personnes',
+      'Idéal pour un couple + 1 personne',
       'Garantie de 10 ans',
       'Système de backup intégré',
       'Monitoring avancé',
@@ -74,7 +74,7 @@ const batteryTypes = [
     description: 'La solution complète pour une autonomie maximale et un confort optimal.',
     features: [
       'Capacité de stockage de 15 kWh',
-      'Idéal pour 6+ personnes',
+      'Idéal une famille',
       'Garantie de 10 ans',
       'Système de backup avancé',
       'Monitoring professionnel',

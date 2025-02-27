@@ -3,11 +3,8 @@
 import React, { useState, useEffect, Fragment, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRightIcon, CurrencyEuroIcon, MapPinIcon, BuildingOffice2Icon } from '@heroicons/react/24/outline';
-import { StarIcon } from '@heroicons/react/24/solid';
-import Link from 'next/link';
-import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import QuickSimulateur from '../simulators/QuickSimulateur';
+import QuickSimulateur from '../simulateurs/QuickSimulateur';
 
 // Imports dynamiques avec priorité
 const QuickLeadForm = dynamic(() => import('../forms/QuickLeadForm'), { 
@@ -179,7 +176,7 @@ const HeroSection = () => {
 
             {/* Simulateur */}
             <div className="w-full transition-all duration-300 bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-2 border border-gray-100">
-              <QuickSimulateur />
+            <QuickSimulateur />
             </div>
           </div>
         </div>

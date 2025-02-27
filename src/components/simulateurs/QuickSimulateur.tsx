@@ -80,21 +80,24 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
 
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl">
+      {/* Titre qui apparaît uniquement aux étapes 1, 2 et 3 */}
+      {step < 4 && (
+        <div className="bg-gradient-to-br from-ffeb99 to-ffb700 p-6 rounded-t-2xl">
+          <h2 className="text-2xl font-bold text-black mb-2">
+            💡 Faites Votre Simulation en 2 Minutes !
+          </h2>
+          <p className="text-black">
+            Découvrez combien vous pouvez économiser grâce à l'énergie solaire.
+          </p>
+        </div>
+      )}
+
       {step === 1 && (
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           className="space-y-4"
         >
-          <div className="bg-gradient-to-br from-ffeb99 to-ffb700 p-6 rounded-t-2xl">
-            <h2 className="text-2xl font-bold text-black mb-2">
-              💡 Faites Votre Simulation en 2 Minutes !
-            </h2>
-            <p className="text-black">
-              Découvrez combien vous pouvez économiser grâce à l'énergie solaire.
-            </p>
-          </div>
-
           <div className="p-6">
             <p className="text-black font-semibold text-xl mb-6 text-center">Vous êtes ?</p>
             <div className="grid grid-cols-2 gap-4">

@@ -163,15 +163,15 @@ const SolarServicesSection: React.FC<SolarServicesSectionProps> = ({ cityName })
                 Pourquoi choisir nos services à {cityName} ?
               </h3>
               <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-white/20 rounded-lg p-4">
+                <div className="bg-white rounded-lg p-4">
                   <p className="font-semibold text-black mb-2">Expertise Locale</p>
                   <p className="text-sm text-black/80">Connaissance approfondie des spécificités de {cityName}</p>
                 </div>
-                <div className="bg-white/20 rounded-lg p-4">
+                <div className="bg-white rounded-lg p-4">
                   <p className="font-semibold text-black mb-2">Service Complet</p>
                   <p className="text-sm text-black/80">De l'étude à la maintenance, nous gérons tout</p>
                 </div>
-                <div className="bg-white/20 rounded-lg p-4">
+                <div className="bg-white rounded-lg p-4">
                   <p className="font-semibold text-black mb-2">Qualité Garantie</p>
                   <p className="text-sm text-black/80">Matériel premium et installation certifiée</p>
                 </div>

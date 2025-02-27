@@ -12,7 +12,7 @@ const SolarSolutionsSection = () => {
       name: 'Pack 3 kWc',
       subtitle: 'Maison 60m² - 100m²',
       details: '6 Panneaux de 500W',
-      savings: '-40% sur votre facture',
+      savings: "Jusqu'à 70% d'économies",
       economy: "jusqu'à 1000€ d'économies/an",
       image: '/images/3kwh.png',
       features: [
@@ -27,7 +27,7 @@ const SolarSolutionsSection = () => {
       name: 'Pack 6 kWc',
       subtitle: 'Maison 100m² - 150m²',
       details: '12 Panneaux de 500W',
-      savings: '-60% sur votre facture',
+      savings: "Jusqu'à 70% d'économies",
       economy: "jusqu'à 1600€ d'économies/an",
       image: '/images/6kwh.png',
       features: [
@@ -43,7 +43,7 @@ const SolarSolutionsSection = () => {
       name: 'Pack 9 kWc',
       subtitle: 'Maison 150m² et plus',
       details: '18 Panneaux de 500W',
-      savings: '-70% sur votre facture',
+      savings: "Jusqu'à 70% d'économies",
       economy: "jusqu'à 2400€ d'économies/an",
       image: '/images/9kwh.png',
       features: [
@@ -82,6 +82,9 @@ const SolarSolutionsSection = () => {
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Des installations sur mesure pour tous les types de maisons, avec des panneaux haute performance fabriqués en France
+          </p>
+          <p className="text-md text-gray-600 max-w-3xl mx-auto mt-2">
+            <span className="font-semibold">Les économies peuvent atteindre jusqu'à 70%</span> selon votre utilisation et votre consommation
           </p>
         </motion.div>
 

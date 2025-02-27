@@ -150,6 +150,7 @@ export default function PriceCalculator() {
         body: JSON.stringify({
           email: contactInfo.email,
           name: contactInfo.name,
+          phone: contactInfo.phone,
           result: {
             savings: specs.monthlySavings.toString(),
             production: specs.annualProduction.toString(),

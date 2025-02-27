@@ -4,6 +4,9 @@ import { Resend } from 'resend';
 // Créer l'instance Resend côté serveur
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Adresse email de notification
+const NOTIFICATION_EMAIL = 'rmahieddine04@gmail.com';
+
 // Templates HTML pour l'email
 const headerHtml = `
   <div style="background-color: #FFDF64; padding: 20px; text-align: center;">
@@ -36,7 +39,7 @@ const contactSectionHtml = `
 
 export async function POST(request: Request) {
   try {
-    const { email, name, result } = await request.json();
+    const { email, name, phone, result } = await request.json();
 
     if (!email || !name || !result) {
       return NextResponse.json(
@@ -45,7 +48,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const emailHtml = `
+    // Email pour le client
+    const clientEmailHtml = `
       <!DOCTYPE html>
       <html>
       <head>
@@ -62,6 +66,10 @@ export async function POST(request: Request) {
             <p style="font-size: 16px; line-height: 1.6; color: #333;">
               Bonjour ${name},<br><br>
               Voici le résultat de votre simulation pour l'installation de panneaux solaires :
+            </p>
+            <p style="font-size: 16px; line-height: 1.6; color: #333;">
+              Vous avez oublier un un chiffre lors de la saisi de votre numéro de téléphone 061512251 ?
+              merci de nous contacter au 04 92 76 68 58 .
             </p>
             <div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
               <h3 style="color: #333; margin: 0 0 15px 0;">Détails de l'estimation</h3>
@@ -83,14 +91,61 @@ export async function POST(request: Request) {
       </html>
     `;
 
-    const response = await resend.emails.send({
+    // Email pour l'administrateur
+    const adminEmailHtml = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <title>Nouvelle simulation de prix</title>
+      </head>
+      <body style="margin: 0; padding: 0; font-family: Arial, sans-serif;">
+        <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h1 style="color: #333; margin-bottom: 20px;">Nouvelle simulation de prix</h1>
+          
+          <div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+            <h2 style="color: #333; margin-top: 0;">Informations du client</h2>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 10px;"><strong>Nom :</strong> ${name}</li>
+              <li style="margin-bottom: 10px;"><strong>Email :</strong> ${email}</li>
+              <li style="margin-bottom: 10px;"><strong>Téléphone :</strong> ${phone || 'Non renseigné'}</li>
+            </ul>
+          </div>
+
+          <div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px;">
+            <h2 style="color: #333; margin-top: 0;">Détails de la simulation</h2>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 10px;"><strong>Économies estimées :</strong> ${result.savings}€/an</li>
+              <li style="margin-bottom: 10px;"><strong>Production estimée :</strong> ${result.production} kWh/an</li>
+              <li style="margin-bottom: 10px;"><strong>Réduction CO2 :</strong> ${result.co2} tonnes/an</li>
+            </ul>
+          </div>
+        </div>
+      </body>
+      </html>
+    `;
+
+    // Envoi de l'email au client
+    const clientResponse = await resend.emails.send({
       from: 'MyOhm Technologies <onboarding@resend.dev>',
       to: email,
       subject: 'Votre estimation solaire personnalisée | MyOhm Technologies',
-      html: emailHtml,
+      html: clientEmailHtml,
     });
 
-    return NextResponse.json({ success: true, id: response.id });
+    // Envoi de l'email de notification à l'administrateur
+    const adminResponse = await resend.emails.send({
+      from: 'MyOhm Technologies <onboarding@resend.dev>',
+      to: NOTIFICATION_EMAIL,
+      subject: `Nouvelle simulation de prix - ${name}`,
+      html: adminEmailHtml,
+    });
+
+    return NextResponse.json({ 
+      success: true, 
+      clientId: clientResponse.id,
+      adminId: adminResponse.id
+    });
   } catch (error) {
     console.error('Erreur lors de l\'envoi de l\'email:', error);
     return NextResponse.json(

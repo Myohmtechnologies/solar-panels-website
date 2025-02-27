@@ -212,7 +212,7 @@ const HeroSection = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-green-600">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span className="text-sm text-gray-700">≈ 500€ d'économies/an</span>
+                    <span className="text-sm text-gray-700">jusqu'à 1000€ d'économies/an</span>
                   </div>
                 </div>
               </div>
@@ -238,7 +238,7 @@ const HeroSection = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-green-600">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span className="text-sm text-gray-700">≈ 1000€ d'économies/an</span>
+                    <span className="text-sm text-gray-700">jusqu'à 1600€ d'économies/an</span>
                   </div>
                 </div>
               </div>
@@ -261,7 +261,7 @@ const HeroSection = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 text-green-600">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <span className="text-sm text-gray-700">≈ 1500€ d'économies/an</span>
+                    <span className="text-sm text-gray-700">jusqu'à 2400€ d'économies/an</span>
                   </div>
                 </div>
               </div>

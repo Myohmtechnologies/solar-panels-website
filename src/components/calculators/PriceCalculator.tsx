@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import ContactModal from '../modals/ContactModal';
 import { formAnalytics } from '@/services/formAnalytics';
 import { trackConversion } from '../tracking/ConversionTracker';
+import { useRouter } from 'next/navigation';
 
 type HouseSize = 'small' | 'medium' | 'large';
 type BillRange = 'low' | 'medium' | 'high';
@@ -43,6 +44,7 @@ const defaultModalState = {
 };
 
 export default function PriceCalculator() {
+  const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
   const [formData, setFormData] = useState<FormData>(defaultFormData);
   const [contactInfo, setContactInfo] = useState(defaultContactInfo);
@@ -175,7 +177,8 @@ export default function PriceCalculator() {
 
       if (!emailResponse.ok) throw new Error('Erreur lors de l\'envoi de l\'email');
 
-      setModalState({ isOpen: true, type: 'success' });
+      // Rediriger vers la page de remerciement
+      router.push('/merci');
       
     } catch (error) {
       console.error('Erreur:', error);

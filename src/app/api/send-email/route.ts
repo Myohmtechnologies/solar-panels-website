@@ -1,21 +1,14 @@
 import { NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import sgMail from '@sendgrid/mail';
 
-// Créer l'instance Resend côté serveur
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Adresse email de l'administrateur
+const ADMIN_EMAIL = 'rmahieddine04@gmail.com';
 
-// Adresse email de notification
-const NOTIFICATION_EMAIL = 'rmahieddine04@gmail.com';
-
-// Fonction de validation du numéro de téléphone
-const validatePhoneNumber = (phone: string): boolean => {
-  // Si le téléphone n'est pas fourni, on considère que c'est valide (pour la rétrocompatibilité)
-  if (!phone) return true;
-  // Supprime tous les caractères non numériques
-  const digitsOnly = phone.replace(/\D/g, '');
-  // Vérifie que le numéro contient exactement 10 chiffres
-  return digitsOnly.length === 10;
-};
+// Configurer SendGrid avec la clé API
+// Vous devrez ajouter votre clé API SendGrid dans le fichier .env.local
+if (process.env.SENDGRID_API_KEY) {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+}
 
 // Templates HTML pour l'email
 const headerHtml = `
@@ -47,8 +40,26 @@ const contactSectionHtml = `
   </div>
 `;
 
+// Fonction de validation du numéro de téléphone
+const validatePhoneNumber = (phone: string): boolean => {
+  // Si le téléphone n'est pas fourni, on considère que c'est valide (pour la rétrocompatibilité)
+  if (!phone) return true;
+  // Supprime tous les caractères non numériques
+  const digitsOnly = phone.replace(/\D/g, '');
+  // Vérifie que le numéro contient exactement 10 chiffres
+  return digitsOnly.length === 10;
+};
+
 export async function POST(request: Request) {
   try {
+    // Vérifier si SendGrid est configuré
+    if (!process.env.SENDGRID_API_KEY) {
+      return NextResponse.json(
+        { error: 'La clé API SendGrid n\'est pas configurée' },
+        { status: 500 }
+      );
+    }
+
     const { email, name, phone, result } = await request.json();
 
     if (!email || !name || !result) {
@@ -84,10 +95,6 @@ export async function POST(request: Request) {
             <p style="font-size: 16px; line-height: 1.6; color: #333;">
               Bonjour ${name},<br><br>
               Voici le résultat de votre simulation pour l'installation de panneaux solaires :
-            </p>
-            <p style="font-size: 16px; line-height: 1.6; color: #333;">
-              Vous avez oublier un un chiffre lors de la saisi de votre numéro de téléphone 061512251 ?
-              merci de nous contacter au 04 92 76 68 58 .
             </p>
             <div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
               <h3 style="color: #333; margin: 0 0 15px 0;">Détails de l'estimation</h3>
@@ -145,49 +152,49 @@ export async function POST(request: Request) {
 
     try {
       // Envoi de l'email au client
-      const clientResponse = await resend.emails.send({
-        from: 'MyOhm Technologies <contact@myohmtechnologies.com>',
+      const clientMsg = {
         to: email,
+        from: {
+          email: ADMIN_EMAIL,
+          name: 'MyOhm Technologies'
+        },
         subject: 'Votre estimation solaire personnalisée | MyOhm Technologies',
         html: clientEmailHtml,
-      });
-
-      console.log('Réponse de Resend (client):', clientResponse);
-
-      if (clientResponse.error) {
-        console.error('Erreur Resend (client):', clientResponse.error);
-        return NextResponse.json(
-          { error: `Erreur lors de l'envoi de l'email au client: ${clientResponse.error.message}` },
-          { status: 400 }
-        );
-      }
-
+      };
+      
       // Envoi de l'email à l'administrateur
-      const adminResponse = await resend.emails.send({
-        from: 'MyOhm Technologies <contact@myohmtechnologies.com>',
-        to: NOTIFICATION_EMAIL,
+      const adminMsg = {
+        to: ADMIN_EMAIL,
+        from: {
+          email: ADMIN_EMAIL,
+          name: 'MyOhm Technologies'
+        },
         subject: `Nouvelle simulation de prix - ${name}`,
         html: adminEmailHtml,
-      });
-
-      console.log('Réponse de Resend (admin):', adminResponse);
-
+      };
+      
+      // Envoi des deux emails
+      await Promise.all([
+        sgMail.send(clientMsg),
+        sgMail.send(adminMsg)
+      ]);
+      
       return NextResponse.json({ 
-        success: true, 
-        clientId: clientResponse.id,
-        adminId: adminResponse.id
+        success: true,
+        message: 'Emails envoyés avec succès'
       });
     } catch (error: any) {
-      console.error('Erreur détaillée lors de l\'envoi de l\'email:', error);
+      console.error('Erreur lors de l\'envoi des emails:', error);
       
+      // Extraire les détails de l'erreur pour un meilleur diagnostic
       const errorMessage = error.message || 'Erreur inconnue';
-      const errorDetails = error.response?.data || error.response || {};
+      const errorResponse = error.response || {};
       
       return NextResponse.json(
         { 
-          error: 'Erreur lors de l\'envoi de l\'email', 
+          error: 'Erreur lors de l\'envoi des emails', 
           message: errorMessage,
-          details: errorDetails
+          details: errorResponse
         },
         { status: 500 }
       );

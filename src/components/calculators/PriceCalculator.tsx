@@ -29,6 +29,14 @@ const defaultContactInfo = {
   phone: ''
 };
 
+// Fonction de validation du numéro de téléphone
+const validatePhoneNumber = (phone: string): boolean => {
+  // Supprime tous les caractères non numériques
+  const digitsOnly = phone.replace(/\D/g, '');
+  // Vérifie que le numéro contient exactement 10 chiffres
+  return digitsOnly.length === 10;
+};
+
 const defaultModalState = {
   isOpen: false,
   type: 'success' as const
@@ -108,6 +116,12 @@ export default function PriceCalculator() {
 
   const handleSubmitContact = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validation du numéro de téléphone
+    if (!validatePhoneNumber(contactInfo.phone)) {
+      alert("Le numéro de téléphone doit contenir exactement 10 chiffres.");
+      return;
+    }
     
     try {
       const estimate = calculateEstimate();
@@ -358,7 +372,10 @@ export default function PriceCalculator() {
                     onChange={(e) => setContactInfo(prev => ({ ...prev, phone: e.target.value }))}
                     className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-FFDF64"
                     placeholder="06 12 34 56 78"
+                    pattern="[0-9 ]{10,14}"
+                    title="Le numéro de téléphone doit contenir 10 chiffres"
                   />
+                  <p className="text-sm text-gray-500 mt-1">Format: 10 chiffres (ex: 0612345678)</p>
                 </div>
                 <button
                   type="submit"

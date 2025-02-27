@@ -57,7 +57,10 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="fr" className={inter.variable}>
-      <body className="font-sans min-h-screen bg-white">
+      <body
+        className="font-sans min-h-screen bg-white"
+        suppressHydrationWarning
+      >
         {/* Google Ads Tag */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-16817660787"

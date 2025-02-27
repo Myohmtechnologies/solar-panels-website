@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDownIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import FaqSchema from '../schemas/FaqSchema';
 
 interface FAQ {
   question: string;
@@ -22,6 +23,7 @@ const RegionFAQ = ({ faqs }: Props) => {
 
   return (
     <section className="py-16 px-4 md:px-8 lg:px-12 bg-gradient-to-br from-f0f4f8 to-e1e7f0">
+      <FaqSchema faqItems={faqs} />
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">

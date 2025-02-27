@@ -36,7 +36,7 @@ export default function HeroSection() {
         <div className="max-w-3xl mx-auto text-black">
           <div className="bg-white/20 backdrop-blur-sm rounded-xl p-6 mb-8">
             <p className="text-lg font-semibold mb-4 text-center">
-              Profitez des Aides de l'État Jusqu'à 3 600€ !
+              Profitez des Aides de l'État Jusqu'à 1440€ !
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex items-center">

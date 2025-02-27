@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import FaqSchema from '../schemas/FaqSchema';
 
 interface FaqItem {
   question: string;
@@ -21,6 +22,7 @@ export default function CityFaqSection({ faqItems }: CityFaqSectionProps) {
 
   return (
     <section className="py-16 px-4 md:px-8 lg:px-12">
+      <FaqSchema faqItems={faqItems} />
       <div className="container mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">
           Questions Fréquentes

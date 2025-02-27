@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import FaqSchema from '../schemas/FaqSchema';
 
 interface FAQItem {
   question: string;
@@ -21,6 +22,7 @@ export default function CityFAQ({ faqItems, cityName }: CityFAQProps) {
 
   return (
     <section className="py-16 bg-white">
+      <FaqSchema faqItems={faqItems} />
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold mb-8 text-center">
           Questions Fréquentes sur le Solaire à {cityName}

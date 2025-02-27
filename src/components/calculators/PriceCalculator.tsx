@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import ContactModal from '../modals/ContactModal';
 import { formAnalytics } from '@/services/formAnalytics';
 import { trackConversion } from '../tracking/ConversionTracker';
-import { sendCalculationEmail } from '@/services/emailService';
 
 type HouseSize = 'small' | 'medium' | 'large';
 type BillRange = 'low' | 'medium' | 'high';
@@ -142,15 +141,24 @@ export default function PriceCalculator() {
 
       formAnalytics.trackFormSubmission('price_calculator', true);
 
-      await sendCalculationEmail({
-        email: contactInfo.email,
-        name: contactInfo.name,
-        result: {
-          savings: specs.monthlySavings.toString(),
-          production: specs.annualProduction.toString(),
-          co2: (specs.annualProduction * 0.0006).toFixed(1)
-        }
+      // Utiliser l'API route pour envoyer l'email
+      const emailResponse = await fetch('/api/send-calculation-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: contactInfo.email,
+          name: contactInfo.name,
+          result: {
+            savings: specs.monthlySavings.toString(),
+            production: specs.annualProduction.toString(),
+            co2: (specs.annualProduction * 0.0006).toFixed(1)
+          }
+        }),
       });
+
+      if (!emailResponse.ok) throw new Error('Erreur lors de l\'envoi de l\'email');
 
       setModalState({ isOpen: true, type: 'success' });
       

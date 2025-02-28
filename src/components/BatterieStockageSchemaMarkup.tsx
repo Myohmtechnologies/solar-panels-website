@@ -6,27 +6,27 @@ const BatterieStockageSchemaMarkup = () => {
       {
         "@type": "Service",
         "@id": "https://myohmtechnologies.com/batterie-de-stockage#service",
-        "name": "Installation de Batteries de Stockage d'Énergie",
+        "name": "Installation de Batteries de Stockage d'Énergie Solaire",
         "provider": {
           "@type": "Organization",
           "@id": "https://myohmtechnologies.com"
         },
-        "description": "Installation professionnelle de batteries de stockage d'énergie solaire pour maximiser votre autoconsommation. Solutions adaptées aux particuliers et professionnels en région PACA.",
+        "description": "Installation professionnelle de batteries de stockage d'énergie solaire pour maximiser votre autoconsommation et votre autonomie énergétique. Solutions adaptées aux particuliers et professionnels en région PACA.",
         "areaServed": {
           "@type": "State",
           "name": "Provence-Alpes-Côte d'Azur"
         },
-        "category": ["Batterie de Stockage", "Énergie Solaire", "Autoconsommation"],
+        "category": ["Batterie de Stockage", "Énergie Solaire", "Autoconsommation", "Autonomie Énergétique", "Système Photovoltaïque"],
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
-          "name": "Solutions de stockage d'énergie",
+          "name": "Solutions de stockage d'énergie solaire",
           "itemListElement": [
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
                 "name": "Installation batterie résidentielle",
-                "description": "Systèmes de stockage pour maisons individuelles avec panneaux solaires"
+                "description": "Systèmes de stockage pour maisons individuelles avec panneaux solaires, permettant jusqu'à 90% d'autonomie énergétique"
               }
             },
             {
@@ -34,7 +34,7 @@ const BatterieStockageSchemaMarkup = () => {
               "itemOffered": {
                 "@type": "Service",
                 "name": "Installation batterie professionnelle",
-                "description": "Solutions de stockage pour entreprises et bâtiments commerciaux"
+                "description": "Solutions de stockage pour entreprises et bâtiments commerciaux, optimisant la rentabilité de votre installation solaire"
               }
             },
             {
@@ -42,7 +42,7 @@ const BatterieStockageSchemaMarkup = () => {
               "itemOffered": {
                 "@type": "Service",
                 "name": "Système hybride solaire + batterie",
-                "description": "Installation complète de panneaux solaires avec système de stockage intégré"
+                "description": "Installation complète de panneaux solaires avec système de stockage intégré pour une autonomie énergétique maximale"
               }
             }
           ]
@@ -155,6 +155,65 @@ const BatterieStockageSchemaMarkup = () => {
             "item": {
               "@id": "https://myohmtechnologies.com/batterie-de-stockage",
               "name": "Batteries de Stockage"
+            }
+          }
+        ]
+      },
+      // Article Schema
+      {
+        "@type": "TechArticle",
+        "@id": "https://myohmtechnologies.com/batterie-de-stockage#article",
+        "headline": "Comment fonctionne une batterie de stockage solaire",
+        "description": "Guide complet sur le fonctionnement des batteries de stockage d'énergie solaire, leur installation et leurs avantages pour l'autoconsommation.",
+        "keywords": "batterie stockage solaire, fonctionnement batterie solaire, système stockage énergie, autoconsommation, autonomie énergétique",
+        "datePublished": "2023-09-15",
+        "dateModified": "2025-02-28",
+        "author": {
+          "@type": "Organization",
+          "name": "MY OHM Technologies"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://myohmtechnologies.com"
+        },
+        "mainEntityOfPage": "https://myohmtechnologies.com/batterie-de-stockage",
+        "articleSection": "Énergie Solaire"
+      },
+      // FAQPage Schema
+      {
+        "@type": "FAQPage",
+        "@id": "https://myohmtechnologies.com/batterie-de-stockage#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Comment fonctionne une batterie de stockage solaire ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Une batterie de stockage solaire fonctionne en 4 étapes principales : 1) Les panneaux solaires produisent de l'électricité pendant la journée, 2) Le surplus d'énergie non consommé immédiatement est stocké dans la batterie, 3) Le soir et la nuit, l'énergie stockée est utilisée pour alimenter votre maison, 4) Un système de gestion intelligent optimise les flux d'énergie entre production, stockage et consommation pour maximiser votre autonomie."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quelle économie peut-on réaliser avec une batterie de stockage ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Avec une batterie de stockage couplée à des panneaux solaires, vous pouvez réaliser jusqu'à 70% d'économies sur vos factures d'électricité. Le système permet d'atteindre jusqu'à 90% d'autonomie énergétique en stockant l'énergie produite pendant la journée pour l'utiliser lorsque vos panneaux ne produisent pas."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quelle est la durée de vie d'une batterie de stockage solaire ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Les batteries de stockage solaire modernes ont une durée de vie moyenne de 10 à 15 ans. Nos solutions incluent des garanties fabricant allant jusqu'à 10 ans, assurant un fonctionnement optimal et une tranquillité d'esprit pour votre investissement."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Est-ce que l'installation d'une batterie de stockage est rentable ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, l'installation d'une batterie de stockage devient de plus en plus rentable avec l'augmentation des prix de l'électricité. Le retour sur investissement se situe généralement entre 7 et 10 ans, selon votre consommation et le dimensionnement de votre installation. De plus, vous bénéficiez d'une indépendance énergétique accrue et d'une protection contre les coupures de courant."
             }
           }
         ]

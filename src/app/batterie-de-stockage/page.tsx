@@ -430,9 +430,7 @@ export default function BatterieStockagePage() {
             </p>
           </div>
           
-          <div className="max-w-4xl mx-auto">
-            <BatteryStorageSimulator />
-          </div>
+          
           
           <div className="mt-12 text-center">
             <p className="text-gray-600 mb-6">

@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import QuickSimulateur from '../simulators/QuickSimulateur';
+import QuickSimulateur from '../simulateurs/QuickSimulateur';
 
 interface RegionHeroProps {
   region: string;

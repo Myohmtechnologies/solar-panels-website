@@ -127,7 +127,7 @@ const HeroSection = () => {
                 loop 
                 playsInline
               >
-                <source src="/videos/hero.mp4" type="video/mp4" />
+                <source src="/images/my-ohm-technologies-entreprise-d'installation-de-panneaux-solaires.mp4" type="video/mp4" />
                 Votre navigateur ne prend pas en charge la lecture vidéo.
               </video>
             </div>
@@ -168,7 +168,7 @@ const HeroSection = () => {
                   loop 
                   playsInline
                 >
-                  <source src="/videos/hero.mp4" type="video/mp4" />
+                  <source src="/images/my-ohm-technologies-entreprise-d'installation-de-panneaux-solaires.mp4" type="video/mp4" />
                   Votre navigateur ne prend pas en charge la lecture vidéo.
                 </video>
               </div>

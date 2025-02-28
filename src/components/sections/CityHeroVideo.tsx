@@ -202,7 +202,7 @@ const CityHeroVideo = ({
                     preload="metadata"
                   >
                     <source
-                      src="/videos/hero.mp4"
+                      src="/images/my-ohm-technologies-entreprise-d'installation-de-panneaux-solaires.mp4"
                       type="video/mp4"
                     />
                   </video>

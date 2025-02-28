@@ -28,7 +28,9 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ['@heroicons/react', 'framer-motion', '@headlessui/react'],
-    serverActions: true
+    serverActions: {
+      allowedOrigins: ['localhost:3000', 'myohmtechnologies.fr', '*.myohmtechnologies.fr', 'vercel.app']
+    }
   },
   webpack: (config, { isServer }) => {
     // Fix for the webpack error

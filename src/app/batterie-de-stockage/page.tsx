@@ -16,7 +16,9 @@ import {
 } from '@heroicons/react/24/outline';
 import BatterieStockageSchemaMarkup from '@/components/BatterieStockageSchemaMarkup';
 import EnergyExpertModal from '@/components/modals/EnergyExpertModal';
-import BatteryStorageSimulator from '@/components/simulators/BatteryStorageSimulator';
+import BatteryComparisonSimulator from '@/components/sections/BatteryComparisonSimulator';
+
+
 
 const features = [
   {
@@ -425,8 +427,12 @@ export default function BatterieStockagePage() {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Comparez vos économies avec et sans batterie
             </h2>
+
+            <div className="max-w-4xl mx-auto">
+                <BatteryComparisonSimulator />
+            </div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Découvrez combien vous pourriez économiser en ajoutant une batterie de stockage à votre installation solaire.
+              Découvrez combien vous pourriez economiser en ajoutant une batterie de stockage à votre installation solaire.
             </p>
           </div>
           

@@ -57,9 +57,6 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="fr" className={inter.variable}>
-      <head>
-        <meta name="google-site-verification" content="bshllqo6MIhoBv2oLuo-5lh9FzoXSYWFaQmCOzx62rA" />
-      </head>
       <body
         className="font-sans min-h-screen bg-white"
         suppressHydrationWarning

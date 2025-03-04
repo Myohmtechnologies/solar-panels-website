@@ -16,9 +16,7 @@ import {
 } from '@heroicons/react/24/outline';
 import BatterieStockageSchemaMarkup from '@/components/BatterieStockageSchemaMarkup';
 import EnergyExpertModal from '@/components/modals/EnergyExpertModal';
-import BatteryComparisonSimulator from '@/components/sections/BatteryComparisonSimulator';
-
-
+import BatterySimulator from '@/components/sections/BatterySimulator';
 
 const features = [
   {
@@ -427,13 +425,14 @@ export default function BatterieStockagePage() {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Comparez vos économies avec et sans batterie
             </h2>
-
-            <div className="max-w-4xl mx-auto">
-                <BatteryComparisonSimulator />
-            </div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Découvrez combien vous pourriez economiser en ajoutant une batterie de stockage à votre installation solaire.
             </p>
+
+            <div className="max-w-4xl mx-auto mt-12">
+              <BatterySimulator />
+            </div>
+            
           </div>
           
           
@@ -444,7 +443,7 @@ export default function BatterieStockagePage() {
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-br from-ffeb99 to-ffb700 text-black rounded-full font-medium text-lg hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
+              className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-br from-ffeb99 to-ffb700 text-black rounded-full font-medium text-lg hover:opacity-90 transition-all shadow-md hover:shadow-lg"
             >
               Demander un devis personnalisé
               <ArrowRightIcon className="h-5 w-5 ml-2" />

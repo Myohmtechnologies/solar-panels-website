@@ -92,7 +92,7 @@ const BatterySimulator = () => {
   };
 
   const formatEnergy = (value: number): string => `${Math.round(value)} kWh`;
-  const formatCurrency = (value: number): string => `${Math.round(value)}€`;
+  const formatCurrency = (value: number): string => `${Math.round(value)}€/mois`;
   const formatPercentage = (value: number): string => `${Math.round(value)}%`;
 
   return (

@@ -93,25 +93,25 @@ export const MyLightCalculator = () => {
       label: "3 kWc - Petite famille", 
       description: "Idéal pour un couple ou une petite famille", 
       price: 9890,
-      production: 6400 // 3kWc × 1400 kWh/kWc
+      production: 5000 // 3kWc × 1400 kWh/kWc
     },
     { 
       size: 6, 
       label: "6 kWc - Famille moyenne", 
       description: "Parfait pour une famille de 3-4 personnes", 
       price: 14890,
-      production: 12800 // 6kWc × 1400 kWh/kWc
+      production: 10500// 6kWc × 1400 kWh/kWc
     },
     { 
       size: 9, 
       label: "9 kWc - Grande famille", 
       description: "Adapté pour une grande famille ou une grande maison", 
       price: 19890,
-      production: 21600 // 9kWc × 1400 kWh/kWc
+      production: 18500 // 9kWc × 1400 kWh/kWc
     }
   ];
 
-  const ELECTRICITY_PRICE = 0.25; // Prix du kWh en euros
+  const ELECTRICITY_PRICE = 0.205; // Prix du kWh en euros
 
   const calculateSavings = (monthlyBill: number, installationSize: number) => {
     const orientationEfficiency: { [key: string]: number } = {

@@ -28,7 +28,7 @@ interface SimulationResult {
   additionalSavingsPercentage: number;
 }
 
-const ELECTRICITY_PRICE = 0.25;
+const ELECTRICITY_PRICE = 0.205;
 const BUYBACK_PRICE = 0.12;
 const EDF_OA_AUTOCONSUMPTION_RATE = 0.6;
 const BATTERY_AUTOCONSUMPTION_RATE = 0.9;

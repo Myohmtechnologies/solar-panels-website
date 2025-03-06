@@ -550,7 +550,7 @@ export default function BatterieStockagePage() {
       </section>
       
       {/* Expert Modal */}
-      <EnergyExpertModal isOpen={isExpertModalOpen} closeModal={closeExpertModal} />
+      <EnergyExpertModal isOpen={isExpertModalOpen} onClose={closeExpertModal} source="battery" />
     </main>
   );
 }

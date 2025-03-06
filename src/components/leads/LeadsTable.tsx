@@ -240,6 +240,7 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
           <div>
             <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
               <button
+                key="first-page"
                 onClick={() => setCurrentPage(1)}
                 disabled={currentPage === 1}
                 className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
@@ -248,6 +249,7 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
                 ««
               </button>
               <button
+                key="previous-page"
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
                 className="relative inline-flex items-center px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
@@ -255,10 +257,11 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
                 <span className="sr-only">Précédent</span>
                 «
               </button>
-              <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">
+              <span key="current-page" className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">
                 Page {currentPage} sur {totalPages}
               </span>
               <button
+                key="next-page"
                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                 disabled={currentPage === totalPages}
                 className="relative inline-flex items-center px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
@@ -267,6 +270,7 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
                 »
               </button>
               <button
+                key="last-page"
                 onClick={() => setCurrentPage(totalPages)}
                 disabled={currentPage === totalPages}
                 className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"

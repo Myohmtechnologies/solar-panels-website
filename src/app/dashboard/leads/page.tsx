@@ -37,8 +37,8 @@ export default function LeadsPage() {
         throw new Error('Failed to fetch leads');
       }
       const data = await response.json();
-      setLeads(data.leads);
-      setFilteredLeads(data.leads);
+      setLeads(data.data);
+      setFilteredLeads(data.data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Une erreur est survenue');
     } finally {

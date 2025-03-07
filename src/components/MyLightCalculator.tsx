@@ -93,14 +93,14 @@ export const MyLightCalculator = () => {
       label: "3 kWc - Petite famille", 
       description: "Idéal pour un couple ou une petite famille", 
       price: 9890,
-      production: 5000 // 3kWc × 1400 kWh/kWc
+      production: 5500 // 3kWc × 1400 kWh/kWc
     },
     { 
       size: 6, 
       label: "6 kWc - Famille moyenne", 
       description: "Parfait pour une famille de 3-4 personnes", 
       price: 14890,
-      production: 10500// 6kWc × 1400 kWh/kWc
+      production: 10800// 6kWc × 1400 kWh/kWc
     },
     { 
       size: 9, 

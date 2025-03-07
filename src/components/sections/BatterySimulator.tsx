@@ -34,9 +34,9 @@ const EDF_OA_AUTOCONSUMPTION_RATE = 0.6;
 const BATTERY_AUTOCONSUMPTION_RATE = 0.9;
 
 const INSTALLATION_SIZES = [
-  { value: 3, label: '3 kWc', production: 5000 },
-  { value: 6, label: '6 kWc', production: 8000 },
-  { value: 9, label: '9 kWc', production: 14000 },
+  { value: 3, label: '3 kWc', production: 5500 },
+  { value: 6, label: '6 kWc', production: 10800 },
+  { value: 9, label: '9 kWc', production: 17500 },
 ];
 
 const BATTERY_CAPACITIES = [

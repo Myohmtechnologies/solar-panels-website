@@ -90,10 +90,13 @@ export const initializeInteractionTracking = () => {
 
     // Track CTA clicks
     document.addEventListener('click', (e) => {
-        const target = e.target as HTMLElement;
-        if (target.matches('button, a, [role="button"]')) {
-            const ctaType = target.getAttribute('data-cta-type') || 'unknown';
-            trackPageInteractions.ctaInteractions(ctaType, target);
+        const target = e.target;
+        // Vérifier que target est un Element avant d'utiliser matches
+        if (target instanceof Element && target.matches && typeof target.matches === 'function') {
+            if (target.matches('button, a, [role="button"]')) {
+                const ctaType = target.getAttribute('data-cta-type') || 'unknown';
+                trackPageInteractions.ctaInteractions(ctaType, target as HTMLElement);
+            }
         }
     });
 };

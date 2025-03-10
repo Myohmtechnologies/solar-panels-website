@@ -98,10 +98,6 @@ export default async function BlogDetailPage({ params }: Props) {
             tableOfContents={tableOfContents}
           />
 
-
-          
-
-         
         </main>
       </div>
     );

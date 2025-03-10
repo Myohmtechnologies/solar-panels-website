@@ -22,19 +22,19 @@ const InlineCTA = ({ onOpenModal }: { onOpenModal: () => void }) => {
   return (
     <div className="my-12 bg-gradient-solar p-8 rounded-xl shadow-lg">
       <div className="max-w-3xl mx-auto">
-        <h3 className="text-2xl font-bold mb-2 text-gray-900">Vous souhaitez passer à l&apos;énergie solaire ?</h3>
-        <p className="mb-6 text-gray-700">Découvrez combien vous pourriez économiser ou parlez à un expert</p>
+        <h3 className="text-2xl font-bold mb-2 text-black">Vous souhaitez passer à l&apos;énergie solaire ?</h3>
+        <p className="mb-6 text-black">Découvrez combien vous pourriez économiser ou parlez à un expert</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
           <Link
             href="/simulator"
-            className="inline-flex items-center justify-center px-6 py-3 bg-AFC97E text-white rounded-lg font-semibold hover:bg-FFDF64 hover:text-gray-900 transition-all duration-300 group text-center"
+            className="inline-flex items-center justify-center px-6 py-3 bg-AFC97E text-black rounded-lg font-semibold hover:bg-FFDF64 hover:text-gray-900 transition-all duration-300 group text-center"
           >
             Simulation gratuite
             <ArrowRightIcon className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
           </Link>
           <button
             onClick={onOpenModal}
-            className="inline-flex items-center justify-center px-6 py-3 bg-white text-AFC97E border-2 border-AFC97E rounded-lg font-semibold hover:bg-AFC97E hover:text-white transition-all duration-300 group text-center"
+            className="inline-flex items-center justify-center px-6 py-3 bg-black text-AFC97E border-2 border-AFC97E rounded-lg font-semibold hover:bg-AFC97E hover:text-white transition-all duration-300 group text-center"
           >
             Parler à un expert
             <ArrowRightIcon className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -118,24 +118,24 @@ const BlogSection = ({ sections, tableOfContents }: BlogSectionProps) => {
             </div>
 
             {/* CTA Card */}
-            <div className="bg-6C8D2F text-white p-6 rounded-xl">
+            <div className="bg-6C8D2F text-black p-6 rounded-xl">
               <h3 className="text-xl font-bold mb-4">
                 Prêt à passer à l&apos;énergie solaire ?
               </h3>
               <ul className="space-y-3 mb-6">
                 <li className="flex items-center gap-2">
-                  <CheckIcon className="h-5 w-5 text-FFDF64" />
+                  <CheckIcon className="h-5 w-5 text-black" />
                   <span>Estimation en 2 min</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckIcon className="h-5 w-5 text-FFDF64" />
+                  <CheckIcon className="h-5 w-5 text-black" />
                   <span>Gratuit et sans engagement</span>
                 </li>
               </ul>
               <div className="space-y-3">
                 <Link
                   href="/simulator"
-                  className="block text-center bg-white text-6C8D2F py-3 px-6 rounded-lg font-semibold hover:bg-FFDF64 transition-colors w-full"
+                  className="block text-center bg-FFDF64 text-black py-3 px-6 rounded-lg font-semibold hover:bg-FFDF64 transition-colors w-full"
                 >
                   SIMULATION GRATUITE
                 </Link>

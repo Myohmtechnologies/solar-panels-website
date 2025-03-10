@@ -135,18 +135,25 @@ export default function BlogDashboardPage() {
         {filteredPosts.map((post) => (
           <div key={post._id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
             {post.mainImage && (
-              <div className="relative h-48">
-                <Image
-                  src={post.mainImage}
+              <div className="relative h-48 bg-gray-100 overflow-hidden">
+                {/* Affichage de l'image avec une balise img standard */}
+                <img 
+                  src={post.mainImage.includes('http') ? post.mainImage : post.mainImage.startsWith('/') ? post.mainImage : `/uploads/blog/${post.mainImage}`}
                   alt={post.title}
-                  fill
-                  className="object-cover"
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                  onError={(e) => {
+                    console.error('Erreur de chargement d\'image:', post.mainImage);
+                    // Aucune image de fallback pour le moment
+                  }}
                 />
               </div>
             )}
             <div className="p-4">
               <h2 className="text-xl font-semibold text-gray-900 mb-2">{post.title}</h2>
-              <p className="text-gray-600 text-sm mb-4 line-clamp-2">{post.description}</p>
+              <div 
+                className="text-gray-600 text-sm mb-4 line-clamp-2"
+                dangerouslySetInnerHTML={{ __html: post.description }}
+              />
               
               <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
                 <div className="flex items-center gap-1">

@@ -2,6 +2,14 @@
 
 import { useState } from 'react';
 import { Lead, LeadStatus } from '@/types';
+
+// Définition explicite du type NextAction pour résoudre les erreurs de type
+interface NextAction {
+  type: LeadStatus;
+  plannedDate: string;
+  location?: string;
+  description?: string;
+}
 import LeadActionModal from './LeadActionModal';
 import LeadDetailsModal from './LeadDetailsModal';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
@@ -13,7 +21,9 @@ import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
 interface LeadsTableProps {
-  leads: Lead[];
+  leads: (Lead & {
+    nextAction?: NextAction;
+  })[];
   onLeadUpdate: () => void;
 }
 
@@ -86,7 +96,7 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
     setIsDetailsModalOpen(true);
   };
 
-  const handleStatusChange = async (leadId: string, newStatus: LeadStatus) => {
+  const handleStatusChange = async (_id: string, newStatus: LeadStatus) => {
     try {
       await onLeadUpdate();
       router.refresh();
@@ -131,7 +141,7 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {leads.map((lead) => (
-              <tr key={lead.id} className="hover:bg-gray-50">
+              <tr key={lead._id} className="hover:bg-gray-50">
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900 truncate" title={lead.name}>
                     {lead.name}
@@ -239,45 +249,62 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
           </div>
           <div>
             <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-              <button
-                key="first-page"
-                onClick={() => setCurrentPage(1)}
-                disabled={currentPage === 1}
-                className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-              >
-                <span className="sr-only">Première page</span>
-                ««
-              </button>
-              <button
-                key="previous-page"
-                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                disabled={currentPage === 1}
-                className="relative inline-flex items-center px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-              >
-                <span className="sr-only">Précédent</span>
-                «
-              </button>
-              <span key="current-page" className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">
-                Page {currentPage} sur {totalPages}
-              </span>
-              <button
-                key="next-page"
-                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                disabled={currentPage === totalPages}
-                className="relative inline-flex items-center px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-              >
-                <span className="sr-only">Suivant</span>
-                »
-              </button>
-              <button
-                key="last-page"
-                onClick={() => setCurrentPage(totalPages)}
-                disabled={currentPage === totalPages}
-                className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-              >
-                <span className="sr-only">Dernière page</span>
-                »»
-              </button>
+              {[
+                {
+                  id: 'first-page',
+                  label: 'Première page',
+                  icon: '««',
+                  onClick: () => setCurrentPage(1),
+                  disabled: currentPage === 1,
+                  className: 'relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
+                },
+                {
+                  id: 'previous-page',
+                  label: 'Précédent',
+                  icon: '«',
+                  onClick: () => setCurrentPage(p => Math.max(1, p - 1)),
+                  disabled: currentPage === 1,
+                  className: 'relative inline-flex items-center px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
+                },
+                {
+                  id: 'current-page',
+                  content: `Page ${currentPage} sur ${totalPages}`,
+                  className: 'relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 focus:outline-offset-0',
+                  isSpan: true
+                },
+                {
+                  id: 'next-page',
+                  label: 'Suivant',
+                  icon: '»',
+                  onClick: () => setCurrentPage(p => Math.min(totalPages, p + 1)),
+                  disabled: currentPage === totalPages,
+                  className: 'relative inline-flex items-center px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
+                },
+                {
+                  id: 'last-page',
+                  label: 'Dernière page',
+                  icon: '»»',
+                  onClick: () => setCurrentPage(totalPages),
+                  disabled: currentPage === totalPages,
+                  className: 'relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
+                }
+              ].map(item => (
+                item.isSpan ? (
+                  <span key={item.id} className={item.className}>
+                    {item.content}
+                  </span>
+                ) : (
+                  <button
+                    key={item.id}
+                    onClick={item.onClick}
+                    disabled={item.disabled}
+                    className={item.className}
+                  >
+                    <span className="sr-only">{item.label}</span>
+                    {item.icon}
+                  </button>
+                )
+              ))}
             </nav>
           </div>
         </div>

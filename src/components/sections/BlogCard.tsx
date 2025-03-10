@@ -14,12 +14,13 @@ const BlogCard = ({ title, description, image, category = 'Blog', slug }: BlogCa
     <Link href={`/blog/${slug}`} className="block">
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-[1.02] hover:shadow-xl">
         {/* Image Section */}
-        <div className="relative w-full h-48">
+        <div className="relative w-full h-48 overflow-hidden">
           <Image
             src={image}
             alt={title}
             fill
-            className="object-cover"
+            className="object-cover object-center"
+            unoptimized
           />
         </div>
 

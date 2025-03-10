@@ -155,6 +155,8 @@ const BlogSection = ({ sections, tableOfContents }: BlogSectionProps) => {
       <ContactModal 
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        title="Contactez-nous"
+        message="Remplissez le formulaire ci-dessous et un expert vous contactera dans les plus brefs délais."
       />
     </>
   );

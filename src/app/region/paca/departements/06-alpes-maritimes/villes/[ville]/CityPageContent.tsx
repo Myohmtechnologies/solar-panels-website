@@ -16,7 +16,6 @@ import SolarComparisonSection from '@/components/sections/SolarComparisonSection
 import LocalPresenceSection from '@/components/sections/LocalPresenceSection';
 import CityFaqSection from '@/components/sections/CityFaqSection';
 import LastBlogPostsSection from '@/components/sections/LastBlogPostsSection';
-import ContactCTASection from '@/components/sections/ContactCTASection';
 import SolarPowerSection from '@/components/sections/SolarPowerSection';
 import RequestQuoteSection from '@/components/sections/RequestQuoteSection';
 

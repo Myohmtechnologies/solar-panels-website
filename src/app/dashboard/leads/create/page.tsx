@@ -53,20 +53,21 @@ export default function CreateLeadPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
-      <div className="max-w-2xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Nouveau prospect</h1>
-          <p className="mt-1 text-sm text-gray-600">
-            Remplissez les informations du nouveau prospect
+    <div className="min-h-screen p-4 sm:p-6 lg:p-8">
+      <div className="max-w-3xl mx-auto">
+        <div className="mb-8 bg-gradient-to-r from-[#0B6291] to-[#0F7BB9] p-6 rounded-xl shadow-md text-white">
+          <h1 className="text-2xl font-bold">Nouveau prospect</h1>
+          <p className="mt-2 text-white/80">
+            Remplissez les informations du nouveau prospect pour l'ajouter à votre base de données
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg shadow">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-xl shadow-md border border-gray-100">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 mb-8">
+            <h2 className="text-lg font-medium text-[#0B6291] col-span-2 border-b border-gray-200 pb-2">Informations personnelles</h2>
             {/* Nom */}
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                 Nom complet
               </label>
               <input
@@ -76,13 +77,13 @@ export default function CreateLeadPage() {
                 required
                 value={formData.name}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm focus:border-[#0B6291] focus:outline-none focus:ring-[#0B6291] sm:text-sm transition-all duration-200"
               />
             </div>
 
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 Email
               </label>
               <input
@@ -92,13 +93,13 @@ export default function CreateLeadPage() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm focus:border-[#0B6291] focus:outline-none focus:ring-[#0B6291] sm:text-sm transition-all duration-200"
               />
             </div>
 
             {/* Téléphone */}
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
                 Téléphone
               </label>
               <input
@@ -108,13 +109,13 @@ export default function CreateLeadPage() {
                 required
                 value={formData.phone}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm focus:border-[#0B6291] focus:outline-none focus:ring-[#0B6291] sm:text-sm transition-all duration-200"
               />
             </div>
 
             {/* Code postal */}
             <div>
-              <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700 mb-1">
                 Code postal
               </label>
               <input
@@ -124,13 +125,13 @@ export default function CreateLeadPage() {
                 required
                 value={formData.postalCode}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm focus:border-[#0B6291] focus:outline-none focus:ring-[#0B6291] sm:text-sm transition-all duration-200"
               />
             </div>
 
             {/* Ville */}
             <div>
-              <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
                 Ville
               </label>
               <input
@@ -140,57 +141,70 @@ export default function CreateLeadPage() {
                 required
                 value={formData.city}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm focus:border-[#0B6291] focus:outline-none focus:ring-[#0B6291] sm:text-sm transition-all duration-200"
               />
             </div>
           </div>
 
-          {/* Adresse */}
-          <div>
-            <label htmlFor="address" className="block text-sm font-medium text-gray-700">
-              Adresse
-            </label>
-            <input
-              type="text"
-              name="address"
-              id="address"
-              required
-              value={formData.address}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
-            />
+          <div className="mb-6">
+            <h2 className="text-lg font-medium text-[#0B6291] border-b border-gray-200 pb-2 mb-4">Adresse</h2>
+            <div>
+              <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+                Adresse complète
+              </label>
+              <input
+                type="text"
+                name="address"
+                id="address"
+                required
+                value={formData.address}
+                onChange={handleChange}
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm focus:border-[#0B6291] focus:outline-none focus:ring-[#0B6291] sm:text-sm transition-all duration-200"
+              />
+            </div>
           </div>
 
-          {/* Notes */}
-          <div>
-            <label htmlFor="notes" className="block text-sm font-medium text-gray-700">
-              Notes
-            </label>
-            <textarea
-              name="notes"
-              id="notes"
-              rows={4}
-              value={formData.notes}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
-            />
+          <div className="mb-6">
+            <h2 className="text-lg font-medium text-[#0B6291] border-b border-gray-200 pb-2 mb-4">Informations complémentaires</h2>
+            <div>
+              <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-1">
+                Notes
+              </label>
+              <textarea
+                name="notes"
+                id="notes"
+                rows={4}
+                value={formData.notes}
+                onChange={handleChange}
+                placeholder="Ajoutez des informations complémentaires sur ce prospect..."
+                className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 shadow-sm focus:border-[#0B6291] focus:outline-none focus:ring-[#0B6291] sm:text-sm transition-all duration-200"
+              />
+            </div>
           </div>
 
           {/* Boutons */}
-          <div className="flex justify-end space-x-3">
+          <div className="flex justify-end space-x-4 pt-4 border-t border-gray-100">
             <button
               type="button"
               onClick={() => router.back()}
-              className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              className="rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#0B6291] focus:ring-offset-2 transition-all duration-200"
             >
               Annuler
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              className="inline-flex items-center justify-center rounded-lg border border-transparent bg-gradient-to-r from-[#0B6291] to-[#0F7BB9] px-5 py-2.5 text-sm font-medium text-white shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0B6291] focus:ring-offset-2 transition-all duration-200"
             >
-              {isSubmitting ? 'Création...' : 'Créer le prospect'}
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Création en cours...
+                </>
+              ) : 'Créer le prospect'}
             </button>
           </div>
         </form>

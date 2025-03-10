@@ -1,15 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Lead, LeadStatus } from '@/types';
-
-// Définition explicite du type NextAction pour résoudre les erreurs de type
-interface NextAction {
-  type: LeadStatus;
-  plannedDate: string;
-  location?: string;
-  description?: string;
-}
+import { Lead, LeadStatus, NextAction } from '@/types';
 import LeadActionModal from './LeadActionModal';
 import LeadDetailsModal from './LeadDetailsModal';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
@@ -110,38 +102,38 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
       <div className="overflow-x-auto">
         <table className="w-full table-fixed divide-y divide-gray-200">
           <colgroup>
+            <col className="w-[18%]" />
             <col className="w-[20%]" />
-            <col className="w-[25%]" />
             <col className="w-[15%]" />
-            <col className="w-[12%]" />
-            <col className="w-[20%]" />
+            <col className="w-[15%]" />
+            <col className="w-[24%]" />
             <col className="w-[8%]" />
           </colgroup>
-          <thead className="bg-gray-50">
+          <thead className="bg-gradient-to-r from-[#0B6291]/10 to-[#d7f0fc]/10 rounded-t-xl">
             <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
                 Client
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
                 Ville
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
                 Téléphone
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
                 Statut
               </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
                 Prochaine Action
               </th>
-              <th scope="col" className="relative px-6 py-3">
+              <th scope="col" className="relative px-6 py-4">
                 <span className="sr-only">Actions</span>
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {leads.map((lead) => (
-              <tr key={lead._id} className="hover:bg-gray-50">
+          <tbody className="bg-white divide-y divide-gray-100">
+            {leads.map((lead, index) => (
+              <tr key={lead._id} className={`hover:bg-gray-50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}`}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900 truncate" title={lead.name}>
                     {lead.name}
@@ -156,22 +148,23 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
                   <div className="text-sm text-gray-900">{lead.phone}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${STATUS_COLORS[lead.status]}`}>
+                  <span className={`px-3 py-1.5 inline-flex text-xs leading-5 font-medium rounded-xl ${STATUS_COLORS[lead.status]}`}>
                     {STATUS_LABELS[lead.status]}
                   </span>
                 </td>
-                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
                   <div className="flex flex-col">
                     <span className="font-medium">
-                      {lead.nextAction?.plannedDate ? formatDate(lead.nextAction.plannedDate) : '-'}
+                      {lead.nextAction && 'plannedDate' in lead.nextAction 
+                        ? formatDate((lead.nextAction as any).plannedDate) 
+                        : '-'}
                     </span>
-                    
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <Menu as="div" className="relative inline-block text-left">
-                    <Menu.Button className="p-1.5 hover:bg-gray-50 rounded-full">
-                      <EllipsisVerticalIcon className="h-5 w-5 text-gray-400" />
+                    <Menu.Button className="p-2 hover:bg-[#0B6291]/10 rounded-full transition-colors">
+                      <EllipsisVerticalIcon className="h-5 w-5 text-[#0B6291]" />
                     </Menu.Button>
                     <Transition
                       as={Fragment}

@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { Lead, LeadAction, LeadStatus } from '@/types';
+import { Lead, LeadAction, LeadStatus, NextAction } from '@/types';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
@@ -75,31 +75,62 @@ export default function LeadDetailsModal({ isOpen, onClose, lead }: LeadDetailsM
     }
   }, [lead._id, isOpen]);
 
-  const formatDate = (date: string | undefined | null) => {
-    console.log('Formatting date:', date);
-    if (!date) {
-      console.log('Date is null or undefined');
-      return 'Date non spécifiée';
-    }
+  // Fonction sécurisée pour accéder aux propriétés de nextAction
+  const getNextActionProperty = (obj: any, property: string) => {
+    if (!obj || typeof obj !== 'object') return undefined;
+    return obj[property];
+  };
+
+  // Fonction de formatage de date améliorée pour gérer différents formats
+  const formatDate = (date: any) => {
+    if (!date) return 'Date non spécifiée';
     
     try {
-      // Créer une date à partir de la chaîne ISO
-      console.log('Creating Date object from:', date);
-      const parsedDate = new Date(date);
-      console.log('Parsed date:', parsedDate);
+      let parsedDate: Date;
+      
+      // Convertir en string si ce n'est pas déjà le cas
+      const dateStr = String(date);
+      
+      // Format français: "DD/MM/YYYY HH:MM:SS"
+      if (dateStr.includes('/')) {
+        const parts = dateStr.split(' ');
+        const dateParts = parts[0].split('/');
+        
+        if (dateParts.length === 3) {
+          const day = parseInt(dateParts[0], 10);
+          const month = parseInt(dateParts[1], 10) - 1; // Les mois commencent à 0 en JS
+          const year = parseInt(dateParts[2], 10);
+          
+          if (parts.length > 1 && parts[1].includes(':')) {
+            // Format avec heure
+            const timeParts = parts[1].split(':');
+            const hour = parseInt(timeParts[0], 10);
+            const minute = parseInt(timeParts[1], 10);
+            const second = timeParts.length > 2 ? parseInt(timeParts[2], 10) : 0;
+            
+            parsedDate = new Date(year, month, day, hour, minute, second);
+          } else {
+            // Format sans heure
+            parsedDate = new Date(year, month, day);
+          }
+        } else {
+          return 'Format de date invalide';
+        }
+      } else {
+        // Essayer le format standard
+        parsedDate = new Date(dateStr);
+      }
       
       // Vérifier si la date est valide
       if (isNaN(parsedDate.getTime())) {
-        console.error('Invalid date:', date);
+        console.error('Date invalide:', dateStr);
         return 'Date invalide';
       }
       
       // Formater la date en français
-      const formattedDate = format(parsedDate, 'PPP à HH:mm', { locale: fr });
-      console.log('Formatted date:', formattedDate);
-      return formattedDate;
+      return format(parsedDate, 'PPP à HH:mm', { locale: fr });
     } catch (error) {
-      console.error('Error formatting date:', error, date);
+      console.error('Erreur de formatage:', error);
       return 'Date invalide';
     }
   };
@@ -219,24 +250,20 @@ export default function LeadDetailsModal({ isOpen, onClose, lead }: LeadDetailsM
                               {console.log('Lead nextAction:', lead.nextAction)}
                               <div>
                                 <span className="font-medium">
-                                  {STATUS_LABELS[lead.nextAction.type as LeadStatus]}
+                                  {STATUS_LABELS[getNextActionProperty(lead.nextAction, 'type') as LeadStatus]}
                                 </span>
-                                {lead.nextAction.plannedDate && (
-                                  <>
-                                    {console.log('Type of plannedDate:', typeof lead.nextAction.plannedDate)}
-                                    {console.log('Value of plannedDate:', lead.nextAction.plannedDate)}
-                                    <span className="ml-2">
-                                      {formatDate(lead.nextAction.plannedDate)}
-                                    </span>
-                                  </>
+                                {getNextActionProperty(lead.nextAction, 'plannedDate') && (
+                                  <span className="ml-2">
+                                    {formatDate(getNextActionProperty(lead.nextAction, 'plannedDate'))}
+                                  </span>
                                 )}
                               </div>
-                              {lead.nextAction.description && (
-                                <div className="mt-1 text-gray-500">{lead.nextAction.description}</div>
+                              {getNextActionProperty(lead.nextAction, 'description') && (
+                                <div className="mt-1 text-gray-500">{getNextActionProperty(lead.nextAction, 'description')}</div>
                               )}
-                              {lead.nextAction.location && (
+                              {getNextActionProperty(lead.nextAction, 'location') && (
                                 <div className="mt-2 text-gray-500">
-                                  <div>{lead.nextAction.location}</div>
+                                  <div>{getNextActionProperty(lead.nextAction, 'location')}</div>
                                 </div>
                               )}
                             </dd>
@@ -280,19 +307,19 @@ export default function LeadDetailsModal({ isOpen, onClose, lead }: LeadDetailsM
                                               {action.nextAction && (
                                                 <div className="mt-2">
                                                   <p className="text-sm font-medium text-gray-900">
-                                                    {STATUS_LABELS[action.nextAction.type as LeadStatus]}
+                                                    {STATUS_LABELS[getNextActionProperty(action.nextAction, 'type') as LeadStatus]}
                                                   </p>
                                                   <p className="text-sm text-gray-500">
-                                                    {formatDate(action.nextAction.plannedDate)}
+                                                    {formatDate(getNextActionProperty(action.nextAction, 'plannedDate'))}
                                                   </p>
-                                                  {action.nextAction.location && (
+                                                  {getNextActionProperty(action.nextAction, 'location') && (
                                                     <p className="text-sm text-gray-500 mt-1">
-                                                      {action.nextAction.location}
+                                                      {getNextActionProperty(action.nextAction, 'location')}
                                                     </p>
                                                   )}
-                                                  {action.nextAction.description && (
+                                                  {getNextActionProperty(action.nextAction, 'description') && (
                                                     <p className="text-sm text-gray-500 mt-1">
-                                                      {action.nextAction.description}
+                                                      {getNextActionProperty(action.nextAction, 'description')}
                                                     </p>
                                                   )}
                                                 </div>

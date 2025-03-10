@@ -70,8 +70,13 @@ export default function LeadsPage() {
 
     // Trier les leads par date de prochaine action
     filtered.sort((a, b) => {
-      const dateA = a.nextAction?.plannedDate ? new Date(a.nextAction.plannedDate).getTime() : Number.MAX_SAFE_INTEGER;
-      const dateB = b.nextAction?.plannedDate ? new Date(b.nextAction.plannedDate).getTime() : Number.MAX_SAFE_INTEGER;
+      // Utilisation d'une assertion de type pour éviter les erreurs TypeScript
+      const dateA = a.nextAction && 'plannedDate' in a.nextAction
+        ? new Date((a.nextAction as any).plannedDate).getTime()
+        : Number.MAX_SAFE_INTEGER;
+      const dateB = b.nextAction && 'plannedDate' in b.nextAction
+        ? new Date((b.nextAction as any).plannedDate).getTime()
+        : Number.MAX_SAFE_INTEGER;
       
       return sortOrder === 'next-action-asc' 
         ? dateA - dateB  // Plus proche en premier
@@ -98,20 +103,20 @@ export default function LeadsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto space-y-6 px-4 py-6 sm:px-6 lg:px-8">
         {/* En-tête avec titre et bouton */}
-        <div className="sm:flex sm:items-center sm:justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold text-gray-900">Prospects</h1>
-            <p className="mt-2 text-sm text-gray-700">
+        <div className="bg-gradient-to-r from-[#0B6291] to-[#d7f0fc] rounded-xl shadow-lg p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+          <div className="text-white">
+            <h1 className="text-2xl font-semibold">Prospects</h1>
+            <p className="mt-2 text-sm text-white/80">
               Liste et suivi de tous vos prospects
             </p>
           </div>
           <div className="mt-4 sm:mt-0">
             <button
               onClick={() => router.push('/dashboard/leads/create')}
-              className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="inline-flex items-center px-5 py-2.5 border border-transparent shadow-md text-sm font-medium rounded-xl text-[#0B6291] bg-gradient-to-r from-ffb700 to-ffeb99 hover:bg-white/90 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0B6291]"
             >
               <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
               Nouveau prospect
@@ -120,12 +125,12 @@ export default function LeadsPage() {
         </div>
 
         {/* Stats */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white rounded-xl shadow-lg p-6">
           <LeadsStats leads={leads} />
         </div>
 
         {/* Filtres et recherche */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white rounded-xl shadow-lg p-6">
           <LeadsFilters
             searchTerm={searchTerm}
             onSearchChange={setSearchTerm}
@@ -137,11 +142,22 @@ export default function LeadsPage() {
         </div>
 
         {/* Tableau des prospects */}
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
           {isLoading ? (
-            <div className="p-6 text-center">Chargement...</div>
+            <div className="p-8 text-center flex flex-col items-center justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#0B6291] mb-4"></div>
+              <p className="text-gray-600">Chargement des prospects...</p>
+            </div>
           ) : error ? (
-            <div className="p-6 text-center text-red-600">{error}</div>
+            <div className="p-8 text-center text-red-600 bg-red-50 rounded-lg">
+              <p className="font-medium">{error}</p>
+              <button 
+                onClick={fetchLeads}
+                className="mt-4 px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors"
+              >
+                Réessayer
+              </button>
+            </div>
           ) : (
             <LeadsTable leads={filteredLeads} onLeadUpdate={fetchLeads} />
           )}

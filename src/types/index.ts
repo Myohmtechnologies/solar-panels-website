@@ -75,6 +75,13 @@ export enum LeadStatus {
   NOT_INTERESTED = 'NOT_INTERESTED'
 }
 
+export interface NextAction {
+  type?: LeadStatus;
+  plannedDate?: string | Date;
+  location?: string;
+  description?: string;
+}
+
 export interface LeadAction {
   _id?: string;
   leadId: string;
@@ -82,12 +89,17 @@ export interface LeadAction {
   status: 'PLANNED' | 'COMPLETED' | 'CANCELLED';
   date: string;
   notes: string;
-  nextAction?: {
-    type: string;
-    plannedDate: string;
-    location?: string;
-    description?: string;
-  };
+  nextAction?: NextAction;
+}
+
+export interface Installation {
+  type: string;
+  date?: string;
+  power?: number;
+  panels?: number;
+  area?: number;
+  orientation?: string;
+  savings?: number;
 }
 
 export interface Lead {
@@ -102,12 +114,7 @@ export interface Lead {
   status: LeadStatus;
   createdAt: string;
   lastAction?: LeadAction;
-  nextAction?: {
-    type: LeadStatus;
-    plannedDate: string;
-    location?: string;
-    description?: string;
-  };
+  nextAction?: NextAction;
 }
 
 // Mapping des statuts aux étapes suivantes possibles

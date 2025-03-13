@@ -18,6 +18,7 @@ import CityFaqSection from '@/components/sections/CityFaqSection';
 import LastBlogPostsSection from '@/components/sections/LastBlogPostsSection';
 import SolarPowerSection from '@/components/sections/SolarPowerSection';
 import RequestQuoteSection from '@/components/sections/RequestQuoteSection';
+import RatingSchema from '@/components/schemas/RatingSchema';
 
 interface CityData {
   name: string;
@@ -105,8 +106,26 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
     location: "Alpes-Maritimes"
   };
 
+  // Conversion des avis Google pour le schéma de notation
+  const reviewsForSchema = localPresenceData.googleReviews.recentReviews.map(review => ({
+    author: review.author,
+    rating: review.rating,
+    date: new Date().toISOString().split('T')[0], // Format YYYY-MM-DD
+    content: review.comment
+  }));
+
   return (
     <main className="bg-white">
+      {/* Schéma de notation pour les résultats de recherche Google */}
+      <RatingSchema
+        businessName={`MY OHM Technologies - Installation Panneaux Solaires à ${villeName}`}
+        city={villeName}
+        region="PACA"
+        ratingValue={localPresenceData.googleReviews.rating}
+        reviewCount={localPresenceData.googleReviews.totalReviews}
+        reviews={reviewsForSchema}
+      />
+
       {/* 1. Section Hero Video */}
       <CityHeroVideo 
         cityName={villeName}

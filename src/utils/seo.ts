@@ -36,7 +36,7 @@ export function generateCityMetadata(cityData: CityData): Metadata {
   // Variations de titres pour A/B testing
   const titleVariations = [
     `Installation Panneaux Solaires à ${cityName} ✓ Certifié RGE`,
-    `Panneaux Solaires ${cityName} : Installateur RGE 2024 ☀️`,
+    `Panneaux Solaires ${cityName} : Installateur RGE 2025 ☀️`,
     `Installateur Panneaux Solaires à ${cityName} | Économies Garanties`
   ];
   

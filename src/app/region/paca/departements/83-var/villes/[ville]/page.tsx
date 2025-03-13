@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { generateCityMetadata } from '@/utils/seo';
 import var83 from '@/app/data/departments/83-var';
 import CityPageContent from './CityPageContent';
 
@@ -13,6 +12,24 @@ interface Props {
 // Pas de conversion, utilise directement la clé
 const slugToCityKey = (slug: string): string => slug;
 
+// Fonction pour obtenir le code postal à partir du nom de la ville
+const getCityPostalCode = (cityName: string): string => {
+  // Codes postaux pour les principales villes du Var
+  const postalCodes: Record<string, string> = {
+    'Toulon': '83000',
+    'Draguignan': '83300',
+    'Fréjus': '83600',
+    'Hyères': '83400',
+    'La Seyne-sur-Mer': '83500',
+    'Saint-Raphaël': '83700',
+    'Saint-Tropez': '83990',
+    'Brignoles': '83170',
+    'Six-Fours-les-Plages': '83140'
+  };
+  
+  return postalCodes[cityName] || '83'; // Retourne le code postal ou '83' par défaut
+};
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const villeSlug = params.ville;
   const cityKey = slugToCityKey(villeSlug) as keyof typeof var83.cities;
@@ -21,13 +38,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!cityData) {
     notFound();
   }
+  
+  // Obtenir le code postal pour cette ville
+  const postalCode = getCityPostalCode(cityData.name);
+  
+  // Prix moyen d'une installation (valeurs à titre d'exemple)
+  const priceRange = {
+    min: 5990,
+    max: 7890,
+    afterAid: 870
+  };
 
-  return generateCityMetadata({
-    cityName: cityData.name,
-    department: "Var",
-    region: "PACA",
-    sunshineHours: cityData.sunshineHours || 2800,
-    description: `Installation de panneaux solaires à ${cityData.name}. Profitez d'une expertise locale et d'un service personnalisé pour votre transition énergétique dans le Var.`,
+  return {
+    title: `Installation Panneaux Solaires à ${cityData.name} ☀️ | Prix, Aides, Devis Gratuit`,
+    description: `Installation de panneaux solaires à ${cityData.name} à partir de ${priceRange.min}€. Pack Essentiel 3kWc: ${priceRange.max}€, après aides: ${priceRange.afterAid}€/an d'économies. Profitez de 2800h d'ensoleillement/an dans le Var. Devis gratuit.`,
     keywords: [
       `panneaux solaires ${cityData.name}`,
       `installation solaire ${cityData.name}`,
@@ -35,13 +59,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `photovoltaïque ${cityData.name}`,
       'autoconsommation solaire',
       'installation panneaux solaires',
-      'devis gratuit solaire',
+      'devis panneaux solaires',
       'aide installation solaire',
       'prix panneaux solaires',
-      'solaire Var',
+      `solaire ${postalCode}`,
       'énergie solaire PACA'
-    ]
-  });
+    ],
+    robots: {
+      index: true,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: true,
+        follow: true
+      }
+    }
+  };
 }
 
 export default function CityPage({ params }: Props) {

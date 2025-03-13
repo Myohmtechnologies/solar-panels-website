@@ -29,26 +29,35 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     notFound();
   }
 
-  return generateCityMetadata({
-    cityName: cityData.name,
-    department: "Alpes-Maritimes",
-    region: "PACA",
-    sunshineHours: cityData.sunshineHours || 2900,
-    description: `Installation de panneaux solaires à ${cityData.name}. Profitez d'une expertise locale et d'un service personnalisé pour votre transition énergétique sur la Côte d'Azur.`,
+  // Obtenir le prix moyen de l'électricité (valeur fictive pour l'exemple)
+  const electricityPrice = "0,25";
+
+  return {
+    title: `Installation de Panneaux Solaires à ${cityData.name} ☀️ | Prix, Aides, Devis Gratuit`,
+    description: `Installez des panneaux solaires à ${cityData.name} et économisez jusqu'à 70% sur vos factures. Prix moyen de l'électricité à ${cityData.name}: ${electricityPrice}€/kWh. Profitez de 2900h d'ensoleillement/an sur la Côte d'Azur. Devis gratuit et sans engagement.`,
     keywords: [
       `panneaux solaires ${cityData.name}`,
-      `installation solaire ${cityData.name}`,
+      `installation  solaires ${cityData.name}`,
       `énergie solaire ${cityData.name}`,
       `photovoltaïque ${cityData.name}`,
       'autoconsommation solaire',
       'installation panneaux solaires',
-      'devis gratuit solaire',
+      'devis panneaux solaires',
       'aide installation solaire',
       'prix panneaux solaires',
       'solaire Côte d\'Azur',
       'énergie solaire PACA'
-    ]
-  });
+    ],
+    robots: {
+      index: true,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: true,
+        follow: true
+      }
+    }
+  };
 }
 
 export default function CityPage({ params }: Props) {

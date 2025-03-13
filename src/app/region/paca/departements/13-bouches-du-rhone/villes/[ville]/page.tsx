@@ -46,14 +46,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   // Prix moyen d'une installation (valeurs à titre d'exemple)
   const priceRange = {
-    min: 5990,
     max: 7890,
     afterAid: 870
   };
 
   return {
     title: `Installation Panneaux Solaires à ${cityData.name} ☀️ | Prix, Aides, Devis Gratuit`,
-    description: `Installation de panneaux solaires à ${cityData.name} à partir de ${priceRange.min}€. Pack Essentiel 3kWc: ${priceRange.max}€, après aides: ${priceRange.afterAid}€/an d'économies. Profitez de 2850h d'ensoleillement/an dans les Bouches-du-Rhône. Devis gratuit.`,
+    description: `Installation de panneaux solaires à ${cityData.name} à partir de 7890€. Pack Essentiel 3kWc: ${priceRange.max}€, après aides de l'état: ${priceRange.afterAid}€/an d'économies. Profitez de 2850h d'ensoleillement/an dans les Bouches-du-Rhône. Devis gratuit.`,
     keywords: [
       `panneaux solaires ${cityData.name}`,
       `installation solaire ${cityData.name}`,

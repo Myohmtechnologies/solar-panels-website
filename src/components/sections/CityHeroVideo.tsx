@@ -12,10 +12,12 @@ import {
   ClockIcon, 
   CheckCircleIcon, 
   ChartBarIcon,
-  CalculatorIcon
+  CalculatorIcon,
+  SunIcon,
+  BoltIcon,
+  CurrencyEuroIcon
 } from '@heroicons/react/24/outline';
 import { StarIcon } from '@heroicons/react/24/solid';
-import { getDepartmentSlug } from '@/utils/departments';
 
 interface CityHeroVideoProps {
   cityName: string;
@@ -50,6 +52,41 @@ const CityHeroVideo = ({
     setIsModalOpen(true);
   };
 
+  // Données spécifiques par département
+  const getDepartmentSpecifics = () => {
+    switch(departmentCode) {
+      case "06":
+        return {
+          region: "de la Côte d'Azur",
+          climate: "méditerranéen de la Côte d'Azur",
+          advantage: "proximité de la mer et exposition optimale"
+        };
+      case "83":
+        return {
+          region: "du Var",
+          climate: "ensoleillé du Var",
+          advantage: "ensoleillement exceptionnel toute l'année"
+        };
+      case "13":
+        return {
+          region: "des Bouches-du-Rhône",
+          climate: "méditerranéen provençal",
+          advantage: "région la plus ensoleillée de France"
+        };
+      default:
+        return {
+          region: "de la région PACA",
+          climate: "méditerranéen",
+          advantage: "fort ensoleillement annuel"
+        };
+    }
+  };
+
+  const departmentSpecifics = getDepartmentSpecifics();
+  
+  // Calcul des économies moyennes basé sur la population et l'ensoleillement
+  const averageAnnualSavings = Math.round((sunshineHours / 2800) * 1200);
+
   return (
     <>
       <QuoteModal 
@@ -58,7 +95,7 @@ const CityHeroVideo = ({
         cityName={cityName}
         estimations={{
           production: 8500, // Production moyenne pour une installation standard
-          totalAnnualSavings: 1200, // Économies moyennes annuelles
+          totalAnnualSavings: averageAnnualSavings, // Économies moyennes annuelles
           systemSize: 6 // Taille moyenne du système en kWc
         }}
       />
@@ -89,13 +126,38 @@ const CityHeroVideo = ({
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
                   Installation de Panneaux Solaires à {cityName} - Votre Expert Photovoltaïque
                 </h1>
-                <p className="text-gray-600 text-lg">
-                  {description}
-                </p>
+               
+                <div className="mt-3 text-gray-700">
+                  <p>
+                    <strong>MY OHM Technologies</strong>, votre installateur de panneaux solaires à {cityName} certifié RGE, 
+                    vous propose des solutions photovoltaïques adaptées au climat {departmentSpecifics.climate}. 
+                    Nos installations solaires garantissent une production optimale et des économies substantielles 
+                    sur vos factures d'électricité grâce à {departmentSpecifics.advantage}.
+                  </p>
+                </div>
+              </div>
+
+              {/* Statistiques locales */}
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4 bg-gray-50 p-4 rounded-xl">
+                <div className="flex items-center gap-2">
+                  <SunIcon className="w-5 h-5 text-yellow-500" />
+                  <span><strong>{sunshineHours}h</strong> d'ensoleillement/an</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <BoltIcon className="w-5 h-5 text-blue-500" />
+                  <span>Jusqu'à <strong>70%</strong> d'économies</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CurrencyEuroIcon className="w-5 h-5 text-green-500" />
+                  <span><strong>{averageAnnualSavings}€</strong>/an d'économies</span>
+                </div>
               </div>
 
               {/* Prix Attractif */}
-              <div className="bg-gradient-to-br from-ffeb99 to-ffb700 p-6 rounded-2xl transform hover:scale-[1.02] transition-all duration-300">
+              <div 
+                onClick={handleSimulatorClick}
+                className="bg-gradient-to-br from-ffeb99 to-ffb700 p-6 rounded-2xl transform hover:scale-[1.02] transition-all duration-300 cursor-pointer hover:shadow-lg"
+              >
                 <div className="flex items-center gap-6">
                   {/* Image et Badge Promo */}
                   <div className="relative">
@@ -113,12 +175,13 @@ const CityHeroVideo = ({
                   {/* Contenu Prix */}
                   <div className="flex-1">
                     <div className="space-y-1">
-                      <p className="text-black/90 font-medium text-lg">Installation  compléte à partir de</p>
+                      <p className="text-black/90 font-medium text-lg">Installation  compléte</p>
                       <div className="flex items-baseline gap-3">
                         <p className="text-4xl font-bold text-black">À partir de 7 890€</p>
                     
                       </div>
                       <div className="flex items-center gap-2 mt-1">
+                        <p className="text-sm text-black/80">Après aides de l'État: économisez jusqu'à 870€/an</p>
                       </div>
                     </div>
                   </div>
@@ -129,6 +192,9 @@ const CityHeroVideo = ({
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </div>
+                </div>
+                <div className="mt-2 text-center text-sm font-medium text-black/70 hover:text-black">
+                  Cliquez pour simuler vos économies
                 </div>
               </div>
 

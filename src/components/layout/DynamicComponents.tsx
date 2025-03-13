@@ -24,6 +24,10 @@ const Analytics = dynamic(() => import('@/components/analytics/Analytics'), {
   ssr: false 
 });
 
+const CookieConsent = dynamic(() => import('@/components/CookieConsent'), { 
+  ssr: false 
+});
+
 interface DynamicComponentsProps {
   children: React.ReactNode;
 }
@@ -38,6 +42,7 @@ export default function DynamicComponents({ children }: DynamicComponentsProps) 
       <TrackingInitializer />
       <ConversionTracker />
       <TeamAuth />
+      <CookieConsent />
     </>
   );
 }

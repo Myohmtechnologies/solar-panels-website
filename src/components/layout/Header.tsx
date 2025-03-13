@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import MobileMenu from './MobileMenu';
 import { Popover } from '@headlessui/react';
-import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon, Bars3Icon, XMarkIcon, CalculatorIcon } from '@heroicons/react/24/outline';
 import { PhoneIcon } from '@heroicons/react/24/outline';
 import { throttle } from 'lodash';
 
@@ -208,6 +208,14 @@ const Header = () => {
                 Parrainage
               </Link>
 
+              <Link
+                href="/simulator"
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-medium rounded-lg hover:shadow-md transition-all duration-300"
+              >
+                <CalculatorIcon className="w-5 h-5" />
+                <span>Simulation d'économie</span>
+              </Link>
+
               <a
                 href="tel:+33492766858"
                 className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary)]/90 transition-colors duration-[var(--transition-fast)]"
@@ -247,23 +255,33 @@ const Header = () => {
             />
           </Link>
 
-          <button
-            onClick={toggleMobileMenu}
-            className="p-2"
-            aria-expanded={isMobileMenuOpen}
-            aria-label={isMobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
-          >
-            {isMobileMenuOpen ? (
-              <XMarkIcon className="h-8 w-8" />
-            ) : (
-              <Bars3Icon className="h-8 w-8" />
-            )}
-          </button>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/simulator"
+              className="flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-primary-400 to-secondary-dark text-black text-sm font-medium rounded-lg hover:shadow-md transition-all duration-300"
+            >
+              <CalculatorIcon className="w-4 h-4" />
+              <span>Simulation</span>
+            </Link>
+            
+            <button
+              onClick={toggleMobileMenu}
+              className="p-2 text-gray-600 hover:text-gray-900 focus:outline-none"
+              aria-expanded={isMobileMenuOpen}
+              aria-label={isMobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            >
+              {isMobileMenuOpen ? (
+                <XMarkIcon className="w-6 h-6" />
+              ) : (
+                <Bars3Icon className="w-6 h-6" />
+              )}
+            </button>
+          </div>
         </div>
-
-        {/* Menu mobile */}
-        <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
       </header>
+
+      {/* Menu mobile */}
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
     </>
   );
 };

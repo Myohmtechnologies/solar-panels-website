@@ -130,25 +130,7 @@ export default function LeadsFilters({
             </Menu>
           </div>
 
-          {/* Statistiques rapides */}
-          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white overflow-hidden rounded-lg border border-gray-200 p-4">
-              <dt className="text-sm font-medium text-gray-500 truncate">Nouveaux leads</dt>
-              <dd className="mt-1 text-2xl font-semibold text-gray-900">12</dd>
-            </div>
-            <div className="bg-white overflow-hidden rounded-lg border border-gray-200 p-4">
-              <dt className="text-sm font-medium text-gray-500 truncate">RDV cette semaine</dt>
-              <dd className="mt-1 text-2xl font-semibold text-gray-900">8</dd>
-            </div>
-            <div className="bg-white overflow-hidden rounded-lg border border-gray-200 p-4">
-              <dt className="text-sm font-medium text-gray-500 truncate">En attente de visite</dt>
-              <dd className="mt-1 text-2xl font-semibold text-gray-900">5</dd>
-            </div>
-            <div className="bg-white overflow-hidden rounded-lg border border-gray-200 p-4">
-              <dt className="text-sm font-medium text-gray-500 truncate">Taux de conversion</dt>
-              <dd className="mt-1 text-2xl font-semibold text-gray-900">24%</dd>
-            </div>
-          </div>
+         
         </div>
       </div>
     </div>

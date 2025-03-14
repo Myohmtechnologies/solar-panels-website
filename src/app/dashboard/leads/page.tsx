@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 const TABS = [
   { name: 'Tous les prospects', value: 'ALL' },
   { name: 'Nouveaux', value: LeadStatus.NEW },
+  { name: 'Contactés', value: LeadStatus.CONTACTED },
   { name: 'RDV Client', value: 'RDV_SCHEDULED' },
   { name: 'Signature en cours', value: LeadStatus.SECOND_RDV },
   { name: 'Visites techniques', value: LeadStatus.TECHNICAL_VISIT },
@@ -68,20 +69,31 @@ export default function LeadsPage() {
       );
     }
 
-    // Trier les leads par date de prochaine action
+    // Trier les leads par date de création (les plus récents en premier)
     filtered.sort((a, b) => {
-      // Utilisation d'une assertion de type pour éviter les erreurs TypeScript
-      const dateA = a.nextAction && 'plannedDate' in a.nextAction
-        ? new Date((a.nextAction as any).plannedDate).getTime()
-        : Number.MAX_SAFE_INTEGER;
-      const dateB = b.nextAction && 'plannedDate' in b.nextAction
-        ? new Date((b.nextAction as any).plannedDate).getTime()
-        : Number.MAX_SAFE_INTEGER;
+      const dateCreatedA = new Date(a.createdAt).getTime();
+      const dateCreatedB = new Date(b.createdAt).getTime();
       
-      return sortOrder === 'next-action-asc' 
-        ? dateA - dateB  // Plus proche en premier
-        : dateB - dateA; // Plus loin en premier
+      // Tri décroissant par date de création (plus récent en premier)
+      return dateCreatedB - dateCreatedA;
     });
+
+    // Trier ensuite par date de prochaine action si spécifié
+    if (sortOrder !== 'creation-date') {
+      filtered.sort((a, b) => {
+        // Utilisation d'une assertion de type pour éviter les erreurs TypeScript
+        const dateA = a.nextAction && 'plannedDate' in a.nextAction
+          ? new Date((a.nextAction as any).plannedDate).getTime()
+          : Number.MAX_SAFE_INTEGER;
+        const dateB = b.nextAction && 'plannedDate' in b.nextAction
+          ? new Date((b.nextAction as any).plannedDate).getTime()
+          : Number.MAX_SAFE_INTEGER;
+        
+        return sortOrder === 'next-action-asc' 
+          ? dateA - dateB  // Plus proche en premier
+          : dateB - dateA; // Plus loin en premier
+      });
+    }
 
     setFilteredLeads(filtered);
   }, [leads, activeTab, searchTerm, sortOrder]);

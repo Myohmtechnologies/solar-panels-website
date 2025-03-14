@@ -1,7 +1,7 @@
 'use client';
 
 import { GTM } from './GTM';
-import CookieConsent from './CookieConsent';
+import CookieConsent from '@/components/CookieConsent';
 
 export default function Analytics() {
   return (

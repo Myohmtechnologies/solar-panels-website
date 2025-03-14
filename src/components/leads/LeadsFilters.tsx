@@ -29,6 +29,7 @@ const STATUS_OPTIONS = [
 ];
 
 const SORT_OPTIONS = [
+  { value: 'creation-date', label: 'Date de création (plus récent)' },
   { value: 'next-action-asc', label: 'Prochaine action (plus proche)' },
   { value: 'next-action-desc', label: 'Prochaine action (plus loin)' }
 ];

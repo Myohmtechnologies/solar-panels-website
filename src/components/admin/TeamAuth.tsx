@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { isTeamEmail } from '@/config/team';
+import { SunIcon, KeyIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 
 const TeamAuth = () => {
   const [email, setEmail] = useState('');
@@ -98,52 +99,76 @@ const TeamAuth = () => {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 bg-white p-4 rounded-lg shadow-lg z-50">
+    <div className="fixed bottom-4 right-4 z-50 overflow-hidden rounded-lg shadow-lg">
       {!isAuthenticated ? (
         <>
           {!showForm ? (
             <button
               onClick={() => setShowForm(true)}
-              className="text-sm text-gray-600 hover:text-gray-800"
+              className="flex items-center gap-2 px-4 py-3 bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-medium hover:shadow-md transition-all duration-300 w-full"
             >
-              Membre de l'équipe ?
+              <KeyIcon className="w-5 h-5" />
+              <span>Espace Équipe</span>
             </button>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-2">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email professionnel"
-                className="text-sm border rounded px-2 py-1 w-full"
-                required
-              />
-              <div className="flex space-x-2">
-                <button
-                  type="submit"
-                  className="text-sm bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                >
-                  Valider
-                </button>
+            <div className="bg-white p-4 border-t-4 border-ffeb99">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                  <SunIcon className="w-5 h-5 text-ffb700" />
+                  Connexion Équipe
+                </h3>
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
-                  className="text-sm text-gray-500 hover:text-gray-700"
+                  className="text-gray-400 hover:text-gray-600"
                 >
-                  Annuler
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
                 </button>
               </div>
-            </form>
+              <form onSubmit={handleSubmit} className="space-y-3">
+                <div>
+                  <label htmlFor="team-email" className="block text-sm font-medium text-gray-700 mb-1">
+                    Email professionnel
+                  </label>
+                  <input
+                    id="team-email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="votre@email.com"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-ffb700 focus:border-transparent"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full px-4 py-2 bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-medium rounded-md hover:shadow-md transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  <span>Se connecter</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+              </form>
+            </div>
           )}
         </>
       ) : (
-        <div className="flex items-center space-x-2">
-          <span className="text-sm text-green-600">✓ Membre de l'équipe</span>
+        <div className="flex items-center justify-between bg-gradient-to-br from-ffeb99 to-ffb700 px-4 py-3">
+          <div className="flex items-center gap-2">
+            <div className="bg-white rounded-full p-1">
+              <SunIcon className="w-4 h-4 text-ffb700" />
+            </div>
+            <span className="text-black font-medium">Membre connecté</span>
+          </div>
           <button
             onClick={handleLogout}
-            className="text-sm text-red-500 hover:text-red-600"
+            className="ml-3 text-black hover:text-gray-800 transition-colors"
+            title="Déconnexion"
           >
-            Déconnexion
+            <ArrowRightOnRectangleIcon className="w-5 h-5" />
           </button>
         </div>
       )}

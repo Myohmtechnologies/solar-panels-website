@@ -155,9 +155,16 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
                 <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
                   <div className="flex flex-col">
                     <span className="font-medium">
-                      {lead.nextAction && 'plannedDate' in lead.nextAction 
-                        ? formatDate((lead.nextAction as any).plannedDate) 
-                        : '-'}
+                      {lead.status === LeadStatus.NEW 
+                        ? (
+                          <>
+                            <span className="text-xs text-blue-600 block">Date de simulation:</span>
+                            {formatDate(lead.createdAt)}
+                          </>
+                        )
+                        : (lead.nextAction && 'plannedDate' in lead.nextAction 
+                          ? formatDate((lead.nextAction as any).plannedDate) 
+                          : '-')}
                     </span>
                   </div>
                 </td>

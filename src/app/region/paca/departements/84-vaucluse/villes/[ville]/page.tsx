@@ -21,7 +21,7 @@ const slugToCityKey = (slug: string): string => {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const villeSlug = params.ville;
+  const villeSlug = await params.ville;
   const cityKey = slugToCityKey(villeSlug) as keyof typeof vaucluse.cities;
   const cityData = vaucluse.cities[cityKey];
 
@@ -51,8 +51,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-export default function CityPage({ params }: Props) {
-  const villeSlug = params.ville;
+export default async function CityPage({ params }: Props) {
+  const villeSlug = await params.ville;
   const cityKey = slugToCityKey(villeSlug) as keyof typeof vaucluse.cities;
   const cityData = vaucluse.cities[cityKey];
 

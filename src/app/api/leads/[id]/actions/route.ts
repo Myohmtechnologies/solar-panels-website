@@ -3,6 +3,15 @@ import { clientPromise } from '@/lib/mongodb';
 import { LeadAction } from '@/types';
 import { ObjectId } from 'mongodb';
 
+// Fonction utilitaire pour vérifier si une chaîne est un ObjectId valide
+function isValidObjectId(id: string): boolean {
+  try {
+    return ObjectId.isValid(id);
+  } catch (error) {
+    return false;
+  }
+}
+
 // POST /api/leads/[id]/actions
 export async function POST(
   request: Request,
@@ -20,11 +29,17 @@ export async function POST(
     console.log('Type de la date reçue:', typeof nextAction?.plannedDate);
     
     // Vérifier si le lead existe
-    const lead = await db
-      .collection('leads')
-      .findOne({ _id: new ObjectId(params.id) });
+    let leadFilter = {};
+    if (isValidObjectId(params.id)) {
+      leadFilter = { _id: new ObjectId(params.id) };
+    } else {
+      leadFilter = { _id: params.id };
+    }
+    
+    const lead = await db.collection('leads').findOne(leadFilter);
     
     if (!lead) {
+      console.error(`Lead not found with ID: ${params.id}`);
       return NextResponse.json(
         { error: 'Lead not found' },
         { status: 404 }
@@ -68,7 +83,7 @@ export async function POST(
     
     // Mettre à jour le lead
     await db.collection('leads').updateOne(
-      { _id: new ObjectId(params.id) },
+      leadFilter,
       {
         $set: {
           status,
@@ -112,7 +127,7 @@ export async function POST(
   } catch (error) {
     console.error('Error creating action:', error);
     return NextResponse.json(
-      { error: 'Failed to create action' },
+      { error: 'Failed to create action', details: error instanceof Error ? error.message : String(error) },
       { status: 500 }
     );
   }
@@ -123,10 +138,30 @@ export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
+  console.log('GET actions for lead ID:', params.id);
+  
   try {
     const client = await clientPromise;
     const db = client.db('myohm');
     const collection = db.collection('lead_actions');
+
+    // Vérifier d'abord si le lead existe
+    let leadFilter = {};
+    if (isValidObjectId(params.id)) {
+      leadFilter = { _id: new ObjectId(params.id) };
+    } else {
+      leadFilter = { _id: params.id };
+    }
+    
+    const lead = await db.collection('leads').findOne(leadFilter);
+    
+    if (!lead) {
+      console.error(`Lead not found with ID: ${params.id}`);
+      return NextResponse.json(
+        { error: 'Lead not found', actions: [] },
+        { status: 404 }
+      );
+    }
 
     const actions = await collection
       .find({ leadId: params.id })
@@ -158,7 +193,7 @@ export async function GET(
   } catch (error) {
     console.error('Database Error:', error);
     return NextResponse.json(
-      { error: 'Failed to retrieve lead actions', actions: [] }, 
+      { error: 'Failed to retrieve lead actions', details: error instanceof Error ? error.message : String(error), actions: [] }, 
       { status: 500 }
     );
   }

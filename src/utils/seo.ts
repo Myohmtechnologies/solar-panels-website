@@ -15,38 +15,9 @@ export function generateCityMetadata(cityData: CityData): Metadata {
   const region = cityData.region;
   const sunshineHours = cityData.sunshineHours || 2800;
   
-  // Personnalisation par département
-  let departmentSpecific = "";
-  if (department === "Var") {
-    departmentSpecific = "climat méditerranéen idéal";
-  } else if (department === "Alpes-Maritimes") {
-    departmentSpecific = "Côte d'Azur ensoleillée";
-  } else if (department === "Bouches-du-Rhône") {
-    departmentSpecific = "région la plus ensoleillée de France";
-  } else if (department === "Vaucluse") {
-    departmentSpecific = "patrimoine provençal unique";
-  } else if (department === "Alpes-de-Haute-Provence") {
-    departmentSpecific = "paysages alpins ensoleillés";
-  } else if (department === "Hautes-Alpes") {
-    departmentSpecific = "ensoleillement exceptionnel en altitude";
-  } else {
-    departmentSpecific = "région PACA ensoleillée";
-  }
-  
-  // Variations de titres pour A/B testing
-  const titleVariations = [
-    `Installation Panneaux Solaires à ${cityName} ✓ Certifié RGE`,
-    `Panneaux Solaires ${cityName} : Installateur RGE 2025 ☀️`,
-    `Installateur Panneaux Solaires à ${cityName} | Économies Garanties`
-  ];
-  
-  // Sélection d'une variation (basée sur le jour du mois)
-  const dayOfMonth = new Date().getDate();
-  const selectedTitleIndex = dayOfMonth % titleVariations.length;
-  
   return {
-    title: titleVariations[selectedTitleIndex],
-    description: cityData.description || `Expert en panneaux solaires à ${cityName}. Profitez du ${departmentSpecific} avec ${sunshineHours}h d'ensoleillement/an. Certification RGE, garantie décennale. Économisez jusqu'à 50% sur vos factures ! Devis gratuit et sans engagement.`,
+    title: `Installation Panneaux Solaires à ${cityName} ☀️ | Prix, Aides, Devis Gratuit`,
+    description: `Installation de panneaux solaires à ${cityName} à partir de 7890€. Profitez de ${sunshineHours}h d'ensoleillement/an dans le ${department}. Certification RGE, économisez jusqu'à 870€/an grâce aux aides de l'État. Devis gratuit et sans engagement.`,
     keywords: cityData.keywords || [
       `panneaux solaires ${cityName}`,
       `installation photovoltaïque ${cityName}`,

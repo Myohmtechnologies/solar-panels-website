@@ -34,7 +34,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     department: "Vaucluse",
     region: "PACA",
     sunshineHours: cityData.sunshineHours || 2750,
-    description: `Installation de panneaux solaires à ${cityData.name}. Profitez d'une expertise locale et d'un service personnalisé pour votre transition énergétique dans le Vaucluse.`,
     keywords: [
       `panneaux solaires ${cityData.name}`,
       `installation solaire ${cityData.name}`,

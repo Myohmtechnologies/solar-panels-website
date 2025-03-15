@@ -34,7 +34,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     department: "Hautes-Alpes",
     region: "PACA",
     sunshineHours: cityData.sunshineHours || 2700,
-    description: `Installation de panneaux solaires à ${cityData.name}. Profitez d'une expertise locale et d'un service personnalisé pour votre transition énergétique dans les Hautes-Alpes.`,
     keywords: [
       `panneaux solaires ${cityData.name}`,
       `installation solaire ${cityData.name}`,

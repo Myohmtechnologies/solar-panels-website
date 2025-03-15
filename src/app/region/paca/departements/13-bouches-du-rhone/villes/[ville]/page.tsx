@@ -17,24 +17,6 @@ const slugToCityKey = (slug: string): string => {
   return slug;
 };
 
-// Fonction pour obtenir le code postal à partir du nom de la ville
-const getCityPostalCode = (cityName: string): string => {
-  // Codes postaux pour les principales villes des Bouches-du-Rhône
-  const postalCodes: Record<string, string> = {
-    'Marseille': '13000',
-    'Aix-en-Provence': '13100',
-    'Martigues': '13500',
-    'Aubagne': '13400',
-    'Salon-de-Provence': '13300',
-    'Arles': '13200',
-    'Istres': '13800',
-    'Vitrolles': '13127',
-    'La Ciotat': '13600'
-  };
-  
-  return postalCodes[cityName] || '13'; // Retourne le code postal ou '13' par défaut
-};
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const villeSlug = params.ville;
   const cityKey = slugToCityKey(villeSlug) as keyof typeof bouchesdurhone.cities;
@@ -43,16 +25,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!cityData) {
     notFound();
   }
-  
-  // Prix moyen d'une installation (valeurs à titre d'exemple)
-  const priceRange = {
-    max: 7890,
-    afterAid: 870
-  };
 
-  return {
-    title: `Installation Panneaux Solaires à ${cityData.name} ☀️ | Prix, Aides, Devis Gratuit`,
-    description: `Installation de panneaux solaires à ${cityData.name} à partir de 7890€. Pack Essentiel 3kWc: ${priceRange.max}€, après aides de l'état: ${priceRange.afterAid}€/an d'économies. Profitez de 2850h d'ensoleillement/an dans les Bouches-du-Rhône. Devis gratuit.`,
+  return generateCityMetadata({
+    cityName: cityData.name,
+    department: "Bouches-du-Rhône",
+    region: "PACA",
+    sunshineHours: cityData.sunshineHours || 2850,
     keywords: [
       `panneaux solaires ${cityData.name}`,
       `installation solaire ${cityData.name}`,
@@ -63,19 +41,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       'devis panneaux solaires',
       'aide installation solaire',
       'prix panneaux solaires',
-      `solaire ${getCityPostalCode(cityData.name)}`,
+      `solaire ${cityData.code || '13'}`,
       'énergie solaire PACA'
-    ],
-    robots: {
-      index: true,
-      follow: true,
-      nocache: true,
-      googleBot: {
-        index: true,
-        follow: true
-      }
-    }
-  };
+    ]
+  });
 }
 
 export default function CityPage({ params }: Props) {

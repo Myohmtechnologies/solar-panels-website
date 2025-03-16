@@ -10,7 +10,7 @@ interface InstallationPricingSectionProps {
   ville: string;
 }
 
-const pricingData = [
+export const pricingData = [
   {
     title: "Pack Essentiel",
     power: "3 kWc",

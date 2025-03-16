@@ -16,7 +16,7 @@ export function generateCityMetadata(cityData: CityData): Metadata {
   const sunshineHours = cityData.sunshineHours || 2800;
   
   return {
-    title: `Installation Panneaux Solaires à ${cityName} ☀️ | Prix, Aides, Devis Gratuit`,
+    title: `Panneaux Solaires ${cityName} ☀️ | Installation, Prix, Devis`,
     description: `Installation de panneaux solaires à ${cityName} à partir de 7890€. Profitez de ${sunshineHours}h d'ensoleillement/an dans le ${department}. Certification RGE, économisez jusqu'à 870€/an grâce aux aides de l'État. Devis gratuit et sans engagement.`,
     keywords: cityData.keywords || [
       `panneaux solaires ${cityName}`,

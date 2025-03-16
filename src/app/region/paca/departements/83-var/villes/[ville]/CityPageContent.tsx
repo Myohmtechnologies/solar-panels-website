@@ -20,6 +20,8 @@ import ContactCTASection from '@/components/sections/ContactCTASection';
 import SolarPowerSection from '@/components/sections/SolarPowerSection';
 import RequestQuoteSection from '@/components/sections/RequestQuoteSection';
 import RatingSchema from '@/components/schemas/RatingSchema';
+import ProductSchema from '@/components/schemas/ProductSchema';
+import { pricingData } from '@/components/sections/InstallationPricingSection';
 
 interface CityData {
   name: string;
@@ -103,6 +105,14 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
     content: review.comment
   }));
 
+  // Conversion des avis pour le schéma de produit
+  const reviewsForProductSchema = localPresenceData.googleReviews.recentReviews.map(review => ({
+    author: review.author,
+    rating: review.rating,
+    date: new Date().toISOString().split('T')[0], // Format YYYY-MM-DD
+    comment: review.comment
+  }));
+
   const cityDescription = cityData.description || `Découvrez les avantages de l'installation de panneaux solaires à ${villeName}. Notre équipe d'experts vous accompagne dans votre projet de transition énergétique avec des solutions adaptées au climat méditerranéen du Var.`;
 
   // Données du commercial
@@ -125,6 +135,15 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
         ratingValue={localPresenceData.googleReviews.rating}
         reviewCount={localPresenceData.googleReviews.totalReviews}
         reviews={reviewsForSchema}
+      />
+
+      {/* Schéma de produit pour les panneaux solaires */}
+      <ProductSchema
+        businessName={`MY OHM Technologies - Installation Panneaux Solaires à ${villeName}`}
+        city={villeName}
+        region="PACA"
+        pricingData={pricingData}
+        reviews={reviewsForProductSchema}
       />
 
       {/* 1. Section Hero Video */}

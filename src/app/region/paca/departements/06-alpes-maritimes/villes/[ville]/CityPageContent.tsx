@@ -19,6 +19,8 @@ import LastBlogPostsSection from '@/components/sections/LastBlogPostsSection';
 import SolarPowerSection from '@/components/sections/SolarPowerSection';
 import RequestQuoteSection from '@/components/sections/RequestQuoteSection';
 import RatingSchema from '@/components/schemas/RatingSchema';
+import ProductSchema from '@/components/schemas/ProductSchema';
+import { pricingData } from '@/components/sections/InstallationPricingSection';
 
 interface CityData {
   name: string;
@@ -114,6 +116,14 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
     content: review.comment
   }));
 
+  // Conversion des avis pour le schéma de produit
+  const reviewsForProductSchema = localPresenceData.googleReviews.recentReviews.map(review => ({
+    author: review.author,
+    rating: review.rating,
+    date: new Date().toISOString().split('T')[0], // Format YYYY-MM-DD
+    comment: review.comment
+  }));
+
   return (
     <main className="bg-white">
       {/* Schéma de notation pour les résultats de recherche Google */}
@@ -124,6 +134,15 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
         ratingValue={localPresenceData.googleReviews.rating}
         reviewCount={localPresenceData.googleReviews.totalReviews}
         reviews={reviewsForSchema}
+      />
+
+      {/* Schéma de produit pour les panneaux solaires */}
+      <ProductSchema
+        businessName={`MY OHM Technologies - Installation Panneaux Solaires à ${villeName}`}
+        city={villeName}
+        region="PACA"
+        pricingData={pricingData}
+        reviews={reviewsForProductSchema}
       />
 
       {/* 1. Section Hero Video */}
@@ -176,7 +195,11 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
       <SolarComparisonSection />
 
       {/* 12. Section Présence Locale */}
-      <LocalPresenceSection cityData={localPresenceData} />
+      <LocalPresenceSection 
+        cityData={localPresenceData}
+        departmentCode="06"
+        departmentName="Alpes-Maritimes"
+      />
 
       {/* 13. Section Devis Gratuit */}
       <RequestQuoteSection commercial={commercialData} />

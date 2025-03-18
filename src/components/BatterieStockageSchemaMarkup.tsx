@@ -74,11 +74,32 @@ const BatterieStockageSchemaMarkup = () => {
         "offers": {
           "@type": "AggregateOffer",
           "priceCurrency": "EUR",
+          "lowPrice": 7890,
+          "offerCount": 10,
           "eligibleCustomerType": ["Particulier", "Professionnel"],
           "priceSpecification": {
             "@type": "PriceSpecification",
             "description": "Éligible aux aides de l'État et à la prime à l'autoconsommation"
           }
+        },
+        "review": {
+          "@type": "Review",
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "4.8",
+            "bestRating": "5"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "Client MyOhm"
+          },
+          "reviewBody": "Excellent service, installation rapide et professionnelle. La batterie virtuelle a considérablement réduit ma facture d'électricité."
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "87",
+          "bestRating": "5"
         },
         "additionalProperty": [
           {

@@ -1,9 +1,394 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
-    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/address</loc>
-    <lastmod>2025-03-16</lastmod>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/05-hautes-alpes.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires dans le département 05-hautes-alpes</video:title>
+      <video:description>Découvrez notre expertise en installation de panneaux solaires dans le département 05-hautes-alpes de la région PACA.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/departments/05-hautes-alpes.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/gap</loc>
+    <lastmod>2025-03-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/gap.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Gap</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Gap dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/gap.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/briancon</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/briancon.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Briançon</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Briançon dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/briancon.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/embrun</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/embrun.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Embrun</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Embrun dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/embrun.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/laragneMonteglin</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/laragneMonteglin.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Laragne-Montéglin</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Laragne-Montéglin dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/laragneMonteglin.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/veynes</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/veynes.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Veynes</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Veynes dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/veynes.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/chorges</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/chorges.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Chorges</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Chorges dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/chorges.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/batieNeuve</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/batieNeuve.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à La Bâtie-Neuve</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à La Bâtie-Neuve dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/batieNeuve.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/tallard</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/tallard.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Tallard</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Tallard dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/tallard.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/guillestre</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/guillestre.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Guillestre</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Guillestre dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/guillestre.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/argentiereBessee</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/argentiereBessee.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à L'Argentière-la-Bessée</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à L'Argentière-la-Bessée dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/argentiereBessee.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/saintBonnetChampsaur</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/saintBonnetChampsaur.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Saint-Bonnet-en-Champsaur</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Saint-Bonnet-en-Champsaur dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/saintBonnetChampsaur.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/rocheArnauds</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/rocheArnauds.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à La Roche-des-Arnauds</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à La Roche-des-Arnauds dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/rocheArnauds.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/saintChaffrey</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/saintChaffrey.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Saint-Chaffrey</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Saint-Chaffrey dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/saintChaffrey.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/villarSaintPancrace</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/villarSaintPancrace.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Villar-Saint-Pancrace</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Villar-Saint-Pancrace dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/villarSaintPancrace.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/saulce</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/saulce.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à La Saulce</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à La Saulce dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/saulce.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/valBuechMeouge</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/valBuechMeouge.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Val Buëch-Méouge</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Val Buëch-Méouge dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/valBuechMeouge.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/serres</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/serres.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Serres</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Serres dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/serres.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/chateaurouxAlpes</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/chateaurouxAlpes.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Châteauroux-les-Alpes</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Châteauroux-les-Alpes dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/chateaurouxAlpes.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/crots</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/crots.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Crots</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Crots dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/crots.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/vallouisePelvoux</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/vallouisePelvoux.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Vallouise-Pelvoux</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Vallouise-Pelvoux dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/vallouisePelvoux.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/saintJeanSaintNicolas</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/saintJeanSaintNicolas.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Saint-Jean-Saint-Nicolas</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Saint-Jean-Saint-Nicolas dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/saintJeanSaintNicolas.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/savinesLeLac</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/savinesLeLac.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Savines-le-Lac</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Savines-le-Lac dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/savinesLeLac.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/monetierLesBains</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/monetierLesBains.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Le Monêtier-les-Bains</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Le Monêtier-les-Bains dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/monetierLesBains.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/salleLesAlpes</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/salleLesAlpes.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à La Salle-les-Alpes</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à La Salle-les-Alpes dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/salleLesAlpes.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes/villes/chabottes</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/chabottes.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Chabottes</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Chabottes dans le département 05-hautes-alpes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/chabottes.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
 </urlset>

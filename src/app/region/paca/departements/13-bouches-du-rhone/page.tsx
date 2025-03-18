@@ -8,6 +8,7 @@ import ContactCTASection from '@/components/sections/ContactCTASection';
 import LocalReviews from '@/components/sections/LocalReviews';
 import PrixInstallation from '@/components/PrixInstallation';
 import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
+import { RegionData } from '@/config/seo';
 
 export const metadata: Metadata = {
   title: 'Installation Panneaux Solaires Bouches-du-Rhône (13) | Prix et Devis',
@@ -54,13 +55,71 @@ const departementData = {
   ]
 };
 
+// Création d'un objet RegionData pour le département
+const regionData: RegionData = {
+  name: departementData.name,
+  slug: '13-bouches-du-rhone',
+  mapImage: '/images/departments/bouches-du-rhone-map.jpg',
+  sunshineHours: 2850,
+  sunshineRank: 'Excellent',
+  departments: [],
+  meta: {
+    title: metadata.title as string,
+    description: metadata.description as string,
+    keywords: metadata.keywords as string[],
+  },
+  stats: {
+    population: 2034000,
+    solarPotential: 1450,
+    installedCapacity: 180,
+    averageConsumption: 5000,
+  },
+  aids: {
+    regional: [
+      {
+        title: "Prime à l'autoconsommation",
+        description: "Aide de l'État pour les installations en autoconsommation",
+        amount: "Jusqu'à 380€/kWc",
+        conditions: ["Installation ≤ 100 kWc", "Autoconsommation avec vente de surplus"]
+      }
+    ],
+    local: [
+      {
+        title: "Aide départementale",
+        description: "Soutien du département des Bouches-du-Rhône",
+        amount: "Jusqu'à 1000€",
+        conditions: ["Résidence principale", "Installation par un professionnel RGE"]
+      }
+    ]
+  },
+  faq: departementData.faqs,
+  testimonials: [
+    {
+      name: "Laurent Dubois",
+      city: "Marseille",
+      rating: 5,
+      installationType: "6kWc en autoconsommation",
+      text: "Installation rapide et soignée. Production d'énergie conforme aux estimations, même supérieure en été.",
+      date: "10/01/2025"
+    },
+    {
+      name: "Nathalie Roux",
+      city: "Aix-en-Provence",
+      rating: 5,
+      installationType: "4.5kWc avec batteries",
+      text: "Service client exceptionnel et installation parfaite. Je recommande vivement cette entreprise.",
+      date: "25/01/2025"
+    }
+  ]
+};
+
 export default function DepartmentPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-f2f6fa to-e3e9f0">
       <RegionHero 
-        title={`Installation Panneaux Solaires ${departementData.name}`}
-        description="Profitez de l'excellent ensoleillement des Bouches-du-Rhône pour votre installation solaire"
         region={departementData.name}
+        ensoleillement="2850 heures/an"
+        potentielSolaire="Excellent (1450 kWh/kWc)"
       />
       
       <DepartmentCitiesList 
@@ -72,12 +131,12 @@ export default function DepartmentPage() {
       <PrixInstallation />
       
       <RegionAids 
-        region={departementData.name} 
+        region={regionData}
         advantages={departementData.advantages} 
       />
       
       <LocalReviews 
-        region={departementData.name}
+        region={regionData}
       />
       
       <ClientTestimonialsSection />

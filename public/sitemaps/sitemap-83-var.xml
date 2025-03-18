@@ -1,39 +1,289 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
-    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/address</loc>
-    <lastmod>2025-03-16</lastmod>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var</loc>
+    <lastmod>2025-03-18</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/83-var.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires dans le département 83-var</video:title>
+      <video:description>Découvrez notre expertise en installation de panneaux solaires dans le département 83-var de la région PACA.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/departments/83-var.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
   <url>
-    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/address</loc>
-    <lastmod>2025-03-16</lastmod>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/toulon</loc>
+    <lastmod>2025-03-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/toulon.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Toulon</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Toulon dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/toulon.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
   <url>
-    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/address</loc>
-    <lastmod>2025-03-16</lastmod>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/laSeyneSurMer</loc>
+    <lastmod>2025-03-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/laSeyneSurMer.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à La Seyne-sur-Mer</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à La Seyne-sur-Mer dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/laSeyneSurMer.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
   <url>
-    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/address</loc>
-    <lastmod>2025-03-16</lastmod>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/frejus</loc>
+    <lastmod>2025-03-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/frejus.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Fréjus</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Fréjus dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/frejus.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
   <url>
-    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/saint-raphael</loc>
-    <lastmod>2025-03-16</lastmod>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/draguignan</loc>
+    <lastmod>2025-03-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/draguignan.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Draguignan</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Draguignan dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/draguignan.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
   <url>
-    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/address</loc>
-    <lastmod>2025-03-16</lastmod>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/hyeres</loc>
+    <lastmod>2025-03-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/hyeres.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Hyères</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Hyères dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/hyeres.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/laGarde</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/laGarde.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à La Garde</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à La Garde dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/laGarde.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/laCrau</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/laCrau.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à La Crau</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à La Crau dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/laCrau.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/brignoles</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/brignoles.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Brignoles</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Brignoles dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/brignoles.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/saintMaximinLaSainteBaume</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/saintMaximinLaSainteBaume.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Saint-Maximin-la-Sainte-Baume</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Saint-Maximin-la-Sainte-Baume dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/saintMaximinLaSainteBaume.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/sanarySurMer</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/sanarySurMer.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Sanary-sur-Mer</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Sanary-sur-Mer dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/sanarySurMer.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/roquebruneSurArgens</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/roquebruneSurArgens.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Roquebrune-sur-Argens</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Roquebrune-sur-Argens dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/roquebruneSurArgens.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/sainteMaxime</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/sainteMaxime.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Sainte-Maxime</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Sainte-Maxime dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/sainteMaxime.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/ollioules</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/ollioules.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Ollioules</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Ollioules dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/ollioules.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/vidauban</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/vidauban.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Vidauban</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Vidauban dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/vidauban.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/cuers</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/cuers.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Cuers</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Cuers dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/cuers.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/saintCyrSurMer</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/saintCyrSurMer.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Saint-Cyr-sur-Mer</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Saint-Cyr-sur-Mer dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/saintCyrSurMer.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/solliesPont</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/solliesPont.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Solliès-Pont</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Solliès-Pont dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/solliesPont.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var/villes/esparronDeVerdon</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/esparronDeVerdon.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Esparron-de-Verdon</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Esparron-de-Verdon dans le département 83-var.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/esparronDeVerdon.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
 </urlset>

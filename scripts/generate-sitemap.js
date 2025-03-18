@@ -36,13 +36,25 @@ const cityNameToSlug = (cityName) => {
 // Création du sitemap principal
 const generateMainSitemap = () => {
   let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <!-- Page d'accueil -->
   <url>
     <loc>${baseUrl}/</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <video:video>
+      <video:thumbnail_loc>${baseUrl}/videos/thumbnail-home.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires en PACA</video:title>
+      <video:description>Découvrez comment MyOHM Technologies installe des panneaux solaires de haute qualité dans la région PACA.</video:description>
+      <video:content_loc>${baseUrl}/videos/home-hero.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>${today}</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:requires_subscription>no</video:requires_subscription>
+      <video:live>no</video:live>
+    </video:video>
   </url>
 
   <!-- Simulateur -->
@@ -98,6 +110,15 @@ const generateMainSitemap = () => {
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <video:video>
+      <video:thumbnail_loc>${baseUrl}/videos/thumbnails/${deptFile}.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires dans le département ${deptFile}</video:title>
+      <video:description>Découvrez notre expertise en installation de panneaux solaires dans le département ${deptFile} de la région PACA.</video:description>
+      <video:content_loc>${baseUrl}/videos/departments/${deptFile}.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>${today}</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
 `;
   });
@@ -124,31 +145,72 @@ const generateDepartmentSitemaps = async () => {
       const filePath = path.join(__dirname, `../src/app/data/departments/${deptFile}.ts`);
       const fileContent = fs.readFileSync(filePath, 'utf8');
       
-      // Extraire les noms de villes avec une expression régulière
-      const cityMatches = fileContent.match(/"([^"]+)":\s*{[\s\S]*?name:\s*"([^"]+)"/g);
+      // Extraire les noms de villes avec une expression régulière améliorée
+      const cityMatches = fileContent.match(/([a-zA-Z0-9_-]+):\s*{\s*name:\s*"([^"]+)"/g);
       const cities = [];
       
       if (cityMatches) {
         cityMatches.forEach(match => {
-          const cityKey = match.match(/"([^"]+)":/)[1];
-          const cityName = match.match(/name:\s*"([^"]+)"/)[1];
-          cities.push({ key: cityKey, name: cityName });
+          // Extraire la clé de la ville (le nom de la propriété)
+          const cityKeyMatch = match.match(/([a-zA-Z0-9_-]+):\s*{/);
+          if (cityKeyMatch && cityKeyMatch[1]) {
+            const cityKey = cityKeyMatch[1];
+            
+            // Extraire le nom affiché de la ville
+            const cityNameMatch = match.match(/name:\s*"([^"]+)"/);
+            if (cityNameMatch && cityNameMatch[1]) {
+              const cityName = cityNameMatch[1];
+              
+              // Vérifier que ce n'est pas "address" ou une valeur par défaut
+              if (cityKey !== "address" && cityKey !== "default" && cityKey !== "example") {
+                cities.push({ key: cityKey, name: cityName });
+              }
+            }
+          }
         });
       }
       
       // Générer le sitemap pour ce département
       let deptSitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+`;
+      
+      // Ajouter la page du département
+      deptSitemap += `  <url>
+    <loc>${baseUrl}/region/paca/departements/${deptFile}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <video:video>
+      <video:thumbnail_loc>${baseUrl}/videos/thumbnails/${deptFile}.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires dans le département ${deptFile}</video:title>
+      <video:description>Découvrez notre expertise en installation de panneaux solaires dans le département ${deptFile} de la région PACA.</video:description>
+      <video:content_loc>${baseUrl}/videos/departments/${deptFile}.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>${today}</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
 `;
       
       // Ajouter les pages de villes
       cities.forEach(city => {
-        const citySlug = cityNameToSlug(city.key);
+        const citySlug = city.key; // Utiliser directement la clé comme slug
         deptSitemap += `  <url>
     <loc>${baseUrl}/region/paca/departements/${deptFile}/villes/${citySlug}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>${baseUrl}/videos/thumbnails/cities/${citySlug}.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à ${city.name}</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à ${city.name} dans le département ${deptFile}.</video:description>
+      <video:content_loc>${baseUrl}/videos/cities/${citySlug}.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>${today}</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
   </url>
 `;
       });
@@ -157,7 +219,7 @@ const generateDepartmentSitemaps = async () => {
       
       // Écrire le sitemap du département
       fs.writeFileSync(path.join(sitemapsDir, `sitemap-${deptFile}.xml`), deptSitemap);
-      console.log(`Sitemap pour ${deptFile} généré avec succès`);
+      console.log(`Sitemap pour ${deptFile} généré avec succès avec ${cities.length} villes`);
     } catch (error) {
       console.error(`Erreur lors de la génération du sitemap pour ${deptFile}:`, error);
     }
@@ -167,7 +229,8 @@ const generateDepartmentSitemaps = async () => {
 // Création du sitemap pour les articles de blog
 const generateBlogSitemap = () => {
   let blogSitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <!-- Page principale du blog -->
   <url>
     <loc>${baseUrl}/blog</loc>

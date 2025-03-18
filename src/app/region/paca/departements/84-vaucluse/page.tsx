@@ -8,6 +8,7 @@ import ContactCTASection from '@/components/sections/ContactCTASection';
 import LocalReviews from '@/components/sections/LocalReviews';
 import PrixInstallation from '@/components/PrixInstallation';
 import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
+import { RegionData } from '@/config/seo';
 
 export const metadata: Metadata = {
   title: 'Installation Panneaux Solaires Vaucluse (84) | Prix et Devis',
@@ -54,13 +55,71 @@ const departementData = {
   ]
 };
 
+// Création d'un objet RegionData pour le département
+const regionData: RegionData = {
+  name: departementData.name,
+  slug: '84-vaucluse',
+  mapImage: '/images/departments/vaucluse-map.jpg',
+  sunshineHours: 2800,
+  sunshineRank: 'Excellent',
+  departments: [],
+  meta: {
+    title: metadata.title as string,
+    description: metadata.description as string,
+    keywords: metadata.keywords as string[],
+  },
+  stats: {
+    population: 560000,
+    solarPotential: 1450,
+    installedCapacity: 95,
+    averageConsumption: 4800,
+  },
+  aids: {
+    regional: [
+      {
+        title: "Prime à l'autoconsommation",
+        description: "Aide de l'État pour les installations en autoconsommation",
+        amount: "Jusqu'à 380€/kWc",
+        conditions: ["Installation ≤ 100 kWc", "Autoconsommation avec vente de surplus"]
+      }
+    ],
+    local: [
+      {
+        title: "Aide départementale",
+        description: "Soutien du département du Vaucluse",
+        amount: "Jusqu'à 800€",
+        conditions: ["Résidence principale", "Installation par un professionnel RGE"]
+      }
+    ]
+  },
+  faq: departementData.faqs,
+  testimonials: [
+    {
+      name: "Julien Dubois",
+      city: "Avignon",
+      rating: 5,
+      installationType: "4kWc en autoconsommation",
+      text: "Installation rapide et soignée. Production conforme aux prévisions grâce à l'ensoleillement exceptionnel du Vaucluse.",
+      date: "15/01/2025"
+    },
+    {
+      name: "Marie Lecomte",
+      city: "Orange",
+      rating: 5,
+      installationType: "6kWc avec batteries",
+      text: "Très satisfaite de mon installation. L'équipe a été professionnelle et à l'écoute de mes besoins.",
+      date: "22/01/2025"
+    }
+  ]
+};
+
 export default function DepartmentPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-f2f6fa to-e3e9f0">
       <RegionHero 
-        title={`Installation Panneaux Solaires ${departementData.name}`}
-        description="Profitez de l'excellent ensoleillement du Vaucluse pour votre installation solaire"
         region={departementData.name}
+        ensoleillement="2800 heures/an"
+        potentielSolaire="Excellent (1450 kWh/kWc)"
       />
       
       <DepartmentCitiesList 
@@ -72,12 +131,12 @@ export default function DepartmentPage() {
       <PrixInstallation />
       
       <RegionAids 
-        region={departementData.name} 
+        region={regionData}
         advantages={departementData.advantages} 
       />
       
       <LocalReviews 
-        region={departementData.name}
+        region={regionData}
       />
       
       <ClientTestimonialsSection />

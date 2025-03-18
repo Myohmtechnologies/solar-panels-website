@@ -1,3 +1,334 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/06-alpes-maritimes.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires dans le département 06-alpes-maritimes</video:title>
+      <video:description>Découvrez notre expertise en installation de panneaux solaires dans le département 06-alpes-maritimes de la région PACA.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/departments/06-alpes-maritimes.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/nice</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/nice.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Nice</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Nice dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/nice.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/cannes</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/cannes.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Cannes</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Cannes dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/cannes.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/antibes</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/antibes.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Antibes</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Antibes dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/antibes.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/cagnesSurMer</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/cagnesSurMer.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Cagnes-sur-Mer</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Cagnes-sur-Mer dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/cagnesSurMer.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/leCannet</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/leCannet.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Le Cannet</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Le Cannet dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/leCannet.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/menton</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/menton.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Menton</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Menton dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/menton.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/saintLaurentDuVar</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/saintLaurentDuVar.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Saint-Laurent-du-Var</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Saint-Laurent-du-Var dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/saintLaurentDuVar.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/vallauris</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/vallauris.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Vallauris</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Vallauris dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/vallauris.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/mandelieuLaNapoule</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/mandelieuLaNapoule.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Mandelieu-la-Napoule</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Mandelieu-la-Napoule dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/mandelieuLaNapoule.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/vence</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/vence.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Vence</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Vence dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/vence.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/villeneuveLoubet</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/villeneuveLoubet.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Villeneuve-Loubet</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Villeneuve-Loubet dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/villeneuveLoubet.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/mougins</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/mougins.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Mougins</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Mougins dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/mougins.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/beausoleil</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/beausoleil.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Beausoleil</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Beausoleil dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/beausoleil.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/roquebruneCapMartin</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/roquebruneCapMartin.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Roquebrune-Cap-Martin</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Roquebrune-Cap-Martin dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/roquebruneCapMartin.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/laTrinite</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/laTrinite.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à La Trinité</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à La Trinité dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/laTrinite.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/carros</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/carros.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Carros</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Carros dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/carros.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/valbonne</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/valbonne.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Valbonne</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Valbonne dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/valbonne.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/laColleSurLoup</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/laColleSurLoup.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à La Colle-sur-Loup</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à La Colle-sur-Loup dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/laColleSurLoup.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/biot</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/biot.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Biot</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Biot dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/biot.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/contes</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/contes.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à Contes</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à Contes dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/contes.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes/villes/laGaude</loc>
+    <lastmod>2025-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <video:video>
+      <video:thumbnail_loc>https://www.myohmtechnologies.com/videos/thumbnails/cities/laGaude.jpg</video:thumbnail_loc>
+      <video:title>Installation de panneaux solaires à La Gaude</video:title>
+      <video:description>Découvrez les avantages de l'installation de panneaux solaires à La Gaude dans le département 06-alpes-maritimes.</video:description>
+      <video:content_loc>https://www.myohmtechnologies.com/videos/cities/laGaude.mp4</video:content_loc>
+      <video:duration>90</video:duration>
+      <video:publication_date>2025-03-18</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
 </urlset>

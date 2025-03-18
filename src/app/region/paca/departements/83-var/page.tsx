@@ -8,6 +8,7 @@ import ContactCTASection from '@/components/sections/ContactCTASection';
 import LocalReviews from '@/components/sections/LocalReviews';
 import PrixInstallation from '@/components/PrixInstallation';
 import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
+import { RegionData } from '@/config/seo';
 
 export const metadata: Metadata = {
   title: 'Installation Panneaux Solaires Var (83) | Prix et Devis',
@@ -54,13 +55,71 @@ const departementData = {
   ]
 };
 
+// Création d'un objet RegionData pour le département
+const regionData: RegionData = {
+  name: departementData.name,
+  slug: '83-var',
+  mapImage: '/images/departments/var-map.jpg',
+  sunshineHours: 2850,
+  sunshineRank: 'Excellent',
+  departments: [],
+  meta: {
+    title: metadata.title as string,
+    description: metadata.description as string,
+    keywords: metadata.keywords as string[],
+  },
+  stats: {
+    population: 1058000,
+    solarPotential: 1450,
+    installedCapacity: 120,
+    averageConsumption: 4800,
+  },
+  aids: {
+    regional: [
+      {
+        title: "Prime à l'autoconsommation",
+        description: "Aide de l'État pour les installations en autoconsommation",
+        amount: "Jusqu'à 380€/kWc",
+        conditions: ["Installation ≤ 100 kWc", "Autoconsommation avec vente de surplus"]
+      }
+    ],
+    local: [
+      {
+        title: "Aide départementale",
+        description: "Soutien du département du Var",
+        amount: "Jusqu'à 800€",
+        conditions: ["Résidence principale", "Installation par un professionnel RGE"]
+      }
+    ]
+  },
+  faq: departementData.faqs,
+  testimonials: [
+    {
+      name: "Philippe Martin",
+      city: "Toulon",
+      rating: 5,
+      installationType: "6kWc en autoconsommation",
+      text: "Installation parfaite, production supérieure aux prévisions grâce à l'excellent ensoleillement du Var.",
+      date: "20/01/2025"
+    },
+    {
+      name: "Sophie Blanc",
+      city: "Saint-Tropez",
+      rating: 5,
+      installationType: "9kWc avec batteries",
+      text: "Service impeccable et résultats au-delà de mes attentes. Je recommande vivement cette entreprise.",
+      date: "05/02/2025"
+    }
+  ]
+};
+
 export default function DepartmentPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-f2f6fa to-e3e9f0">
       <RegionHero 
-        title={`Installation Panneaux Solaires ${departementData.name}`}
-        description="Profitez de l'excellent ensoleillement du Var pour votre installation solaire"
         region={departementData.name}
+        ensoleillement="2850 heures/an"
+        potentielSolaire="Excellent (1450 kWh/kWc)"
       />
       
       <DepartmentCitiesList 
@@ -72,12 +131,12 @@ export default function DepartmentPage() {
       <PrixInstallation />
       
       <RegionAids 
-        region={departementData.name} 
+        region={regionData}
         advantages={departementData.advantages} 
       />
       
       <LocalReviews 
-        region={departementData.name}
+        region={regionData}
       />
       
       <ClientTestimonialsSection />

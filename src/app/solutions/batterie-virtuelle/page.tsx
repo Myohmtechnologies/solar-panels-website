@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Head from 'next/head';
 import Link from 'next/link';
 import { 
   MapPinIcon, 
@@ -116,12 +115,6 @@ export default function BatterieStockagePage() {
 
   return (
     <main className="overflow-x-hidden">
-      <Head>
-        <title>Batterie Virtuelle MyLight - Solution d'Autoconsommation Intelligente</title>
-        <meta name="description" content="Découvrez la batterie virtuelle MyLight, la solution innovante pour optimiser votre autoconsommation d'énergie solaire sans installation physique. Maximisez vos économies d'énergie avec notre technologie de stockage virtuel." />
-        <meta name="keywords" content="batterie virtuelle, MyLight, stockage virtuel, énergie solaire, autoconsommation, autonomie énergétique, panneaux solaires, photovoltaïque, solution MyLight" />
-      </Head>
-
       {/* Schema markup spécifique pour la batterie virtuelle */}
       <BatterieStockageSchemaMarkup />
 

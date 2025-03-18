@@ -8,6 +8,7 @@ import ContactCTASection from '@/components/sections/ContactCTASection';
 import LocalReviews from '@/components/sections/LocalReviews';
 import PrixInstallation from '@/components/PrixInstallation';
 import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
+import { RegionData } from '@/config/seo';
 
 export const metadata: Metadata = {
   title: 'Installation Panneaux Solaires Alpes-de-Haute-Provence (04) | Prix et Devis',
@@ -54,13 +55,71 @@ const departementData = {
   ]
 };
 
+// Création d'un objet RegionData pour le département
+const regionData: RegionData = {
+  name: departementData.name,
+  slug: '04-alpes-de-haute-provence',
+  mapImage: '/images/departments/alpes-de-haute-provence-map.jpg',
+  sunshineHours: 2750,
+  sunshineRank: 'Très bon',
+  departments: [],
+  meta: {
+    title: metadata.title as string,
+    description: metadata.description as string,
+    keywords: metadata.keywords as string[],
+  },
+  stats: {
+    population: 164000,
+    solarPotential: 1400,
+    installedCapacity: 35,
+    averageConsumption: 4600,
+  },
+  aids: {
+    regional: [
+      {
+        title: "Prime à l'autoconsommation",
+        description: "Aide de l'État pour les installations en autoconsommation",
+        amount: "Jusqu'à 380€/kWc",
+        conditions: ["Installation ≤ 100 kWc", "Autoconsommation avec vente de surplus"]
+      }
+    ],
+    local: [
+      {
+        title: "Aide départementale",
+        description: "Soutien du département des Alpes-de-Haute-Provence",
+        amount: "Jusqu'à 600€",
+        conditions: ["Résidence principale", "Installation par un professionnel RGE"]
+      }
+    ]
+  },
+  faq: departementData.faqs,
+  testimonials: [
+    {
+      name: "Pierre Moreau",
+      city: "Digne-les-Bains",
+      rating: 5,
+      installationType: "3kWc en autoconsommation",
+      text: "Installation impeccable, équipe professionnelle et réactive. Très satisfait de ma production d'énergie.",
+      date: "12/01/2025"
+    },
+    {
+      name: "Sylvie Laurent",
+      city: "Manosque",
+      rating: 5,
+      installationType: "6kWc avec batteries",
+      text: "Excellente prestation de A à Z. Les panneaux produisent plus que prévu grâce à l'excellent ensoleillement.",
+      date: "28/01/2025"
+    }
+  ]
+};
+
 export default function DepartmentPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-f2f6fa to-e3e9f0">
       <RegionHero 
-        title={`Installation Panneaux Solaires ${departementData.name}`}
-        description="Profitez de l'excellent ensoleillement des Alpes-de-Haute-Provence pour votre installation solaire"
         region={departementData.name}
+        ensoleillement="2750 heures/an"
+        potentielSolaire="Très bon (1400 kWh/kWc)"
       />
       
       <DepartmentCitiesList 
@@ -72,12 +131,12 @@ export default function DepartmentPage() {
       <PrixInstallation />
       
       <RegionAids 
-        region={departementData.name} 
+        region={regionData}
         advantages={departementData.advantages} 
       />
       
       <LocalReviews 
-        region={departementData.name}
+        region={regionData}
       />
       
       <ClientTestimonialsSection />

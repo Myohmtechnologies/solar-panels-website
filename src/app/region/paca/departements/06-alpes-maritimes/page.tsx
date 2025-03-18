@@ -8,6 +8,7 @@ import ContactCTASection from '@/components/sections/ContactCTASection';
 import LocalReviews from '@/components/sections/LocalReviews';
 import PrixInstallation from '@/components/PrixInstallation';
 import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
+import { RegionData } from '@/config/seo';
 
 export const metadata: Metadata = {
   title: 'Installation Panneaux Solaires Alpes-Maritimes (06) | Prix et Devis',
@@ -54,13 +55,71 @@ const departementData = {
   ]
 };
 
+// Création d'un objet RegionData pour le département
+const regionData: RegionData = {
+  name: departementData.name,
+  slug: '06-alpes-maritimes',
+  mapImage: '/images/departments/alpes-maritimes-map.jpg',
+  sunshineHours: 2900,
+  sunshineRank: 'Excellent',
+  departments: [],
+  meta: {
+    title: metadata.title as string,
+    description: metadata.description as string,
+    keywords: metadata.keywords as string[],
+  },
+  stats: {
+    population: 1094000,
+    solarPotential: 1500,
+    installedCapacity: 150,
+    averageConsumption: 4900,
+  },
+  aids: {
+    regional: [
+      {
+        title: "Prime à l'autoconsommation",
+        description: "Aide de l'État pour les installations en autoconsommation",
+        amount: "Jusqu'à 380€/kWc",
+        conditions: ["Installation ≤ 100 kWc", "Autoconsommation avec vente de surplus"]
+      }
+    ],
+    local: [
+      {
+        title: "Aide départementale",
+        description: "Soutien du département des Alpes-Maritimes",
+        amount: "Jusqu'à 1200€",
+        conditions: ["Résidence principale", "Installation par un professionnel RGE"]
+      }
+    ]
+  },
+  faq: departementData.faqs,
+  testimonials: [
+    {
+      name: "Michel Blanc",
+      city: "Nice",
+      rating: 5,
+      installationType: "6kWc en autoconsommation",
+      text: "Installation parfaite et production exceptionnelle grâce à l'ensoleillement de la Côte d'Azur.",
+      date: "05/01/2025"
+    },
+    {
+      name: "Céline Durand",
+      city: "Cannes",
+      rating: 5,
+      installationType: "9kWc avec batteries",
+      text: "Service impeccable et résultats au-delà de mes attentes. Installation réalisée en 1 journée seulement.",
+      date: "18/01/2025"
+    }
+  ]
+};
+
 export default function DepartmentPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-f2f6fa to-e3e9f0">
       <RegionHero 
-        title={`Installation Panneaux Solaires ${departementData.name}`}
-        description="Profitez de l'excellent ensoleillement des Alpes-Maritimes pour votre installation solaire"
         region={departementData.name}
+        ensoleillement="2900 heures/an"
+        potentielSolaire="Excellent (1500 kWh/kWc)"
       />
       
       <DepartmentCitiesList 
@@ -72,12 +131,12 @@ export default function DepartmentPage() {
       <PrixInstallation />
       
       <RegionAids 
-        region={departementData.name} 
+        region={regionData}
         advantages={departementData.advantages} 
       />
       
       <LocalReviews 
-        region={departementData.name}
+        region={regionData}
       />
       
       <ClientTestimonialsSection />

@@ -5,13 +5,13 @@ const BatterieStockageSchemaMarkup = () => {
       // Service Schema
       {
         "@type": "Service",
-        "@id": "https://myohmtechnologies.com/batterie-de-stockage#service",
-        "name": "Installation de Batteries de Stockage d'Énergie Solaire",
+        "@id": "https://www.myohmtechnologies.com/solutions/batterie-virtuelle#service",
+        "name": "Batterie Virtuelle MyLight - Solution d'Autoconsommation Intelligente",
         "provider": {
           "@type": "Organization",
-          "@id": "https://myohmtechnologies.com"
+          "@id": "https://www.myohmtechnologies.com"
         },
-        "description": "Installation professionnelle de batteries de stockage d'énergie solaire pour maximiser votre autoconsommation et votre autonomie énergétique. Solutions adaptées aux particuliers et professionnels en région PACA.",
+        "description": "Découvrez la batterie virtuelle MyLight, la solution innovante pour optimiser votre autoconsommation d'énergie solaire sans installation physique. Maximisez vos économies d'énergie avec notre technologie de stockage virtuel.",
         "areaServed": {
           "@type": "State",
           "name": "Provence-Alpes-Côte d'Azur"
@@ -53,7 +53,7 @@ const BatterieStockageSchemaMarkup = () => {
           "@type": "QuoteAction",
           "target": {
             "@type": "EntryPoint",
-            "urlTemplate": "https://myohmtechnologies.com/contact",
+            "urlTemplate": "https://www.myohmtechnologies.com/contact",
             "actionPlatform": ["http://schema.org/DesktopWebPlatform"]
           },
           "result": {
@@ -116,10 +116,10 @@ const BatterieStockageSchemaMarkup = () => {
       // Organization Schema avec expertise spécifique
       {
         "@type": "Organization",
-        "@id": "https://myohmtechnologies.com",
+        "@id": "https://www.myohmtechnologies.com",
         "name": "My Ohm Technologies",
-        "url": "https://myohmtechnologies.com",
-        "logo": "https://myohmtechnologies.com/images/logo.png",
+        "url": "https://www.myohmtechnologies.com",
+        "logo": "https://www.myohmtechnologies.com/images/logo.png",
         "description": "Expert en solutions énergétiques : batteries de stockage, panneaux solaires et optimisation énergétique",
         "knowsAbout": [
           "Stockage d'énergie",
@@ -145,7 +145,7 @@ const BatterieStockageSchemaMarkup = () => {
             "@type": "ListItem",
             "position": 1,
             "item": {
-              "@id": "https://myohmtechnologies.com",
+              "@id": "https://www.myohmtechnologies.com",
               "name": "Accueil"
             }
           },
@@ -153,7 +153,7 @@ const BatterieStockageSchemaMarkup = () => {
             "@type": "ListItem",
             "position": 2,
             "item": {
-              "@id": "https://myohmtechnologies.com/batterie-de-stockage",
+              "@id": "https://www.myohmtechnologies.com/batterie-de-stockage",
               "name": "Batteries de Stockage"
             }
           }
@@ -162,7 +162,7 @@ const BatterieStockageSchemaMarkup = () => {
       // Article Schema
       {
         "@type": "TechArticle",
-        "@id": "https://myohmtechnologies.com/batterie-de-stockage#article",
+        "@id": "https://www.myohmtechnologies.com/batterie-de-stockage#article",
         "headline": "Comment fonctionne une batterie de stockage solaire",
         "description": "Guide complet sur le fonctionnement des batteries de stockage d'énergie solaire, leur installation et leurs avantages pour l'autoconsommation.",
         "keywords": "batterie stockage solaire, fonctionnement batterie solaire, système stockage énergie, autoconsommation, autonomie énergétique",
@@ -174,15 +174,15 @@ const BatterieStockageSchemaMarkup = () => {
         },
         "publisher": {
           "@type": "Organization",
-          "@id": "https://myohmtechnologies.com"
+          "@id": "https://www.myohmtechnologies.com"
         },
-        "mainEntityOfPage": "https://myohmtechnologies.com/batterie-de-stockage",
+        "mainEntityOfPage": "https://www.myohmtechnologies.com/batterie-de-stockage",
         "articleSection": "Énergie Solaire"
       },
       // FAQPage Schema
       {
         "@type": "FAQPage",
-        "@id": "https://myohmtechnologies.com/batterie-de-stockage#faq",
+        "@id": "https://www.myohmtechnologies.com/batterie-de-stockage#faq",
         "mainEntity": [
           {
             "@type": "Question",

@@ -21,6 +21,7 @@ import SolarPowerSection from '@/components/sections/SolarPowerSection';
 import RequestQuoteSection from '@/components/sections/RequestQuoteSection';
 import RatingSchema from '@/components/schemas/RatingSchema';
 import ProductSchema from '@/components/schemas/ProductSchema';
+import VideoSchema from '@/components/schemas/VideoSchema';
 import { pricingData } from '@/components/sections/InstallationPricingSection';
 
 interface CityData {
@@ -144,6 +145,17 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
         region="PACA"
         pricingData={pricingData}
         reviews={reviewsForProductSchema}
+      />
+
+      {/* Schéma vidéo pour l'indexation par Google */}
+      <VideoSchema
+        name={`Installation de panneaux solaires à ${villeName}`}
+        description={`Découvrez comment MY OHM Technologies installe des panneaux solaires à ${villeName} dans le département du Var. Profitez d'un ensoleillement exceptionnel et réduisez vos factures d'électricité.`}
+        thumbnailUrl={`/videos/thumbnails/cities/${ville}.jpg`}
+        contentUrl={`/videos/cities/${ville}.mp4`}
+        embedUrl={`https://www.myohmtechnologies.com/videos/cities/${ville}.mp4`}
+        uploadDate={new Date().toISOString().split('T')[0]}
+        duration="PT1M30S"
       />
 
       {/* 1. Section Hero Video */}

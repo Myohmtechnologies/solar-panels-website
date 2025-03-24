@@ -1314,7 +1314,147 @@ export const chargingStationCities: Record<string, ChargingStationCity> = {
         "borne rapide Vitrolles"
       ]
     }
+  },
+  "manosque": {
+    name: "Manosque",
+    slug: "manosque",
+    population: 22801,
+    region: "PACA",
+    department: "Alpes-de-Haute-Provence",
+    departmentCode: "04",
+    chargingStations: {
+      totalCount: 8,
+      publicCount: 6,
+      privateCount: 2,
+      chargingPoints: {
+        fast: 2,
+        ultraFast: 1,
+        normal: 5
+      },
+      operators: [
+        { name: "IZIVIA", stationCount: 3 },
+        { name: "TotalEnergies", stationCount: 2 }
+      ]
+    },
+    keyLocations: [
+      {
+        name: "Centre-ville",
+        stationCount: 3,
+        description: "Bornes situées près des commerces du centre historique"
+      },
+      {
+        name: "Zone commerciale",
+        stationCount: 2,
+        description: "Stations accessibles près des grandes surfaces"
+      }
+    ],
+    localIncentives: [
+      "Stationnement gratuit 2h pendant la charge",
+      "Réduction de 20% sur l'abonnement annuel pour les résidents",
+      "Aide à l'installation pour les particuliers"
+    ],
+    statistics: {
+      evCount: 450,
+      stationDensity: 35.1,
+      averageOccupancy: 40,
+      averageWaitTime: 5
+    },
+    content: {
+      mainDescription: "Manosque, principale ville des Alpes-de-Haute-Provence, développe progressivement son infrastructure de recharge pour véhicules électriques. Située au cœur de la Provence, la ville combine patrimoine historique et modernité avec un réseau de bornes stratégiquement placées pour faciliter la mobilité électrique des résidents et visiteurs.",
+      advantages: [
+        "Couverture du centre historique",
+        "Bornes rapides sur les axes principaux",
+        "Accessibilité pour les touristes"
+      ]
+    },
+    seo: {
+      title: "Bornes de Recharge Voiture Électrique à Manosque ⚡| Installation & Devis",
+      description: "Installation de bornes de recharge à Manosque. ⚡ Devis personnalisé | Installation rapide | Service professionnel dans les Alpes-de-Haute-Provence",
+      keywords: [
+        "devis borne de recharge Manosque",
+        "prix borne de recharge voiture électrique Manosque",
+        "installation borne de recharge Manosque",
+        "entreprise borne de recharge Manosque",
+        "installateur borne de recharge Manosque",
+        "borne de recharge maison Manosque",
+        "borne recharge voiture électrique prix Manosque",
+        "installation wallbox Manosque",
+        "devis installation borne électrique Manosque",
+        "borne de recharge entreprise Manosque",
+        "recharge voiture électrique Alpes-de-Haute-Provence"
+      ]
+    }
+  },
+  "sisteron": {
+    name: "Sisteron",
+    slug: "sisteron",
+    population: 7672,
+    region: "PACA",
+    department: "Alpes-de-Haute-Provence",
+    departmentCode: "04",
+    chargingStations: {
+      totalCount: 5,
+      publicCount: 4,
+      privateCount: 1,
+      chargingPoints: {
+        fast: 1,
+        ultraFast: 0,
+        normal: 4
+      },
+      operators: [
+        { name: "IZIVIA", stationCount: 2 },
+        { name: "TotalEnergies", stationCount: 1 }
+      ]
+    },
+    keyLocations: [
+      {
+        name: "Centre historique",
+        stationCount: 2,
+        description: "Bornes situées près de la Citadelle et du centre-ville"
+      },
+      {
+        name: "Zone commerciale",
+        stationCount: 1,
+        description: "Station accessible près des commerces"
+      }
+    ],
+    localIncentives: [
+      "Stationnement gratuit pendant la charge",
+      "Tarifs préférentiels pour les résidents",
+      "Programme d'aide à l'installation"
+    ],
+    statistics: {
+      evCount: 180,
+      stationDensity: 65.2,
+      averageOccupancy: 30,
+      averageWaitTime: 3
+    },
+    content: {
+      mainDescription: "Sisteron, ville historique des Alpes-de-Haute-Provence située sur l'axe Marseille-Grenoble, développe son réseau de bornes de recharge pour répondre aux besoins des habitants et des nombreux touristes. Sa position stratégique en fait un point de recharge important pour les trajets longue distance entre la Méditerranée et les Alpes.",
+      advantages: [
+        "Position stratégique sur l'axe Marseille-Grenoble",
+        "Bornes accessibles près des sites touristiques",
+        "Facilité d'accès depuis l'autoroute A51"
+      ]
+    },
+    seo: {
+      title: "Bornes de Recharge Voiture Électrique à Sisteron ⚡| Installation & Devis",
+      description: "Installation de bornes de recharge à Sisteron. ⚡ Devis personnalisé | Installation rapide | Service professionnel pour particuliers et professionnels dans les Alpes-de-Haute-Provence",
+      keywords: [
+        "devis borne de recharge Sisteron",
+        "prix borne de recharge voiture électrique Sisteron",
+        "installation borne de recharge Sisteron",
+        "entreprise borne de recharge Sisteron",
+        "installateur borne de recharge Sisteron",
+        "borne de recharge maison Sisteron",
+        "borne recharge voiture électrique prix Sisteron",
+        "installation wallbox Sisteron",
+        "devis installation borne électrique Sisteron",
+        "borne de recharge entreprise Sisteron",
+        "recharge voiture électrique Alpes-de-Haute-Provence"
+      ]
+    }
   }
 };
 
-export default chargingStationCities; 
+export default chargingStationCities;

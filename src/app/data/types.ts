@@ -71,3 +71,47 @@ export interface DepartmentFAQ {
     [cityCode: string]: FAQItem[];
   };
 }
+
+export interface ChargingStationCity {
+  name: string;
+  slug: string;
+  population: number;
+  region: string;
+  department: string;
+  departmentCode: string;
+  chargingStations: {
+    totalCount: number;
+    publicCount: number;
+    privateCount: number;
+    chargingPoints: {
+      fast: number;      // > 50kW
+      ultraFast: number; // > 150kW
+      normal: number;    // < 50kW
+    };
+    operators: Array<{
+      name: string;
+      stationCount: number;
+    }>;
+  };
+  keyLocations: Array<{
+    name: string;
+    stationCount: number;
+    description: string;
+  }>;
+  localIncentives: string[];
+  statistics: {
+    evCount: number;           // Nombre de véhicules électriques
+    stationDensity: number;    // Bornes par 10 000 habitants
+    averageOccupancy: number;  // Taux d'occupation moyen en %
+    averageWaitTime: number;   // Temps d'attente moyen en minutes
+  };
+  content: {
+    mainDescription: string;
+    advantages: string[];
+  };
+  seo: {
+    title: string;
+    description: string;
+    keywords: string[];
+  };
+}

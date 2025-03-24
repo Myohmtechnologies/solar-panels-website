@@ -24,6 +24,7 @@ const nextConfig = {
         hostname: '**',
       },
     ],
+    domains: ['localhost'],
   },
   experimental: {
     optimizeCss: true,
@@ -31,6 +32,14 @@ const nextConfig = {
     serverActions: {
       allowedOrigins: ['localhost:3000', 'myohmtechnologies.fr', '*.myohmtechnologies.fr', 'vercel.app']
     }
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/borne-de-recharge-voiture-électrique/:ville',
+        destination: '/borne-de-recharge-voiture-électrique/:ville',
+      },
+    ];
   },
   webpack: (config, { isServer }) => {
     // Fix for the webpack error
@@ -117,6 +126,11 @@ const nextConfig = {
           },
         },
       ],
+    });
+
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
     });
 
     return config;

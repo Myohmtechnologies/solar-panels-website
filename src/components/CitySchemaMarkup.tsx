@@ -38,8 +38,8 @@ const CitySchemaMarkup = ({ cityData, departmentName }: CitySchemaMarkupProps) =
         }],
         "aggregateRating": {
           "@type": "AggregateRating",
-          "ratingValue": "4.6",
-          "ratingCount": "3068",
+          "ratingValue": "5.0",
+          "ratingCount": "78",
           "bestRating": "5",
           "worstRating": "1"
         },
@@ -52,17 +52,20 @@ const CitySchemaMarkup = ({ cityData, departmentName }: CitySchemaMarkupProps) =
               "itemOffered": {
                 "@type": "Service",
                 "name": "Installation Panneaux Photovoltaïques",
-                "description": `Installation complète de panneaux solaires à ${cityData.name}`,
+                "description": `Installation complète de panneaux solaires à ${cityData.name}. Simulation gratuite disponible sur notre site.`,
                 "provider": {
                   "@type": "LocalBusiness",
                   "@id": "https://www.myohmtechnologies.com"
-                }
+                },
+                "url": "https://www.myohmtechnologies.com/simulator"
               },
-              "priceSpecification": {
-                "@type": "PriceSpecification",
-                "price": "7300",
-                "priceCurrency": "EUR",
-                "validFrom": "2024-01-01"
+              "availability": "https://schema.org/InStock",
+              "url": "https://www.myohmtechnologies.com/simulator",
+              "actionPlatform": "https://www.myohmtechnologies.com/simulator",
+              "potentialAction": {
+                "@type": "Action",
+                "name": "Simulation gratuite",
+                "url": "https://www.myohmtechnologies.com/simulator"
               }
             }
           ]
@@ -115,15 +118,18 @@ const CitySchemaMarkup = ({ cityData, departmentName }: CitySchemaMarkupProps) =
           "@type": "City",
           "name": cityData.name
         },
-        "description": cityData.description || `Installation professionnelle de panneaux solaires à ${cityData.name}. Devis gratuit et installation par des experts certifiés RGE.`,
+        "description": cityData.description || `Installation professionnelle de panneaux solaires à ${cityData.name}. Devis gratuit et installation par des experts certifiés RGE. Simulation d'économies gratuite disponible.`,
         "category": ["Installation Solaire", "Panneaux Photovoltaïques"],
         "serviceType": "Installation",
         "offers": {
           "@type": "Offer",
-          "priceSpecification": {
-            "@type": "PriceSpecification",
-            "price": "7300",
-            "priceCurrency": "EUR"
+          "availability": "https://schema.org/InStock",
+          "url": "https://www.myohmtechnologies.com/simulator",
+          "actionPlatform": "https://www.myohmtechnologies.com/simulator",
+          "potentialAction": {
+            "@type": "Action",
+            "name": "Simulation gratuite",
+            "url": "https://www.myohmtechnologies.com/simulator"
           }
         }
       },

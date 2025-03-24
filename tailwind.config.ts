@@ -46,6 +46,15 @@ const config: Config = {
         'gradient-contact': 'linear-gradient(to bottom right, #f2f6fa, #e3e9f0)',
         'gradient-footer': 'linear-gradient(to bottom right, #232323, #1a1a1a)',
       },
+      keyframes: {
+        scroll: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+      },
+      animation: {
+        'scroll': 'scroll 30s linear infinite',
+      },
     },
   },
   plugins: [],

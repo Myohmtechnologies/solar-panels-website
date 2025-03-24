@@ -18,6 +18,7 @@ const PagesJaunesIcon = () => (
   <Image src="/images/pagesjaunes-logo-icone.png" alt="Pages Jaunes" width={25} height={25} />
 );
 
+// Nous gardons les 3 avis existants pour l'affichage dans le carrousel
 const reviews = [
   {
     id: 1,
@@ -113,6 +114,9 @@ const ReviewsSection = () => {
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-4">
             Ce que nos clients disent de nous
           </h2>
+          <p className="text-lg text-gray-600 mb-4">
+            <span className="font-semibold">5.0/5</span> basé sur <span className="font-semibold">78 avis</span> clients
+          </p>
           <div className="flex flex-wrap justify-center items-center gap-8 mt-8">
             <div className="flex items-center gap-4 bg-white rounded-lg shadow-sm px-4 py-3">
               <GoogleIcon />

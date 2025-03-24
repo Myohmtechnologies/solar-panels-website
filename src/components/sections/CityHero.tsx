@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { MapPinIcon, UserIcon, ChartBarIcon, PhoneIcon, CalculatorIcon, SunIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import Link from 'next/link';
 import ContactModal from '../modals/ContactModal';
 
 interface CityHeroProps {
@@ -19,13 +20,6 @@ interface CityHeroProps {
 
 export default function CityHero({ cityName, departmentName, description, population, sunshineHours, heroImage }: CityHeroProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const scrollToSimulator = () => {
-    const simulator = document.querySelector('#simulator-section');
-    if (simulator) {
-      simulator.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <>
@@ -98,13 +92,13 @@ export default function CityHero({ cityName, departmentName, description, popula
                 <span>Obtenir un devis gratuit</span>
               </button>
 
-              <button
-                onClick={scrollToSimulator}
+              <Link
+                href="/simulator"
                 className="flex items-center justify-center space-x-2 bg-[#10618F] text-white font-semibold py-4 px-6 rounded-lg hover:opacity-90 transition-opacity shadow-lg"
               >
                 <ChartBarIcon className="w-5 h-5" />
-                <span>Simuler vos Économie </span>
-              </button>
+                <span>Simulation des économies</span>
+              </Link>
             </div>
 
             {/* Trust Badges */}

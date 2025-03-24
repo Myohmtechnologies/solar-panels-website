@@ -7,6 +7,8 @@ export const config = {
     '/dashboard/:path*',
     '/login',
     '/((?!_next/static|_next/image|favicon.ico).*)',
+    '/borne-de-recharge-voiture-électrique/:path*',
+    '/borne-de-recharge/:path*',
   ],
 };
 
@@ -51,6 +53,12 @@ export function middleware(request: NextRequest) {
     } catch {
       return NextResponse.redirect(new URL('/login', request.url));
     }
+  }
+
+  // Si l'URL contient "borne-de-recharge-voiture-électrique", rediriger vers "borne-de-recharge"
+  if (pathname.includes('borne-de-recharge-voiture-électrique')) {
+    const newPath = pathname.replace('borne-de-recharge-voiture-électrique', 'borne-de-recharge');
+    return NextResponse.redirect(new URL(newPath, request.url));
   }
 
   // Log 404s

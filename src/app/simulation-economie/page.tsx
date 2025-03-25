@@ -8,7 +8,7 @@ export default function SimulationEconomiePage() {
         <div className="container mx-auto px-4 md:px-0 flex justify-between items-center">
           <div className="flex items-center">
             <a href="/">
-              <img src="/images/logo.png" alt="Logo Myohm Technologies" className="h-16 w-auto" />
+              <img src="/images/logo.webp" alt="Logo Myohm Technologies" className="h-16 w-auto" />
             </a>
           </div>
           <div className="flex items-center">
@@ -86,7 +86,7 @@ export default function SimulationEconomiePage() {
           
           <div className="relative h-[400px] md:h-[500px] w-full">
             <img
-              src="/images/simulation-des-economies.png"
+              src="/images/simulation-des-economies.webp"
               alt="Simulation d'économies avec des panneaux solaires"
               className="object-contain w-full h-full"
             />

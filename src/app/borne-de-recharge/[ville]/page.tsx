@@ -189,7 +189,10 @@ export default async function ChargingStationCityPage({ params }: Props) {
     "review": [
       {
         "@type": "Review",
-        "author": "Marie L.",
+        "author": {
+          "@type": "Person",
+          "name": "Marie L."
+        },
         "datePublished": "2024-03-15",
         "reviewRating": {
           "@type": "Rating",
@@ -199,7 +202,10 @@ export default async function ChargingStationCityPage({ params }: Props) {
       },
       {
         "@type": "Review",
-        "author": "Thomas D.",
+        "author": {
+          "@type": "Person",
+          "name": "Thomas D."
+        },
         "datePublished": "2024-02-20",
         "reviewRating": {
           "@type": "Rating",
@@ -209,7 +215,10 @@ export default async function ChargingStationCityPage({ params }: Props) {
       },
       {
         "@type": "Review",
-        "author": "Sophie M.",
+        "author": {
+          "@type": "Person",
+          "name": "Sophie M."
+        },
         "datePublished": "2024-01-10",
         "reviewRating": {
           "@type": "Rating",

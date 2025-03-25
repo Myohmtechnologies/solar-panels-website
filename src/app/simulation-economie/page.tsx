@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 export default function SimulationEconomiePage() {
   return (
     <main>
@@ -8,7 +10,14 @@ export default function SimulationEconomiePage() {
         <div className="container mx-auto px-4 md:px-0 flex justify-between items-center">
           <div className="flex items-center">
             <a href="/">
-              <img src="/images/logo.webp" alt="Logo Myohm Technologies" className="h-16 w-auto" />
+              <Image 
+                src="/images/logo.webp" 
+                alt="Logo Myohm Technologies" 
+                width={200}
+                height={80}
+                className="h-16 w-auto"
+                priority
+              />
             </a>
           </div>
           <div className="flex items-center">
@@ -85,14 +94,13 @@ export default function SimulationEconomiePage() {
           </div>
           
           <div className="relative h-[400px] md:h-[500px] w-full">
-            <img
+            <Image
               src="/images/simulation-des-economies.webp"
               alt="Simulation d'économies avec des panneaux solaires"
-              className="object-contain w-full h-full"
-              width="800"
-              height="500"
-              loading="eager"
-              fetchPriority="high"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 800px"
+              style={{ objectFit: 'contain' }}
             />
           </div>
         </div>

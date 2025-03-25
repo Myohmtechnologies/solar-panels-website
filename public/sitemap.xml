@@ -4,7 +4,7 @@
   <!-- Page d'accueil -->
   <url>
     <loc>https://www.myohmtechnologies.com/</loc>
-    <lastmod>2025-03-18</lastmod>
+    <lastmod>2025-03-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <video:video>
@@ -13,7 +13,7 @@
       <video:description>Découvrez comment MyOHM Technologies installe des panneaux solaires de haute qualité dans la région PACA.</video:description>
       <video:content_loc>https://www.myohmtechnologies.com/videos/home-hero.mp4</video:content_loc>
       <video:duration>90</video:duration>
-      <video:publication_date>2025-03-18</video:publication_date>
+      <video:publication_date>2025-03-25</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
       <video:requires_subscription>no</video:requires_subscription>
       <video:live>no</video:live>
@@ -23,7 +23,7 @@
   <!-- Simulateur -->
   <url>
     <loc>https://www.myohmtechnologies.com/simulateur</loc>
-    <lastmod>2025-03-18</lastmod>
+    <lastmod>2025-03-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -31,7 +31,7 @@
   <!-- Qui sommes-nous -->
   <url>
     <loc>https://www.myohmtechnologies.com/qui-sommes-nous</loc>
-    <lastmod>2025-03-18</lastmod>
+    <lastmod>2025-03-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -39,7 +39,7 @@
   <!-- Réalisations -->
   <url>
     <loc>https://www.myohmtechnologies.com/realisations</loc>
-    <lastmod>2025-03-18</lastmod>
+    <lastmod>2025-03-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -47,7 +47,7 @@
   <!-- Blog -->
   <url>
     <loc>https://www.myohmtechnologies.com/blog</loc>
-    <lastmod>2025-03-18</lastmod>
+    <lastmod>2025-03-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -55,7 +55,7 @@
   <!-- Contact -->
   <url>
     <loc>https://www.myohmtechnologies.com/contact</loc>
-    <lastmod>2025-03-18</lastmod>
+    <lastmod>2025-03-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -63,7 +63,7 @@
   <!-- Pages de départements -->
   <url>
     <loc>https://www.myohmtechnologies.com/region/paca/departements/04-alpes-de-haute-provence</loc>
-    <lastmod>2025-03-18</lastmod>
+    <lastmod>2025-03-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <video:video>
@@ -72,13 +72,13 @@
       <video:description>Découvrez notre expertise en installation de panneaux solaires dans le département 04-alpes-de-haute-provence de la région PACA.</video:description>
       <video:content_loc>https://www.myohmtechnologies.com/videos/departments/04-alpes-de-haute-provence.mp4</video:content_loc>
       <video:duration>90</video:duration>
-      <video:publication_date>2025-03-18</video:publication_date>
+      <video:publication_date>2025-03-25</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
   </url>
   <url>
     <loc>https://www.myohmtechnologies.com/region/paca/departements/05-hautes-alpes</loc>
-    <lastmod>2025-03-18</lastmod>
+    <lastmod>2025-03-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <video:video>
@@ -87,13 +87,13 @@
       <video:description>Découvrez notre expertise en installation de panneaux solaires dans le département 05-hautes-alpes de la région PACA.</video:description>
       <video:content_loc>https://www.myohmtechnologies.com/videos/departments/05-hautes-alpes.mp4</video:content_loc>
       <video:duration>90</video:duration>
-      <video:publication_date>2025-03-18</video:publication_date>
+      <video:publication_date>2025-03-25</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
   </url>
   <url>
     <loc>https://www.myohmtechnologies.com/region/paca/departements/06-alpes-maritimes</loc>
-    <lastmod>2025-03-18</lastmod>
+    <lastmod>2025-03-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <video:video>
@@ -102,13 +102,13 @@
       <video:description>Découvrez notre expertise en installation de panneaux solaires dans le département 06-alpes-maritimes de la région PACA.</video:description>
       <video:content_loc>https://www.myohmtechnologies.com/videos/departments/06-alpes-maritimes.mp4</video:content_loc>
       <video:duration>90</video:duration>
-      <video:publication_date>2025-03-18</video:publication_date>
+      <video:publication_date>2025-03-25</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
   </url>
   <url>
     <loc>https://www.myohmtechnologies.com/region/paca/departements/13-bouches-du-rhone</loc>
-    <lastmod>2025-03-18</lastmod>
+    <lastmod>2025-03-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <video:video>
@@ -117,13 +117,13 @@
       <video:description>Découvrez notre expertise en installation de panneaux solaires dans le département 13-bouches-du-rhone de la région PACA.</video:description>
       <video:content_loc>https://www.myohmtechnologies.com/videos/departments/13-bouches-du-rhone.mp4</video:content_loc>
       <video:duration>90</video:duration>
-      <video:publication_date>2025-03-18</video:publication_date>
+      <video:publication_date>2025-03-25</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
   </url>
   <url>
     <loc>https://www.myohmtechnologies.com/region/paca/departements/83-var</loc>
-    <lastmod>2025-03-18</lastmod>
+    <lastmod>2025-03-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <video:video>
@@ -132,13 +132,13 @@
       <video:description>Découvrez notre expertise en installation de panneaux solaires dans le département 83-var de la région PACA.</video:description>
       <video:content_loc>https://www.myohmtechnologies.com/videos/departments/83-var.mp4</video:content_loc>
       <video:duration>90</video:duration>
-      <video:publication_date>2025-03-18</video:publication_date>
+      <video:publication_date>2025-03-25</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
   </url>
   <url>
     <loc>https://www.myohmtechnologies.com/region/paca/departements/84-vaucluse</loc>
-    <lastmod>2025-03-18</lastmod>
+    <lastmod>2025-03-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <video:video>
@@ -147,7 +147,7 @@
       <video:description>Découvrez notre expertise en installation de panneaux solaires dans le département 84-vaucluse de la région PACA.</video:description>
       <video:content_loc>https://www.myohmtechnologies.com/videos/departments/84-vaucluse.mp4</video:content_loc>
       <video:duration>90</video:duration>
-      <video:publication_date>2025-03-18</video:publication_date>
+      <video:publication_date>2025-03-25</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
   </url>

@@ -3,7 +3,7 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://www.myohmtechnologies.com/region/paca/departements/13-bouches-du-rhone</loc>
-    <lastmod>2025-03-18</lastmod>
+    <lastmod>2025-03-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <video:video>
@@ -12,7 +12,7 @@
       <video:description>Découvrez notre expertise en installation de panneaux solaires dans le département 13-bouches-du-rhone de la région PACA.</video:description>
       <video:content_loc>https://www.myohmtechnologies.com/videos/departments/13-bouches-du-rhone.mp4</video:content_loc>
       <video:duration>90</video:duration>
-      <video:publication_date>2025-03-18</video:publication_date>
+      <video:publication_date>2025-03-25</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
     </video:video>
   </url>

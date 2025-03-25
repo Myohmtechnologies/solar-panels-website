@@ -89,6 +89,10 @@ export default function SimulationEconomiePage() {
               src="/images/simulation-des-economies.webp"
               alt="Simulation d'économies avec des panneaux solaires"
               className="object-contain w-full h-full"
+              width="800"
+              height="500"
+              loading="eager"
+              fetchPriority="high"
             />
           </div>
         </div>

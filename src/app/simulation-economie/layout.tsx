@@ -15,19 +15,19 @@ export const metadata = {
   description: 'Calculez vos économies potentielles en installant des panneaux solaires. Simulation gratuite et sans engagement.',
 };
 
-export default function SimulationLayout({
+export default function SimulationEconomieLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <div className="font-sans min-h-screen bg-white">
-      {/* Google Ads Tag */}
+      {/* Google Ads Tag - Chargé avec stratégie "lazyOnload" pour ne pas bloquer le rendu */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=AW-16817660787"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
-      <Script id="google-ads-config" strategy="afterInteractive">
+      <Script id="google-ads-config" strategy="lazyOnload">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}

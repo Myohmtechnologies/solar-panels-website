@@ -93,11 +93,11 @@ const InteractiveSolarSection = () => {
   const getPopupPosition = (popupKey: string): string => {
     switch (popupKey) {
       case 'solarPanels':
-        return 'top-[80px] left-[200px]';
+        return 'top-[80px] left-[200px] md:top-[80px] md:left-[200px]';
       case 'chargingStation':
-        return 'top-[250px] right-[50px]';
+        return 'top-[250px] right-[50px] md:top-[250px] md:right-[50px]';
       case 'batteryStorage':
-        return 'top-[300px] left-[50px]';
+        return 'top-[300px] left-[50px] md:top-[300px] md:left-[50px]';
       default:
         return 'top-[100px] left-[100px]';
     }
@@ -119,31 +119,67 @@ const InteractiveSolarSection = () => {
             />
             
             {/* Point d'interaction pour les panneaux solaires */}
-            <button 
-              className="absolute top-[250px] left-[500px] bg-blue-600 rounded-full p-1 hover:bg-blue-700 transition-all hover:scale-110 z-10 shadow-lg border-2 border-white"
-              onClick={() => handlePopupToggle('solarPanels')}
-              aria-label="Informations sur les panneaux solaires"
-            >
-              <PlusCircleIcon className="h-8 w-8 text-white" />
-            </button>
+            <div className="hidden md:block">
+              <button 
+                className="absolute top-[250px] left-[500px] bg-blue-700 rounded-full p-0.5 hover:bg-blue-800 transition-all hover:scale-105 z-10 shadow-md"
+                onClick={() => handlePopupToggle('solarPanels')}
+                aria-label="Informations sur les panneaux solaires"
+              >
+                <PlusCircleIcon className="h-7 w-7 text-white" />
+              </button>
+            </div>
+            
+            <div className="md:hidden block">
+              <button 
+                className="absolute top-[80px] right-[100px] bg-blue-700 rounded-full p-0 hover:scale-105 z-10"
+                onClick={() => handlePopupToggle('solarPanels')}
+                aria-label="Informations sur les panneaux solaires"
+              >
+                <PlusCircleIcon className="h-7 w-7 text-white" />
+              </button>
+            </div>
             
             {/* Point d'interaction pour la borne de recharge */}
-            <button 
-              className="absolute top-[400px] right-[150px] bg-blue-600 rounded-full p-1 hover:bg-blue-700 transition-all hover:scale-110 z-10 shadow-lg border-2 border-white"
-              onClick={() => handlePopupToggle('chargingStation')}
-              aria-label="Informations sur la borne de recharge"
-            >
-              <PlusCircleIcon className="h-8 w-8 text-white" />
-            </button>
+            <div className="hidden md:block">
+              <button 
+                className="absolute top-[400px] right-[150px] bg-blue-700 rounded-full p-0.5 hover:bg-blue-800 transition-all hover:scale-105 z-10 shadow-md"
+                onClick={() => handlePopupToggle('chargingStation')}
+                aria-label="Informations sur la borne de recharge"
+              >
+                <PlusCircleIcon className="h-7 w-7 text-white" />
+              </button>
+            </div>
+            
+            <div className="md:hidden block">
+              <button 
+                className="absolute top-[150px] right-[30px] bg-blue-700 rounded-full p-0 hover:scale-105 z-10"
+                onClick={() => handlePopupToggle('chargingStation')}
+                aria-label="Informations sur la borne de recharge"
+              >
+                <PlusCircleIcon className="h-7 w-7 text-white" />
+              </button>
+            </div>
             
             {/* Point d'interaction pour la batterie de stockage */}
-            <button 
-              className="absolute top-[350px] left-[400px] bg-blue-600 rounded-full p-1 hover:bg-blue-700 transition-all hover:scale-110 z-10 shadow-lg border-2 border-white"
-              onClick={() => handlePopupToggle('batteryStorage')}
-              aria-label="Informations sur la batterie de stockage"
-            >
-              <PlusCircleIcon className="h-8 w-8 text-white" />
-            </button>
+            <div className="hidden md:block">
+              <button 
+                className="absolute top-[350px] left-[400px] bg-blue-700 rounded-full p-0.5 hover:bg-blue-800 transition-all hover:scale-105 z-10 shadow-md"
+                onClick={() => handlePopupToggle('batteryStorage')}
+                aria-label="Informations sur la batterie de stockage"
+              >
+                <PlusCircleIcon className="h-7 w-7 text-white" />
+              </button>
+            </div>
+            
+            <div className="md:hidden block">
+              <button 
+                className="absolute top-[150px] left-[150px] bg-blue-700 rounded-full p-0 hover:scale-105 z-10"
+                onClick={() => handlePopupToggle('batteryStorage')}
+                aria-label="Informations sur la batterie de stockage"
+              >
+                <PlusCircleIcon className="h-7 w-7 text-white" />
+              </button>
+            </div>
             
             {/* Popups d'information */}
             {renderPopup('solarPanels')}

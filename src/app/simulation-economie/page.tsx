@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { CheckIcon, ArrowRightIcon, PhoneIcon, ChevronDownIcon, StarIcon, ClickIcon } from '@/components/icons/CommonIcons';
 
 export default function SimulationEconomiePage() {
@@ -11,14 +10,12 @@ export default function SimulationEconomiePage() {
         <div className="container mx-auto px-4 md:px-0 flex justify-between items-center">
           <div className="flex items-center">
             <a href="/">
-              <Image 
+              <img 
                 src="/images/logo.webp" 
                 alt="Logo Myohm Technologies" 
                 width={200}
                 height={80}
                 className="h-16 w-auto"
-                priority
-                quality={85}
               />
             </a>
           </div>
@@ -71,14 +68,13 @@ export default function SimulationEconomiePage() {
             </div>
             
             <div className="flex  gap-2 mb-4">
-              <Image 
+              <img 
                 src="/images/avis-google.avif" 
                 alt="Google Avis" 
                 width={120}
                 height={32}
                 loading="lazy"
                 className="h-8 w-auto"
-                quality={80}
               />
               <div className="flex">
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -90,14 +86,13 @@ export default function SimulationEconomiePage() {
           </div>
           
           <div className="relative h-[400px] md:h-[500px] w-full">
-            <Image
+            <img
               src="/images/simulation-des-economies.webp"
               alt="Simulation d'économies avec des panneaux solaires"
               width={800}
               height={500}
-              priority
-              quality={85}
-              sizes="(max-width: 768px) 100vw, 800px"
+              loading="eager"
+              fetchPriority="high"
               className="object-contain w-full h-full"
             />
           </div>
@@ -157,31 +152,31 @@ export default function SimulationEconomiePage() {
               <div className="bg-white rounded-lg p-4 w-full">
                 <div className="flex justify-between mb-6 px-2">
                   <div className="flex flex-col items-center">
-                    <div className="w-6 h-6 rounded-full flex items-center justify-center bg-gradient-to-br from-[#ffeb99] to-[#ffb700] text-white">
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
                       <span className="text-xs font-medium">1</span>
                     </div>
                     <div className="text-xs mt-1 text-[#ffb700] font-medium">Q1</div>
                   </div>
                   <div className="flex flex-col items-center">
-                    <div className="w-6 h-6 rounded-full flex items-center justify-center bg-gradient-to-br from-[#ffeb99] to-[#ffb700] text-white">
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
                       <span className="text-xs font-medium">2</span>
                     </div>
                     <div className="text-xs mt-1 text-[#ffb700] font-medium">Q2</div>
                   </div>
                   <div className="flex flex-col items-center">
-                    <div className="w-6 h-6 rounded-full flex items-center justify-center bg-gradient-to-br from-[#ffeb99] to-[#ffb700] text-white">
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
                       <span className="text-xs font-medium">3</span>
                     </div>
                     <div className="text-xs mt-1 text-[#ffb700] font-medium">Q3</div>
                   </div>
                   <div className="flex flex-col items-center">
-                    <div className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-200">
+                    <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center">
                       <span className="text-xs font-medium">4</span>
                     </div>
                     <div className="text-xs mt-1 text-gray-400">Q4</div>
                   </div>
                   <div className="flex flex-col items-center">
-                    <div className="w-6 h-6 rounded-full flex items-center justify-center bg-gray-200">
+                    <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center">
                       <span className="text-xs font-medium">5</span>
                     </div>
                     <div className="text-xs mt-1 text-gray-400">Q5</div>
@@ -248,14 +243,13 @@ export default function SimulationEconomiePage() {
               Ce que nos clients disent de nous
             </h2>
             <div className="flex items-center justify-center gap-2 mb-4">
-              <Image 
+              <img 
                 src="/images/avis-google.avif" 
                 alt="Google Avis" 
                 width={120}
                 height={32}
                 loading="lazy"
                 className="h-8 w-auto"
-                quality={80}
               />
               <div className="flex">
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -318,7 +312,7 @@ export default function SimulationEconomiePage() {
                 <div>
                   <h3 className="font-semibold text-gray-900">Pierre Bertrand</h3>
                   <div className="flex items-center gap-1 mb-1">
-                    {[1, 2, 3, 4, 5].map((star, index) => (
+                    {[1, 2, 3, 4, 5].map((star) => (
                       <StarIcon key={star} className="w-4 h-4" />
                     ))}
                   </div>
@@ -338,7 +332,7 @@ export default function SimulationEconomiePage() {
                 <div>
                   <h3 className="font-semibold text-gray-900">Pierre Bertrand</h3>
                   <div className="flex items-center gap-1 mb-1">
-                    {[1, 2, 3, 4, 5].map((star, index) => (
+                    {[1, 2, 3, 4, 5].map((star) => (
                       <StarIcon key={star} className="w-4 h-4" />
                     ))}
                   </div>
@@ -359,7 +353,7 @@ export default function SimulationEconomiePage() {
                 <div>
                   <h3 className="font-semibold text-gray-900">Pierre Bertrand</h3>
                   <div className="flex items-center gap-1 mb-1">
-                    {[1, 2, 3, 4, 5].map((star, index) => (
+                    {[1, 2, 3, 4, 5].map((star) => (
                       <StarIcon key={star} className="w-4 h-4" />
                     ))}
                   </div>
@@ -379,7 +373,7 @@ export default function SimulationEconomiePage() {
                 <div>
                   <h3 className="font-semibold text-gray-900">Pierre Bertrand</h3>
                   <div className="flex items-center gap-1 mb-1">
-                    {[1, 2, 3, 4, 5].map((star, index) => (
+                    {[1, 2, 3, 4, 5].map((star) => (
                       <StarIcon key={star} className="w-4 h-4" />
                     ))}
                   </div>

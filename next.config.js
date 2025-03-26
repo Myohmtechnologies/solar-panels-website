@@ -24,7 +24,8 @@ const nextConfig = {
         hostname: '**',
       },
     ],
-    domains: ['localhost'],
+    domains: ['localhost', 'myohmtechnologies.com', 'myohmtechnologies.fr'],
+    unoptimized: process.env.NODE_ENV === 'production',
   },
   experimental: {
     optimizeCss: true,

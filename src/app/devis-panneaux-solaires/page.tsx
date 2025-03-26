@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { ReviewSchema } from '@/components/ReviewSchema';
+import FaqSection from '@/components/sections/FaqSection';
 
 export default function DevisPanneauxSolairesPage() {
   const [formData, setFormData] = useState({
@@ -453,6 +454,72 @@ export default function DevisPanneauxSolairesPage() {
                 "Excellente expérience avec My Ohm Technologies. Le simulateur d'économies a été très utile pour me convaincre. Je produis maintenant ma propre électricité et j'ai réduit ma facture de 70%. Je recommande vivement !"
               </p>
             </div>
+            {/* Avis 3 */}
+            <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+              <div className="flex items-start mb-4">
+                <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 flex-shrink-0">
+                  <span className="text-purple-600 font-semibold text-lg">PB</span>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">Pierre Bertrand</h3>
+                  <div className="flex items-center gap-1 mb-1">
+                    {[1, 2, 3, 4, 5].map((star, index) => (
+                      <svg key={star} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={index < 4 ? "#FBBC05" : "#FBBC05"} className="w-4 h-4">
+                        <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-gray-500 text-sm">Il y a 3 mois</p>
+                </div>
+              </div>
+              <p className="text-gray-700">
+                "Excellente expérience avec My Ohm Technologies. Le simulateur d'économies a été très utile pour me convaincre. Je produis maintenant ma propre électricité et j'ai réduit ma facture de 70%. Je recommande vivement !"
+              </p>
+            </div>
+            {/* Avis 3 */}
+            <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+              <div className="flex items-start mb-4">
+                <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 flex-shrink-0">
+                  <span className="text-purple-600 font-semibold text-lg">PB</span>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">Pierre Bertrand</h3>
+                  <div className="flex items-center gap-1 mb-1">
+                    {[1, 2, 3, 4, 5].map((star, index) => (
+                      <svg key={star} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={index < 4 ? "#FBBC05" : "#FBBC05"} className="w-4 h-4">
+                        <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-gray-500 text-sm">Il y a 3 mois</p>
+                </div>
+              </div>
+              <p className="text-gray-700">
+                "Excellente expérience avec My Ohm Technologies. Le simulateur d'économies a été très utile pour me convaincre. Je produis maintenant ma propre électricité et j'ai réduit ma facture de 70%. Je recommande vivement !"
+              </p>
+            </div>
+            {/* Avis 3 */}
+            <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+              <div className="flex items-start mb-4">
+                <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 flex-shrink-0">
+                  <span className="text-purple-600 font-semibold text-lg">PB</span>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">Pierre Bertrand</h3>
+                  <div className="flex items-center gap-1 mb-1">
+                    {[1, 2, 3, 4, 5].map((star, index) => (
+                      <svg key={star} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={index < 4 ? "#FBBC05" : "#FBBC05"} className="w-4 h-4">
+                        <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-gray-500 text-sm">Il y a 3 mois</p>
+                </div>
+              </div>
+              <p className="text-gray-700">
+                "Excellente expérience avec My Ohm Technologies. Le simulateur d'économies a été très utile pour me convaincre. Je produis maintenant ma propre électricité et j'ai réduit ma facture de 70%. Je recommande vivement !"
+              </p>
+            </div>
           </div>
 
           <div className="mt-12 text-center">
@@ -470,62 +537,77 @@ export default function DevisPanneauxSolairesPage() {
       </section>
 
       {/* Section FAQ */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-3xl font-bold text-center mb-12">Questions fréquentes</h2>
-          
-          <div className="space-y-6 max-w-4xl mx-auto">
-            {/* Question 1 */}
-            <div className="bg-gray-50 rounded-lg p-6 shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Combien coûte l'installation de panneaux solaires ?</h3>
-              <p className="text-gray-700">
-                Le coût d'une installation de panneaux solaires dépend de plusieurs facteurs : la puissance souhaitée, le type de panneaux, la configuration de votre toiture, etc. Pour une maison individuelle, comptez entre 8 000€ et 20 000€. Cependant, des aides financières sont disponibles pour réduire cet investissement. Demandez un devis personnalisé pour connaître le coût exact pour votre projet.
-              </p>
+      <FaqSection />
+      {/* Section CTA de bas de page */}
+      <section className="py-20 relative overflow-hidden">
+        {/* Arrière-plan avec dégradé */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#116290] to-[#0a3d5c] opacity-95"></div>
+        
+        {/* Éléments décoratifs */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-white opacity-10"></div>
+          <div className="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-white opacity-5"></div>
+          <div className="absolute -bottom-20 left-1/3 w-72 h-72 rounded-full bg-white opacity-10"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 max-w-6xl relative z-10">
+          <div className="text-center">
+            <h2 className="text-4xl font-bold text-white mb-6">Prêt à réduire vos factures d'électricité ?</h2>
+            <p className="text-xl text-white/90 mb-10 max-w-3xl mx-auto">
+              Rejoignez les milliers de Français qui produisent leur propre électricité et économisent jusqu'à 70% sur leurs factures. Obtenez une simulation gratuite et sans engagement en quelques minutes.
+            </p>
+            
+            <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
+              <a 
+                href="/simulator" 
+                className="inline-flex items-center gap-2 bg-gradient-to-br from-ffeb99 to-ffb700 text-black py-4 px-8 rounded-lg font-medium text-xl hover:shadow-lg transition-all transform hover:scale-105"
+              >
+                <span>Je calcule mes économies</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+              
+              <a 
+                href="tel:+330492766858" 
+                className="inline-flex items-center gap-2 bg-white text-gray-900 py-4 px-8 rounded-lg font-medium text-xl hover:shadow-lg transition-all"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <span>Appeler un conseiller</span>
+              </a>
             </div>
             
-            {/* Question 2 */}
-            <div className="bg-gray-50 rounded-lg p-6 shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Quelles sont les aides financières disponibles ?</h3>
-              <p className="text-gray-700">
-                Plusieurs aides sont disponibles en France : la prime à l'autoconsommation, le taux de TVA réduit à 10%, les aides locales (régions, départements, communes), et la possibilité de revendre votre surplus d'électricité. De plus, vous pouvez bénéficier d'un crédit d'impôt pour la transition énergétique. Nos conseillers vous accompagnent dans toutes les démarches pour obtenir ces aides.
-              </p>
+            <div className="mt-12 flex flex-wrap justify-center gap-8 items-center">
+              <div className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-white">Installation en 1-2 jours</span>
+              </div>
+              
+              <div className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-white">Garantie 25 ans</span>
+              </div>
+              
+              <div className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-white">Économies immédiates</span>
+              </div>
+              
+              <div className="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-white">Certification RGE</span>
+              </div>
             </div>
-            
-            {/* Question 3 */}
-            <div className="bg-gray-50 rounded-lg p-6 shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Quelle est la durée de vie des panneaux solaires ?</h3>
-              <p className="text-gray-700">
-                Les panneaux solaires que nous installons ont une durée de vie moyenne de 30 ans. Leur rendement diminue légèrement avec le temps (environ 0,5% par an), mais ils continuent de produire efficacement de l'électricité pendant plusieurs décennies. Nous offrons une garantie de 25 ans sur la production et une garantie décennale sur l'installation.
-              </p>
-            </div>
-            
-            {/* Question 4 */}
-            <div className="bg-gray-50 rounded-lg p-6 shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Combien de temps faut-il pour installer des panneaux solaires ?</h3>
-              <p className="text-gray-700">
-                La durée d'installation varie selon la taille et la complexité du projet. Pour une installation résidentielle standard, comptez 1 à 3 jours pour la pose des panneaux. Le processus complet, incluant l'étude technique, les démarches administratives et le raccordement au réseau, prend généralement entre 2 et 3 mois.
-              </p>
-            </div>
-            
-            {/* Question 5 */}
-            <div className="bg-gray-50 rounded-lg p-6 shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">L'entretien des panneaux solaires est-il compliqué ?</h3>
-              <p className="text-gray-700">
-                Non, l'entretien des panneaux solaires est minimal. La pluie nettoie naturellement les panneaux dans la plupart des cas. Un nettoyage annuel peut être recommandé pour maintenir un rendement optimal, surtout dans les zones poussiéreuses. Nous proposons des contrats de maintenance pour assurer le suivi et l'optimisation de votre installation.
-              </p>
-            </div>
-          </div>
-          
-          <div className="text-center mt-12">
-            <button 
-              onClick={scrollToForm}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-4 px-8 rounded-lg font-medium text-xl hover:shadow-lg transition-all transform hover:scale-105"
-            >
-              <span>Je passe à l'énergie solaire</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </button>
           </div>
         </div>
       </section>
@@ -536,7 +618,7 @@ export default function DevisPanneauxSolairesPage() {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
               <Image 
-                src="/images/logo.webp" 
+                src="/images/logo-dark.png" 
                 alt="Logo Myohm Technologies" 
                 width={150}
                 height={60}
@@ -546,6 +628,11 @@ export default function DevisPanneauxSolairesPage() {
             <div className="text-center md:text-right">
               <p className="text-gray-400"> {new Date().getFullYear()} My Ohm Technologies. Tous droits réservés.</p>
               <p className="text-gray-400 mt-1">04 92 76 68 58 | contact@myohm-tech.com</p>
+              <div className="mt-4 flex flex-wrap justify-center md:justify-end gap-4">
+                <a href="/conditions-generales" className="text-gray-400 hover:text-white text-sm transition-colors">Conditions Générales</a>
+                <a href="/mentions-legales" className="text-gray-400 hover:text-white text-sm transition-colors">Mentions Légales</a>
+                <a href="/politique-de-confidentialite" className="text-gray-400 hover:text-white text-sm transition-colors">Politique de Confidentialité</a>
+              </div>
             </div>
           </div>
         </div>
@@ -558,6 +645,7 @@ export default function DevisPanneauxSolairesPage() {
           description: "Divisez par 2 votre facture d'électricité avec l'installation de panneaux solaires photovoltaïques par My Ohm Technologies, entreprise certifiée RGE."
         }}
       />
+      
     </main>
   );
 }

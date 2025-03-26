@@ -1454,6 +1454,269 @@ export const chargingStationCities: Record<string, ChargingStationCity> = {
         "recharge voiture électrique Alpes-de-Haute-Provence"
       ]
     }
+  },
+  "brignoles": {
+    name: "Brignoles",
+    slug: "brignoles",
+    population: 17429,
+    region: "PACA",
+    department: "Var",
+    departmentCode: "83",
+    chargingStations: {
+      totalCount: 14,
+      publicCount: 11,
+      privateCount: 3,
+      chargingPoints: {
+        fast: 4,
+        ultraFast: 1,
+        normal: 9
+      },
+      operators: [
+        { name: "IZIVIA", stationCount: 5 },
+        { name: "TotalEnergies", stationCount: 3 },
+        { name: "Enedis", stationCount: 2 },
+        { name: "EDF", stationCount: 1 }
+      ]
+    },
+    keyLocations: [
+      {
+        name: "Centre-ville",
+        stationCount: 6,
+        description: "Bornes situées dans le centre historique, à proximité des commerces et restaurants"
+      },
+      {
+        name: "Zone d'activités",
+        stationCount: 5,
+        description: "Bornes accessibles 24h/24 dans la zone commerciale"
+      },
+      {
+        name: "Parking municipal",
+        stationCount: 3,
+        description: "Bornes gratuites pendant les 2 premières heures de charge"
+      }
+    ],
+    localIncentives: [
+      "Stationnement gratuit pendant 2h lors de la recharge",
+      "Tarifs préférentiels pour les résidents",
+      "Subvention municipale pour l'installation de bornes privées"
+    ],
+    statistics: {
+      evCount: 780,
+      stationDensity: 8.0,
+      averageOccupancy: 60,
+      averageWaitTime: 10
+    },
+    content: {
+      mainDescription: "Brignoles, ville dynamique du Var, développe activement son infrastructure de recharge pour véhicules électriques. Située au cœur de la Provence Verte, la ville offre un réseau de bornes stratégiquement placées pour faciliter la mobilité électrique des résidents et visiteurs.",
+      advantages: [
+        "Position centrale dans le Var, idéale pour les trajets régionaux",
+        "Réseau en expansion avec l'ajout régulier de nouvelles bornes",
+        "Bornes situées à proximité des principaux points d'intérêt"
+      ]
+    },
+    seo: {
+      title: "Bornes de recharge pour véhicules électriques à Brignoles | Carte et disponibilité",
+      description: "Localisez toutes les bornes de recharge pour votre véhicule électrique à Brignoles. Informations en temps réel, puissance disponible et tarifs.",
+      keywords: ["borne recharge Brignoles", "véhicule électrique Var", "station recharge Provence Verte", "recharge VE Brignoles"]
+    }
+  },
+  "saint-maximin": {
+    name: "Saint-Maximin-la-Sainte-Baume",
+    slug: "saint-maximin",
+    population: 16000,
+    region: "PACA",
+    department: "Var",
+    departmentCode: "83",
+    chargingStations: {
+      totalCount: 12,
+      publicCount: 9,
+      privateCount: 3,
+      chargingPoints: {
+        fast: 3,
+        ultraFast: 1,
+        normal: 8
+      },
+      operators: [
+        { name: "IZIVIA", stationCount: 4 },
+        { name: "TotalEnergies", stationCount: 2 },
+        { name: "Enedis", stationCount: 2 },
+        { name: "Freshmile", stationCount: 1 }
+      ]
+    },
+    keyLocations: [
+      {
+        name: "Basilique Sainte-Marie-Madeleine",
+        stationCount: 4,
+        description: "Bornes situées à proximité du centre historique et de la basilique"
+      },
+      {
+        name: "Zone commerciale",
+        stationCount: 5,
+        description: "Bornes rapides accessibles pendant les heures d'ouverture des commerces"
+      },
+      {
+        name: "Aire d'autoroute A8",
+        stationCount: 3,
+        description: "Bornes ultrarapides pour les voyageurs sur l'axe Aix-Nice"
+      }
+    ],
+    localIncentives: [
+      "Stationnement gratuit pendant la recharge",
+      "Réduction sur l'abonnement annuel pour les résidents",
+      "Accès prioritaire aux zones à faibles émissions"
+    ],
+    statistics: {
+      evCount: 650,
+      stationDensity: 7.5,
+      averageOccupancy: 55,
+      averageWaitTime: 8
+    },
+    content: {
+      mainDescription: "Saint-Maximin-la-Sainte-Baume, ville historique du Var, offre un réseau de bornes de recharge stratégiquement placées pour les conducteurs de véhicules électriques. Sa position sur l'axe Aix-Nice en fait un point de recharge essentiel pour les trajets longue distance.",
+      advantages: [
+        "Emplacement stratégique sur l'axe Aix-Nice",
+        "Bornes à proximité des sites touristiques majeurs",
+        "Infrastructure en développement constant"
+      ]
+    },
+    seo: {
+      title: "Bornes de recharge VE à Saint-Maximin-la-Sainte-Baume | Guide complet",
+      description: "Découvrez toutes les bornes de recharge pour véhicules électriques à Saint-Maximin. Carte interactive, disponibilité et conseils pratiques.",
+      keywords: ["borne recharge Saint-Maximin", "véhicule électrique Var", "station recharge Sainte-Baume", "recharge VE Saint-Maximin"]
+    }
+  },
+  "le-pontet": {
+    name: "Le Pontet",
+    slug: "le-pontet",
+    population: 17200,
+    region: "PACA",
+    department: "Vaucluse",
+    departmentCode: "84",
+    chargingStations: {
+      totalCount: 16,
+      publicCount: 13,
+      privateCount: 3,
+      chargingPoints: {
+        fast: 5,
+        ultraFast: 2,
+        normal: 9
+      },
+      operators: [
+        { name: "IZIVIA", stationCount: 6 },
+        { name: "TotalEnergies", stationCount: 4 },
+        { name: "Enedis", stationCount: 2 },
+        { name: "Freshmile", stationCount: 1 }
+      ]
+    },
+    keyLocations: [
+      {
+        name: "Centre commercial Avignon Nord",
+        stationCount: 8,
+        description: "Bornes rapides dans la plus grande zone commerciale de la région"
+      },
+      {
+        name: "Centre-ville",
+        stationCount: 4,
+        description: "Bornes situées à proximité des services municipaux"
+      },
+      {
+        name: "Zone d'activités",
+        stationCount: 4,
+        description: "Bornes accessibles 24h/24 pour les professionnels et visiteurs"
+      }
+    ],
+    localIncentives: [
+      "Stationnement gratuit pendant la recharge",
+      "Tarifs préférentiels dans les parkings municipaux",
+      "Subvention pour l'installation de bornes en copropriété"
+    ],
+    statistics: {
+      evCount: 820,
+      stationDensity: 9.3,
+      averageOccupancy: 70,
+      averageWaitTime: 12
+    },
+    content: {
+      mainDescription: "Le Pontet, commune limitrophe d'Avignon, dispose d'un réseau de bornes de recharge en pleine expansion. Sa position stratégique et ses zones commerciales importantes en font un point de recharge privilégié pour les habitants et visiteurs de l'agglomération avignonnaise.",
+      advantages: [
+        "Proximité immédiate d'Avignon",
+        "Concentration de bornes dans les zones commerciales très fréquentées",
+        "Accessibilité depuis les grands axes routiers"
+      ]
+    },
+    seo: {
+      title: "Bornes de recharge pour véhicules électriques au Pontet | Carte et infos",
+      description: "Trouvez facilement les bornes de recharge pour votre véhicule électrique au Pontet. Carte interactive, disponibilité en temps réel et conseils pratiques.",
+      keywords: ["borne recharge Le Pontet", "véhicule électrique Vaucluse", "station recharge Avignon Nord", "recharge VE Le Pontet"]
+    }
+  },
+  "carpentras": {
+    name: "Carpentras",
+    slug: "carpentras",
+    population: 29891,
+    region: "PACA",
+    department: "Vaucluse",
+    departmentCode: "84",
+    chargingStations: {
+      totalCount: 18,
+      publicCount: 14,
+      privateCount: 4,
+      chargingPoints: {
+        fast: 6,
+        ultraFast: 2,
+        normal: 10
+      },
+      operators: [
+        { name: "IZIVIA", stationCount: 7 },
+        { name: "TotalEnergies", stationCount: 4 },
+        { name: "Enedis", stationCount: 3 },
+        { name: "EDF", stationCount: 2 },
+        { name: "Tesla", stationCount: 2 }
+      ]
+    },
+    keyLocations: [
+      {
+        name: "Centre historique",
+        stationCount: 6,
+        description: "Bornes situées à proximité de la cathédrale et des principaux monuments"
+      },
+      {
+        name: "Zone commerciale",
+        stationCount: 8,
+        description: "Bornes rapides accessibles pendant les heures d'ouverture des commerces"
+      },
+      {
+        name: "Gare SNCF",
+        stationCount: 4,
+        description: "Bornes pour faciliter l'intermodalité train-voiture électrique"
+      }
+    ],
+    localIncentives: [
+      "Stationnement gratuit pendant 3h lors de la recharge",
+      "Tarifs préférentiels pour les résidents",
+      "Aide municipale pour l'installation de bornes privées",
+      "Accès prioritaire au centre-ville"
+    ],
+    statistics: {
+      evCount: 1200,
+      stationDensity: 6.0,
+      averageOccupancy: 65,
+      averageWaitTime: 10
+    },
+    content: {
+      mainDescription: "Carpentras, ville historique du Vaucluse au pied du Mont Ventoux, développe activement son réseau de bornes de recharge pour véhicules électriques. Capitale du Comtat Venaissin, elle offre aux conducteurs électriques un maillage de points de recharge couvrant aussi bien le centre historique que les zones commerciales périphériques.",
+      advantages: [
+        "Position centrale dans le Vaucluse",
+        "Réseau en expansion constante",
+        "Bornes stratégiquement placées près des sites touristiques et commerciaux",
+        "Point de départ idéal pour explorer le Mont Ventoux en véhicule électrique"
+      ]
+    },
+    seo: {
+      title: "Bornes de recharge pour véhicules électriques à Carpentras | Guide complet",
+      description: "Localisez toutes les bornes de recharge pour votre véhicule électrique à Carpentras. Informations en temps réel, disponibilité et conseils pratiques.",
+      keywords: ["borne recharge Carpentras", "véhicule électrique Vaucluse", "station recharge Mont Ventoux", "recharge VE Carpentras", "mobilité électrique Comtat Venaissin"]
+    }
   }
 };
 

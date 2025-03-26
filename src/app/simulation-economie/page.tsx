@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { CheckIcon, ArrowRightIcon, PhoneIcon, ChevronDownIcon, StarIcon, ClickIcon } from '@/components/icons/CommonIcons';
 
 export default function SimulationEconomiePage() {
   return (
@@ -17,6 +18,7 @@ export default function SimulationEconomiePage() {
                 height={80}
                 className="h-16 w-auto"
                 priority
+                quality={85}
               />
             </a>
           </div>
@@ -25,9 +27,7 @@ export default function SimulationEconomiePage() {
               href="tel:+330492766858" 
               className="flex items-center gap-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-2 px-4 rounded-lg font-medium hover:shadow-lg transition-all"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
+              <PhoneIcon />
               <span>04 92 76 68 58</span>
             </a>
           </div>
@@ -47,17 +47,13 @@ export default function SimulationEconomiePage() {
             <div className="space-y-4 mb-8">
               <div className="flex items-start gap-3">
                 <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center mt-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+                  <CheckIcon className="h-4 w-4 text-white mr-0" />
                 </div>
                 <p className="text-lg text-gray-700">Économisez jusqu'à -70% sur vos factures d'électricité</p>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center mt-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+                  <CheckIcon className="h-4 w-4 text-white mr-0" />
                 </div>
                 <p className="text-lg text-gray-700">Produisez votre propre énergie</p>
               </div>
@@ -69,24 +65,24 @@ export default function SimulationEconomiePage() {
                 className="inline-flex items-center gap-3 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-4 px-8 rounded-lg font-semibold text-xl hover:shadow-xl transition-all transform hover:scale-105"
               >
                 <span>Je calcule mes économies</span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
+                <ArrowRightIcon />
               </a>
               <p className="text-gray-500 mt-3 text-sm">Simulation gratuite et immédiate</p>
             </div>
             
             <div className="flex  gap-2 mb-4">
-              <img 
+              <Image 
                 src="/images/avis-google.avif" 
                 alt="Google Avis" 
+                width={120}
+                height={32}
+                loading="lazy"
                 className="h-8 w-auto"
+                quality={80}
               />
               <div className="flex">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <svg key={star} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FBBC05" className="w-6 h-6">
-                    <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
-                  </svg>
+                  <StarIcon key={star} className="w-6 h-6" />
                 ))}
               </div>
               <p className="text-gray-700 font-medium">4.9/5 basé sur 127 avis</p>
@@ -97,10 +93,12 @@ export default function SimulationEconomiePage() {
             <Image
               src="/images/simulation-des-economies.webp"
               alt="Simulation d'économies avec des panneaux solaires"
-              fill
+              width={800}
+              height={500}
               priority
+              quality={85}
               sizes="(max-width: 768px) 100vw, 800px"
-              style={{ objectFit: 'contain' }}
+              className="object-contain w-full h-full"
             />
           </div>
         </div>
@@ -132,18 +130,14 @@ export default function SimulationEconomiePage() {
                   className="inline-flex items-center gap-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-3 px-6 rounded-lg font-medium text-lg hover:shadow-lg transition-all"
                 >
                   <span>Je calcule mes économies</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
+                  <ArrowRightIcon />
                 </a>
               </div>
             </div>
             <div className="bg-gray-100 p-4 h-48 flex items-center justify-center">
               <div className="bg-gradient-to-r from-[#116290] to-[#0a3d5c] rounded-lg p-4 text-white text-center w-full">
                 <div className="flex justify-center mb-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
-                  </svg>
+                  <ClickIcon />
                 </div>
                 <p className="font-medium">Cliquez pour commencer</p>
               </div>
@@ -240,9 +234,7 @@ export default function SimulationEconomiePage() {
             className="inline-flex items-center gap-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-4 px-8 rounded-lg font-medium text-xl hover:shadow-lg transition-all transform hover:translate-x-1"
           >
             <span>Je fais des économies</span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
+            <ArrowRightIcon />
           </a>
           <p className="text-gray-500 mt-3 text-sm">Simulation gratuite et immédiate</p>
         </div>
@@ -256,16 +248,18 @@ export default function SimulationEconomiePage() {
               Ce que nos clients disent de nous
             </h2>
             <div className="flex items-center justify-center gap-2 mb-4">
-              <img 
+              <Image 
                 src="/images/avis-google.avif" 
                 alt="Google Avis" 
+                width={120}
+                height={32}
+                loading="lazy"
                 className="h-8 w-auto"
+                quality={80}
               />
               <div className="flex">
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <svg key={star} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FBBC05" className="w-6 h-6">
-                    <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
-                  </svg>
+                  <StarIcon key={star} className="w-6 h-6" />
                 ))}
               </div>
               <p className="text-gray-700 font-medium">4.9/5 basé sur 127 avis</p>
@@ -283,9 +277,7 @@ export default function SimulationEconomiePage() {
                   <h3 className="font-semibold text-gray-900">Jean Dupont</h3>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star) => (
-                      <svg key={star} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FBBC05" className="w-4 h-4">
-                        <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
-                      </svg>
+                      <StarIcon key={star} className="w-4 h-4" />
                     ))}
                   </div>
                   <p className="text-gray-500 text-sm">Il y a 2 semaines</p>
@@ -306,9 +298,7 @@ export default function SimulationEconomiePage() {
                   <h3 className="font-semibold text-gray-900">Marie Leroy</h3>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star) => (
-                      <svg key={star} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FBBC05" className="w-4 h-4">
-                        <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
-                      </svg>
+                      <StarIcon key={star} className="w-4 h-4" />
                     ))}
                   </div>
                   <p className="text-gray-500 text-sm">Il y a 1 mois</p>
@@ -329,9 +319,7 @@ export default function SimulationEconomiePage() {
                   <h3 className="font-semibold text-gray-900">Pierre Bertrand</h3>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star, index) => (
-                      <svg key={star} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={index < 4 ? "#FBBC05" : "#FBBC05"} className="w-4 h-4">
-                        <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
-                      </svg>
+                      <StarIcon key={star} className="w-4 h-4" />
                     ))}
                   </div>
                   <p className="text-gray-500 text-sm">Il y a 3 mois</p>
@@ -351,9 +339,7 @@ export default function SimulationEconomiePage() {
                   <h3 className="font-semibold text-gray-900">Pierre Bertrand</h3>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star, index) => (
-                      <svg key={star} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={index < 4 ? "#FBBC05" : "#FBBC05"} className="w-4 h-4">
-                        <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
-                      </svg>
+                      <StarIcon key={star} className="w-4 h-4" />
                     ))}
                   </div>
                   <p className="text-gray-500 text-sm">Il y a 3 mois</p>
@@ -363,6 +349,7 @@ export default function SimulationEconomiePage() {
                 "Excellente expérience avec Myohm Technologies. Le simulateur d'économies a été très utile pour me convaincre. Je produis maintenant ma propre électricité et j'ai réduit ma facture de 70%. Je recommande vivement !"
               </p>
             </div>
+
             {/* Avis 5 */}
             <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
               <div className="flex items-start mb-4">
@@ -373,9 +360,7 @@ export default function SimulationEconomiePage() {
                   <h3 className="font-semibold text-gray-900">Pierre Bertrand</h3>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star, index) => (
-                      <svg key={star} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={index < 4 ? "#FBBC05" : "#FBBC05"} className="w-4 h-4">
-                        <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
-                      </svg>
+                      <StarIcon key={star} className="w-4 h-4" />
                     ))}
                   </div>
                   <p className="text-gray-500 text-sm">Il y a 3 mois</p>
@@ -395,9 +380,7 @@ export default function SimulationEconomiePage() {
                   <h3 className="font-semibold text-gray-900">Pierre Bertrand</h3>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star, index) => (
-                      <svg key={star} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={index < 4 ? "#FBBC05" : "#FBBC05"} className="w-4 h-4">
-                        <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
-                      </svg>
+                      <StarIcon key={star} className="w-4 h-4" />
                     ))}
                   </div>
                   <p className="text-gray-500 text-sm">Il y a 3 mois</p>
@@ -415,9 +398,7 @@ export default function SimulationEconomiePage() {
               className="inline-flex items-center gap-3 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-4 px-8 rounded-lg font-semibold text-xl hover:shadow-xl transition-all transform hover:scale-105"
             >
               <span>Je calcule mes économies</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
+              <ArrowRightIcon />
             </a>
             <p className="text-gray-500 mt-3 text-sm">Simulation gratuite et immédiate</p>
           </div>
@@ -436,9 +417,7 @@ export default function SimulationEconomiePage() {
                 <summary className="flex justify-between items-center p-6 cursor-pointer">
                   <h3 className="text-xl font-medium">Combien puis-je économiser avec des panneaux solaires ?</h3>
                   <span className="transition-transform group-open:rotate-180">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
+                    <ChevronDownIcon />
                   </span>
                 </summary>
                 <div className="px-6 pb-6 text-gray-700">
@@ -453,9 +432,7 @@ export default function SimulationEconomiePage() {
                 <summary className="flex justify-between items-center p-6 cursor-pointer">
                   <h3 className="text-xl font-medium">Quelles aides de l'État puis-je obtenir ?</h3>
                   <span className="transition-transform group-open:rotate-180">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
+                    <ChevronDownIcon />
                   </span>
                 </summary>
                 <div className="px-6 pb-6 text-gray-700">
@@ -478,9 +455,7 @@ export default function SimulationEconomiePage() {
                 <summary className="flex justify-between items-center p-6 cursor-pointer">
                   <h3 className="text-xl font-medium">Quelle est la durée de vie des panneaux solaires ?</h3>
                   <span className="transition-transform group-open:rotate-180">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
+                    <ChevronDownIcon />
                   </span>
                 </summary>
                 <div className="px-6 pb-6 text-gray-700">
@@ -495,9 +470,7 @@ export default function SimulationEconomiePage() {
                 <summary className="flex justify-between items-center p-6 cursor-pointer">
                   <h3 className="text-xl font-medium">Combien de temps dure l'installation ?</h3>
                   <span className="transition-transform group-open:rotate-180">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
+                    <ChevronDownIcon />
                   </span>
                 </summary>
                 <div className="px-6 pb-6 text-gray-700">
@@ -512,9 +485,7 @@ export default function SimulationEconomiePage() {
                 <summary className="flex justify-between items-center p-6 cursor-pointer">
                   <h3 className="text-xl font-medium">Que se passe-t-il en cas de panne ou de problème ?</h3>
                   <span className="transition-transform group-open:rotate-180">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
+                    <ChevronDownIcon />
                   </span>
                 </summary>
                 <div className="px-6 pb-6 text-gray-700">
@@ -531,9 +502,7 @@ export default function SimulationEconomiePage() {
               className="inline-flex items-center gap-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-4 px-8 rounded-lg font-medium text-xl hover:shadow-lg transition-all transform hover:translate-x-1"
             >
               <span>Je fais des économies</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
+              <ArrowRightIcon />
             </a>
           </div>
         </div>
@@ -564,48 +533,36 @@ export default function SimulationEconomiePage() {
                 className="inline-flex items-center gap-2 bg-gradient-to-br from-ffeb99 to-ffb700 text-black py-4 px-8 rounded-lg font-medium text-xl hover:shadow-lg transition-all transform hover:scale-105"
               >
                 <span>Je calcule mes économies</span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
+                <ArrowRightIcon />
               </a>
               
               <a 
                 href="tel:+330492766858" 
                 className="inline-flex items-center gap-2 bg-white text-gray-900 py-4 px-8 rounded-lg font-medium text-xl hover:shadow-lg transition-all"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
+                <PhoneIcon />
                 <span>Appeler un conseiller</span>
               </a>
             </div>
             
             <div className="mt-12 flex flex-wrap justify-center gap-8 items-center">
               <div className="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+                <CheckIcon />
                 <span className="text-white">Installation en 1-2 jours</span>
               </div>
               
               <div className="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+                <CheckIcon />
                 <span className="text-white">Garantie 25 ans</span>
               </div>
               
               <div className="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+                <CheckIcon />
                 <span className="text-white">Économies immédiates</span>
               </div>
               
               <div className="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
+                <CheckIcon />
                 <span className="text-white">Certification RGE</span>
               </div>
             </div>

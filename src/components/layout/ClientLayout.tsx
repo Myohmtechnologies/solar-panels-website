@@ -13,8 +13,9 @@ export default function ClientLayout({
   const isDashboard = pathname?.startsWith('/dashboard');
   const isThanksPage = pathname?.startsWith('/merci');
   const isSimulationEconomie = pathname?.startsWith('/simulation-economie');
+  const isDevisPanneauxSolaires = pathname?.startsWith('/devis-panneaux-solaires');
 
-  if (isDashboard || isThanksPage || isSimulationEconomie) {
+  if (isDashboard || isThanksPage || isSimulationEconomie || isDevisPanneauxSolaires) {
     return children;
   }
 

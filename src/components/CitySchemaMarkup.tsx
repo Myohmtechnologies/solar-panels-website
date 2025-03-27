@@ -29,7 +29,6 @@ const CitySchemaMarkup = ({ cityData, departmentName }: CitySchemaMarkupProps) =
           "name": cityData.name
         },
         "telephone": "+33413680384",
-        "priceRange": "€€€",
         "openingHoursSpecification": [{
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
@@ -65,8 +64,10 @@ const CitySchemaMarkup = ({ cityData, departmentName }: CitySchemaMarkupProps) =
               "potentialAction": {
                 "@type": "Action",
                 "name": "Simulation gratuite",
+                "target": "https://www.myohmtechnologies.com/simulator",
                 "url": "https://www.myohmtechnologies.com/simulator"
-              }
+              },
+              "description": "Simulation gratuite - Calculez vos économies"
             }
           ]
         },
@@ -129,8 +130,10 @@ const CitySchemaMarkup = ({ cityData, departmentName }: CitySchemaMarkupProps) =
           "potentialAction": {
             "@type": "Action",
             "name": "Simulation gratuite",
+            "target": "https://www.myohmtechnologies.com/simulator",
             "url": "https://www.myohmtechnologies.com/simulator"
-          }
+          },
+          "description": "Simulation gratuite - Calculez vos économies"
         }
       },
       // FAQ Schema

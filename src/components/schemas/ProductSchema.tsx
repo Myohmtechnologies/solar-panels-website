@@ -108,12 +108,19 @@ export default function ProductSchema({
       "offers": [
         {
           "@type": "Offer",
-          "name": "Installation Panneaux Solaires - À partir de",
+          "name": "Simulation gratuite - Calculez vos économies",
           "price": lowPrice,
           "priceCurrency": "EUR",
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
-          "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0]
+          "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+          "url": "https://www.myohmtechnologies.com/simulator",
+          "potentialAction": {
+            "@type": "Action",
+            "name": "Simulation gratuite",
+            "target": "https://www.myohmtechnologies.com/simulator",
+            "url": "https://www.myohmtechnologies.com/simulator"
+          }
         }
       ]
     }

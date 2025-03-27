@@ -61,8 +61,8 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
       lng: cityData.coordinates?.lng || 4.8055
     },
     googleReviews: {
-      rating: 4.8,
-      totalReviews: 145,
+      rating: 5.0,
+      totalReviews: 78,
       recentReviews: [
         {
           author: "Julien M.",

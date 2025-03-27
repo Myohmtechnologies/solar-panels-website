@@ -63,7 +63,7 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
     },
     googleReviews: {
       rating: 5.0,
-      totalReviews: 178,
+      totalReviews: 78,
       recentReviews: [
         {
           author: "Philippe D.",

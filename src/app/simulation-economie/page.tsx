@@ -1,5 +1,5 @@
 'use client';
-
+import Image from 'next/image';
 import { CheckIcon, ArrowRightIcon, PhoneIcon, ChevronDownIcon, StarIcon, ClickIcon } from '@/components/icons/CommonIcons';
 
 export default function SimulationEconomiePage() {
@@ -572,6 +572,31 @@ Je recommande vivement My Ohm !"
           </div>
         </div>
       </section>
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-8">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-4 md:mb-0">
+              <Image 
+                src="/images/logo-dark.png" 
+                alt="Logo Myohm Technologies" 
+                width={150}
+                height={60}
+                className="h-12 w-auto"
+              />
+            </div>
+            <div className="text-center md:text-right">
+              <p className="text-gray-400"> {new Date().getFullYear()} My Ohm Technologies. Tous droits réservés.</p>
+              <p className="text-gray-400 mt-1">04 92 76 68 58 | contact@myohmtechnologies.com</p>
+              <div className="mt-4 flex flex-wrap justify-center md:justify-end gap-4">
+                <a href="/conditions-generales" className="text-gray-400 hover:text-white text-sm transition-colors">Conditions Générales</a>
+                <a href="/mentions-legales" className="text-gray-400 hover:text-white text-sm transition-colors">Mentions Légales</a>
+                <a href="/politique-de-confidentialite" className="text-gray-400 hover:text-white text-sm transition-colors">Politique de Confidentialité</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
 
       {/* Section Google Ads Testimonials */}
     </main>

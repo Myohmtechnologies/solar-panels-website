@@ -1,6 +1,8 @@
 'use client';
 import Image from 'next/image';
 import { CheckIcon, ArrowRightIcon, PhoneIcon, ChevronDownIcon, StarIcon, ClickIcon } from '@/components/icons/CommonIcons';
+import RealisationsPreview from '@/components/sections/RealisationsPreview';
+
 
 export default function SimulationEconomiePage() {
   return (
@@ -227,7 +229,17 @@ export default function SimulationEconomiePage() {
               </div>
             </div>
           </div>
+          
         </div>
+        {/* Nos réalisations récentes */}
+        <div className="mt-16">
+            <h3 className="text-2xl font-bold text-center mb-8">Nos réalisations récentes</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Ces données seront remplacées par des données dynamiques provenant de l'API */}
+              <RealisationsPreview />
+            </div>
+           
+          </div>
         
         <div className="mt-16 text-center">
           <a 

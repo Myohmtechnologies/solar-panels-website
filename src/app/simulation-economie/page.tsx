@@ -54,6 +54,12 @@ export default function SimulationEconomiePage() {
                 </div>
                 <p className="text-lg text-gray-700">Produisez votre propre énergie</p>
               </div>
+              <div className="flex items-start gap-3">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center mt-1">
+                  <CheckIcon className="h-4 w-4 text-white mr-0" />
+                </div>
+                <p className="text-lg text-gray-700">Profitez des aides de l'État et d'un retour sur investissement rapide</p>
+              </div>
             </div>
             
             <div className="mb-10">
@@ -81,7 +87,7 @@ export default function SimulationEconomiePage() {
                   <StarIcon key={star} className="w-6 h-6" />
                 ))}
               </div>
-              <p className="text-gray-700 font-medium">4.9/5 basé sur 127 avis</p>
+              <p className="text-gray-700 font-medium">5/5 basé sur 78 avis</p>
             </div>
           </div>
           
@@ -237,9 +243,9 @@ export default function SimulationEconomiePage() {
 
       {/* Section Avis Clients */}
       <section className="bg-gray-50 py-16">
-        <div className="container mx-auto px-4 md:px-0">
+        <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-center mb-4">
               Ce que nos clients disent de nous
             </h2>
             <div className="flex items-center justify-center gap-2 mb-4">
@@ -256,7 +262,7 @@ export default function SimulationEconomiePage() {
                   <StarIcon key={star} className="w-6 h-6" />
                 ))}
               </div>
-              <p className="text-gray-700 font-medium">4.9/5 basé sur 127 avis</p>
+              <p className="text-gray-700 font-medium">5/5 basé sur 127 avis</p>
             </div>
           </div>
 
@@ -265,10 +271,10 @@ export default function SimulationEconomiePage() {
             <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
               <div className="flex items-start mb-4">
                 <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4 flex-shrink-0">
-                  <span className="text-blue-600 font-semibold text-lg">JD</span>
+                  <span className="text-blue-600 font-semibold text-lg">SL</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Jean Dupont</h3>
+                  <h3 className="font-semibold text-gray-900">Stéphane Lefevre</h3>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <StarIcon key={star} className="w-4 h-4" />
@@ -278,7 +284,7 @@ export default function SimulationEconomiePage() {
                 </div>
               </div>
               <p className="text-gray-700">
-                "Installation impeccable et service client au top ! J'économise déjà 65€ par mois sur ma facture d'électricité. Le simulateur d'économies était très précis et m'a aidé à prendre ma décision."
+                "Franchement, je suis ravi de mon installation de panneaux solaires de 3 kWc ! L’équipe a été au top du début à la fin : ponctuelle, pro, et super sympa. L’installation s’est faite rapidement et proprement, avec du matériel de qualité. Tout fonctionne parfaitement, et je vois déjà la différence sur ma consommation. En plus, ils ont pris le temps de bien expliquer le fonctionnement et de donner des conseils utiles. Bref, une super prestation, je recommande sans hésiter !"
               </p>
             </div>
 
@@ -286,10 +292,10 @@ export default function SimulationEconomiePage() {
             <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
               <div className="flex items-start mb-4">
                 <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-4 flex-shrink-0">
-                  <span className="text-green-600 font-semibold text-lg">ML</span>
+                  <span className="text-green-600 font-semibold text-lg">BF</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Marie Leroy</h3>
+                  <h3 className="font-semibold text-gray-900">Benoit Furnes</h3>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <StarIcon key={star} className="w-4 h-4" />
@@ -299,7 +305,7 @@ export default function SimulationEconomiePage() {
                 </div>
               </div>
               <p className="text-gray-700">
-                "Très satisfaite de mon installation de panneaux solaires. L'équipe a été professionnelle du début à la fin. La simulation d'économies était très claire et m'a permis de comprendre mon retour sur investissement."
+                "L’entreprise my ohm a été très professionnel. Tout s’est bien passé, dès le premier contact, en passant parles étapes administratives,jusqu’à l’installation. Nous sommes satisfait de l’installation de nos panneaux solaires. Ils m’ont même dépanner un luminaire gratuitement. Merci à toute l’equipe."
               </p>
             </div>
 
@@ -307,10 +313,10 @@ export default function SimulationEconomiePage() {
             <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
               <div className="flex items-start mb-4">
                 <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4 flex-shrink-0">
-                  <span className="text-purple-600 font-semibold text-lg">PB</span>
+                  <span className="text-purple-600 font-semibold text-lg">EI</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Pierre Bertrand</h3>
+                  <h3 className="font-semibold text-gray-900">MEVOUILLON-IRENEE Eliane</h3>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <StarIcon key={star} className="w-4 h-4" />
@@ -320,7 +326,7 @@ export default function SimulationEconomiePage() {
                 </div>
               </div>
               <p className="text-gray-700">
-                "Excellente expérience avec Myohm Technologies. Le simulateur d'économies a été très utile pour me convaincre. Je produis maintenant ma propre électricité et j'ai réduit ma facture de 70%. Je recommande vivement !"
+                "Excellente expérience avec Myohm Technologies. Le simulateur d'économies a été très utile pour me convaincre. Je produis maintenant ma propre électricité et j'ai réduit ma facture d'electricité. Je recommande vivement !"
               </p>
             </div>
             {/* Avis 4 */}
@@ -330,7 +336,7 @@ export default function SimulationEconomiePage() {
                   <span className="text-purple-600 font-semibold text-lg">PB</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Pierre Bertrand</h3>
+                  <h3 className="font-semibold text-gray-900">Francois Baudry</h3>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <StarIcon key={star} className="w-4 h-4" />
@@ -340,7 +346,7 @@ export default function SimulationEconomiePage() {
                 </div>
               </div>
               <p className="text-gray-700">
-                "Excellente expérience avec Myohm Technologies. Le simulateur d'économies a été très utile pour me convaincre. Je produis maintenant ma propre électricité et j'ai réduit ma facture de 70%. Je recommande vivement !"
+                "Entreprise sérieuse et équipe très professionnelle. L'installation s'est bien passée, je recommande."
               </p>
             </div>
 
@@ -351,7 +357,7 @@ export default function SimulationEconomiePage() {
                   <span className="text-purple-600 font-semibold text-lg">PB</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Pierre Bertrand</h3>
+                  <h3 className="font-semibold text-gray-900">Christelle irass</h3>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <StarIcon key={star} className="w-4 h-4" />
@@ -361,7 +367,9 @@ export default function SimulationEconomiePage() {
                 </div>
               </div>
               <p className="text-gray-700">
-                "Excellente expérience avec Myohm Technologies. Le simulateur d'économies a été très utile pour me convaincre. Je produis maintenant ma propre électricité et j'ai réduit ma facture de 70%. Je recommande vivement !"
+                "Une équipe attentive aux besoins du client, alliant professionnalisme et rigueur.
+Le chantier à été laissé propre, et nous avons reçu des explications claires sur la gestion des panneaux photovoltaique.
+Je recommande vivement My Ohm !"
               </p>
             </div>
             {/* Avis 6 */}
@@ -371,7 +379,8 @@ export default function SimulationEconomiePage() {
                   <span className="text-purple-600 font-semibold text-lg">PB</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">Pierre Bertrand</h3>
+                  <h3 className="font-semibold text-gray-900">
+                  Philippe Guizard</h3>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <StarIcon key={star} className="w-4 h-4" />
@@ -381,7 +390,7 @@ export default function SimulationEconomiePage() {
                 </div>
               </div>
               <p className="text-gray-700">
-                "Excellente expérience avec Myohm Technologies. Le simulateur d'économies a été très utile pour me convaincre. Je produis maintenant ma propre électricité et j'ai réduit ma facture de 70%. Je recommande vivement !"
+                "Entreprise sérieuse , travaux réalisés dans le temps imparti avec un service soigné et dans le respect du budget plus que raisonnable je conseille vivement."
               </p>
             </div>
           </div>

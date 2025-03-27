@@ -43,6 +43,25 @@ export default function SimulationEconomiePage() {
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               Simulez gratuitement vos économies en passant aux panneaux solaires
             </h1>
+
+            {/* Bandeau d'urgence */}
+            <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-md mb-6">
+              <div className="flex items-start">
+                <div className="flex-shrink-0">
+                  <svg className="h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm text-red-700 font-medium">
+                    ALERTE : Les prix de l'électricité ont augmenté de 43% depuis 2021 et continueront d'augmenter !
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            
+
             <div className="space-y-4 mb-8">
               <div className="flex items-start gap-3">
                 <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center mt-1">
@@ -95,10 +114,10 @@ export default function SimulationEconomiePage() {
           
           <div className="relative h-[400px] md:h-[500px] w-full">
             <img
-              src="/images/simulation-des-economies.webp"
+              src="/images/simulation-deconomie.png"
               alt="Simulation d'économies avec des panneaux solaires"
-              width={800}
-              height={500}
+              width={1000}
+              height={700}
               loading="eager"
               fetchPriority="high"
               className="object-contain w-full h-full"

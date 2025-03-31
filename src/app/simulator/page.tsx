@@ -361,7 +361,7 @@ const SimulateurPage = () => {
               alt="Logo"
               width={150}
               height={40}
-              className="w-auto h-auto"
+              className="h-10 w-auto"
               priority
             />
           </Link>

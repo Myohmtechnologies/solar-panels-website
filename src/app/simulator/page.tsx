@@ -15,6 +15,8 @@ const STEPS = {
   CONTACT: 3,
 } as const;
 
+type StepType = typeof STEPS[keyof typeof STEPS];
+
 const ENERGY_BILL_RANGES = [
   { 
     label: "moins de 80€ par mois",
@@ -40,6 +42,14 @@ const ENERGY_BILL_RANGES = [
     co2: "~1800kg par an",
     bill: 200
   },
+  { 
+    label: "Je ne sais pas",
+    value: "unknown",
+    annual: "Montant inconnu",
+    savings: "Estimation personnalisée",
+    co2: "À déterminer",
+    bill: 125 // Valeur moyenne par défaut
+  },
 ];
 
 // Validation des données
@@ -57,7 +67,7 @@ const validateName = (name: string): boolean => {
   return name.length >= 2;
 };
 
-const StepProgressBar = ({ currentStep }: { currentStep: number }) => {
+const StepProgressBar = ({ currentStep }: { currentStep: StepType }) => {
   const steps = [
     { id: STEPS.PROPERTY_TYPE, label: 'Type de propriété' },
     { id: STEPS.ENERGY_BILL, label: 'Facture d\'énergie' },
@@ -105,7 +115,7 @@ const StepProgressBar = ({ currentStep }: { currentStep: number }) => {
 
 const SimulateurPage = () => {
   const router = useRouter();
-  const [currentStep, setCurrentStep] = useState(STEPS.PROPERTY_TYPE);
+  const [currentStep, setCurrentStep] = useState<StepType>(STEPS.PROPERTY_TYPE);
   const [formState, setFormState] = useState({
     residentialStatus: "",
     ownershipType: "",
@@ -149,7 +159,7 @@ const SimulateurPage = () => {
     ].forEach(preloadImage);
   }, []);
 
-  const handleStepChange = (newStep: number) => {
+  const handleStepChange = (newStep: StepType) => {
     let stepName: 'property_type' | 'energy_bill' | 'contact' = 'property_type';
     
     switch (newStep) {
@@ -217,7 +227,11 @@ const SimulateurPage = () => {
 
   const handleBack = () => {
     if (currentStep > STEPS.PROPERTY_TYPE) {
-      setCurrentStep(prev => prev - 1);
+      setCurrentStep(prev => {
+        if (prev === STEPS.ENERGY_BILL) return STEPS.PROPERTY_TYPE;
+        if (prev === STEPS.CONTACT) return STEPS.ENERGY_BILL;
+        return prev;
+      });
     }
   };
 
@@ -335,8 +349,7 @@ const SimulateurPage = () => {
         console.error('Detailed Error:', {
           message: error.message,
           name: error.name,
-          stack: error.stack,
-          formData: formData
+          stack: error.stack
         });
         setFormState(prev => ({
           ...prev,
@@ -467,7 +480,7 @@ const SimulateurPage = () => {
                         </svg>
                         <div className="text-left">
                           <span className="font-semibold text-lg md:text-xl block mb-1">{range.label}</span>
-                          <span className="text-base md:text-lg text-gray-700">soit {range.annual}</span>
+                          <span className="text-base md:text-lg text-gray-700">{range.annual}</span>
                         </div>
                       </div>
                     </button>
@@ -488,6 +501,20 @@ const SimulateurPage = () => {
                     Personnalisé
                   </span>
                 </div>
+                
+                {currentStep > STEPS.PROPERTY_TYPE && (
+                  <div className="mt-8 text-center">
+                    <button
+                      onClick={handleBack}
+                      className="flex items-center justify-center gap-2 mx-auto px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-all"
+                    >
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                      <span>Retour</span>
+                    </button>
+                  </div>
+                )}
               </div>
             )}
 
@@ -639,25 +666,38 @@ const SimulateurPage = () => {
                   </div>
                 )}
 
-                <button 
-                  type="submit"
-                  disabled={formState.isSubmitting}
-                  className={`w-full bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 ${
-                    formState.isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'
-                  }`}
-                >
-                  {formState.isSubmitting ? (
-                    <span className="flex items-center justify-center">
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Envoi en cours...
-                    </span>
-                  ) : (
-                    'Obtenir une estimation gratuite'
-                  )}
-                </button>
+                <div className="flex flex-col gap-4">
+                  <button 
+                    type="submit"
+                    disabled={formState.isSubmitting}
+                    className={`w-full bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 ${
+                      formState.isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'
+                    }`}
+                  >
+                    {formState.isSubmitting ? (
+                      <span className="flex items-center justify-center">
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Envoi en cours...
+                      </span>
+                    ) : (
+                      'Obtenir une estimation gratuite'
+                    )}
+                  </button>
+                  
+                  <button
+                    type="button"
+                    onClick={handleBack}
+                    className="flex items-center justify-center gap-2 mx-auto px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-all"
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                    <span>Retour</span>
+                  </button>
+                </div>
               </form>
             )}
           </div>

@@ -270,6 +270,88 @@ export default function SimulationEconomiePage() {
             <span>→ Je calcule mes économies</span>
           </a>
         </div>
+
+        {/* Section Aides de l'État 2025 */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <h2 className="text-3xl font-bold text-center mb-4">Les aides de l'État 2025 pour vos panneaux solaires</h2>
+          <p className="text-xl text-center text-gray-700 mb-12 max-w-3xl mx-auto">
+            Profitez des dispositifs mis en place par l'État pour financer votre installation photovoltaïque
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Aide 1: Prime à l'autoconsommation */}
+            <div className="bg-white rounded-xl shadow-md overflow-hidden transform transition-all hover:shadow-xl">
+              <div className="h-3 bg-gradient-to-r from-[#ffeb99] to-[#ffb700]"></div>
+              <div className="p-6">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Prime à l'autoconsommation</h3>
+                <p className="text-gray-600 mb-4">
+                  L'État vous verse une prime pour l'électricité que vous produisez et consommez vous-même, encourageant ainsi l'autonomie énergétique des foyers français.
+                </p>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <p className="font-medium text-gray-800">Jusqu'à <span className="text-[#116290] font-bold">380€/kWc</span> d'aide directe</p>
+                  <p className="text-sm text-gray-600 mt-1">Pour une installation standard de 3kWc, cela représente environ 1140€ d'économies</p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Aide 2: Rachat de surplus par EDF */}
+            <div className="bg-white rounded-xl shadow-md overflow-hidden transform transition-all hover:shadow-xl">
+              <div className="h-3 bg-gradient-to-r from-[#116290] to-[#0a3d5c]"></div>
+              <div className="p-6">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Rachat de surplus par <img src="/images/edf.png" alt="EDF" className="h-6 w-auto inline-block ml-1 -mt-1" /></h3>
+                <p className="text-gray-600 mb-4">
+                  L'électricité que vous produisez mais ne consommez pas est automatiquement rachetée par EDF OA à un tarif avantageux garanti pendant 20 ans.
+                </p>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <p className="font-medium text-gray-800">Tarif de rachat : <span className="text-[#116290] font-bold">0,13€/kWh</span></p>
+                  <p className="text-sm text-gray-600 mt-1">Contrat garanti sur 20 ans, vous permettant de rentabiliser plus rapidement votre installation</p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Aide 3: TVA à 10% */}
+            <div className="bg-white rounded-xl shadow-md overflow-hidden transform transition-all hover:shadow-xl">
+              <div className="h-3 bg-gradient-to-r from-[#ffeb99] to-[#ffb700]"></div>
+              <div className="p-6">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-3">TVA à 10% au lieu de 20%</h3>
+                <p className="text-gray-600 mb-4">
+                  Pour les installations photovoltaïques de moins de 3kWc sur les résidences principales de plus de 2 ans, bénéficiez d'une TVA réduite à 10%.
+                </p>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <p className="font-medium text-gray-800">Économie : <span className="text-[#116290] font-bold">10% sur le coût total</span></p>
+                  <p className="text-sm text-gray-600 mt-1">Pour une installation de 10 000€, c'est 1 000€ d'économies directes sur votre facture</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-12 text-center">
+            <a 
+              href="/simulator" 
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-3 px-6 rounded-lg font-medium hover:shadow-lg transition-all transform hover:scale-105"
+            >
+              <span>Calculer mes économies avec les aides 2025</span>
+              <ArrowRightIcon />
+            </a>
+          </div>
+        </div>
+      </section>
         
         {/* Nos réalisations récentes */}
         <div className="mt-16">
@@ -460,87 +542,7 @@ Je recommande vivement My Ohm !"
         </div>
       </section>
 
-      {/* Section Aides de l'État 2025 */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-3xl font-bold text-center mb-4">Les aides de l'État 2025 pour vos panneaux solaires</h2>
-          <p className="text-xl text-center text-gray-700 mb-12 max-w-3xl mx-auto">
-            Profitez des dispositifs mis en place par l'État pour financer votre installation photovoltaïque
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Aide 1: Prime à l'autoconsommation */}
-            <div className="bg-white rounded-xl shadow-md overflow-hidden transform transition-all hover:shadow-xl">
-              <div className="h-3 bg-gradient-to-r from-[#ffeb99] to-[#ffb700]"></div>
-              <div className="p-6">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Prime à l'autoconsommation</h3>
-                <p className="text-gray-600 mb-4">
-                  L'État vous verse une prime pour l'électricité que vous produisez et consommez vous-même, encourageant ainsi l'autonomie énergétique des foyers français.
-                </p>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="font-medium text-gray-800">Jusqu'à <span className="text-[#116290] font-bold">380€/kWc</span> d'aide directe</p>
-                  <p className="text-sm text-gray-600 mt-1">Pour une installation standard de 3kWc, cela représente environ 1140€ d'économies</p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Aide 2: Rachat de surplus par EDF */}
-            <div className="bg-white rounded-xl shadow-md overflow-hidden transform transition-all hover:shadow-xl">
-              <div className="h-3 bg-gradient-to-r from-[#116290] to-[#0a3d5c]"></div>
-              <div className="p-6">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">Rachat de surplus par <img src="/images/edf.png" alt="EDF" className="h-6 w-auto inline-block ml-1 -mt-1" /></h3>
-                <p className="text-gray-600 mb-4">
-                  L'électricité que vous produisez mais ne consommez pas est automatiquement rachetée par EDF OA à un tarif avantageux garanti pendant 20 ans.
-                </p>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="font-medium text-gray-800">Tarif de rachat : <span className="text-[#116290] font-bold">0,13€/kWh</span></p>
-                  <p className="text-sm text-gray-600 mt-1">Contrat garanti sur 20 ans, vous permettant de rentabiliser plus rapidement votre installation</p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Aide 3: TVA à 10% */}
-            <div className="bg-white rounded-xl shadow-md overflow-hidden transform transition-all hover:shadow-xl">
-              <div className="h-3 bg-gradient-to-r from-[#ffeb99] to-[#ffb700]"></div>
-              <div className="p-6">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-semibold mb-3">TVA à 10% au lieu de 20%</h3>
-                <p className="text-gray-600 mb-4">
-                  Pour les installations photovoltaïques de moins de 3kWc sur les résidences principales de plus de 2 ans, bénéficiez d'une TVA réduite à 10%.
-                </p>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="font-medium text-gray-800">Économie : <span className="text-[#116290] font-bold">10% sur le coût total</span></p>
-                  <p className="text-sm text-gray-600 mt-1">Pour une installation de 10 000€, c'est 1 000€ d'économies directes sur votre facture</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="mt-12 text-center">
-            <a 
-              href="/simulator" 
-              className="inline-flex items-center gap-3 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-3 px-6 rounded-lg font-medium hover:shadow-lg transition-all transform hover:scale-105"
-            >
-              <span>Calculer mes économies avec les aides 2025</span>
-              <ArrowRightIcon />
-            </a>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Section FAQ */}
       <section className="py-16 bg-gray-50">

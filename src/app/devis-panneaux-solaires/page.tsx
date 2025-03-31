@@ -334,8 +334,20 @@ export default function DevisPanneauxSolairesPage() {
                 Venez visiter notre showroom pour découvrir nos solutions d'énergie solaire et discuter de votre projet avec nos experts. Nous vous présenterons les différentes options adaptées à vos besoins et à votre budget.
               </p>
             </div>
+            
           </div>
           
+          <div className="text-center mt-12">
+            <button 
+              onClick={scrollToForm}
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-4 px-8 rounded-lg font-medium text-xl hover:shadow-lg transition-all transform hover:scale-105"
+            >
+              <span>Je passe à l'énergie solaire</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </div>
           {/* Nos réalisations récentes */}
           <div className="mt-16">
             <h3 className="text-2xl font-bold text-center mb-8">Nos réalisations récentes</h3>
@@ -343,6 +355,17 @@ export default function DevisPanneauxSolairesPage() {
               {/* Ces données seront remplacées par des données dynamiques provenant de l'API */}
               <RealisationsPreview />
             </div>
+            <div className="text-center mt-12">
+            <button 
+              onClick={scrollToForm}
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-4 px-8 rounded-lg font-medium text-xl hover:shadow-lg transition-all transform hover:scale-105"
+            >
+              <span>Je passe à l'énergie solaire</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </div>
            
           </div>
         </div>
@@ -575,24 +598,7 @@ Je recommande vivement My Ohm !"
         </div>
       </section>
 
-      {/* Section Made in France */}
-      <div className="mt-16 bg-white p-8 rounded-lg shadow-lg text-center">
-        <div className="flex items-center justify-center mb-4">
-          <div className="flex flex-col items-center">
-            <div className="flex">
-              <div className="w-8 h-16 bg-blue-700"></div>
-              <div className="w-8 h-16 bg-white"></div>
-              <div className="w-8 h-16 bg-red-600"></div>
-            </div>
-            <h3 className="text-2xl font-bold mt-4">Produits Made in France</h3>
-          </div>
-        </div>
-        <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-          Nous sommes fiers de proposer des équipements de qualité fabriqués en France. 
-          En choisissant nos solutions, vous soutenez l'économie locale et bénéficiez 
-          d'une qualité supérieure pour une performance optimale de votre installation solaire.
-        </p>
-      </div>
+ 
 
       {/* Section FAQ */}
       <FaqSection />

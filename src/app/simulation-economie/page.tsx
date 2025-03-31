@@ -9,7 +9,7 @@ export default function SimulationEconomiePage() {
     <main>
       {/* Header personnalisé */}
       <header className="border-b border-gray-200 py-4">
-        <div className="container mx-auto px-4 md:px-0 flex justify-between items-center">
+        <div className="container mx-auto px-6 md:px-8 lg:px-10 flex justify-between items-center">
           <div className="flex items-center">
             <a href="/">
               <img 
@@ -37,7 +37,7 @@ export default function SimulationEconomiePage() {
       <div className="h-1 w-full bg-white"></div>
 
       {/* Section hero */}
-      <section className="container mx-auto py-12 px-4 md:px-0">
+      <section className="container mx-auto py-12 px-6 md:px-8 lg:px-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
@@ -92,56 +92,7 @@ export default function SimulationEconomiePage() {
                 <p className="text-lg font-medium text-gray-800">Nous intervenons dans toute la région PACA</p>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4 mb-3">
-                <div className="sm:w-1/5">
-                  <img 
-                    src="/images/Carte-region.svg" 
-                    alt="Carte de la région PACA - Zone d'intervention MyOhm Technologies" 
-                    className="w-full h-auto max-h-28 rounded-lg shadow-sm mx-auto"
-                  />
-                </div>
-                
-                <div className="sm:w-4/5">
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
-                        <CheckIcon className="h-3 w-3 text-white mr-0" />
-                      </div>
-                      <span className="text-sm text-gray-700">Alpes-Maritimes (06)</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
-                        <CheckIcon className="h-3 w-3 text-white mr-0" />
-                      </div>
-                      <span className="text-sm text-gray-700">Var (83)</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
-                        <CheckIcon className="h-3 w-3 text-white mr-0" />
-                      </div>
-                      <span className="text-sm text-gray-700">Bouches-du-Rhône (13)</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
-                        <CheckIcon className="h-3 w-3 text-white mr-0" />
-                      </div>
-                      <span className="text-sm text-gray-700">Vaucluse (84)</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
-                        <CheckIcon className="h-3 w-3 text-white mr-0" />
-                      </div>
-                      <span className="text-sm text-gray-700">Alpes-de-Haute-Provence (04)</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
-                        <CheckIcon className="h-3 w-3 text-white mr-0" />
-                      </div>
-                      <span className="text-sm text-gray-700">Hautes-Alpes (05)</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
               
               
             </div>
@@ -190,7 +141,7 @@ export default function SimulationEconomiePage() {
       </section>
 
       {/* Section des étapes de simulation */}
-      <section className="container mx-auto py-16 px-4 md:px-0 rounded-xl">
+      <section className="container mx-auto py-16 px-6 md:px-8 lg:px-10 rounded-xl">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Recevez immédiatement le résultat :
@@ -273,7 +224,7 @@ export default function SimulationEconomiePage() {
 
         {/* Section Aides de l'État 2025 */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4 max-w-6xl">
+        <div className="container mx-auto px-6 md:px-8 lg:px-10 max-w-6xl">
           <h2 className="text-3xl font-bold text-center mb-4">Les aides de l'État 2025 pour vos panneaux solaires</h2>
           <p className="text-xl text-center text-gray-700 mb-12 max-w-3xl mx-auto">
             Profitez des dispositifs mis en place par l'État pour financer votre installation photovoltaïque
@@ -377,7 +328,7 @@ export default function SimulationEconomiePage() {
 
       {/* Section Avis Clients */}
       <section className="bg-gray-50 py-16">
-        <div className="container mx-auto px-4 max-w-6xl">
+        <div className="container mx-auto px-6 md:px-8 lg:px-10 max-w-6xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-center mb-4">
               Ce que nos clients disent de nous
@@ -542,11 +493,9 @@ Je recommande vivement My Ohm !"
         </div>
       </section>
 
-      
-
       {/* Section FAQ */}
       <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4 max-w-6xl">
+        <div className="container mx-auto px-6 md:px-8 lg:px-10 max-w-6xl">
           <h2 className="text-3xl font-bold text-center mb-12">Questions fréquentes sur les panneaux solaires</h2>
           
           <div className="space-y-6">
@@ -659,7 +608,7 @@ Je recommande vivement My Ohm !"
           <div className="absolute -bottom-20 left-1/3 w-72 h-72 rounded-full bg-white opacity-10"></div>
         </div>
         
-        <div className="container mx-auto px-4 max-w-6xl relative z-10">
+        <div className="container mx-auto px-6 md:px-8 lg:px-10 relative z-10">
           <div className="text-center">
             <h2 className="text-4xl font-bold text-white mb-6">Prêt à réduire vos factures d'électricité ?</h2>
             <p className="text-xl text-white/90 mb-10 max-w-3xl mx-auto">

@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 
 export default function RealisationsPreview() {
@@ -48,9 +47,8 @@ export default function RealisationsPreview() {
   return (
     <>
       {realisations.map((realisation) => (
-        <Link 
+        <div 
           key={realisation.id}
-          href="/nos-realisation"
           className="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow"
         >
           <div className="relative h-48">
@@ -66,7 +64,7 @@ export default function RealisationsPreview() {
               <p className="text-sm text-white/80">{realisation.city}</p>
             </div>
           </div>
-        </Link>
+        </div>
       ))}
     </>
   );

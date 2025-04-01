@@ -16,19 +16,55 @@ export default function DevisPanneauxSolairesPage() {
     phone: '',
     message: ''
   });
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  }; 
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Ici vous pouvez ajouter la logique d'envoi du formulaire
-    console.log('Formulaire soumis:', formData);
-    // Réinitialiser le formulaire après soumission
-    setFormData({ name: '', email: '', phone: '', message: '' });
-    alert('Votre demande a été envoyée avec succès!');
+    
+    try {
+      // Préparation des données du lead
+      const leadData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        notes: formData.message,
+        source: 'DEVIS_PAGE',
+        projectType: 'SOLAR_PANELS',
+        createdAt: new Date().toISOString()
+      };
+      
+      // Envoi des données à l'API
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(leadData),
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok) {
+        // Réinitialiser le formulaire après soumission réussie
+        setFormData({ name: '', email: '', phone: '', message: '' });
+        setShowSuccessModal(true);
+      } else {
+        // Gérer les erreurs de l'API
+        setErrorMessage(result.error || 'Une erreur est survenue lors de l\'envoi du formulaire.');
+        setShowErrorModal(true);
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi du formulaire:', error);
+      setErrorMessage('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer plus tard.');
+      setShowErrorModal(true);
+    }
   };
 
   const scrollToForm = () => {
@@ -147,57 +183,6 @@ export default function DevisPanneauxSolairesPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <p className="text-lg font-medium text-gray-800">Nous intervenons dans toute la région PACA</p>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row gap-4 mb-3">
-                <div className="sm:w-1/5">
-                  <img 
-                    src="/images/Carte-region.svg" 
-                    alt="Carte de la région PACA - Zone d'intervention MyOhm Technologies" 
-                    className="w-full h-auto max-h-28 rounded-lg shadow-sm mx-auto"
-                  />
-                </div>
-                
-                <div className="sm:w-4/5">
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
-                        <CheckIcon className="h-3 w-3 text-white mr-0" />
-                      </div>
-                      <span className="text-sm text-gray-700">Alpes-Maritimes (06)</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
-                        <CheckIcon className="h-3 w-3 text-white mr-0" />
-                      </div>
-                      <span className="text-sm text-gray-700">Var (83)</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
-                        <CheckIcon className="h-3 w-3 text-white mr-0" />
-                      </div>
-                      <span className="text-sm text-gray-700">Bouches-du-Rhône (13)</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
-                        <CheckIcon className="h-3 w-3 text-white mr-0" />
-                      </div>
-                      <span className="text-sm text-gray-700">Vaucluse (84)</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
-                        <CheckIcon className="h-3 w-3 text-white mr-0" />
-                      </div>
-                      <span className="text-sm text-gray-700">Alpes-de-Haute-Provence (04)</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
-                        <CheckIcon className="h-3 w-3 text-white mr-0" />
-                      </div>
-                      <span className="text-sm text-gray-700">Hautes-Alpes (05)</span>
-                    </div>
-                  </div>
-                </div>
               </div>
               
               
@@ -849,6 +834,51 @@ Je recommande vivement My Ohm !"
         }}
       />
       
+      {/* Modal de succès */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-xl p-6 max-w-md w-full animate-fade-in-up">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-bold text-center mb-2">Demande envoyée !</h3>
+            <p className="text-gray-700 text-center mb-6">
+              Votre demande a été envoyée avec succès ! Un conseiller énergie vous contactera très prochainement.
+            </p>
+            <button
+              onClick={() => setShowSuccessModal(false)}
+              className="w-full bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-3 px-6 rounded-lg font-medium hover:shadow-lg transition-all"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Modal d'erreur */}
+      {showErrorModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-xl p-6 max-w-md w-full animate-fade-in-up">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-100 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-bold text-center mb-2">Erreur</h3>
+            <p className="text-gray-700 text-center mb-6">
+              {errorMessage}
+            </p>
+            <button
+              onClick={() => setShowErrorModal(false)}
+              className="w-full bg-red-500 text-white py-3 px-6 rounded-lg font-medium hover:shadow-lg transition-all"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

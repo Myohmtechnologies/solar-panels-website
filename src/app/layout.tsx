@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.myohmtechnologies.com'),
   title: 'MY OHM Technologies - Entreprise d\'installation de panneaux solaires',
   description: 'MY OHM Technologies société d\'installation de panneaux solaires sur mesure pour les particuliers et les entreprises.',
+  verification: {
+    google: 'bshllqo6MIhoBv2oLuo-5lh9FzoXSYWFaQmCOzx62rA',
+  },
   robots: {
     index: true,
     follow: true,

@@ -11,8 +11,16 @@ export class RealisationService {
     return db.collection('realisations');
   }
 
-  private static getLocalImageUrl(imageName: string) {
-    return imageName ? `/images/realisations/${imageName}` : null;
+  private static getLocalImageUrl(imageName: string): string | null {
+    if (!imageName) return null;
+    
+    // Si l'image est déjà une URL complète (commence par http:// ou https:// ou /)
+    if (imageName.startsWith('http://') || imageName.startsWith('https://') || imageName.startsWith('/')) {
+      return imageName;
+    }
+    
+    // Sinon, construire l'URL locale
+    return `/images/realisations/${imageName}`;
   }
 
   static async getAllRealisations(page = 1, limit = 10, filter?: {
@@ -38,8 +46,8 @@ export class RealisationService {
         _id: doc._id.toString(),
         title: doc.title || '',
         description: doc.description || '',
-        mainImage: this.getLocalImageUrl(doc.mainImage),
-        secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : null,
+        mainImage: this.getLocalImageUrl(doc.mainImage) || '',
+        secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : undefined,
         region: doc.region || '',
         city: doc.city || '',
         type: doc.type || '',
@@ -83,8 +91,8 @@ export class RealisationService {
         _id: doc._id.toString(),
         title: doc.title || '',
         description: doc.description || '',
-        mainImage: this.getLocalImageUrl(doc.mainImage),
-        secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : null,
+        mainImage: this.getLocalImageUrl(doc.mainImage) || '',
+        secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : undefined,
         region: doc.region || '',
         city: doc.city || '',
         type: doc.type || '',
@@ -115,16 +123,20 @@ export class RealisationService {
     return {
       _id: realisation._id.toString(),
       title: realisation.title,
-      slug: realisation.slug,
       description: realisation.description,
-      images: realisation.images || [],
+      mainImage: this.getLocalImageUrl(realisation.mainImage) || '',
+      secondaryImage: realisation.secondaryImage ? this.getLocalImageUrl(realisation.secondaryImage) : undefined,
       date: realisation.date,
-      location: realisation.location,
-      specifications: realisation.specifications,
-      featured: realisation.featured,
       region: realisation.region,
       city: realisation.city,
-      type: realisation.type
+      type: realisation.type,
+      year: realisation.year || new Date().getFullYear(),
+      specifications: realisation.specifications || {
+        puissance: 0,
+        pannels: 0,
+        surface: 0,
+        economie: 0
+      }
     };
   }
 
@@ -137,21 +149,11 @@ export class RealisationService {
       .replace(/(^-|-$)+/g, '');
   }
 
-  static async createRealisation(data: Omit<Realisation, '_id' | 'slug'>): Promise<string> {
+  static async createRealisation(data: Omit<Realisation, '_id'>): Promise<string> {
     const collection = await this.getCollection();
-    const slug = this.generateSlug(data.title);
     
-    // Vérifier si le slug existe déjà
-    let finalSlug = slug;
-    let counter = 1;
-    while (await collection.findOne({ slug: finalSlug })) {
-      finalSlug = `${slug}-${counter}`;
-      counter++;
-    }
-
     const result = await collection.insertOne({
       ...data,
-      slug: finalSlug,
       createdAt: new Date(),
       updatedAt: new Date()
     });
@@ -230,8 +232,8 @@ export class RealisationService {
       _id: doc._id.toString(),
       title: doc.title || '',
       description: doc.description || '',
-      mainImage: this.getLocalImageUrl(doc.mainImage),
-      secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : null,
+      mainImage: this.getLocalImageUrl(doc.mainImage) || '',
+      secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : undefined,
       region: doc.region || '',
       city: doc.city || '',
       type: doc.type || '',
@@ -268,8 +270,8 @@ export class RealisationService {
       _id: doc._id.toString(),
       title: doc.title || '',
       description: doc.description || '',
-      mainImage: this.getLocalImageUrl(doc.mainImage),
-      secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : null,
+      mainImage: this.getLocalImageUrl(doc.mainImage) || '',
+      secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : undefined,
       region: doc.region || '',
       city: doc.city || '',
       type: doc.type || '',
@@ -317,8 +319,8 @@ export class RealisationService {
       _id: doc._id.toString(),
       title: doc.title || '',
       description: doc.description || '',
-      mainImage: this.getLocalImageUrl(doc.mainImage),
-      secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : null,
+      mainImage: this.getLocalImageUrl(doc.mainImage) || '',
+      secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : undefined,
       region: doc.region || '',
       city: doc.city || '',
       type: doc.type || '',
@@ -347,8 +349,8 @@ export class RealisationService {
       _id: doc._id.toString(),
       title: doc.title || '',
       description: doc.description || '',
-      mainImage: this.getLocalImageUrl(doc.mainImage),
-      secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : null,
+      mainImage: this.getLocalImageUrl(doc.mainImage) || '',
+      secondaryImage: doc.secondaryImage ? this.getLocalImageUrl(doc.secondaryImage) : undefined,
       region: doc.region || '',
       city: doc.city || '',
       type: doc.type || '',

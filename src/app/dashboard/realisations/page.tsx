@@ -1,56 +1,51 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import type { Realisation } from '@/types';
 
-// Données de test (à remplacer par les données de l'API)
-const mockRealisations: Realisation[] = [
-  {
-    _id: '1',
-    title: 'Installation Résidentielle - Marseille',
-    description: 'Installation de panneaux solaires sur une maison individuelle',
-    mainImage: '/images/pv1.png',
-    region: 'Provence-Alpes-Côte d\'Azur',
-    city: 'Marseille',
-    type: 'Résidentiel',
-    year: 2023,
-    date: new Date('2023-11-15').toISOString(),
-    createdAt: new Date('2023-11-15').toISOString(),
-    updatedAt: new Date('2023-11-15').toISOString()
-  },
-  {
-    _id: '2',
-    title: 'Installation Commerciale - Aix-en-Provence',
-    description: 'Installation de panneaux solaires sur un bâtiment commercial',
-    mainImage: '/images/pv.png',
-    region: 'Provence-Alpes-Côte d\'Azur',
-    city: 'Aix-en-Provence',
-    type: 'Commercial',
-    year: 2023,
-    date: new Date('2023-10-20').toISOString(),
-    createdAt: new Date('2023-10-20').toISOString(),
-    updatedAt: new Date('2023-10-20').toISOString()
-  },
-  {
-    _id: '3',
-    title: 'Installation Agricole - Avignon',
-    description: 'Installation de panneaux solaires sur un hangar agricole',
-    mainImage: '/images/solar-worker.jpg',
-    region: 'Provence-Alpes-Côte d\'Azur',
-    city: 'Avignon',
-    type: 'Agricole',
-    year: 2023,
-    date: new Date('2023-09-05').toISOString(),
-    createdAt: new Date('2023-09-05').toISOString(),
-    updatedAt: new Date('2023-09-05').toISOString()
-  }
-];
+// État initial vide pour les réalisations
+const initialRealisations: Realisation[] = [];
 
 export default function RealisationsPage() {
-  const [realisations, setRealisations] = useState<Realisation[]>(mockRealisations);
+  const [realisations, setRealisations] = useState<Realisation[]>(initialRealisations);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Charger les réalisations depuis l'API au chargement du composant
+  useEffect(() => {
+    const fetchRealisations = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/realisations');
+        
+        if (!response.ok) {
+          throw new Error(`Erreur lors de la récupération des réalisations: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('Données récupérées de l\'API:', data);
+        
+        // Vérifier si les données ont la structure attendue
+        if (data && data.realisations) {
+          setRealisations(data.realisations);
+        } else {
+          setRealisations(data || []);
+        }
+        
+        setError(null);
+      } catch (err) {
+        console.error('Erreur lors du chargement des réalisations:', err);
+        setError(err instanceof Error ? err.message : 'Une erreur est survenue');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchRealisations();
+  }, []);
 
   const handleDelete = async (id: string | undefined) => {
     if (!id) return;
@@ -84,6 +79,26 @@ export default function RealisationsPage() {
           Nouvelle Réalisation
         </Link>
       </div>
+
+      {isLoading && (
+        <div className="flex justify-center items-center h-40">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-AFC97E"></div>
+        </div>
+      )}
+
+      {error && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <p>Erreur: {error}</p>
+          <p className="text-sm">Vérifiez la connexion à la base de données et réessayez.</p>
+        </div>
+      )}
+
+      {!isLoading && !error && realisations.length === 0 && (
+        <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
+          <p>Aucune réalisation trouvée.</p>
+          <p className="text-sm">Créez votre première réalisation en cliquant sur le bouton "Nouvelle Réalisation".</p>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {realisations.map((realisation) => {

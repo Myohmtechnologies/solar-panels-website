@@ -6,7 +6,6 @@ import { submitLead } from '@/services/leadService';
 export default function PhoningForm() {
   const [formData, setFormData] = useState({
     fullName: '',
-    email: '',
     phone: '',
     city: '',
     address: '',
@@ -35,6 +34,7 @@ export default function PhoningForm() {
       // Utiliser l'API existante mais avec une source "phoning" dans les notes
       const result = await submitLead({
         ...formData,
+        email: `phoning_${Date.now()}@myohmtechnologies.com`, // Email généré automatiquement
         source: 'hero', // Utiliser une source existante
         notes: `[SOURCE: PHONING] ${formData.notes || ''}`, // Ajouter l'information de source dans les notes
         createdAt: new Date().toISOString()
@@ -45,7 +45,6 @@ export default function PhoningForm() {
         // Réinitialiser le formulaire pour une nouvelle saisie
         setFormData({
           fullName: '',
-          email: '',
           phone: '',
           city: '',
           address: '',
@@ -125,21 +124,7 @@ export default function PhoningForm() {
           />
         </div>
         
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-            placeholder="exemple@email.com"
-          />
-        </div>
+
         
         <div>
           <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">

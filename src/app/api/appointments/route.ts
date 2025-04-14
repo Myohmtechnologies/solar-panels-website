@@ -10,9 +10,7 @@ export async function GET(request: NextRequest) {
     const startDate = searchParams.get('startDate');
     const endDate = searchParams.get('endDate');
 
-    if (!commercialId) {
-      return NextResponse.json({ success: false, error: 'ID du commercial requis' }, { status: 400 });
-    }
+    // Le commercialId est maintenant optionnel
 
     if (!startDate || !endDate) {
       return NextResponse.json({ success: false, error: 'Dates de début et de fin requises' }, { status: 400 });
@@ -21,13 +19,8 @@ export async function GET(request: NextRequest) {
     const client = await clientPromise;
     const db = client.db();
     
-    // Requête pour trouver les leads avec des rendez-vous pour ce commercial dans la plage de dates
-    const query = {
-      // Rechercher les rendez-vous avec l'ID du commercial sous forme d'ID MongoDB ou sous forme de chaîne '1'
-      $or: [
-        { 'nextAction.commercialId': commercialId },
-        { 'nextAction.commercialId': '1' } // Pour les anciens rendez-vous qui utilisent l'ID '1'
-      ],
+    // Requête pour trouver les leads avec des rendez-vous dans la plage de dates
+    let query: any = {
       'nextAction.type': 'RDV_SCHEDULED',
       // Filtrer les rendez-vous qui commencent dans la plage de dates
       'nextAction.plannedDate': {
@@ -35,6 +28,14 @@ export async function GET(request: NextRequest) {
         $lte: new Date(endDate + 'T23:59:59').toISOString()
       }
     };
+    
+    // Si un commercialId est spécifié, filtrer par ce commercial
+    if (commercialId) {
+      query.$or = [
+        { 'nextAction.commercialId': commercialId },
+        { 'nextAction.commercialId': '1' } // Pour les anciens rendez-vous qui utilisent l'ID '1'
+      ];
+    }
     
     console.log('Recherche de rendez-vous avec la requête:', JSON.stringify(query));
     

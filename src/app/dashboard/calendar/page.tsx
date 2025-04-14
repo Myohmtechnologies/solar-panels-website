@@ -18,8 +18,18 @@ interface Appointment {
   leadId: string;
   leadName: string;
   address: string;
+  location?: string;
   status: string;
   color?: string;
+  client?: {
+    name: string;
+    phone?: string;
+    email?: string;
+  };
+  commercial?: {
+    id: string;
+    name: string;
+  };
 }
 
 export default function CalendarPage() {
@@ -79,9 +89,38 @@ export default function CalendarPage() {
               colorIndex++;
             }
             
+            // Extraire les informations du client et du commercial
+            const clientName = appointment.client?.name || appointment.leadName || 'Client';
+            const commercialName = appointment.commercial?.name || appointment.commercialName || 'Commercial';
+            
+            // Extraire le code postal et la ville à partir de l'adresse
+            let postalCode = '';
+            let city = '';
+            
+            if (appointment.location) {
+              // Essayer d'extraire le code postal (format français: 5 chiffres)
+              const postalCodeMatch = appointment.location.match(/\b\d{5}\b/);
+              if (postalCodeMatch) {
+                postalCode = postalCodeMatch[0];
+                
+                // Essayer d'extraire la ville (généralement après le code postal)
+                const cityMatch = appointment.location.match(/\b\d{5}\s+([\w\s-]+)/);
+                if (cityMatch && cityMatch[1]) {
+                  city = cityMatch[1].trim();
+                }
+              }
+            }
+            
+            // Construire un titre informatif
+            const title = [
+              clientName,
+              postalCode && city ? `${postalCode} ${city}` : (appointment.location || ''),
+              `Commercial: ${commercialName}`
+            ].filter(Boolean).join('\n');
+            
             return {
               ...appointment,
-              title: `${appointment.leadName} - ${appointment.commercialName}`,
+              title: title,
               color: commercialColors[appointment.commercialId]
             };
           });

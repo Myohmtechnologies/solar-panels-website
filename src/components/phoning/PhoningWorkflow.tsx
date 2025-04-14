@@ -7,15 +7,14 @@ import { submitLead } from '@/services/leadService';
 
 // Étapes du workflow
 enum WorkflowStep {
-  PROSPECT_INFO = 0,
-  PROJECT_INFO = 1,
-  APPOINTMENT_SCHEDULING = 2,
-  CONFIRMATION = 3
+  CLIENT_INFO = 0,
+  APPOINTMENT_SCHEDULING = 1,
+  CONFIRMATION = 2
 }
 
 export default function PhoningWorkflow() {
   // État pour suivre l'étape actuelle
-  const [currentStep, setCurrentStep] = useState<WorkflowStep>(WorkflowStep.PROSPECT_INFO);
+  const [currentStep, setCurrentStep] = useState<WorkflowStep>(WorkflowStep.CLIENT_INFO);
   
   // État pour stocker les données du prospect
   const [prospectData, setProspectData] = useState({
@@ -72,19 +71,13 @@ export default function PhoningWorkflow() {
   const goToPreviousStep = () => {
     setCurrentStep(prev => {
       const prevStep = prev - 1;
-      return prevStep >= WorkflowStep.PROSPECT_INFO ? prevStep : prev;
+      return prevStep >= WorkflowStep.CLIENT_INFO ? prevStep : prev;
     });
   };
   
-  // Vérifier si les informations du prospect sont complètes
+  // Vérifier si les informations du client sont complètes
   const isProspectInfoComplete = () => {
     return prospectData.fullName.trim() !== '' && prospectData.phone.trim() !== '';
-  };
-  
-  // Vérifier si les informations du projet sont complètes
-  const isProjectInfoComplete = () => {
-    // Ajoutez ici des validations supplémentaires si nécessaire
-    return true;
   };
   
   // Vérifier si les informations du rendez-vous sont complètes
@@ -159,7 +152,7 @@ export default function PhoningWorkflow() {
             duration: '3',
           });
           
-          setCurrentStep(WorkflowStep.PROSPECT_INFO);
+          setCurrentStep(WorkflowStep.CLIENT_INFO);
           setSuccess(false);
         }, 5000);
       } else {
@@ -188,7 +181,7 @@ export default function PhoningWorkflow() {
     <div className="space-y-8">
       {/* Indicateur d'étapes */}
       <div className="flex justify-between mb-8">
-        {['Informations du prospect', 'Informations du projet', 'Planification du rendez-vous', 'Confirmation'].map((step, index) => (
+        {['Informations client', 'Planification du rendez-vous', 'Confirmation'].map((step, index) => (
           <div 
             key={index} 
             className={`flex flex-col items-center ${index <= currentStep ? 'text-blue-600' : 'text-gray-400'}`}
@@ -222,88 +215,164 @@ export default function PhoningWorkflow() {
       
       {/* Contenu des étapes */}
       <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
-        {currentStep === WorkflowStep.PROSPECT_INFO && (
+        {currentStep === WorkflowStep.CLIENT_INFO && (
           <div>
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              Informations du prospect
-            </h2>
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                Informations du prospect
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Type de logement */}
+                <div>
+                  <label htmlFor="logementType" className="block text-sm font-medium text-gray-700 mb-1">
+                    Type de logement
+                  </label>
+                  <select
+                    id="logementType"
+                    value={prospectData.logementType}
+                    onChange={(e) => handleProspectDataChange('logementType', e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  >
+                    <option value="HOUSE">Maison</option>
+                    <option value="APARTMENT">Appartement</option>
+                  </select>
+                </div>
+                
+                {/* Statut résidentiel */}
+                <div>
+                  <label htmlFor="residentialStatus" className="block text-sm font-medium text-gray-700 mb-1">
+                    Statut résidentiel
+                  </label>
+                  <select
+                    id="residentialStatus"
+                    value={prospectData.residentialStatus}
+                    onChange={(e) => handleProspectDataChange('residentialStatus', e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  >
+                    <option value="OWNER">Propriétaire</option>
+                    <option value="RENTER">Locataire</option>
+                  </select>
+                </div>
+                
+                {/* Nom complet */}
+                <div>
+                  <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
+                    Nom complet <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="fullName"
+                    value={prospectData.fullName}
+                    onChange={(e) => handleProspectDataChange('fullName', e.target.value)}
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Prénom et Nom"
+                  />
+                </div>
+                
+                {/* Téléphone */}
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                    Téléphone <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    value={prospectData.phone}
+                    onChange={(e) => handleProspectDataChange('phone', e.target.value)}
+                    required
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="06 XX XX XX XX"
+                  />
+                </div>
+                
+                {/* Ville */}
+                <div>
+                  <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
+                    Ville
+                  </label>
+                  <input
+                    type="text"
+                    id="city"
+                    value={prospectData.city}
+                    onChange={(e) => handleProspectDataChange('city', e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Ville"
+                  />
+                </div>
+                
+                {/* Code postal */}
+                <div>
+                  <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700 mb-1">
+                    Code postal
+                  </label>
+                  <input
+                    type="text"
+                    id="postalCode"
+                    value={prospectData.postalCode}
+                    onChange={(e) => handleProspectDataChange('postalCode', e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Code postal"
+                  />
+                </div>
+              </div>
+            </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Nom complet */}
-              <div>
-                <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
-                  Nom complet <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="fullName"
-                  value={prospectData.fullName}
-                  onChange={(e) => handleProspectDataChange('fullName', e.target.value)}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Prénom et Nom"
-                />
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                Informations sur le projet
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Adresse */}
+                <div>
+                  <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+                    Adresse
+                  </label>
+                  <input
+                    type="text"
+                    id="address"
+                    value={prospectData.address}
+                    onChange={(e) => handleProspectDataChange('address', e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Adresse complète"
+                  />
+                </div>
+                
+                {/* Facture d'électricité */}
+                <div>
+                  <label htmlFor="energyBill" className="block text-sm font-medium text-gray-700 mb-1">
+                    Facture d'électricité mensuelle
+                  </label>
+                  <select
+                    id="energyBill"
+                    value={prospectData.energyBill}
+                    onChange={(e) => handleProspectDataChange('energyBill', e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  >
+                    <option value="">Sélectionner...</option>
+                    <option value="LESS_THAN_100">Moins de 100€</option>
+                    <option value="BETWEEN_100_AND_150">Entre 100€ et 150€</option>
+                    <option value="BETWEEN_150_AND_200">Entre 150€ et 200€</option>
+                    <option value="MORE_THAN_200">Plus de 200€</option>
+                  </select>
+                </div>
               </div>
               
-              {/* Téléphone */}
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                  Téléphone <span className="text-red-500">*</span>
+              {/* Notes */}
+              <div className="mt-6">
+                <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-1">
+                  Notes / Commentaires
                 </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  value={prospectData.phone}
-                  onChange={(e) => handleProspectDataChange('phone', e.target.value)}
-                  required
+                <textarea
+                  id="notes"
+                  value={prospectData.notes}
+                  onChange={(e) => handleProspectDataChange('notes', e.target.value)}
+                  rows={3}
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="06 XX XX XX XX"
-                />
-              </div>
-              
-              {/* Ville */}
-              <div>
-                <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
-                  Ville
-                </label>
-                <input
-                  type="text"
-                  id="city"
-                  value={prospectData.city}
-                  onChange={(e) => handleProspectDataChange('city', e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Ville"
-                />
-              </div>
-              
-              {/* Code postal */}
-              <div>
-                <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700 mb-1">
-                  Code postal
-                </label>
-                <input
-                  type="text"
-                  id="postalCode"
-                  value={prospectData.postalCode}
-                  onChange={(e) => handleProspectDataChange('postalCode', e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Code postal"
-                />
-              </div>
-              
-              {/* Adresse */}
-              <div>
-                <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
-                  Adresse
-                </label>
-                <input
-                  type="text"
-                  id="address"
-                  value={prospectData.address}
-                  onChange={(e) => handleProspectDataChange('address', e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Adresse complète"
-                />
+                  placeholder="Informations complémentaires, remarques de l'agent..."
+                ></textarea>
               </div>
             </div>
             
@@ -314,103 +383,6 @@ export default function PhoningWorkflow() {
                 disabled={!isProspectInfoComplete()}
                 className={`px-6 py-3 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white font-medium rounded-md shadow-sm hover:shadow-md transition-all ${
                   !isProspectInfoComplete() ? 'opacity-70 cursor-not-allowed' : ''
-                }`}
-              >
-                Suivant
-              </button>
-            </div>
-          </div>
-        )}
-        
-        {currentStep === WorkflowStep.PROJECT_INFO && (
-          <div>
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              Informations sur le projet
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Type de logement */}
-              <div>
-                <label htmlFor="logementType" className="block text-sm font-medium text-gray-700 mb-1">
-                  Type de logement
-                </label>
-                <select
-                  id="logementType"
-                  value={prospectData.logementType}
-                  onChange={(e) => handleProspectDataChange('logementType', e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="HOUSE">Maison</option>
-                  <option value="APARTMENT">Appartement</option>
-                </select>
-              </div>
-              
-              {/* Statut résidentiel */}
-              <div>
-                <label htmlFor="residentialStatus" className="block text-sm font-medium text-gray-700 mb-1">
-                  Statut résidentiel
-                </label>
-                <select
-                  id="residentialStatus"
-                  value={prospectData.residentialStatus}
-                  onChange={(e) => handleProspectDataChange('residentialStatus', e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="OWNER">Propriétaire</option>
-                  <option value="RENTER">Locataire</option>
-                </select>
-              </div>
-              
-              {/* Facture d'électricité */}
-              <div>
-                <label htmlFor="energyBill" className="block text-sm font-medium text-gray-700 mb-1">
-                  Facture d'électricité mensuelle
-                </label>
-                <select
-                  id="energyBill"
-                  value={prospectData.energyBill}
-                  onChange={(e) => handleProspectDataChange('energyBill', e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="">Sélectionner...</option>
-                  <option value="LESS_THAN_100">Moins de 100€</option>
-                  <option value="BETWEEN_100_AND_150">Entre 100€ et 150€</option>
-                  <option value="BETWEEN_150_AND_200">Entre 150€ et 200€</option>
-                  <option value="MORE_THAN_200">Plus de 200€</option>
-                </select>
-              </div>
-            </div>
-            
-            {/* Notes */}
-            <div className="mt-6">
-              <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-1">
-                Notes / Commentaires
-              </label>
-              <textarea
-                id="notes"
-                value={prospectData.notes}
-                onChange={(e) => handleProspectDataChange('notes', e.target.value)}
-                rows={3}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Informations complémentaires, remarques de l'agent..."
-              ></textarea>
-            </div>
-            
-            <div className="mt-6 flex justify-between">
-              <button
-                type="button"
-                onClick={goToPreviousStep}
-                className="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-md shadow-sm hover:bg-gray-50 transition-all"
-              >
-                Retour
-              </button>
-              
-              <button
-                type="button"
-                onClick={goToNextStep}
-                disabled={!isProjectInfoComplete()}
-                className={`px-6 py-3 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white font-medium rounded-md shadow-sm hover:shadow-md transition-all ${
-                  !isProjectInfoComplete() ? 'opacity-70 cursor-not-allowed' : ''
                 }`}
               >
                 Suivant

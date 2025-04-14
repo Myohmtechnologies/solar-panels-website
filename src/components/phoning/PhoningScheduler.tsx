@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { format, addDays, startOfWeek, addHours, isToday, parseISO } from 'date-fns';
+import { format, addDays, startOfWeek, addHours, isToday, parseISO, differenceInHours } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
 interface Commercial {
@@ -235,6 +235,24 @@ export default function PhoningScheduler({ onAppointmentSelected, prospectInfo }
     setCurrentWeekStart(startOfWeek(new Date(), { weekStartsOn: 1 }));
   };
   
+  // Déterminer la couleur du rendez-vous en fonction de l'heure
+  const getAppointmentColor = (appointment: Appointment) => {
+    const appointmentHour = new Date(appointment.start).getHours();
+    
+    // Rendez-vous du matin (avant 12h)
+    if (appointmentHour < 12) {
+      return 'bg-gradient-to-r from-[#116290] to-[#0a3d5c]';
+    }
+    
+    // Rendez-vous de l'après-midi (12h-17h)
+    if (appointmentHour >= 12 && appointmentHour < 17) {
+      return 'bg-gradient-to-br from-[#ffeb99] to-[#ffb700] text-black';
+    }
+    
+    // Rendez-vous du soir (après 17h)
+    return 'bg-gradient-to-r from-[#ff8008] to-[#ffc837]';
+  };
+  
   // Planifier un rendez-vous
   const scheduleAppointment = async () => {
     // Si nous avons un callback pour la sélection de rendez-vous, nous n'avons pas besoin d'appeler l'API ici
@@ -427,7 +445,7 @@ export default function PhoningScheduler({ onAppointmentSelected, prospectInfo }
               </div>
               
               {/* Grille des créneaux */}
-              <div className="border rounded-md overflow-hidden">
+              <div className="border rounded-md overflow-hidden shadow-md">
                 {/* En-têtes des jours */}
                 <div className="grid grid-cols-8 border-b">
                   <div className="p-1 text-center font-medium bg-gray-50 border-r"></div>
@@ -436,9 +454,9 @@ export default function PhoningScheduler({ onAppointmentSelected, prospectInfo }
                     return (
                       <div
                         key={i}
-                        className={`p-1 text-center font-medium ${isToday(day) ? 'bg-blue-50' : 'bg-gray-50'} border-r`}
+                        className={`p-2 text-center font-medium ${isToday(day) ? 'bg-blue-50' : 'bg-gray-50'} border-r`}
                       >
-                        <div className="text-xs">{DAYS_OF_WEEK[i]}</div>
+                        <div className="text-xs font-bold">{DAYS_OF_WEEK[i]}</div>
                         <div className="text-xs">{format(day, 'dd/MM', { locale: fr })}</div>
                       </div>
                     );
@@ -448,7 +466,7 @@ export default function PhoningScheduler({ onAppointmentSelected, prospectInfo }
                 {/* Créneaux horaires */}
                 {HOURS.map((hour) => (
                   <div key={hour} className="grid grid-cols-8 border-b last:border-b-0">
-                    <div className="p-1 text-center border-r bg-gray-50 text-xs">
+                    <div className="p-1 text-center border-r bg-gray-50 text-xs font-medium">
                       {hour}:00
                     </div>
                     {Array.from({ length: 7 }, (_, i) => {
@@ -459,37 +477,46 @@ export default function PhoningScheduler({ onAppointmentSelected, prospectInfo }
                       return (
                         <div
                           key={i}
-                          className={`p-1 border-r cursor-pointer ${occupiedSlot ? 'bg-green-100 border border-green-300' : isSelected ? 'bg-blue-200 hover:bg-blue-300' : 'hover:bg-gray-100'}`}
+                          className={`p-1 border-r cursor-pointer relative ${isSelected ? 'bg-blue-100 hover:bg-blue-200' : 'hover:bg-gray-50'}`}
+                          style={{ height: '60px' }}
                           onClick={() => !occupiedSlot && handleSlotSelect(day, hour)}
                         >
                           {occupiedSlot && (
-                            <div className="text-xs">
-                              {isFirstHour ? (
-                                <>
-                                  <div className="flex flex-col h-full overflow-hidden">
-                                    <div className="bg-green-600 text-white text-xs py-0.5 px-1 rounded-t font-medium">
-                                      {format(new Date(occupiedSlot.start), 'HH:mm')} - {format(new Date(occupiedSlot.end), 'HH:mm')}
+                            <div 
+                              className={`absolute inset-0 rounded-md shadow-md overflow-hidden ${isFirstHour ? 'z-10' : ''} ${getAppointmentColor(occupiedSlot)}`}
+                              style={{
+                                top: isFirstHour ? '0' : 'auto',
+                                height: isFirstHour ? `${Math.ceil((new Date(occupiedSlot.end).getTime() - new Date(occupiedSlot.start).getTime()) / (1000 * 60 * 60)) * 60}px` : '60px',
+                                display: !isFirstHour && !isSecondHour ? 'none' : 'block',
+                                overflow: 'visible'
+                              }}
+                            >
+                              {isFirstHour && (
+                                <div className={`flex flex-col h-full p-2 ${new Date(occupiedSlot.start).getHours() < 12 || new Date(occupiedSlot.start).getHours() >= 17 ? 'text-white' : 'text-black'}`}>
+                                  <div className="flex justify-between items-center">
+                                    <div className="font-medium text-xs">
+                                      {format(new Date(occupiedSlot.start), 'dd/MM HH:mm')}
                                     </div>
-                                    <div className="font-medium text-green-800 text-xs truncate">{occupiedSlot.client?.name || occupiedSlot.title || 'Client'}</div>
+                                    <div className="text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                                      {Math.ceil((new Date(occupiedSlot.end).getTime() - new Date(occupiedSlot.start).getTime()) / (1000 * 60 * 60))}h
+                                    </div>
                                   </div>
-                                </>
-                              ) : isSecondHour ? (
-                                <div className="flex flex-col h-full overflow-hidden bg-green-100 border border-green-300">
+                                  <div className="font-medium text-sm mt-1 leading-tight">
+                                    {occupiedSlot.client?.name || occupiedSlot.title || 'Client'}
+                                  </div>
                                   {occupiedSlot.location && (
-                                    <div className="text-xs text-green-700 p-1">
+                                    <div className="text-xs mt-1 leading-tight">
                                       {(() => {
-                                        // Extraire le code postal (format français: 5 chiffres)
                                         const postalCodeMatch = occupiedSlot.location.match(/\b(\d{5})\b/);
                                         const postalCode = postalCodeMatch ? postalCodeMatch[1] : '';
                                         
-                                        // Extraire la ville (généralement après le code postal)
                                         const cityMatch = occupiedSlot.location.match(/\b\d{5}\s+([\w\s-]+)/);
                                         const city = cityMatch && cityMatch[1] ? cityMatch[1].trim() : '';
                                         
                                         if (postalCode && city) {
                                           return (
                                             <>
-                                              <span className="font-bold">{postalCode}</span> {city}
+                                              <span className="font-bold">{postalCode}</span> {city.substring(0, 10)}
                                             </>
                                           );
                                         } else if (postalCode) {
@@ -501,9 +528,12 @@ export default function PhoningScheduler({ onAppointmentSelected, prospectInfo }
                                     </div>
                                   )}
                                 </div>
-                              ) : (
-                                <div className="flex items-center justify-center h-full bg-green-100 border border-green-300">
-                                  <div className="w-full text-center text-green-600">&#8226;</div>
+                              )}
+                              {!isFirstHour && (
+                                <div className="absolute bottom-0 right-0 w-4 h-4 flex items-center justify-center">
+                                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-white opacity-70" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                                  </svg>
                                 </div>
                               )}
                             </div>

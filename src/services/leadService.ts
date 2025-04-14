@@ -12,6 +12,13 @@ export interface Lead {
   energyBill?: string;
   residentialStatus?: string;
   createdAt: string;
+  nextAction?: {
+    type: string;
+    commercialId: string;
+    plannedDate: string;
+    duration: number;
+    notes?: string;
+  };
 }
 
 export async function submitLead(lead: Lead): Promise<{ success: boolean; error?: string; mode?: string }> {
@@ -45,7 +52,9 @@ export async function submitLead(lead: Lead): Promise<{ success: boolean; error?
         equipment: lead.equipment,
         energyBill: lead.energyBill,
         residentialStatus: lead.residentialStatus,
-        createdAt: lead.createdAt
+        createdAt: lead.createdAt,
+        // Inclure les informations du rendez-vous si elles existent
+        nextAction: lead.nextAction
       }),
     });
 

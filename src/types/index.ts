@@ -78,15 +78,25 @@ export enum LeadStatus {
 export interface NextAction {
   type?: LeadStatus;
   plannedDate?: string | Date;
+  endDate?: string | Date;
   location?: string;
   description?: string;
+  commercialId?: string;
+  commercialName?: string;
+  duration?: number;
+  assignedTo?: {
+    commercialId: string;
+    name: string;
+    email: string;
+    phone?: string;
+  };
 }
 
 export interface LeadAction {
   _id?: string;
   leadId: string;
-  type: 'CALL' | 'EMAIL' | 'MEETING' | 'TECHNICAL_VISIT' | 'CONTRACT' | 'INSTALLATION';
-  status: 'PLANNED' | 'COMPLETED' | 'CANCELLED';
+  type: 'CALL' | 'EMAIL' | 'MEETING' | 'TECHNICAL_VISIT' | 'CONTRACT' | 'INSTALLATION' | 'RDV';
+  status: LeadStatus | 'PLANNED' | 'COMPLETED' | 'CANCELLED';
   date: string;
   notes: string;
   nextAction?: NextAction;

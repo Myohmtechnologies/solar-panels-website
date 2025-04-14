@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import PhoningForm from '@/components/forms/PhoningForm';
+import PhoningWorkflow from '@/components/phoning/PhoningWorkflow';
 
 export const metadata: Metadata = {
   title: 'Centre d\'appel MyOhm | Formulaire de saisie',
@@ -26,8 +26,10 @@ export default function PhoningPage() {
           </p>
         </div>
 
-        <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6 md:p-8">
-          <PhoningForm />
+        <div>
+          <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
+            <PhoningWorkflow />
+          </div>
         </div>
       </div>
     </div>

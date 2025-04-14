@@ -152,8 +152,15 @@ export async function POST(req: Request) {
       source: body.source || 'WEBSITE',
       notes: body.notes || '',
       createdAt: body.createdAt ? new Date(body.createdAt) : new Date(),
-      status: 'NEW',
-      // Données du simulateur
+      // Si nextAction est fourni, utiliser son type comme statut, sinon 'NEW'
+      status: body.nextAction ? body.nextAction.type : 'NEW',
+      // Informations du projet
+      logementType: body.logementType || null,
+      energyBill: body.energyBill || null,
+      residentialStatus: body.residentialStatus || null,
+      // Informations du rendez-vous
+      nextAction: body.nextAction || null,
+      // Données du simulateur (pour compatibilité avec l'existant)
       simulatorData: body.source === 'simulator' ? {
         logementType: body.logementType,
         equipment: body.equipment,

@@ -67,7 +67,14 @@ export async function POST(
         type: nextAction.type,
         plannedDate: createExactDate(nextAction.plannedDate).toISOString(),
         location: nextAction.location,
-        description: nextAction.description
+        description: nextAction.description,
+        // Conserver les informations du commercial
+        commercialId: nextAction.commercialId,
+        commercialName: nextAction.commercialName,
+        // Conserver les autres champs s'ils existent
+        ...(nextAction.endDate && { endDate: nextAction.endDate }),
+        ...(nextAction.duration && { duration: nextAction.duration }),
+        ...(nextAction.assignedTo && { assignedTo: nextAction.assignedTo })
       } : undefined
     };
 
@@ -92,7 +99,14 @@ export async function POST(
             type: nextAction.type,
             plannedDate: createExactDate(nextAction.plannedDate).toISOString(),
             location: nextAction.location,
-            description: nextAction.description
+            description: nextAction.description,
+            // Conserver les informations du commercial
+            commercialId: nextAction.commercialId,
+            commercialName: nextAction.commercialName,
+            // Conserver les autres champs s'ils existent
+            ...(nextAction.endDate && { endDate: nextAction.endDate }),
+            ...(nextAction.duration && { duration: nextAction.duration }),
+            ...(nextAction.assignedTo && { assignedTo: nextAction.assignedTo })
           } : null,
           updatedAt: now.toISOString()
         }

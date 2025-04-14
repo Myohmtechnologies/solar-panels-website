@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { HomeIcon, BuildingOfficeIcon, BoltIcon, CurrencyEuroIcon, FireIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, BuildingOfficeIcon, BoltIcon, CurrencyEuroIcon, FireIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/navigation';
 
 interface QuickSimulateurProps {
@@ -18,16 +18,27 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
     facture: '',
     nom: '',
     email: '',
+    codePostal: '',
+    adresse: '',
     telephone: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    if (field !== 'nom' && field !== 'email' && field !== 'telephone') {
+    if (field !== 'nom' && field !== 'email' && field !== 'codePostal' && field !== 'adresse' && field !== 'telephone') {
       const nextStep = step + 1;
       setStep(nextStep);
       onStepChange?.(nextStep);
+    }
+  };
+  
+  // Fonction pour revenir à l'étape précédente
+  const goToPreviousStep = () => {
+    if (step > 1) {
+      const prevStep = step - 1;
+      setStep(prevStep);
+      onStepChange?.(prevStep);
     }
   };
 
@@ -36,7 +47,7 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
     if (isSubmitting) return;
 
     // Validation basique
-    if (!formData.nom || !formData.email || !formData.telephone) {
+    if (!formData.nom || !formData.email || !formData.codePostal || !formData.adresse || !formData.telephone) {
       alert('Veuillez remplir tous les champs');
       return;
     }
@@ -52,6 +63,8 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
         body: JSON.stringify({
           name: formData.nom,
           email: formData.email,
+          address: formData.adresse,
+          postalCode: formData.codePostal,
           phone: formData.telephone,
           projectType: 'SOLAR_PANELS',
           source: 'QUICK_SIMULATOR',
@@ -92,6 +105,23 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
         </div>
       )}
 
+      {/* Indicateur de progression */}
+      {step < 4 && (
+        <div className="px-6 pt-4 flex justify-between items-center">
+          <div className="flex space-x-2">
+            {[1, 2, 3].map((s) => (
+              <div 
+                key={s} 
+                className={`w-3 h-3 rounded-full ${s === step ? 'bg-[#126290]' : s < step ? 'bg-gray-300' : 'bg-gray-200'}`}
+              />
+            ))}
+          </div>
+          <div className="text-sm text-gray-500">
+            Étape {step}/4
+          </div>
+        </div>
+      )}
+      
       {step === 1 && (
         <motion.div
           initial={{ opacity: 0, x: 20 }}
@@ -148,6 +178,16 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
           animate={{ opacity: 1, x: 0 }}
           className="p-6 space-y-4"
         >
+          <button
+            type="button"
+            onClick={goToPreviousStep}
+            className="text-sm text-gray-500 hover:text-[#126290] font-medium mb-2 flex items-center"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Retour
+          </button>
           <p className="text-black font-semibold text-xl mb-6 text-center">Votre type de chauffage ?</p>
           <div className="grid grid-cols-3 gap-4">
             {[
@@ -189,6 +229,16 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
           animate={{ opacity: 1, x: 0 }}
           className="p-6 space-y-4"
         >
+          <button
+            type="button"
+            onClick={goToPreviousStep}
+            className="text-sm text-gray-500 hover:text-[#126290] font-medium mb-2 flex items-center"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Retour
+          </button>
           <p className="text-black font-semibold text-xl mb-6 text-center">Quel est le montant de votre facture d'électricité ?</p>
           <div className="grid grid-cols-3 gap-4">
             {[
@@ -227,6 +277,16 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
           animate={{ opacity: 1, x: 0 }}
           className="p-6 space-y-6"
         >
+          <button
+            type="button"
+            onClick={goToPreviousStep}
+            className="text-sm text-gray-500 hover:text-[#126290] font-medium mb-2 flex items-center"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            Retour
+          </button>
           <div className="bg-gradient-to-r from-green-500 to-green-600 p-5 rounded-lg mb-6 shadow-lg transform -translate-y-2 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-24 h-24 transform translate-x-8 -translate-y-8">
               <div className="w-full h-full bg-yellow-300 opacity-20 rounded-full"></div>
@@ -241,12 +301,15 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
           </div>
           <div className="space-y-4">
             <h3 className="text-xl font-semibold text-center text-black">
-              Laissez vos coordonnées, un expert en énergie va vous contacter pour vous aider
+              Recevez votre étude personnalisée d'économies d'énergie
             </h3>
+            <p className="text-center text-gray-600 mb-2">
+              Un expert analysera votre situation et vous enverra une estimation détaillée
+            </p>
             <div className="space-y-4">
               <input
                 type="text"
-                placeholder="Votre nom"
+                placeholder="Votre nom complet"
                 value={formData.nom}
                 onChange={(e) => handleInputChange('nom', e.target.value)}
                 className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#126290] focus:border-transparent"
@@ -260,6 +323,26 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
                 className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#126290] focus:border-transparent"
                 required
               />
+              <div className="grid grid-cols-3 gap-3">
+                <input
+                  type="text"
+                  placeholder="Code postal"
+                  value={formData.codePostal}
+                  onChange={(e) => handleInputChange('codePostal', e.target.value)}
+                  className="col-span-1 p-3 border rounded-lg focus:ring-2 focus:ring-[#126290] focus:border-transparent"
+                  required
+                  maxLength={5}
+                  pattern="[0-9]{5}"
+                />
+                <input
+                  type="text"
+                  placeholder="Adresse complète"
+                  value={formData.adresse}
+                  onChange={(e) => handleInputChange('adresse', e.target.value)}
+                  className="col-span-2 p-3 border rounded-lg focus:ring-2 focus:ring-[#126290] focus:border-transparent"
+                  required
+                />
+              </div>
               <input
                 type="tel"
                 placeholder="Votre téléphone"
@@ -269,17 +352,48 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
                 required
               />
             </div>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={`w-full py-4 px-6 text-white font-semibold rounded-lg transition-all ${
-                isSubmitting
-                  ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-[#126290] to-[#1a7ab3] hover:shadow-lg'
-              }`}
-            >
-              {isSubmitting ? 'Envoi en cours...' : 'Être contacté par un expert'}
-            </button>
+            <div className="flex flex-col space-y-3">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full py-4 px-6 text-white font-semibold rounded-lg transition-all ${
+                  isSubmitting
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-[#126290] to-[#1a7ab3] hover:shadow-lg'
+                }`}
+              >
+                {isSubmitting ? 'Envoi en cours...' : (
+                  <span className="flex items-center justify-center">
+                    <DocumentTextIcon className="w-5 h-5 mr-2" />
+                    Recevoir mon estimation gratuite
+                  </span>
+                )}
+              </button>
+              
+              <button
+                type="button"
+                onClick={goToPreviousStep}
+                className="text-sm text-gray-500 hover:text-[#126290] font-medium py-2"
+              >
+                ← Revenir aux étapes précédentes
+              </button>
+              
+              {/* Mentions de confiance */}
+              <div className="flex justify-center space-x-4 mt-4 pt-4 border-t border-gray-100">
+                <div className="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-600 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-xs text-gray-500">Sans engagement</span>
+                </div>
+                <div className="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-600 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-xs text-gray-500">Données sécurisées</span>
+                </div>
+              </div>
+            </div>
           </div>
         </motion.div>
       )}

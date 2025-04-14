@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { ReviewSchema } from '@/components/ReviewSchema';
 import FaqSection from '@/components/sections/FaqSection';
+import QuickSimulateur from '@/components/simulateurs/QuickSimulateur';
 import { CheckIcon, ArrowRightIcon, PhoneIcon, ChevronDownIcon, StarIcon, ClickIcon } from '@/components/icons/CommonIcons';
 
 // Ajout du composant RealisationsPreview
@@ -205,73 +206,10 @@ export default function DevisPanneauxSolairesPage() {
             </div>
           </div>
           
-          {/* Formulaire de devis */}
-          <div className="bg-white rounded-xl shadow-lg p-6 md:p-8" id="devis-form">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Demandez votre devis gratuit</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nom complet</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Votre nom et prénom"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="votre@email.com"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="06 12 34 56 78"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Dites-nous plus sur votre projet</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={4}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Décrivez votre projet d'installation de panneaux solaires..."
-                ></textarea>
-              </div>
-              
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-3 px-6 rounded-lg font-medium text-lg hover:shadow-lg transition-all"
-              >
-                Envoyer ma demande
-              </button>
-            </form>
-          </div>
+          {/* Simulateur */}
+                      <div className="w-full transition-all duration-300 bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-2 border border-gray-100">
+                      <QuickSimulateur />
+                      </div>
         </div>
       </section>
       {/* Section Aides de l'État 2025 */}

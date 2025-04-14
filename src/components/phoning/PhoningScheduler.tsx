@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { format, addDays, startOfWeek, addHours, isToday } from 'date-fns';
+import { format, addDays, startOfWeek, addHours, isToday, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
 interface Commercial {
@@ -168,46 +168,38 @@ export default function PhoningScheduler({ onAppointmentSelected, prospectInfo }
     }
   };
   
-  // Vérifier si un créneau est occupé et déterminer s'il s'agit du premier créneau du rendez-vous
-  const isSlotOccupied = (day: Date, hour: number): { appointment: Appointment | null, isFirstHour: boolean } => {
-    const dateStr = format(day, 'yyyy-MM-dd');
+  // Vérifier si un créneau est occupé et déterminer la position du créneau dans le rendez-vous
+  const isSlotOccupied = (day: Date, hour: number): { appointment: Appointment | null, isFirstHour: boolean, isSecondHour: boolean } => {
+    const slotDate = format(day, 'yyyy-MM-dd');
+    const slotStart = new Date(`${slotDate}T${hour}:00:00`);
+    const slotEnd = new Date(`${slotDate}T${hour + 1}:00:00`);
     
-    // Trouver un rendez-vous qui occupe ce créneau
-    const appointment = appointments.find(appointment => {
-      try {
-        const startTime = new Date(appointment.start);
-        const endTime = new Date(appointment.end);
-        const appointmentDate = format(startTime, 'yyyy-MM-dd');
-        const appointmentStartHour = startTime.getHours();
-        const appointmentEndHour = endTime.getHours();
+    for (const appointment of appointments) {
+      const appointmentStart = new Date(appointment.start);
+      const appointmentEnd = new Date(appointment.end);
+      
+      // Vérifier si le créneau est dans la plage du rendez-vous
+      if (
+        (slotStart >= appointmentStart && slotStart < appointmentEnd) ||
+        (slotEnd > appointmentStart && slotEnd <= appointmentEnd) ||
+        (slotStart <= appointmentStart && slotEnd >= appointmentEnd)
+      ) {
+        // Déterminer s'il s'agit du premier créneau du rendez-vous
+        const isFirstHour = hour === appointmentStart.getHours() ||
+          (day.getDate() === appointmentStart.getDate() && hour === 9 && appointmentStart.getHours() < 9);
         
-        // Vérifier si le créneau est occupé par ce rendez-vous
-        return appointmentDate === dateStr && 
-               hour >= appointmentStartHour && 
-               hour < appointmentEndHour;
-      } catch (error) {
-        console.error('Erreur lors de la vérification du créneau:', error);
-        return false;
-      }
-    }) || null;
-    
-    // Déterminer si c'est le premier créneau du rendez-vous
-    let isFirstHour = false;
-    if (appointment) {
-      try {
-        const startTime = new Date(appointment.start);
-        const appointmentStartHour = startTime.getHours();
+        // Déterminer s'il s'agit du deuxième créneau du rendez-vous
+        const isSecondHour = !isFirstHour && (
+          (hour === appointmentStart.getHours() + 1) ||
+          (appointmentStart.getHours() === 23 && hour === 0 && day.getDate() === appointmentStart.getDate() + 1) ||
+          (day.getDate() === appointmentStart.getDate() && hour === 10 && appointmentStart.getHours() < 9)
+        );
         
-        // C'est le premier créneau si l'heure actuelle est l'heure de début du rendez-vous
-        isFirstHour = hour === appointmentStartHour;
-        
-        console.log(`Créneau ${dateStr} ${hour}:00 - Rendez-vous: ${format(startTime, 'yyyy-MM-dd HH:mm')} - Premier créneau: ${isFirstHour}`);
-      } catch (error) {
-        console.error('Erreur lors de la détermination du premier créneau:', error);
+        return { appointment, isFirstHour, isSecondHour };
       }
     }
     
-    return { appointment, isFirstHour };
+    return { appointment: null, isFirstHour: false, isSecondHour: false };
   };
   
   // Gérer la sélection d'un créneau
@@ -438,16 +430,16 @@ export default function PhoningScheduler({ onAppointmentSelected, prospectInfo }
               <div className="border rounded-md overflow-hidden">
                 {/* En-têtes des jours */}
                 <div className="grid grid-cols-8 border-b">
-                  <div className="p-2 text-center font-medium bg-gray-50 border-r"></div>
+                  <div className="p-1 text-center font-medium bg-gray-50 border-r"></div>
                   {Array.from({ length: 7 }, (_, i) => {
                     const day = addDays(currentWeekStart, i);
                     return (
                       <div
                         key={i}
-                        className={`p-2 text-center font-medium ${isToday(day) ? 'bg-blue-50' : 'bg-gray-50'} border-r`}
+                        className={`p-1 text-center font-medium ${isToday(day) ? 'bg-blue-50' : 'bg-gray-50'} border-r`}
                       >
-                        <div>{DAYS_OF_WEEK[i]}</div>
-                        <div className="text-sm">{format(day, 'dd/MM', { locale: fr })}</div>
+                        <div className="text-xs">{DAYS_OF_WEEK[i]}</div>
+                        <div className="text-xs">{format(day, 'dd/MM', { locale: fr })}</div>
                       </div>
                     );
                   })}
@@ -456,39 +448,62 @@ export default function PhoningScheduler({ onAppointmentSelected, prospectInfo }
                 {/* Créneaux horaires */}
                 {HOURS.map((hour) => (
                   <div key={hour} className="grid grid-cols-8 border-b last:border-b-0">
-                    <div className="p-2 text-center border-r bg-gray-50">
+                    <div className="p-1 text-center border-r bg-gray-50 text-xs">
                       {hour}:00
                     </div>
                     {Array.from({ length: 7 }, (_, i) => {
                       const day = addDays(currentWeekStart, i);
-                      const { appointment: occupiedSlot, isFirstHour } = isSlotOccupied(day, hour);
+                      const { appointment: occupiedSlot, isFirstHour, isSecondHour } = isSlotOccupied(day, hour);
                       const isSelected = selectedDate === format(day, 'yyyy-MM-dd') && selectedTime === `${hour}:00`;
                       
                       return (
                         <div
                           key={i}
-                          className={`p-2 border-r cursor-pointer ${occupiedSlot ? 'bg-green-100 border border-green-200' : isSelected ? 'bg-blue-200 hover:bg-blue-300' : 'hover:bg-gray-100'}`}
+                          className={`p-1 border-r cursor-pointer ${occupiedSlot ? 'bg-green-100 border border-green-300' : isSelected ? 'bg-blue-200 hover:bg-blue-300' : 'hover:bg-gray-100'}`}
                           onClick={() => !occupiedSlot && handleSlotSelect(day, hour)}
                         >
                           {occupiedSlot && (
                             <div className="text-xs">
                               {isFirstHour ? (
                                 <>
-                                  <div className="font-medium text-green-800">{occupiedSlot.client?.name || occupiedSlot.title || 'Client'}</div>
-                                  {occupiedSlot.location && (
-                                    <div className="text-xs text-green-700 mt-1 truncate">
-                                      {occupiedSlot.location.split(',').length > 1 
-                                        ? occupiedSlot.location.split(',')[1].trim() 
-                                        : occupiedSlot.location}
+                                  <div className="flex flex-col h-full overflow-hidden">
+                                    <div className="bg-green-600 text-white text-xs py-0.5 px-1 rounded-t font-medium">
+                                      {format(new Date(occupiedSlot.start), 'HH:mm')} - {format(new Date(occupiedSlot.end), 'HH:mm')}
                                     </div>
-                                  )}
-                                  <div className="mt-1 text-xs text-green-600 font-medium">
-                                    {Math.ceil((new Date(occupiedSlot.end).getTime() - new Date(occupiedSlot.start).getTime()) / (1000 * 60 * 60))}h
+                                    <div className="font-medium text-green-800 text-xs truncate">{occupiedSlot.client?.name || occupiedSlot.title || 'Client'}</div>
                                   </div>
                                 </>
+                              ) : isSecondHour ? (
+                                <div className="flex flex-col h-full overflow-hidden bg-green-100 border border-green-300">
+                                  {occupiedSlot.location && (
+                                    <div className="text-xs text-green-700 p-1">
+                                      {(() => {
+                                        // Extraire le code postal (format français: 5 chiffres)
+                                        const postalCodeMatch = occupiedSlot.location.match(/\b(\d{5})\b/);
+                                        const postalCode = postalCodeMatch ? postalCodeMatch[1] : '';
+                                        
+                                        // Extraire la ville (généralement après le code postal)
+                                        const cityMatch = occupiedSlot.location.match(/\b\d{5}\s+([\w\s-]+)/);
+                                        const city = cityMatch && cityMatch[1] ? cityMatch[1].trim() : '';
+                                        
+                                        if (postalCode && city) {
+                                          return (
+                                            <>
+                                              <span className="font-bold">{postalCode}</span> {city}
+                                            </>
+                                          );
+                                        } else if (postalCode) {
+                                          return <span className="font-bold">{postalCode}</span>;
+                                        } else {
+                                          return occupiedSlot.location.substring(0, 15);
+                                        }
+                                      })()}
+                                    </div>
+                                  )}
+                                </div>
                               ) : (
-                                <div className="flex items-center justify-center h-full">
-                                  <div className="w-full text-center text-green-600">&#8226;&#8226;&#8226;</div>
+                                <div className="flex items-center justify-center h-full bg-green-100 border border-green-300">
+                                  <div className="w-full text-center text-green-600">&#8226;</div>
                                 </div>
                               )}
                             </div>

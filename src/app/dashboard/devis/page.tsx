@@ -31,25 +31,73 @@ const SOLAR_PANELS_PRICES = [
   { power: 9, price: 19990, panels: 18, surface: 39.80, production: 12800 },
 ];
 
-// Informations sur les équipements
+// Informations détaillées sur les équipements utilisés
 const EQUIPMENT_INFO = {
   panels: {
     brand: "Dualsun",
-    model: "Flash 500 Half-Cut Black 2093x1135",
+    model: "Flash 500 Half-Cut Black",
+    warranty: "30 ans",
     origin: "France",
-    warranty: "25 ans"
+    // Caractéristiques techniques détaillées
+    specs: {
+      power: "500W",
+      efficiency: "99,7%",
+      dimensions: "182,2 x 187,5 cm",
+      weight: "27,1 kg",
+      cells: "120 cellules monocristallines Half-Cut",
+      maxVoltage: "41,52V",
+      maxCurrent: "10,96A"
+    },
+    // Garanties et certifications
+    certifications: [
+      "Garantie de production linéaire sur 30 ans",
+      "Garantie produit de 30 ans",
+      "Certifié selon les normes IEC 61215 et IEC 61730",
+      "Certification résistance au sel et à l'ammoniac",
+      "Certifié faible PID (dégradation induite potentielle)"
+    ]
   },
   inverter: {
     brand: "Enphase",
     model: "Micro-onduleurs IQ8P",
+    warranty: "25 ans",
     origin: "USA",
-    warranty: "25 ans"
+    // Caractéristiques techniques détaillées
+    specs: {
+      maxPower: "480W",
+      compatibility: "Panneaux jusqu'à 505W",
+      mpptRange: "27-45V",
+      efficiency: "97,7%",
+      protection: "IP67"
+    },
+    // Fonctionnalités avancées
+    features: [
+      "Technologie 'grid-forming' exclusive",
+      "Communication sans fil Enphase Energy",
+      "Monitoring via l'app Enphase App",
+      "Conformité réseau intelligente",
+      "Mise à jour à distance (OTA)"
+    ]
   },
   mounting: {
     brand: "K2 Systems",
-    model: "Système de fixation",
     origin: "Allemagne",
-    warranty: "10 ans"
+    // Caractéristiques techniques détaillées
+    specs: {
+      snowLoad: "5,4 kN/m²",
+      windResistance: "2,4 kN/m²",
+      inclination: "5° à 70°",
+      compatibility: "Tous types de toitures",
+      lifespan: "> 25 ans"
+    },
+    // Certifications
+    certifications: [
+      "Certification Eurocode 9 - Calcul des structures en aluminium",
+      "Test en soufflerie selon EN 1991-1-4",
+      "Garantie produit de 25 ans",
+      "Certification TÜV",
+      "Conformité CE"
+    ]
   }
 };
 
@@ -235,9 +283,13 @@ const DevisPage = () => {
     // Tableau des détails
     const selectedPower = SOLAR_PANELS_PRICES[config.powerIndex];
     
-    // Créer un tableau pour les détails de l'installation
+    // Créer un tableau pour les détails de l'installation (version simplifiée pour la première page)
     const installationDetails = [
-      ['Description', 'Détails', 'Prix TTC'],
+      [
+        'Description', 
+        'Détails', 
+        'Prix TTC'
+      ],
       [
         `Installation panneaux solaires ${selectedPower.power} kWc`, 
         `${selectedPower.panels} panneaux ${EQUIPMENT_INFO.panels.brand} ${EQUIPMENT_INFO.panels.model} - ${selectedPower.surface} m² - ${selectedPower.production} kWh/an`,
@@ -289,18 +341,26 @@ const DevisPage = () => {
       body: installationDetails.slice(1),
       theme: 'grid',
       headStyles: { fillColor: [11, 98, 145], textColor: [255, 255, 255] },
-      styles: { halign: 'left', fontSize: 9 },
+      styles: { halign: 'left', fontSize: 10 },
       columnStyles: { 
         0: { cellWidth: 50 },
         1: { cellWidth: 'auto' },
         2: { halign: 'right', cellWidth: 30 }
       },
-      // Formater les cellules pour éviter les espaces indésirables
+      // Formater les cellules pour éviter les espaces indésirables et gérer les sauts de ligne
       didParseCell: function(data) {
+        // Remplacer les espaces insécables par des espaces normaux pour les prix
         if (data.column.index === 2 && data.cell.text && data.cell.text[0]) {
-          // Remplacer les espaces insécables par des espaces normaux pour les prix
           if (typeof data.cell.text[0] === 'string') {
             data.cell.text[0] = data.cell.text[0].replace(/\s/g, ' ');
+          }
+        }
+        
+        // Gérer les sauts de ligne dans la colonne des détails
+        if (data.column.index === 1 && data.cell.text) {
+          // Convertir le texte avec \n en tableau pour les sauts de ligne
+          if (typeof data.cell.text[0] === 'string' && data.cell.text[0].includes('\n')) {
+            data.cell.text = data.cell.text[0].split('\n');
           }
         }
       }
@@ -329,33 +389,162 @@ const DevisPage = () => {
     doc.setFont('helvetica', 'bold');
     doc.text(`TOTAL TTC: ${prixTTCFormatted}`, pageWidth - 20, finalY + 10, { align: 'right' });
     
-    // Ajouter un texte d'information sur les équipements
-    doc.setFontSize(9);
-    doc.setTextColor(80, 80, 80);
-    doc.text(
-      `* Panneaux ${EQUIPMENT_INFO.panels.brand} ${EQUIPMENT_INFO.panels.model} - Garantie ${EQUIPMENT_INFO.panels.warranty} - Fabriqués en ${EQUIPMENT_INFO.panels.origin}`,
-      20, finalY + 25
-    );
-    doc.text(
-      `* ${EQUIPMENT_INFO.inverter.brand} Micro-onduleurs IQ8P - Garantie ${EQUIPMENT_INFO.inverter.warranty} - Fabriqués aux ${EQUIPMENT_INFO.inverter.origin}`,
-      20, finalY + 35
-    );
-    doc.text(
-      `* Système de fixation ${EQUIPMENT_INFO.mounting.brand} - Fabriqué en ${EQUIPMENT_INFO.mounting.origin}`,
-      20, finalY + 45
-    );
-    
-    // Mentions légales et conditions
+    // Ajouter les conditions de paiement et délais en bas de page
     doc.setFontSize(8);
     doc.setTextColor(100, 100, 100);
-    const legalText = [
+    const legalTextPage1 = [
       "Devis valable 30 jours à compter de sa date d'émission.",
       "Conditions de paiement : 30% à la commande, solde à la fin des travaux.",
       "Délai d'exécution : 4 à 8 semaines après acceptation du devis et obtention des autorisations nécessaires.",
-      "MY OHM TECHNOLOGIES - SIREN: 917601908 - TVA: FR56917601908"
+      `MY OHM TECHNOLOGIES - SIREN: ${COMPANY_INFO.siren} - TVA: ${COMPANY_INFO.tva}`
     ];
     
-    doc.text(legalText.join("\n"), pageWidth / 2, doc.internal.pageSize.getHeight() - 20, { align: 'center' });
+    doc.text(legalTextPage1.join("\n"), pageWidth / 2, doc.internal.pageSize.getHeight() - 20, { align: 'center' });
+    
+    // Ajouter une nouvelle page pour les détails techniques
+    doc.addPage();
+    
+    // Titre de la page des spécifications techniques (plus compact)
+    doc.setFontSize(14);
+    doc.setTextColor(11, 98, 145); // Bleu MY OHM
+    doc.setFont('helvetica', 'bold');
+    doc.text("SPÉCIFICATIONS TECHNIQUES DÉTAILLÉES", pageWidth / 2, 15, { align: "center" });
+    
+    // Ligne de séparation
+    doc.setDrawColor(11, 98, 145);
+    doc.setLineWidth(0.5);
+    doc.line(20, 20, pageWidth - 20, 20);
+    
+    // Panneaux solaires - Section
+    type SectionItem = {
+      title: string;
+      details: string[];
+    };
+    
+    const drawSection = (title: string, yPosition: number, content: SectionItem[]): number => {
+      // Fond de la section (plus compact)
+      doc.setFillColor(240, 240, 240);
+      doc.roundedRect(15, yPosition, pageWidth - 30, 14, 2, 2, 'F');
+      
+      // Titre de la section
+      doc.setFontSize(11); // Taille de texte réduite pour les titres de section
+      doc.setTextColor(11, 98, 145);
+      doc.setFont('helvetica', 'bold');
+      doc.text(title, 20, yPosition + 10);
+      
+      // Contenu de la section
+      let currentY = yPosition + 22; // Réduit l'espace entre le titre et le contenu
+      content.forEach((item: SectionItem) => {
+        // Titre de l'item
+        doc.setFontSize(9); // Taille de texte encore plus réduite pour les titres
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(70, 70, 70);
+        doc.text(item.title, 20, currentY);
+        currentY += 6; // Moins d'espace après le titre
+        
+        // Contenu de l'item
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8); // Taille de texte encore plus réduite
+        doc.setTextColor(0, 0, 0);
+        
+        // Afficher les détails sur deux colonnes pour gagner de la place
+        const details = item.details;
+        const midPoint = Math.ceil(details.length / 2);
+        
+        for (let i = 0; i < midPoint; i++) {
+          // Première colonne
+          doc.text(`• ${details[i]}`, 25, currentY);
+          
+          // Deuxième colonne (si elle existe)
+          if (i + midPoint < details.length) {
+            doc.text(`• ${details[i + midPoint]}`, pageWidth / 2 + 5, currentY);
+          }
+          
+          currentY += 5; // Espacement très réduit entre les lignes
+        }
+        
+        currentY += 3; // Espace minimal entre les items
+      });
+      
+      return currentY;
+    };
+    
+    // Panneaux solaires
+    let yPos = 30;
+    yPos = drawSection(`Panneaux solaires ${EQUIPMENT_INFO.panels.brand} ${EQUIPMENT_INFO.panels.model}`, yPos, [
+      {
+        title: "Caractéristiques Techniques",
+        details: [
+          `Puissance nominale : ${EQUIPMENT_INFO.panels.specs.power}`,
+          `Rendement : ${EQUIPMENT_INFO.panels.specs.efficiency}`,
+          `Dimensions : ${EQUIPMENT_INFO.panels.specs.dimensions}`,
+          `Poids : ${EQUIPMENT_INFO.panels.specs.weight}`,
+          `Cellules : ${EQUIPMENT_INFO.panels.specs.cells}`,
+          `Tension maximale : ${EQUIPMENT_INFO.panels.specs.maxVoltage}`,
+          `Courant maximal : ${EQUIPMENT_INFO.panels.specs.maxCurrent}`
+        ]
+      },
+      {
+        title: "Garanties et Certifications",
+        details: EQUIPMENT_INFO.panels.certifications
+      }
+    ]);
+    
+    // Micro-onduleurs
+    yPos += 10;
+    yPos = drawSection(`Micro-onduleurs ${EQUIPMENT_INFO.inverter.brand} ${EQUIPMENT_INFO.inverter.model}`, yPos, [
+      {
+        title: "Caractéristiques Techniques",
+        details: [
+          `Puissance de sortie maximale : ${EQUIPMENT_INFO.inverter.specs.maxPower}`,
+          `Compatibilité : ${EQUIPMENT_INFO.inverter.specs.compatibility}`,
+          `Plage de tension MPPT : ${EQUIPMENT_INFO.inverter.specs.mpptRange}`,
+          `Rendement maximal : ${EQUIPMENT_INFO.inverter.specs.efficiency}`,
+          `Indice de protection : ${EQUIPMENT_INFO.inverter.specs.protection}`,
+          `Garantie : ${EQUIPMENT_INFO.inverter.warranty}`
+        ]
+      },
+      {
+        title: "Fonctionnalités Avancées",
+        details: EQUIPMENT_INFO.inverter.features
+      }
+    ]);
+    
+    // Système de fixation
+    yPos += 10;
+    drawSection(`Système de fixation ${EQUIPMENT_INFO.mounting.brand}`, yPos, [
+      {
+        title: "Caractéristiques Techniques",
+        details: [
+          `Charge de neige testée jusqu'à ${EQUIPMENT_INFO.mounting.specs.snowLoad}`,
+          `Résistance au vent jusqu'à ${EQUIPMENT_INFO.mounting.specs.windResistance}`,
+          `Inclinaison possible de ${EQUIPMENT_INFO.mounting.specs.inclination}`,
+          `Compatible avec ${EQUIPMENT_INFO.mounting.specs.compatibility}`,
+          `Durée de vie ${EQUIPMENT_INFO.mounting.specs.lifespan}`
+        ]
+      },
+      {
+        title: "Certifications",
+        details: EQUIPMENT_INFO.mounting.certifications
+      }
+    ]);
+    
+    // Mentions légales et conditions (placées plus haut pour éviter la superposition)
+    doc.setFontSize(8);
+    doc.setTextColor(100, 100, 100);
+    const legalTextPage2 = [
+      "Devis valable 30 jours à compter de sa date d'émission.",
+      "Conditions de paiement : 30% à la commande, solde à la fin des travaux.",
+      "Délai d'exécution : 4 à 8 semaines après acceptation du devis et obtention des autorisations nécessaires.",
+      `MY OHM TECHNOLOGIES - SIREN: ${COMPANY_INFO.siren} - TVA: ${COMPANY_INFO.tva}`
+    ];
+    
+    doc.text(legalTextPage2.join("\n"), pageWidth / 2, doc.internal.pageSize.getHeight() - 35, { align: 'center' });
+    
+    // Pied de page de la seconde page
+    doc.setFontSize(8);
+    doc.setTextColor(100, 100, 100);
+    doc.text("MY OHM TECHNOLOGIES - Documentation technique confidentielle", pageWidth / 2, doc.internal.pageSize.getHeight() - 10, { align: 'center' });
     
       // Sauvegarder le PDF
       const clientName = `${client.lastName}_${client.firstName}`.replace(/\s+/g, '_').toLowerCase();

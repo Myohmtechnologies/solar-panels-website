@@ -18,86 +18,228 @@ import {
   MinusIcon
 } from '@heroicons/react/24/outline';
 
-// Grille tarifaire des panneaux solaires
-const SOLAR_PANELS_PRICES = [
-  { power: 1, price: 4990, panels: 2, surface: 4.42, production: 1700 },
-  { power: 2, price: 7490, panels: 4, surface: 8.85, production: 3400 },
-  { power: 3, price: 9890, panels: 6, surface: 13.27, production: 4500 },
-  { power: 4, price: 11490, panels: 8, surface: 17.70, production: 6000 },
-  { power: 5, price: 13290, panels: 10, surface: 22.11, production: 7500 },
-  { power: 6, price: 14990, panels: 12, surface: 26.53, production: 9000 },
-  { power: 7, price: 16490, panels: 14, surface: 30.96, production: 10400 },
-  { power: 8, price: 18290, panels: 16, surface: 35.38, production: 11400 },
-  { power: 9, price: 19990, panels: 18, surface: 39.80, production: 12800 },
-];
+// Types pour les configurations
+type ConfigurationType = "dualsun" | "bourgeois";
+type PowerOption = "1kWc" | "2kWc" | "3kWc" | "4kWc" | "5kWc" | "6kWc" | "7kWc" | "8kWc" | "9kWc";
+
+// Fonctions utilitaires pour les panneaux
+const getPanelCount = (power: string): number => {
+  const kw = parseInt(power.replace('kWc', ''));
+  return kw * 2; // 2 panneaux par kWc
+};
+
+const getSurface = (power: string): number => {
+  const panels = getPanelCount(power);
+  return Math.round(panels * 1.7); // 1.7 m² par panneau
+};
+
+const getProduction = (power: string): number => {
+  const kw = parseInt(power.replace('kWc', ''));
+  return kw * 1200; // 1200 kWh par kWc
+};
+
+const formatPrice = (price: number): string => {
+  return price.toLocaleString('fr-FR');
+};
+
+// Grille tarifaire des panneaux solaires pour les deux configurations
+const PRICES: {
+  installation: Record<ConfigurationType, Record<PowerOption, number>>
+} = {
+  installation: {
+    dualsun: {
+      "1kWc": 4990,
+      "2kWc": 7490,
+      "3kWc": 9890,
+      "4kWc": 10445,
+      "5kWc": 12082,
+      "6kWc": 13627,
+      "7kWc": 14991,
+      "8kWc": 16627,
+      "9kWc": 18173
+    },
+    bourgeois: {
+      "1kWc": 3490,
+      "2kWc": 6000,
+      "3kWc": 8290,
+      "4kWc": 9990,
+      "5kWc": 12000,
+      "6kWc": 13290,
+      "7kWc": 14490,
+      "8kWc": 16980,
+      "9kWc": 17990
+    }
+  }
+};
 
 // Informations détaillées sur les équipements utilisés
-const EQUIPMENT_INFO = {
+type EquipmentInfo = {
   panels: {
-    brand: "Dualsun",
-    model: "Flash 500 Half-Cut Black",
-    warranty: "30 ans",
-    origin: "France",
-    // Caractéristiques techniques détaillées
-    specs: {
-      power: "500W",
-      efficiency: "99,7%",
-      dimensions: "182,2 x 187,5 cm",
-      weight: "27,1 kg",
-      cells: "120 cellules monocristallines Half-Cut",
-      maxVoltage: "41,52V",
-      maxCurrent: "10,96A"
-    },
-    // Garanties et certifications
-    certifications: [
-      "Garantie de production linéaire sur 30 ans",
-      "Garantie produit de 30 ans",
-      "Certifié selon les normes IEC 61215 et IEC 61730",
-      "Certification résistance au sel et à l'ammoniac",
-      "Certifié faible PID (dégradation induite potentielle)"
-    ]
-  },
+    brand: string;
+    model: string;
+    warranty: string;
+    origin: string;
+    specs: Record<string, string>;
+    certifications: string[];
+    features?: string[];
+  };
   inverter: {
-    brand: "Enphase",
-    model: "Micro-onduleurs IQ8P",
-    warranty: "25 ans",
-    origin: "USA",
-    // Caractéristiques techniques détaillées
-    specs: {
-      maxPower: "480W",
-      compatibility: "Panneaux jusqu'à 505W",
-      mpptRange: "27-45V",
-      efficiency: "97,7%",
-      protection: "IP67"
-    },
-    // Fonctionnalités avancées
-    features: [
-      "Technologie 'grid-forming' exclusive",
-      "Communication sans fil Enphase Energy",
-      "Monitoring via l'app Enphase App",
-      "Conformité réseau intelligente",
-      "Mise à jour à distance (OTA)"
-    ]
-  },
+    brand: string;
+    model: string;
+    warranty: string;
+    origin: string;
+    specs: Record<string, string>;
+    features: string[];
+    certifications?: string[];
+  };
   mounting: {
-    brand: "K2 Systems",
-    origin: "Allemagne",
-    // Caractéristiques techniques détaillées
-    specs: {
-      snowLoad: "5,4 kN/m²",
-      windResistance: "2,4 kN/m²",
-      inclination: "5° à 70°",
-      compatibility: "Tous types de toitures",
-      lifespan: "> 25 ans"
+    brand: string;
+    model?: string;
+    warranty?: string;
+    origin: string;
+    specs: Record<string, string>;
+    features?: string[];
+    certifications: string[];
+  };
+};
+
+const EQUIPMENT_INFO: Record<ConfigurationType, EquipmentInfo> = {
+  dualsun: {
+    panels: {
+      brand: "Dualsun",
+      model: "Flash 500 Half-Cut Black",
+      warranty: "30 ans",
+      origin: "France",
+      // Caractéristiques techniques détaillées
+      specs: {
+        power: "500W",
+        efficiency: "99,7%",
+        dimensions: "182,2 x 187,5 cm",
+        weight: "27,1 kg",
+        cells: "120 cellules monocristallines Half-Cut",
+        maxVoltage: "41,52V",
+        maxCurrent: "10,96A"
+      },
+      // Garanties et certifications
+      certifications: [
+        "Garantie de production linéaire sur 30 ans",
+        "Garantie produit de 30 ans",
+        "Certifié selon les normes IEC 61215 et IEC 61730",
+        "Certification résistance au sel et à l'ammoniac",
+        "Certifié faible PID (dégradation induite potentielle)"
+      ]
     },
-    // Certifications
-    certifications: [
-      "Certification Eurocode 9 - Calcul des structures en aluminium",
-      "Test en soufflerie selon EN 1991-1-4",
-      "Garantie produit de 25 ans",
-      "Certification TÜV",
-      "Conformité CE"
-    ]
+    inverter: {
+      brand: "Enphase",
+      model: "Micro-onduleurs IQ8P",
+      warranty: "25 ans",
+      origin: "USA",
+      // Caractéristiques techniques détaillées
+      specs: {
+        maxPower: "480W",
+        compatibility: "Panneaux jusqu'à 505W",
+        mpptRange: "27-45V",
+        efficiency: "97,7%",
+        protection: "IP67"
+      },
+      // Fonctionnalités avancées
+      features: [
+        "Technologie 'grid-forming' exclusive",
+        "Communication sans fil Enphase Energy",
+        "Monitoring via l'app Enphase App",
+        "Conformité réseau intelligente",
+        "Mise à jour à distance (OTA)"
+      ]
+    },
+    mounting: {
+      brand: "K2 Systems",
+      origin: "Allemagne",
+      // Caractéristiques techniques détaillées
+      specs: {
+        snowLoad: "5,4 kN/m²",
+        windResistance: "2,4 kN/m²",
+        inclination: "5° à 70°",
+        compatibility: "Tous types de toitures",
+        lifespan: "> 25 ans"
+      },
+      // Certifications
+      certifications: [
+        "Certification Eurocode 9 - Calcul des structures en aluminium",
+        "Test en soufflerie selon EN 1991-1-4",
+        "Garantie produit de 25 ans",
+        "Certification TÜV",
+        "Conformité CE"
+      ]
+    }
+  },
+  bourgeois: {
+    panels: {
+      brand: "Bourgeois Global",
+      model: "Premium Series",
+      warranty: "25 ans",
+      origin: "France",
+      // Caractéristiques techniques détaillées
+      specs: {
+        power: "450W",
+        efficiency: "20,5%",
+        dimensions: "1700 x 1100 x 35 mm",
+        weight: "20 kg",
+        cells: "120 cellules monocristallines",
+        maxVoltage: "40V",
+        maxCurrent: "10A"
+      },
+      // Garanties et certifications
+      certifications: [
+        "Garantie de production linéaire sur 25 ans",
+        "Garantie produit de 25 ans",
+        "Certifié selon les normes IEC 61215 et IEC 61730",
+        "Certification résistance au feu classe C",
+        "Certifié faible PID (dégradation induite potentielle)"
+      ]
+    },
+    inverter: {
+      brand: "Bourgeois Global",
+      model: "Onduleur intégré",
+      warranty: "20 ans",
+      origin: "France",
+      // Caractéristiques techniques détaillées
+      specs: {
+        maxPower: "400W",
+        compatibility: "Panneaux jusqu'à 450W",
+        mpptRange: "25-40V",
+        efficiency: "97%",
+        protection: "IP65"
+      },
+      // Fonctionnalités avancées
+      features: [
+        "Système intégré aux panneaux",
+        "Rendement: 97%",
+        "Monitoring en temps réel",
+        "Température de fonctionnement: -30°C à +60°C"
+      ]
+    },
+    mounting: {
+      brand: "Bourgeois Global",
+      model: "Fixation Premium",
+      warranty: "15 ans",
+      origin: "France",
+      // Caractéristiques techniques détaillées
+      specs: {
+        snowLoad: "4 kN/m²",
+        windResistance: "2 kN/m²",
+        inclination: "5° à 60°",
+        compatibility: "Tous types de toitures",
+        lifespan: "> 15 ans"
+      },
+      // Certifications
+      certifications: [
+        "Certification Eurocode 1 - Actions sur les structures",
+        "Test en soufflerie",
+        "Garantie produit de 15 ans",
+        "Certification TÜV",
+        "Conformité CE"
+      ]
+    }
   }
 };
 
@@ -120,7 +262,29 @@ const COMPANY_INFO = {
   address: "544 AVENUE FREDERIC MISTRAL, 04100 MANOSQUE France"
 };
 
+// Données pour les panneaux solaires par puissance
+const SOLAR_PANELS_PRICES = [
+  { power: 1, panels: 2, surface: 4, price: 3990 },
+  { power: 2, panels: 4, surface: 7, price: 6490 },
+  { power: 3, panels: 6, surface: 11, price: 8790 },
+  { power: 4, panels: 8, surface: 14, price: 10490 },
+  { power: 5, panels: 10, surface: 17, price: 12490 },
+  { power: 6, panels: 12, surface: 21, price: 13990 },
+  { power: 7, panels: 14, surface: 24, price: 15490 },
+  { power: 8, panels: 16, surface: 28, price: 17990 },
+  { power: 9, panels: 18, surface: 31, price: 19490 }
+];
+
 const DevisPage = () => {
+  // Fonction pour gérer les changements dans les données client
+  const handleClientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setClient(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
   // État pour les données du client
   const [client, setClient] = useState({
     firstName: '',
@@ -140,12 +304,30 @@ const DevisPage = () => {
     discount: 0, // Réduction en euros
   });
 
+  // État pour la configuration de l'installation
+  const [installationPower, setInstallationPower] = useState("3kWc");
+  const [configurationType, setConfigurationType] = useState<ConfigurationType>("dualsun");
+
   // Calcul du prix total
   const [totalPrice, setTotalPrice] = useState(0);
   
+  // Gestion des changements de configuration
+  const handleConfigChange = (field: string, value: any) => {
+    setConfig(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
   // Mise à jour du prix total lorsque la configuration change
   useEffect(() => {
-    let price = SOLAR_PANELS_PRICES[config.powerIndex].price;
+    let price = 0;
+    
+    // Calcul du prix de l'installation selon la configuration choisie
+    const powerOption = installationPower as PowerOption;
+    const configType = configurationType;
+    const installationPrice = PRICES.installation[configType][powerOption];
+    price += installationPrice;
     
     // Ajout du prix de la batterie si sélectionnée
     if (config.batteryType === 'physical') {
@@ -157,395 +339,239 @@ const DevisPage = () => {
     // Application de la réduction
     price -= config.discount;
     
-    setTotalPrice(price);
-  }, [config]);
-
-  // Gestion des changements dans les données du client
-  const handleClientChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setClient(prev => ({ ...prev, [name]: value }));
-  };
-
-  // Gestion des changements dans la configuration
-  const handleConfigChange = (field: string, value: any) => {
-    setConfig(prev => ({ ...prev, [field]: value }));
-  };
-
-  // Génération du devis en PDF
-  const generatePDF = async () => {
-    // Vérifier si les informations client essentielles sont présentes
-    if (!client.firstName || !client.lastName || !client.phone) {
-      alert("Veuillez remplir au moins le nom, prénom et téléphone du client avant de générer le devis");
-      return;
+    // Calcul du prix total TTC
+    // Appliquer 0% de TVA pour les installations de 1kW à 3kW, 10% pour les autres
+    if (['1kWc', '2kWc', '3kWc'].includes(installationPower)) {
+      // Pas de TVA
+    } else {
+      price = price * 1.1; // 10% de TVA
     }
+    
+    setTotalPrice(price);
+  }, [config, installationPower, configurationType]);
 
-    // Créer un nouveau document PDF
+// ...
+
+        // Détails de l'installation
+        const installationDetails = [
+          ['Composant', 'Détails', 'Prix HT'],
+          ['Panneaux solaires', `${getPanelCount(installationPower)} x ${EQUIPMENT_INFO[configurationType].panels.brand} ${EQUIPMENT_INFO[configurationType].panels.model}`, `${formatPrice(PRICES.installation[configurationType][installationPower] * 0.7)} €`],
+          ['Micro-onduleurs', `${EQUIPMENT_INFO[configurationType].inverter.brand} ${EQUIPMENT_INFO[configurationType].inverter.model} - Garantie ${EQUIPMENT_INFO[configurationType].inverter.warranty} - Fabriqué en ${EQUIPMENT_INFO[configurationType].inverter.origin}`, 'Inclus'],
+          ['Système de fixation', `${EQUIPMENT_INFO[configurationType].mounting.brand} ${EQUIPMENT_INFO[configurationType].mounting.model || ""}`, 'Inclus']
+        ];
+
+  // Fonction pour générer le PDF
+  const generatePDF = () => {
+    // Création du document PDF
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
+    const today = new Date();
     
-    // Utiliser le logo PNG existant
-    // Créer un élément image pour charger le logo
-    const logoImg = new window.Image();
-    logoImg.crossOrigin = 'Anonymous';
-    logoImg.src = window.location.origin + '/images/logo.png';
+    // Préchargement du logo
+    const logoImg = new Image();
+    logoImg.src = '/images/logo.webp';
     
     // Fonction pour ajouter le logo au PDF
     const addLogoToPdf = () => {
-      try {
-        // Créer un canvas pour convertir l'image
-        const canvas = document.createElement('canvas');
-        canvas.width = logoImg.width;
-        canvas.height = logoImg.height;
+      // Conversion du logo en base64
+      const canvas = document.createElement('canvas');
+      canvas.width = logoImg.width;
+      canvas.height = logoImg.height;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(logoImg, 0, 0);
+        const logoBase64 = canvas.toDataURL('image/png');
         
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          // Dessiner l'image sur le canvas
-          ctx.drawImage(logoImg, 0, 0, logoImg.width, logoImg.height);
-          
-          // Convertir le canvas en base64
-          const dataUrl = canvas.toDataURL('image/png');
-          
-          // Ajouter l'image au PDF
-          doc.addImage(
-            dataUrl,
-            'PNG',
-            (pageWidth - 80) / 2, // Centrer horizontalement
-            10, // Position Y
-            80, // Largeur
-            30  // Hauteur
-          );
-          
-          // Continuer avec le reste du PDF
-          addPdfContent();
-        }
-      } catch (error) {
-        console.error('Erreur lors de l\'ajout du logo:', error);
-        // En cas d'erreur, utiliser le fallback et continuer
-        addFallbackHeader();
-        addPdfContent();
+        // Ajout du logo au PDF
+        doc.addImage(logoBase64, 'PNG', pageWidth - 60, 10, 40, 20);
       }
+      
+      addPdfContent();
     };
     
-    // Fonction de secours pour l'en-tête
+    // Fonction pour ajouter un en-tête de secours si le logo ne se charge pas
     const addFallbackHeader = () => {
-      // Créer un en-tête avec le nom de l'entreprise
-      doc.setFillColor(11, 98, 145); // #0B6291 - Bleu de MY OHM
-      doc.roundedRect(15, 10, pageWidth - 30, 30, 3, 3, 'F');
-      
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(20);
-      doc.setTextColor(255, 255, 255);
-      doc.text("MY OHM TECHNOLOGIES", pageWidth / 2, 28, { align: "center" });
+      doc.setFontSize(18);
+      doc.setTextColor(11, 98, 145); // #0B6291
+      doc.text('MY OHM TECHNOLOGIES', 20, 20);
     };
     
-    // Fonction pour ajouter le contenu du PDF après l'en-tête
-    const addPdfContent = () => {
-    
-    // Sous-titre
-    doc.setFontSize(16);
-    doc.setTextColor(0, 0, 0);
-    doc.text("DEVIS INSTALLATION PANNEAUX SOLAIRES", pageWidth / 2, 50, { align: "center" });
-    
-    // Date du devis
-    const today = new Date();
-    doc.setFontSize(10);
-    doc.setTextColor(100, 100, 100);
-    doc.text(`Date: ${today.toLocaleDateString()}`, pageWidth - 20, 65, { align: "right" });
-    doc.text(`Référence: DEVIS-${today.getFullYear()}${(today.getMonth() + 1).toString().padStart(2, '0')}${today.getDate().toString().padStart(2, '0')}-${Math.floor(Math.random() * 1000)}`, pageWidth - 20, 70, { align: "right" });
-    
-    // Informations de l'entreprise
-    doc.setFontSize(10);
-    doc.text("MY OHM TECHNOLOGIES", 20, 65);
-    doc.text("SIREN: " + COMPANY_INFO.siren, 20, 75);
-    doc.text("SIRET: " + COMPANY_INFO.siret, 20, 80);
-    doc.text("TVA: " + COMPANY_INFO.tva, 20, 85);
-    doc.text(COMPANY_INFO.address, 20, 90);
-    
-    // Informations du client
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text("Informations client:", 20, 105);
-    doc.setFontSize(10);
-    doc.text(`${client.firstName} ${client.lastName}`, 20, 115);
-    if (client.email) doc.text(`Email: ${client.email}`, 20, 120);
-    doc.text(`Téléphone: ${client.phone}`, 20, 125);
-    if (client.address) {
-      doc.text(`Adresse: ${client.address}`, 20, 130);
-      if (client.postalCode || client.city) {
-        doc.text(`${client.postalCode || ''} ${client.city || ''}`, 20, 135);
-      }
-    }
-    
-    // Détails de l'installation
-    doc.setFontSize(12);
-    doc.text("Détails de l'installation:", 20, 150);
-    
-    // Tableau des détails
-    const selectedPower = SOLAR_PANELS_PRICES[config.powerIndex];
-    
-    // Créer un tableau pour les détails de l'installation (version simplifiée pour la première page)
-    const installationDetails = [
-      [
-        'Description', 
-        'Détails', 
-        'Prix TTC'
-      ],
-      [
-        `Installation panneaux solaires ${selectedPower.power} kWc`, 
-        `${selectedPower.panels} panneaux ${EQUIPMENT_INFO.panels.brand} ${EQUIPMENT_INFO.panels.model} - ${selectedPower.surface} m² - ${selectedPower.production} kWh/an`,
-        `${selectedPower.price.toLocaleString()} €`
-      ],
-      [
-        `Micro-onduleurs`, 
-        `${EQUIPMENT_INFO.inverter.brand} ${EQUIPMENT_INFO.inverter.model} - Garantie ${EQUIPMENT_INFO.inverter.warranty} - Fabriqué aux ${EQUIPMENT_INFO.inverter.origin}`,
-        `Inclus`
-      ],
-      [
-        `Système de fixation`, 
-        `${EQUIPMENT_INFO.mounting.brand} - Fabriqué en ${EQUIPMENT_INFO.mounting.origin}`,
-        `Inclus`
-      ]
-    ];
-    
-    // Ajouter la batterie si sélectionnée
-    if (config.batteryType === 'physical') {
-      const selectedBattery = BATTERY_PRICES.physical[config.batteryCapacityIndex];
-      installationDetails.push([
-        `Batterie de stockage Huawei ${selectedBattery.capacity} kW`,
-        `Stockage physique d'énergie`,
-        `${selectedBattery.price.toLocaleString()} €`
-      ]);
-    } else if (config.batteryType === 'virtual') {
-      installationDetails.push([
-        BATTERY_PRICES.virtual.label,
-        `Stockage virtuel sur le réseau`,
-        `${BATTERY_PRICES.virtual.price.toLocaleString()} €`
-      ]);
-    }
-    
-    // Ajouter la réduction si applicable
-    if (config.discount > 0) {
-      installationDetails.push([
-        'Réduction commerciale',
-        '',
-        `-${config.discount.toLocaleString()} €`
-      ]);
-    }
-    
-    // Ne pas ajouter de ligne TOTAL TTC dans le tableau
-    
-    // Ajouter le tableau au document
-    autoTable(doc, {
-      startY: 155,
-      head: [installationDetails[0]],
-      body: installationDetails.slice(1),
-      theme: 'grid',
-      headStyles: { fillColor: [11, 98, 145], textColor: [255, 255, 255] },
-      styles: { halign: 'left', fontSize: 10 },
-      columnStyles: { 
-        0: { cellWidth: 50 },
-        1: { cellWidth: 'auto' },
-        2: { halign: 'right', cellWidth: 30 }
-      },
-      // Formater les cellules pour éviter les espaces indésirables et gérer les sauts de ligne
-      didParseCell: function(data) {
-        // Remplacer les espaces insécables par des espaces normaux pour les prix
-        if (data.column.index === 2 && data.cell.text && data.cell.text[0]) {
-          if (typeof data.cell.text[0] === 'string') {
-            data.cell.text[0] = data.cell.text[0].replace(/\s/g, ' ');
-          }
-        }
-        
-        // Gérer les sauts de ligne dans la colonne des détails
-        if (data.column.index === 1 && data.cell.text) {
-          // Convertir le texte avec \n en tableau pour les sauts de ligne
-          if (typeof data.cell.text[0] === 'string' && data.cell.text[0].includes('\n')) {
-            data.cell.text = data.cell.text[0].split('\n');
-          }
-        }
-      }
-    });
-    
-    // Récupérer la position Y finale du tableau et ajouter un espace
-    // Utiliser la méthode getLastAutoTable() qui est plus fiable
-    let finalY = 200; // Position par défaut si le tableau n'est pas généré correctement
-    
-    try {
-      // @ts-ignore - L'API jspdf-autotable expose cette méthode
-      const lastTable = doc.lastAutoTable;
-      if (lastTable && lastTable.finalY) {
-        finalY = lastTable.finalY + 20;
-      }
-    } catch (error) {
-      console.error('Erreur lors de la récupération de la position du tableau:', error);
-    }
-    
-    // Formater le prix total
-    const prixTTCFormatted = totalPrice.toLocaleString('fr-FR').replace(/\s/g, ' ') + ' €';
-    
-    // Afficher uniquement le prix total TTC en grand et en bleu
-    doc.setFontSize(18);
-    doc.setTextColor(11, 98, 145); // Bleu MY OHM
-    doc.setFont('helvetica', 'bold');
-    doc.text(`TOTAL TTC: ${prixTTCFormatted}`, pageWidth - 20, finalY + 10, { align: 'right' });
-    
-    // Ajouter les conditions de paiement et délais en bas de page
-    doc.setFontSize(8);
-    doc.setTextColor(100, 100, 100);
-    const legalTextPage1 = [
-      "Devis valable 30 jours à compter de sa date d'émission.",
-      "Conditions de paiement : 30% à la commande, solde à la fin des travaux.",
-      "Délai d'exécution : 4 à 8 semaines après acceptation du devis et obtention des autorisations nécessaires.",
-      `MY OHM TECHNOLOGIES - SIREN: ${COMPANY_INFO.siren} - TVA: ${COMPANY_INFO.tva}`
-    ];
-    
-    doc.text(legalTextPage1.join("\n"), pageWidth / 2, doc.internal.pageSize.getHeight() - 20, { align: 'center' });
-    
-    // Ajouter une nouvelle page pour les détails techniques
-    doc.addPage();
-    
-    // Titre de la page des spécifications techniques (plus compact)
-    doc.setFontSize(14);
-    doc.setTextColor(11, 98, 145); // Bleu MY OHM
-    doc.setFont('helvetica', 'bold');
-    doc.text("SPÉCIFICATIONS TECHNIQUES DÉTAILLÉES", pageWidth / 2, 15, { align: "center" });
-    
-    // Ligne de séparation
-    doc.setDrawColor(11, 98, 145);
-    doc.setLineWidth(0.5);
-    doc.line(20, 20, pageWidth - 20, 20);
-    
-    // Panneaux solaires - Section
-    type SectionItem = {
-      title: string;
-      details: string[];
-    };
-    
-    const drawSection = (title: string, yPosition: number, content: SectionItem[]): number => {
-      // Fond de la section (plus compact)
-      doc.setFillColor(240, 240, 240);
-      doc.roundedRect(15, yPosition, pageWidth - 30, 14, 2, 2, 'F');
+    // Fonction pour dessiner une section dans le PDF
+    const drawSection = (title: string, startY: number, items: {title: string, details: string[]}[]) => {
+      doc.setFontSize(12);
+      doc.setTextColor(11, 98, 145); // #0B6291
+      doc.text(title, 20, startY);
       
-      // Titre de la section
-      doc.setFontSize(11); // Taille de texte réduite pour les titres de section
-      doc.setTextColor(11, 98, 145);
-      doc.setFont('helvetica', 'bold');
-      doc.text(title, 20, yPosition + 10);
+      let y = startY + 8;
       
-      // Contenu de la section
-      let currentY = yPosition + 22; // Réduit l'espace entre le titre et le contenu
-      content.forEach((item: SectionItem) => {
-        // Titre de l'item
-        doc.setFontSize(9); // Taille de texte encore plus réduite pour les titres
-        doc.setFont('helvetica', 'bold');
-        doc.setTextColor(70, 70, 70);
-        doc.text(item.title, 20, currentY);
-        currentY += 6; // Moins d'espace après le titre
-        
-        // Contenu de l'item
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(8); // Taille de texte encore plus réduite
+      items.forEach(item => {
+        doc.setFontSize(10);
         doc.setTextColor(0, 0, 0);
+        doc.text(item.title, 25, y);
+        y += 5;
         
-        // Afficher les détails sur deux colonnes pour gagner de la place
-        const details = item.details;
-        const midPoint = Math.ceil(details.length / 2);
+        doc.setFontSize(9);
+        doc.setTextColor(80, 80, 80);
         
-        for (let i = 0; i < midPoint; i++) {
-          // Première colonne
-          doc.text(`• ${details[i]}`, 25, currentY);
-          
-          // Deuxième colonne (si elle existe)
-          if (i + midPoint < details.length) {
-            doc.text(`• ${details[i + midPoint]}`, pageWidth / 2 + 5, currentY);
-          }
-          
-          currentY += 5; // Espacement très réduit entre les lignes
-        }
+        item.details.forEach(detail => {
+          doc.text('• ' + detail, 30, y);
+          y += 5;
+        });
         
-        currentY += 3; // Espace minimal entre les items
+        y += 3;
       });
       
-      return currentY;
+      return y;
     };
     
-    // Panneaux solaires
-    let yPos = 30;
-    yPos = drawSection(`Panneaux solaires ${EQUIPMENT_INFO.panels.brand} ${EQUIPMENT_INFO.panels.model}`, yPos, [
-      {
-        title: "Caractéristiques Techniques",
-        details: [
-          `Puissance nominale : ${EQUIPMENT_INFO.panels.specs.power}`,
-          `Rendement : ${EQUIPMENT_INFO.panels.specs.efficiency}`,
-          `Dimensions : ${EQUIPMENT_INFO.panels.specs.dimensions}`,
-          `Poids : ${EQUIPMENT_INFO.panels.specs.weight}`,
-          `Cellules : ${EQUIPMENT_INFO.panels.specs.cells}`,
-          `Tension maximale : ${EQUIPMENT_INFO.panels.specs.maxVoltage}`,
-          `Courant maximal : ${EQUIPMENT_INFO.panels.specs.maxCurrent}`
-        ]
-      },
-      {
-        title: "Garanties et Certifications",
-        details: EQUIPMENT_INFO.panels.certifications
+    // Fonction pour ajouter le contenu principal au PDF
+    const addPdfContent = () => {
+      // En-tête du devis
+      doc.setFontSize(20);
+      doc.setTextColor(11, 98, 145); // #0B6291
+      doc.text('DEVIS INSTALLATION PHOTOVOLTAÏQUE', 20, 20);
+      
+      // Informations client
+      doc.setFontSize(11);
+      doc.setTextColor(0, 0, 0);
+      doc.text(`Client: ${client.firstName} ${client.lastName}`, 20, 35);
+      doc.text(`Adresse: ${client.address}, ${client.postalCode} ${client.city}`, 20, 42);
+      doc.text(`Email: ${client.email} - Tél: ${client.phone}`, 20, 49);
+      
+      // Date et numéro de devis
+      doc.text(`Date: ${today.toLocaleDateString('fr-FR')}`, pageWidth - 80, 35);
+      doc.text(`Devis N°: ${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 1000)).padStart(3, '0')}`, pageWidth - 80, 42);
+      
+      // Détails de l'installation
+      const installationDetails = [
+        ['Composant', 'Détails', 'Prix HT'],
+        ['Panneaux solaires', `${getPanelCount(installationPower)} x ${EQUIPMENT_INFO[configurationType].panels.brand} ${EQUIPMENT_INFO[configurationType].panels.model}`, `${formatPrice(PRICES.installation[configurationType][installationPower as PowerOption] * 0.7)} €`],
+        ['Micro-onduleurs', `${EQUIPMENT_INFO[configurationType].inverter.brand} ${EQUIPMENT_INFO[configurationType].inverter.model} - Garantie ${EQUIPMENT_INFO[configurationType].inverter.warranty} - Fabriqué en ${EQUIPMENT_INFO[configurationType].inverter.origin}`, 'Inclus'],
+        ['Système de fixation', `${EQUIPMENT_INFO[configurationType].mounting.brand} ${EQUIPMENT_INFO[configurationType].mounting.model || ""}`, 'Inclus']
+      ];
+      
+      // Ajout de la batterie si sélectionnée
+      if (config.batteryType === 'physical') {
+        installationDetails.push(['Batterie de stockage', BATTERY_PRICES.physical[config.batteryCapacityIndex].label, `${formatPrice(BATTERY_PRICES.physical[config.batteryCapacityIndex].price)} €`]);
+      } else if (config.batteryType === 'virtual') {
+        installationDetails.push(['Stockage virtuel', BATTERY_PRICES.virtual.label, `${formatPrice(BATTERY_PRICES.virtual.price)} €`]);
       }
-    ]);
-    
-    // Micro-onduleurs
-    yPos += 10;
-    yPos = drawSection(`Micro-onduleurs ${EQUIPMENT_INFO.inverter.brand} ${EQUIPMENT_INFO.inverter.model}`, yPos, [
-      {
-        title: "Caractéristiques Techniques",
-        details: [
-          `Puissance de sortie maximale : ${EQUIPMENT_INFO.inverter.specs.maxPower}`,
-          `Compatibilité : ${EQUIPMENT_INFO.inverter.specs.compatibility}`,
-          `Plage de tension MPPT : ${EQUIPMENT_INFO.inverter.specs.mpptRange}`,
-          `Rendement maximal : ${EQUIPMENT_INFO.inverter.specs.efficiency}`,
-          `Indice de protection : ${EQUIPMENT_INFO.inverter.specs.protection}`,
-          `Garantie : ${EQUIPMENT_INFO.inverter.warranty}`
-        ]
-      },
-      {
-        title: "Fonctionnalités Avancées",
-        details: EQUIPMENT_INFO.inverter.features
+      
+      // Ajout de la réduction si applicable
+      if (config.discount > 0) {
+        installationDetails.push(['Réduction commerciale', '', `-${formatPrice(config.discount)} €`]);
       }
-    ]);
-    
-    // Système de fixation
-    yPos += 10;
-    drawSection(`Système de fixation ${EQUIPMENT_INFO.mounting.brand}`, yPos, [
-      {
-        title: "Caractéristiques Techniques",
-        details: [
-          `Charge de neige testée jusqu'à ${EQUIPMENT_INFO.mounting.specs.snowLoad}`,
-          `Résistance au vent jusqu'à ${EQUIPMENT_INFO.mounting.specs.windResistance}`,
-          `Inclinaison possible de ${EQUIPMENT_INFO.mounting.specs.inclination}`,
-          `Compatible avec ${EQUIPMENT_INFO.mounting.specs.compatibility}`,
-          `Durée de vie ${EQUIPMENT_INFO.mounting.specs.lifespan}`
-        ]
-      },
-      {
-        title: "Certifications",
-        details: EQUIPMENT_INFO.mounting.certifications
+      
+      // Calcul du total HT
+      const powerOption = installationPower as PowerOption;
+      let totalHT = PRICES.installation[configurationType][powerOption];
+      if (config.batteryType === 'physical') {
+        totalHT += BATTERY_PRICES.physical[config.batteryCapacityIndex].price;
+      } else if (config.batteryType === 'virtual') {
+        totalHT += BATTERY_PRICES.virtual.price;
       }
-    ]);
-    
-    // Mentions légales et conditions (placées plus haut pour éviter la superposition)
-    doc.setFontSize(8);
-    doc.setTextColor(100, 100, 100);
-    const legalTextPage2 = [
-      "Devis valable 30 jours à compter de sa date d'émission.",
-      "Conditions de paiement : 30% à la commande, solde à la fin des travaux.",
-      "Délai d'exécution : 4 à 8 semaines après acceptation du devis et obtention des autorisations nécessaires.",
-      `MY OHM TECHNOLOGIES - SIREN: ${COMPANY_INFO.siren} - TVA: ${COMPANY_INFO.tva}`
-    ];
-    
-    doc.text(legalTextPage2.join("\n"), pageWidth / 2, doc.internal.pageSize.getHeight() - 35, { align: 'center' });
-    
-    // Pied de page de la seconde page
-    doc.setFontSize(8);
-    doc.setTextColor(100, 100, 100);
-    doc.text("MY OHM TECHNOLOGIES - Documentation technique confidentielle", pageWidth / 2, doc.internal.pageSize.getHeight() - 10, { align: 'center' });
-    
+      totalHT -= config.discount;
+      
+      // Ajout des totaux
+      installationDetails.push(['Total HT', '', `${formatPrice(totalHT)} €`]);
+      
+      // Appliquer 0% de TVA pour les installations de 1kW à 3kW, 10% pour les autres
+      if (['1kWc', '2kWc', '3kWc'].includes(installationPower)) {
+        installationDetails.push(['TVA (0%)', '', '0 €']);
+        installationDetails.push(['Total TTC', '', `${formatPrice(totalHT)} €`]);
+      } else {
+        installationDetails.push(['TVA (10%)', '', `${formatPrice(totalHT * 0.1)} €`]);
+        installationDetails.push(['Total TTC', '', `${formatPrice(totalHT * 1.1)} €`]);
+      }
+      
+      // Création du tableau
+      autoTable(doc, {
+        startY: 60,
+        head: [installationDetails[0]],
+        body: installationDetails.slice(1),
+        theme: 'grid',
+        headStyles: { fillColor: [11, 98, 145], textColor: 255 },
+        columnStyles: {
+          0: { cellWidth: 50 },
+          1: { cellWidth: 'auto' },
+          2: { cellWidth: 30, halign: 'right' }
+        },
+        foot: [['', 'Total TTC', `${formatPrice(['1kWc', '2kWc', '3kWc'].includes(installationPower) ? totalHT : totalHT * 1.1)} €`]],
+        footStyles: { fillColor: [240, 240, 240], textColor: [11, 98, 145], fontStyle: 'bold' }
+      });
+      
+      // Mentions légales
+      const legalText = [
+        "Devis valable 30 jours à compter de sa date d'émission.",
+        "Conditions de paiement : 30% à la commande, solde à la fin des travaux.",
+        "Délai d'exécution : 4 à 8 semaines après acceptation du devis et obtention des autorisations nécessaires.",
+        `MY OHM TECHNOLOGIES - SIREN: ${COMPANY_INFO.siren} - TVA: ${COMPANY_INFO.tva}`
+      ];
+      
+      doc.setFontSize(8);
+      doc.setTextColor(100, 100, 100);
+      doc.text(legalText.join('\n'), pageWidth / 2, doc.internal.pageSize.getHeight() - 20, { align: 'center' });
+      
+      // Ajout d'une seconde page avec les détails techniques
+      doc.addPage();
+      
+      // En-tête de la seconde page
+      doc.setFontSize(16);
+      doc.setTextColor(11, 98, 145); // #0B6291
+      doc.text('DÉTAILS TECHNIQUES DE L\'INSTALLATION', pageWidth / 2, 20, { align: 'center' });
+      
+      // Panneaux solaires
+      let yPos = 30;
+      yPos = drawSection(`Panneaux solaires ${EQUIPMENT_INFO[configurationType].panels.brand} ${EQUIPMENT_INFO[configurationType].panels.model}`, yPos, [
+        {
+          title: "Caractéristiques Techniques",
+          details: EQUIPMENT_INFO[configurationType].panels.features || []
+        },
+        {
+          title: "Garantie et Origine",
+          details: [
+            `Garantie produit: ${EQUIPMENT_INFO[configurationType].panels.warranty}`,
+            `Pays de fabrication: ${EQUIPMENT_INFO[configurationType].panels.origin}`
+          ]
+        },
+        {
+          title: "Certifications",
+          details: EQUIPMENT_INFO[configurationType].panels.certifications
+        }
+      ]);
+      
+      // Système de fixation
+      yPos = drawSection(`Système de fixation ${EQUIPMENT_INFO[configurationType].mounting.brand}`, yPos, [
+        {
+          title: "Garantie et Origine",
+          details: [
+            `Garantie produit: ${EQUIPMENT_INFO[configurationType].mounting.warranty || "N/A"}`,
+            `Pays de fabrication: ${EQUIPMENT_INFO[configurationType].mounting.origin}`
+          ]
+        },
+        {
+          title: "Certifications",
+          details: EQUIPMENT_INFO[configurationType].mounting.certifications
+        }
+      ]);
+      
+      // Mentions légales et conditions (placées plus haut pour éviter la superposition)
+      doc.setFontSize(8);
+      doc.setTextColor(100, 100, 100);
+      const legalTextPage2 = [
+        "Devis valable 30 jours à compter de sa date d'émission.",
+        "Conditions de paiement : 30% à la commande, solde à la fin des travaux.",
+        "Délai d'exécution : 4 à 8 semaines après acceptation du devis et obtention des autorisations nécessaires.",
+        `MY OHM TECHNOLOGIES - SIREN: ${COMPANY_INFO.siren} - TVA: ${COMPANY_INFO.tva}`
+      ];
+      
+      doc.text(legalTextPage2.join("\n"), pageWidth / 2, doc.internal.pageSize.getHeight() - 35, { align: 'center' });
+      
+      // Pied de page de la seconde page
+      doc.setFontSize(8);
+      doc.setTextColor(100, 100, 100);
+      doc.text("MY OHM TECHNOLOGIES - Documentation technique confidentielle", pageWidth / 2, doc.internal.pageSize.getHeight() - 10, { align: 'center' });
+      
       // Sauvegarder le PDF
       const clientName = `${client.lastName}_${client.firstName}`.replace(/\s+/g, '_').toLowerCase();
       doc.save(`devis_myohm_${clientName}_${today.toISOString().split('T')[0]}.pdf`);
@@ -702,55 +728,60 @@ const DevisPage = () => {
               Configuration de l'installation
             </h2>
             
-            {/* Sélection de la puissance */}
-            <div className="mb-6">
-              <h3 className="text-lg font-medium text-gray-800 mb-3">
-                <BoltIcon className="h-5 w-5 inline mr-2 text-yellow-500" />
-                Puissance de l'installation
-              </h3>
-              
-              <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border border-gray-200 rounded-lg">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Puissance</th>
-                      <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix TTC</th>
-                      <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nb panneaux</th>
-                      <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Surface</th>
-                      <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Production</th>
-                      <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sélection</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200">
-                    {SOLAR_PANELS_PRICES.map((option, index) => (
-                      <tr 
-                        key={index}
-                        className={index === config.powerIndex ? 'bg-[#ffeb99]/30' : 'hover:bg-gray-50'}
-                      >
-                        <td className="py-3 px-4 text-sm font-medium text-gray-900">{option.power} kWc</td>
-                        <td className="py-3 px-4 text-sm text-gray-900">{option.price.toLocaleString()} €</td>
-                        <td className="py-3 px-4 text-sm text-gray-900">{option.panels}</td>
-                        <td className="py-3 px-4 text-sm text-gray-900">{option.surface} m²</td>
-                        <td className="py-3 px-4 text-sm text-gray-900">{option.production} kWh</td>
-                        <td className="py-3 px-4 text-sm">
-                          <button
-                            onClick={() => handleConfigChange('powerIndex', index)}
-                            className={`w-5 h-5 rounded-full border ${
-                              index === config.powerIndex 
-                                ? 'bg-[#0B6291] border-[#0B6291]' 
-                                : 'border-gray-300'
-                            } flex items-center justify-center`}
-                          >
-                            {index === config.powerIndex && (
-                              <div className="w-2 h-2 rounded-full bg-white"></div>
-                            )}
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+            {/* Choix du type de configuration */}
+            <div className="mb-4">
+              <p className="text-sm font-medium text-gray-700 mb-2">Type de configuration :</p>
+              <div className="flex space-x-4">
+                <button
+                  type="button"
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    configurationType === "dualsun"
+                      ? 'bg-[#0B6291] text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                  onClick={() => setConfigurationType("dualsun")}
+                >
+                  Dualsun + Enphase
+                </button>
+                <button
+                  type="button"
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    configurationType === "bourgeois"
+                      ? 'bg-[#0B6291] text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                  onClick={() => setConfigurationType("bourgeois")}
+                >
+                  Full Bourgeois Global
+                </button>
               </div>
+            </div>
+            
+            {/* Choix de la puissance */}
+            <p className="text-sm font-medium text-gray-700 mb-2">Puissance :</p>
+            <div className="grid grid-cols-3 gap-3">
+              {Object.keys(PRICES.installation.dualsun).map((power) => (
+                <button
+                  key={power}
+                  type="button"
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    installationPower === power
+                      ? 'bg-[#0B6291] text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                  onClick={() => setInstallationPower(power)}
+                >
+                  <div className="flex flex-col items-center">
+                    <span>{power}</span>
+                    <span className="text-xs mt-1">
+                      {['1kWc', '2kWc', '3kWc'].includes(power) 
+                        ? `${formatPrice(PRICES.installation[configurationType][power as PowerOption])} € TTC` 
+                        : `${formatPrice(PRICES.installation[configurationType][power as PowerOption] * 1.1)} € TTC`
+                      }
+                    </span>
+                  </div>
+                </button>
+              ))}
             </div>
             
             {/* Options de batterie */}
@@ -916,9 +947,9 @@ const DevisPage = () => {
               
               <div className="space-y-2">
                 <p className="text-gray-700">
-                  <span className="font-medium">Installation panneaux solaires :</span> {SOLAR_PANELS_PRICES[config.powerIndex].power} kWc - 
-                  {SOLAR_PANELS_PRICES[config.powerIndex].panels} panneaux - 
-                  {SOLAR_PANELS_PRICES[config.powerIndex].surface} m²
+                  <span className="font-medium">Installation panneaux solaires :</span> {installationPower} - 
+                  {getPanelCount(installationPower)} panneaux - 
+                  {getSurface(installationPower)} m²
                 </p>
                 
                 {config.batteryType === 'physical' && (

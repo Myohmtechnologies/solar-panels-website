@@ -6,18 +6,19 @@ import { usePathname } from 'next/navigation';
 import {
   HomeIcon,
   UsersIcon,
-  ChartBarIcon,
   DocumentTextIcon,
   PhotoIcon,
   Cog6ToothIcon,
   BriefcaseIcon,
-  ArrowLeftOnRectangleIcon
+  ArrowLeftOnRectangleIcon,
+  DocumentDuplicateIcon,
+  ReceiptRefundIcon
 } from '@heroicons/react/24/outline';
 
 const navigation = [
   { name: 'Tableau de bord', href: '/dashboard', icon: HomeIcon },
   { name: 'Prospects', href: '/dashboard/prospects', icon: UsersIcon },
-  { name: 'Statistiques', href: '/dashboard/statistics', icon: ChartBarIcon },
+  { name: 'Devis', href: '/dashboard/devis', icon: ReceiptRefundIcon },
   { name: 'Blog', href: '/dashboard/blog', icon: DocumentTextIcon },
   { name: 'Réalisations', href: '/dashboard/realisations', icon: PhotoIcon },
   { name: 'Projets', href: '/dashboard/projets', icon: BriefcaseIcon },

@@ -24,11 +24,11 @@ export default function DevisPanneauxSolairesPage() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  }; 
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       // Préparation des données du lead
       const leadData = {
@@ -40,7 +40,7 @@ export default function DevisPanneauxSolairesPage() {
         projectType: 'SOLAR_PANELS',
         createdAt: new Date().toISOString()
       };
-      
+
       // Envoi des données à l'API
       const response = await fetch('/api/leads', {
         method: 'POST',
@@ -49,9 +49,9 @@ export default function DevisPanneauxSolairesPage() {
         },
         body: JSON.stringify(leadData),
       });
-      
+
       const result = await response.json();
-      
+
       if (response.ok) {
         // Réinitialiser le formulaire après soumission réussie
         setFormData({ name: '', email: '', phone: '', message: '' });
@@ -104,9 +104,9 @@ export default function DevisPanneauxSolairesPage() {
         <div className="container mx-auto px-6 md:px-8 lg:px-10 flex justify-between items-center">
           <div className="flex items-center">
             <a href="/">
-              <Image 
-                src="/images/logo.webp" 
-                alt="Logo Myohm Technologies" 
+              <Image
+                src="/images/logo.webp"
+                alt="Logo Myohm Technologies"
                 width={200}
                 height={80}
                 className="h-16 w-auto"
@@ -115,8 +115,8 @@ export default function DevisPanneauxSolairesPage() {
             </a>
           </div>
           <div className="flex items-center">
-            <a 
-              href="tel:+330492766858" 
+            <a
+              href="tel:+330492766858"
               className="flex items-center gap-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-2 px-4 rounded-lg font-medium hover:shadow-lg transition-all"
             >
               <PhoneIcon />
@@ -125,7 +125,7 @@ export default function DevisPanneauxSolairesPage() {
           </div>
         </div>
       </header>
-      
+
       {/* Séparateur avec dégradé */}
       <div className="h-1 w-full bg-white"></div>
 
@@ -185,14 +185,14 @@ export default function DevisPanneauxSolairesPage() {
                 </svg>
                 <p className="text-lg font-medium text-gray-800">Nous intervenons dans toute la région PACA</p>
               </div>
-              
-              
+
+
             </div>
-            
+
             <div className="flex gap-2 mb-4">
-              <Image 
-                src="/images/avis-google.avif" 
-                alt="Google Avis" 
+              <Image
+                src="/images/avis-google.avif"
+                alt="Google Avis"
                 width={100}
                 height={32}
                 className="h-8 w-auto"
@@ -205,11 +205,11 @@ export default function DevisPanneauxSolairesPage() {
               <p className="text-gray-700 font-medium">4,9/5</p>
             </div>
           </div>
-          
+
           {/* Simulateur */}
-                      <div className="w-full transition-all duration-300 bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-2 border border-gray-100">
-                      <QuickSimulateur />
-                      </div>
+          <div className="w-full transition-all duration-300 bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-2 border border-gray-100">
+            <QuickSimulateur />
+          </div>
         </div>
       </section>
       {/* Section Aides de l'État 2025 */}
@@ -219,7 +219,7 @@ export default function DevisPanneauxSolairesPage() {
           <p className="text-xl text-center text-gray-700 mb-12 max-w-3xl mx-auto">
             Profitez des dispositifs mis en place par l'État pour financer votre installation photovoltaïque
           </p>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Aide 1: Prime à l'autoconsommation */}
             <div className="bg-white rounded-xl shadow-md overflow-hidden transform transition-all hover:shadow-xl">
@@ -240,12 +240,12 @@ export default function DevisPanneauxSolairesPage() {
                 </div>
               </div>
             </div>
-            
+
             {/* Aide 2: Rachat de surplus par EDF */}
             <div className="bg-white rounded-xl shadow-md overflow-hidden transform transition-all hover:shadow-xl">
               <div className="h-3 bg-gradient-to-r from-[#116290] to-[#0a3d5c]"></div>
               <div className="p-6">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center mb-4">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" />
                   </svg>
@@ -260,7 +260,7 @@ export default function DevisPanneauxSolairesPage() {
                 </div>
               </div>
             </div>
-            
+
             {/* Aide 3: TVA à 10% */}
             <div className="bg-white rounded-xl shadow-md overflow-hidden transform transition-all hover:shadow-xl">
               <div className="h-3 bg-gradient-to-r from-[#ffeb99] to-[#ffb700]"></div>
@@ -281,10 +281,10 @@ export default function DevisPanneauxSolairesPage() {
               </div>
             </div>
           </div>
-          
+
           <div className="mt-12 text-center">
-            <a 
-              href="/simulator" 
+            <a
+              href="/simulator"
               className="inline-flex items-center gap-3 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-3 px-6 rounded-lg font-medium hover:shadow-lg transition-all transform hover:scale-105"
             >
               <span>Calculer mes économies avec les aides 2025</span>
@@ -298,7 +298,7 @@ export default function DevisPanneauxSolairesPage() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6 md:px-8 lg:px-10 max-w-6xl">
           <h2 className="text-3xl font-bold text-center mb-8">Passez au solaire avec My Ohm Technologies</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Colonne gauche: Pourquoi nous choisir + Certifications */}
             <div className="flex flex-col gap-8">
@@ -338,58 +338,58 @@ export default function DevisPanneauxSolairesPage() {
                   </li>
                 </ul>
               </div>
-              
+
               {/* Nos certifications et garanties */}
               <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
                 <h3 className="text-xl font-semibold mb-4">Nos certifications et garanties</h3>
                 <div className="flex flex-wrap gap-6 items-center justify-center">
-                  <Image 
-                    src="/images/qualipv1.png" 
-                    alt="Certification RGE QualiPV" 
+                  <Image
+                    src="/images/qualipv1.png"
+                    alt="Certification RGE QualiPV"
                     width={100}
                     height={120}
                     className="h-auto max-w-[120px]"
                   />
-                  <Image 
-                    src="/images/rge1.png" 
-                    alt="Certification RGE" 
+                  <Image
+                    src="/images/rge1.png"
+                    alt="Certification RGE"
                     width={100}
                     height={120}
                     className="h-auto max-w-[120px]"
                   />
-                  <Image 
-                    src="/images/garantie-decennale-p2a-construction.webp" 
-                    alt="Garantie Décennale" 
+                  <Image
+                    src="/images/garantie-decennale-p2a-construction.webp"
+                    alt="Garantie Décennale"
                     width={100}
                     height={120}
                     className="h-auto max-w-[120px]"
                   />
-                  <Image 
-                    src="/images/dualsun-logo.svg" 
-                    alt="dualsun" 
+                  <Image
+                    src="/images/dualsun-logo.svg"
+                    alt="dualsun"
                     width={100}
                     height={120}
                     className="h-auto max-w-[120px]"
                   />
-                  <Image 
-                    src="/images/enphase-logo_black.png" 
-                    alt="enphase" 
+                  <Image
+                    src="/images/enphase-logo_black.png"
+                    alt="enphase"
                     width={100}
                     height={120}
                     className="h-auto max-w-[120px]"
                   />
-                  
+
                 </div>
               </div>
             </div>
-            
+
             {/* Colonne droite: Image du showroom */}
             <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
               <h3 className="text-xl font-semibold mb-4">Notre showroom à votre service</h3>
               <div className="relative h-[350px] w-full overflow-hidden rounded-lg">
-                <Image 
-                  src="/images/local-my-ohm-technologies.jpg" 
-                  alt="Showroom My Ohm Technologies" 
+                <Image
+                  src="/images/local-my-ohm-technologies.jpg"
+                  alt="Showroom My Ohm Technologies"
                   fill
                   className="object-cover object-[center_12%] hover:scale-105 transition-transform duration-500"
                 />
@@ -398,11 +398,11 @@ export default function DevisPanneauxSolairesPage() {
                 Venez visiter notre showroom pour découvrir nos solutions d'énergie solaire et discuter de votre projet avec nos experts. Nous vous présenterons les différentes options adaptées à vos besoins et à votre budget.
               </p>
             </div>
-            
+
           </div>
-          
+
           <div className="text-center mt-12">
-            <button 
+            <button
               onClick={scrollToForm}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-4 px-8 rounded-lg font-medium text-xl hover:shadow-lg transition-all transform hover:scale-105"
             >
@@ -420,17 +420,17 @@ export default function DevisPanneauxSolairesPage() {
               <RealisationsPreview />
             </div>
             <div className="text-center mt-12">
-            <button 
-              onClick={scrollToForm}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-4 px-8 rounded-lg font-medium text-xl hover:shadow-lg transition-all transform hover:scale-105"
-            >
-              <span>Je passe à l'énergie solaire</span>
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </button>
-          </div>
-           
+              <button
+                onClick={scrollToForm}
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-4 px-8 rounded-lg font-medium text-xl hover:shadow-lg transition-all transform hover:scale-105"
+              >
+                <span>Je passe à l'énergie solaire</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+            </div>
+
           </div>
         </div>
       </section>
@@ -439,7 +439,7 @@ export default function DevisPanneauxSolairesPage() {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4 max-w-6xl">
           <h2 className="text-3xl font-bold text-center mb-12">Pourquoi installer des panneaux solaires ?</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Argument 1 */}
             <div className="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
@@ -453,7 +453,7 @@ export default function DevisPanneauxSolairesPage() {
                 Réduisez votre facture d'électricité jusqu'à 70% en produisant votre propre énergie. Avec l'augmentation constante des prix de l'électricité, votre installation devient de plus en plus rentable chaque année.
               </p>
             </div>
-            
+
             {/* Argument 2 */}
             <div className="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center mb-6 mx-auto">
@@ -466,7 +466,7 @@ export default function DevisPanneauxSolairesPage() {
                 Contribuez à la réduction des émissions de CO2 en optant pour une énergie propre et renouvelable. Une installation solaire standard permet d'économiser environ 1,5 tonne de CO2 par an.
               </p>
             </div>
-            
+
             {/* Argument 3 */}
             <div className="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#ffeb99] to-[#ffb700] flex items-center justify-center mb-6 mx-auto">
@@ -480,9 +480,9 @@ export default function DevisPanneauxSolairesPage() {
               </p>
             </div>
           </div>
-          
+
           <div className="text-center mt-12">
-            <button 
+            <button
               onClick={scrollToForm}
               className="inline-flex items-center gap-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-4 px-8 rounded-lg font-medium text-xl hover:shadow-lg transition-all transform hover:scale-105"
             >
@@ -503,9 +503,9 @@ export default function DevisPanneauxSolairesPage() {
               Ce que nos clients disent de nous
             </h2>
             <div className="flex items-center justify-center gap-2 mb-4">
-              <img 
-                src="/images/avis-google.avif" 
-                alt="Google Avis" 
+              <img
+                src="/images/avis-google.avif"
+                alt="Google Avis"
                 width={120}
                 height={32}
                 loading="lazy"
@@ -622,8 +622,8 @@ export default function DevisPanneauxSolairesPage() {
               </div>
               <p className="text-gray-700">
                 "Une équipe attentive aux besoins du client, alliant professionnalisme et rigueur.
-Le chantier à été laissé propre, et nous avons reçu des explications claires sur la gestion des panneaux photovoltaique.
-Je recommande vivement My Ohm !"
+                Le chantier à été laissé propre, et nous avons reçu des explications claires sur la gestion des panneaux photovoltaique.
+                Je recommande vivement My Ohm !"
               </p>
             </div>
             {/* Avis 6 */}
@@ -634,7 +634,7 @@ Je recommande vivement My Ohm !"
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-900">
-                  Philippe Guizard</h3>
+                    Philippe Guizard</h3>
                   <div className="flex items-center gap-1 mb-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <StarIcon key={star} className="w-4 h-4" />
@@ -650,8 +650,8 @@ Je recommande vivement My Ohm !"
           </div>
 
           <div className="mt-12 text-center">
-            <a 
-              href="/simulator" 
+            <a
+              href="/simulator"
               className="inline-flex items-center gap-3 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-4 px-8 rounded-lg font-semibold text-xl hover:shadow-xl transition-all transform hover:scale-105"
             >
               <span>Je calcule mes économies</span>
@@ -662,7 +662,7 @@ Je recommande vivement My Ohm !"
         </div>
       </section>
 
- 
+
 
       {/* Section FAQ */}
       <FaqSection />
@@ -670,24 +670,24 @@ Je recommande vivement My Ohm !"
       <section className="py-20 relative overflow-hidden">
         {/* Arrière-plan avec dégradé */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#116290] to-[#0a3d5c] opacity-95"></div>
-        
+
         {/* Éléments décoratifs */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
           <div className="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-white opacity-10"></div>
           <div className="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-white opacity-5"></div>
           <div className="absolute -bottom-20 left-1/3 w-72 h-72 rounded-full bg-white opacity-10"></div>
         </div>
-        
+
         <div className="container mx-auto px-4 max-w-6xl relative z-10">
           <div className="text-center">
             <h2 className="text-4xl font-bold text-white mb-6">Prêt à réduire vos factures d'électricité ?</h2>
             <p className="text-xl text-white/90 mb-10 max-w-3xl mx-auto">
               Rejoignez les milliers de Français qui produisent leur propre électricité et économisent jusqu'à 70% sur leurs factures. Obtenez une simulation gratuite et sans engagement en quelques minutes.
             </p>
-            
+
             <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
-              <a 
-                href="/simulator" 
+              <a
+                href="/simulator"
                 className="inline-flex items-center gap-2 bg-gradient-to-br from-ffeb99 to-ffb700 text-black py-4 px-8 rounded-lg font-medium text-xl hover:shadow-lg transition-all transform hover:scale-105"
               >
                 <span>Je calcule mes économies</span>
@@ -695,16 +695,16 @@ Je recommande vivement My Ohm !"
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </a>
-              
-              <a 
-                href="tel:+330492766858" 
+
+              <a
+                href="tel:+330492766858"
                 className="inline-flex items-center gap-2 bg-white text-gray-900 py-4 px-8 rounded-lg font-medium text-xl hover:shadow-lg transition-all"
               >
                 <PhoneIcon />
                 <span>Appeler un conseiller</span>
               </a>
             </div>
-            
+
             <div className="mt-12 flex flex-wrap justify-center gap-8 items-center">
               <div className="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -712,21 +712,21 @@ Je recommande vivement My Ohm !"
                 </svg>
                 <span className="text-white">Installation en 1-2 jours</span>
               </div>
-              
+
               <div className="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 <span className="text-white">Garantie 25 ans</span>
               </div>
-              
+
               <div className="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 <span className="text-white">Économies immédiates</span>
               </div>
-              
+
               <div className="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -743,9 +743,9 @@ Je recommande vivement My Ohm !"
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <Image 
-                src="/images/logo-dark.png" 
-                alt="Logo Myohm Technologies" 
+              <Image
+                src="/images/logo-dark.png"
+                alt="Logo Myohm Technologies"
                 width={150}
                 height={60}
                 className="h-12 w-auto"
@@ -763,15 +763,15 @@ Je recommande vivement My Ohm !"
           </div>
         </div>
       </footer>
-      <ReviewSchema 
-        reviews={reviews} 
+      <ReviewSchema
+        reviews={reviews}
         itemReviewed={{
           name: "My Ohm Technologies - Installation de panneaux solaires",
           image: "https://www.myohmtechnologies.com/images/logo.webp",
           description: "Divisez par 2 votre facture d'électricité avec l'installation de panneaux solaires photovoltaïques par My Ohm Technologies, entreprise certifiée RGE."
         }}
       />
-      
+
       {/* Modal de succès */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">

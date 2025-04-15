@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import QuickSimulateur from '@/components/simulateurs/QuickSimulateur';
 import { CheckIcon, ArrowRightIcon, PhoneIcon, ChevronDownIcon, StarIcon, ClickIcon } from '@/components/icons/CommonIcons';
 import RealisationsPreview from '@/components/sections/RealisationsPreview';
 
@@ -126,17 +127,10 @@ export default function SimulationEconomiePage() {
             </div>
           </div>
           
-          <div className="relative h-[400px] md:h-[500px] w-full">
-            <img
-              src="/images/simulateur-myohmtechnologies.png"
-              alt="Simulation d'économies avec des panneaux solaires"
-              width={1000}
-              height={700}
-              loading="eager"
-              fetchPriority="high"
-              className="object-contain w-full h-full"
-            />
-          </div>
+           {/* Simulateur */}
+                    <div className="w-full transition-all duration-300 bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-2 border border-gray-100">
+                      <QuickSimulateur />
+                    </div>
         </div>
       </section>
 

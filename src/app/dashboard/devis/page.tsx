@@ -5,6 +5,9 @@ import NextImage from 'next/image'; // Renommer l'import pour éviter les confli
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { imageUrlToBase64 } from '@/utils/imageUtils';
+import { saveQuote } from '@/utils/quoteStorage';
+import { ConfigurationType, PowerOption, BatteryType } from '@/types/quote';
+import { useRouter } from 'next/navigation';
 import { 
   DocumentTextIcon, 
   UserIcon, 
@@ -15,12 +18,9 @@ import {
   BanknotesIcon,
   ArrowDownTrayIcon,
   PlusIcon,
-  MinusIcon
+  MinusIcon,
+  ClockIcon
 } from '@heroicons/react/24/outline';
-
-// Types de configuration disponibles
-type ConfigurationType = 'dualsun_enphase' | 'bourgeois_global';
-type PowerOption = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 // Grille tarifaire des panneaux solaires
 const PRICES = {
@@ -246,6 +246,8 @@ const formatPrice = (price: number): string => {
 };
 
 const DevisPage = () => {
+  const router = useRouter();
+  
   // État pour les données du client
   const [client, setClient] = useState({
     firstName: '',
@@ -261,13 +263,17 @@ const DevisPage = () => {
   const [config, setConfig] = useState({
     configurationType: 'dualsun_enphase' as ConfigurationType, // Type de configuration
     installationPower: 3 as PowerOption, // 3kWc par défaut
-    batteryType: 'none' as 'none' | 'physical' | 'virtual', // 'none', 'physical', 'virtual'
+    batteryType: 'none' as BatteryType, // 'none', 'physical', 'virtual'
     batteryCapacityIndex: 0, // Pour les batteries physiques (5kW par défaut)
     discount: 0, // Réduction en euros
   });
 
   // Calcul du prix total
   const [totalPrice, setTotalPrice] = useState(0);
+  
+  // État pour le message de succès
+  const [successMessage, setSuccessMessage] = useState('');
+  const [isGenerating, setIsGenerating] = useState(false);
   
   // Mise à jour du prix total lorsque la configuration change
   useEffect(() => {
@@ -304,6 +310,8 @@ const DevisPage = () => {
       alert("Veuillez remplir au moins le nom, prénom et téléphone du client avant de générer le devis");
       return;
     }
+    
+    setIsGenerating(true);
 
     // Créer un nouveau document PDF
     const doc = new jsPDF();
@@ -679,7 +687,28 @@ const DevisPage = () => {
     
       // Sauvegarder le PDF
       const clientName = `${client.lastName}_${client.firstName}`.replace(/\s+/g, '_').toLowerCase();
-      doc.save(`devis_myohm_${clientName}_${today.toISOString().split('T')[0]}.pdf`);
+      const pdfFileName = `devis_myohm_${clientName}_${today.toISOString().split('T')[0]}.pdf`;
+      doc.save(pdfFileName);
+      
+      // Sauvegarder le devis dans l'historique
+      try {
+        const savedQuote = saveQuote({
+          client,
+          config,
+          totalPrice
+        });
+        
+        setSuccessMessage(`Devis généré avec succès et sauvegardé dans l'historique (ID: ${savedQuote.id})`);
+        
+        // Effacer le message après 5 secondes
+        setTimeout(() => {
+          setSuccessMessage('');
+        }, 5000);
+      } catch (error) {
+        console.error('Erreur lors de la sauvegarde du devis:', error);
+      }
+      
+      setIsGenerating(false);
     };
     
     // Vérifier si l'image est déjà chargée
@@ -1137,16 +1166,46 @@ const DevisPage = () => {
               </div>
               <p className="text-sm text-gray-500 mb-4">TVA incluse</p>
               
-              <button
-                onClick={generatePDF}
-                className="flex items-center px-6 py-3 bg-gradient-to-r from-[#0B6291] to-[#d7f0fc] text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
-              >
-                <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
-                Générer le devis PDF
-              </button>
+              <div className="flex flex-col items-end space-y-2">
+                <button
+                  onClick={generatePDF}
+                  disabled={isGenerating}
+                  className={`flex items-center px-6 py-3 bg-gradient-to-r from-[#0B6291] to-[#d7f0fc] text-white rounded-lg font-medium hover:opacity-90 transition-opacity ${isGenerating ? 'opacity-70 cursor-not-allowed' : ''}`}
+                >
+                  {isGenerating ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Génération en cours...
+                    </>
+                  ) : (
+                    <>
+                      <ArrowDownTrayIcon className="h-5 w-5 mr-2" />
+                      Générer le devis PDF
+                    </>
+                  )}
+                </button>
+                
+                <button
+                  onClick={() => router.push('/dashboard/devis/historique')}
+                  className="flex items-center px-4 py-2 text-[#0B6291] border border-[#0B6291] rounded-lg font-medium hover:bg-[#d7f0fc]/20 transition-colors"
+                >
+                  <ClockIcon className="h-4 w-4 mr-2" />
+                  Voir l'historique des devis
+                </button>
+              </div>
             </div>
           </div>
         </div>
+        
+        {/* Message de succès */}
+        {successMessage && (
+          <div className="mt-4 p-4 bg-green-100 text-green-800 rounded-lg">
+            {successMessage}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -12,13 +12,15 @@ import {
   BriefcaseIcon,
   ArrowLeftOnRectangleIcon,
   DocumentDuplicateIcon,
-  ReceiptRefundIcon
+  ReceiptRefundIcon,
+  ClockIcon
 } from '@heroicons/react/24/outline';
 
 const navigation = [
   { name: 'Tableau de bord', href: '/dashboard', icon: HomeIcon },
   { name: 'Prospects', href: '/dashboard/prospects', icon: UsersIcon },
   { name: 'Devis', href: '/dashboard/devis', icon: ReceiptRefundIcon },
+  { name: 'Historique devis', href: '/dashboard/devis/historique', icon: ClockIcon },
   { name: 'Blog', href: '/dashboard/blog', icon: DocumentTextIcon },
   { name: 'Réalisations', href: '/dashboard/realisations', icon: PhotoIcon },
   { name: 'Projets', href: '/dashboard/projets', icon: BriefcaseIcon },
@@ -63,7 +65,7 @@ export default function Sidebar() {
                       isActive ? 'text-[#ffb700]' : 'text-white group-hover:text-[#ffeb99]'
                     }`}
                   />
-                  {item.name}
+                  <span className="truncate">{item.name}</span>
                 </Link>
               );
             })}

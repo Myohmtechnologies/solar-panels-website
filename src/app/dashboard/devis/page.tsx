@@ -668,42 +668,49 @@ const DevisPage = () => {
       }
     ]);
     
-    // Pied de page de la seconde page
-    doc.setFontSize(8);
-    doc.setTextColor(100, 100, 100);
-    doc.text("MY OHM TECHNOLOGIES - Documentation technique confidentielle", pageWidth / 2, doc.internal.pageSize.getHeight() - 10, { align: 'center' });
-    
-    // Mentions légales et conditions
+    // Mentions légales et conditions d'abord (car plusieurs lignes)
     doc.setFontSize(8);
     doc.setTextColor(100, 100, 100);
     const legalTextPage2 = [
       "Devis valable 30 jours à compter de sa date d'émission.",
       "Conditions de paiement : 30% à la commande, solde à la fin des travaux.",
-      "Délai d'exécution : 4 à 8 semaines après acceptation du devis et obtention des autorisations nécessaires.",
-      `MY OHM TECHNOLOGIES - SIREN: ${COMPANY_INFO.siren} - TVA: ${COMPANY_INFO.tva}`
+      "Délai d'exécution : 4 à 8 semaines après acceptation du devis et obtention des autorisations nécessaires."
     ];
     
-    doc.text(legalTextPage2.join("\n"), pageWidth / 2, doc.internal.pageSize.getHeight() - 20, { align: 'center' });
+    // Positionner les mentions légales plus haut pour éviter la superposition
+    doc.text(legalTextPage2.join("\n"), pageWidth / 2, doc.internal.pageSize.getHeight() - 30, { align: 'center' });
+    
+    // Pied de page de la seconde page (une seule ligne, en dernier)
+    doc.setFontSize(8);
+    doc.setTextColor(100, 100, 100);
+    doc.text("MY OHM TECHNOLOGIES - SIREN: 917601908 - TVA: FR56917601908", pageWidth / 2, doc.internal.pageSize.getHeight() - 10, { align: 'center' });
     
       // Sauvegarder le PDF
       const clientName = `${client.lastName}_${client.firstName}`.replace(/\s+/g, '_').toLowerCase();
       const pdfFileName = `devis_myohm_${clientName}_${today.toISOString().split('T')[0]}.pdf`;
       doc.save(pdfFileName);
       
-      // Sauvegarder le devis dans l'historique
+      // Sauvegarder le devis dans l'historique via l'API
       try {
-        const savedQuote = saveQuote({
+        // Appel asynchrone pour sauvegarder le devis
+        saveQuote({
           client,
           config,
           totalPrice
+        }).then(savedQuote => {
+          if (savedQuote && savedQuote._id) {
+            setSuccessMessage(`Devis généré avec succès et sauvegardé dans l'historique (ID: ${savedQuote._id})`);
+          } else {
+            setSuccessMessage(`Devis généré avec succès`);
+          }
+          
+          // Effacer le message après 5 secondes
+          setTimeout(() => {
+            setSuccessMessage('');
+          }, 5000);
+        }).catch(error => {
+          console.error('Erreur lors de la sauvegarde du devis:', error);
         });
-        
-        setSuccessMessage(`Devis généré avec succès et sauvegardé dans l'historique (ID: ${savedQuote.id})`);
-        
-        // Effacer le message après 5 secondes
-        setTimeout(() => {
-          setSuccessMessage('');
-        }, 5000);
       } catch (error) {
         console.error('Erreur lors de la sauvegarde du devis:', error);
       }

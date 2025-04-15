@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   ArrowLeftIcon, 
-  TrashIcon, 
   DocumentTextIcon,
   ArrowDownTrayIcon,
   EyeIcon,
   UserIcon,
-  CalendarIcon
+  CalendarIcon,
+  ArrowPathIcon
 } from '@heroicons/react/24/outline';
-import { getAllQuotes, deleteQuote, QuoteData } from '@/utils/quoteStorage';
+import { getAllQuotes, QuoteData } from '@/utils/quoteStorage';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
@@ -19,21 +19,26 @@ const HistoriquePage = () => {
   const router = useRouter();
   const [quotes, setQuotes] = useState<QuoteData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedQuote, setSelectedQuote] = useState<QuoteData | null>(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   // Charger les devis au chargement de la page
   useEffect(() => {
-    // Petit délai pour s'assurer que le localStorage est disponible
-    const timer = setTimeout(() => {
-      const loadedQuotes = getAllQuotes();
-      setQuotes(loadedQuotes);
-      setIsLoading(false);
-    }, 100);
+    const fetchQuotes = async () => {
+      setIsLoading(true);
+      try {
+        const loadedQuotes = await getAllQuotes();
+        setQuotes(loadedQuotes);
+      } catch (error) {
+        console.error('Erreur lors du chargement des devis:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-    return () => clearTimeout(timer);
-  }, []);
+    fetchQuotes();
+  }, [refreshTrigger]);
 
   // Filtrer les devis en fonction du terme de recherche
   const filteredQuotes = quotes.filter(quote => {
@@ -41,18 +46,15 @@ const HistoriquePage = () => {
     return (
       quote.client.firstName.toLowerCase().includes(searchTermLower) ||
       quote.client.lastName.toLowerCase().includes(searchTermLower) ||
-      quote.client.email.toLowerCase().includes(searchTermLower) ||
+      quote.client.email?.toLowerCase().includes(searchTermLower) ||
       quote.client.phone.includes(searchTerm) ||
-      quote.id.toLowerCase().includes(searchTermLower)
+      quote._id?.toLowerCase().includes(searchTermLower)
     );
   });
-
-  // Supprimer un devis
-  const handleDeleteQuote = (quoteId: string) => {
-    if (deleteQuote(quoteId)) {
-      setQuotes(quotes.filter(quote => quote.id !== quoteId));
-      setDeleteConfirmId(null);
-    }
+  
+  // Rafraîchir la liste des devis
+  const refreshQuotes = () => {
+    setRefreshTrigger(prev => prev + 1);
   };
 
   // Formater la date
@@ -96,14 +98,14 @@ const HistoriquePage = () => {
               Historique des devis
             </h1>
             <p className="mt-2 text-gray-600">
-              Consultez et gérez l'historique des devis générés
+              Consultez l'historique des devis générés
             </p>
           </div>
         </div>
 
-        {/* Barre de recherche */}
-        <div className="mb-6">
-          <div className="relative">
+        {/* Barre de recherche et bouton de rafraîchissement */}
+        <div className="mb-6 flex">
+          <div className="relative flex-grow">
             <input
               type="text"
               placeholder="Rechercher par nom, email, téléphone ou ID..."
@@ -126,6 +128,14 @@ const HistoriquePage = () => {
               />
             </svg>
           </div>
+          <button
+            onClick={refreshQuotes}
+            className="ml-3 px-4 py-3 bg-[#0B6291] text-white rounded-lg hover:bg-[#095275] transition-colors flex items-center"
+            disabled={isLoading}
+          >
+            <ArrowPathIcon className={`h-5 w-5 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+            Actualiser
+          </button>
         </div>
 
         {isLoading ? (
@@ -225,32 +235,6 @@ const HistoriquePage = () => {
                           >
                             <EyeIcon className="h-5 w-5" />
                           </button>
-                          {deleteConfirmId === quote.id ? (
-                            <div className="flex items-center space-x-1">
-                              <button
-                                onClick={() => handleDeleteQuote(quote.id)}
-                                className="text-red-600 hover:text-red-900 p-1 font-medium"
-                                title="Confirmer la suppression"
-                              >
-                                Confirmer
-                              </button>
-                              <button
-                                onClick={() => setDeleteConfirmId(null)}
-                                className="text-gray-500 hover:text-gray-700 p-1"
-                                title="Annuler"
-                              >
-                                Annuler
-                              </button>
-                            </div>
-                          ) : (
-                            <button
-                              onClick={() => setDeleteConfirmId(quote.id)}
-                              className="text-red-600 hover:text-red-900 p-1"
-                              title="Supprimer"
-                            >
-                              <TrashIcon className="h-5 w-5" />
-                            </button>
-                          )}
                         </div>
                       </td>
                     </tr>

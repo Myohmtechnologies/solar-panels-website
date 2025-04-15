@@ -1,98 +1,76 @@
-import { PowerOption, ConfigurationType } from '@/types/quote';
+import { Quote } from '@/types/quote';
 
-// Interface pour les données du devis
-export interface QuoteData {
-  id: string;
+// Interface pour les données du devis avec les types MongoDB
+export interface QuoteData extends Omit<Quote, 'id'> {
+  _id?: string; // Format MongoDB
   createdAt: string;
-  client: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    address: string;
-    postalCode: string;
-    city: string;
-  };
-  config: {
-    configurationType: ConfigurationType;
-    installationPower: PowerOption;
-    batteryType: 'none' | 'physical' | 'virtual';
-    batteryCapacityIndex: number;
-    discount: number;
-  };
-  totalPrice: number;
-  pdfUrl?: string; // Optionnel - pour stocker l'URL du PDF si on l'enregistre
 }
 
-// Clé pour le stockage local
-const QUOTES_STORAGE_KEY = 'myohm_quotes_history';
-
-// Fonction pour récupérer tous les devis
-export const getAllQuotes = (): QuoteData[] => {
-  if (typeof window === 'undefined') return [];
-  
-  const storedQuotes = localStorage.getItem(QUOTES_STORAGE_KEY);
-  if (!storedQuotes) return [];
-  
+// Fonction pour récupérer tous les devis depuis l'API
+export const getAllQuotes = async (): Promise<QuoteData[]> => {
   try {
-    return JSON.parse(storedQuotes);
+    const response = await fetch('/api/quotes', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store', // Désactiver le cache pour toujours obtenir les données les plus récentes
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.success ? data.data : [];
   } catch (error) {
     console.error('Erreur lors de la récupération des devis:', error);
     return [];
   }
 };
 
-// Fonction pour sauvegarder un nouveau devis
-export const saveQuote = (quoteData: Omit<QuoteData, 'id' | 'createdAt'>): QuoteData => {
-  const quotes = getAllQuotes();
-  
-  // Créer un nouvel ID unique basé sur la date et un nombre aléatoire
-  const newQuote: QuoteData = {
-    ...quoteData,
-    id: `DEVIS-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-    createdAt: new Date().toISOString()
-  };
-  
-  // Ajouter le nouveau devis au début de la liste
-  quotes.unshift(newQuote);
-  
-  // Sauvegarder dans le localStorage
-  localStorage.setItem(QUOTES_STORAGE_KEY, JSON.stringify(quotes));
-  
-  return newQuote;
-};
+// Fonction pour sauvegarder un nouveau devis via l'API
+export const saveQuote = async (quoteData: Omit<QuoteData, '_id' | 'createdAt'>): Promise<QuoteData | null> => {
+  try {
+    const response = await fetch('/api/quotes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(quoteData),
+    });
 
-// Fonction pour supprimer un devis
-export const deleteQuote = (quoteId: string): boolean => {
-  const quotes = getAllQuotes();
-  const filteredQuotes = quotes.filter(quote => quote.id !== quoteId);
-  
-  if (filteredQuotes.length === quotes.length) {
-    return false; // Aucun devis n'a été supprimé
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.success ? data.data : null;
+  } catch (error) {
+    console.error('Erreur lors de la sauvegarde du devis:', error);
+    return null;
   }
-  
-  localStorage.setItem(QUOTES_STORAGE_KEY, JSON.stringify(filteredQuotes));
-  return true;
 };
 
-// Fonction pour récupérer un devis spécifique
-export const getQuoteById = (quoteId: string): QuoteData | null => {
-  const quotes = getAllQuotes();
-  const quote = quotes.find(q => q.id === quoteId);
-  return quote || null;
-};
+// Fonction pour récupérer un devis spécifique par son ID
+export const getQuoteById = async (quoteId: string): Promise<QuoteData | null> => {
+  try {
+    const response = await fetch(`/api/quotes/${quoteId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store',
+    });
 
-// Fonction pour mettre à jour un devis existant
-export const updateQuote = (quoteId: string, updatedData: Partial<QuoteData>): boolean => {
-  const quotes = getAllQuotes();
-  const quoteIndex = quotes.findIndex(q => q.id === quoteId);
-  
-  if (quoteIndex === -1) {
-    return false;
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.success ? data.data : null;
+  } catch (error) {
+    console.error(`Erreur lors de la récupération du devis ${quoteId}:`, error);
+    return null;
   }
-  
-  quotes[quoteIndex] = { ...quotes[quoteIndex], ...updatedData };
-  localStorage.setItem(QUOTES_STORAGE_KEY, JSON.stringify(quotes));
-  
-  return true;
 };

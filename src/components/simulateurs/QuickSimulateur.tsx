@@ -22,11 +22,14 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
     adresse: '',
     telephone: ''
   });
+  
+  // Calculer le pourcentage de progression
+  const progressPercentage = (step / 4) * 100;
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    if (field !== 'nom' && field !== 'email' && field !== 'codePostal' && field !== 'adresse' && field !== 'telephone') {
+    if (field === 'type' || field === 'chauffage' || field === 'facture') {
       const nextStep = step + 1;
       setStep(nextStep);
       onStepChange?.(nextStep);
@@ -55,6 +58,16 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
     setIsSubmitting(true);
 
     try {
+      // Tracking Google Ads - conversion principale
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'conversion', {
+          'send_to': 'AW-XXXXXXXXXX/ZZZZZZZZZZ',
+          'value': 70.0,
+          'currency': 'EUR',
+          'label': 'simulator_completed'
+        });
+      }
+      
       const response = await fetch('/api/leads', {
         method: 'POST',
         headers: {
@@ -81,6 +94,14 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
         throw new Error('Erreur lors de l\'envoi du formulaire');
       }
 
+      // Sauvegarde des données de simulation en localStorage pour récupération ultérieure
+      localStorage.setItem('lastSimulation', JSON.stringify({
+        type: formData.type,
+        chauffage: formData.chauffage,
+        facture: formData.facture,
+        date: new Date().toISOString()
+      }));
+
       // Redirection vers la page de remerciement
       router.push('/merci');
     } catch (error) {
@@ -96,28 +117,41 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
       {/* Titre qui apparaît uniquement aux étapes 1, 2 et 3 */}
       {step < 4 && (
         <div className="bg-gradient-to-br from-ffeb99 to-ffb700 p-6 rounded-t-2xl">
-          <h2 className="text-2xl font-bold text-black mb-2">
-            💡 Faites Votre Simulation en 2 Minutes !
-          </h2>
-          <p className="text-black">
+          <div className="flex justify-between items-center mb-2">
+            <h2 className="text-2xl font-bold text-black">
+              💡 Faites Votre Simulation en 2 Minutes !
+            </h2>
+            
+          </div>
+          <p className="text-black mb-3">
             Découvrez combien vous pouvez économiser grâce à l'énergie solaire.
           </p>
+
         </div>
       )}
 
       {/* Indicateur de progression */}
-      {step < 4 && (
-        <div className="px-6 pt-4 flex justify-between items-center">
-          <div className="flex space-x-2">
-            {[1, 2, 3].map((s) => (
-              <div 
-                key={s} 
-                className={`w-3 h-3 rounded-full ${s === step ? 'bg-[#126290]' : s < step ? 'bg-gray-300' : 'bg-gray-200'}`}
-              />
-            ))}
+      {step < 5 && (
+        <div className="px-6 pt-4 space-y-2">
+          <div className="flex justify-between items-center">
+            <div className="flex space-x-2">
+              {[1, 2, 3, 4].map((s) => (
+                <div 
+                  key={s} 
+                  className={`w-3 h-3 rounded-full ${s === step ? 'bg-[#126290]' : s < step ? 'bg-[#126290]' : 'bg-gray-200'}`}
+                />
+              ))}
+            </div>
+            <div className="text-sm text-gray-500">
+              Étape {step}/4
+            </div>
           </div>
-          <div className="text-sm text-gray-500">
-            Étape {step}/4
+          {/* Barre de progression plus explicite */}
+          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-gradient-to-r from-[#126290] to-[#1a7ab3] transition-all duration-300 ease-out"
+              style={{ width: `${progressPercentage}%` }}
+            ></div>
           </div>
         </div>
       )}
@@ -242,26 +276,42 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
           <p className="text-black font-semibold text-xl mb-6 text-center">Quel est le montant de votre facture d'électricité ?</p>
           <div className="grid grid-cols-3 gap-4">
             {[
-              { value: '80-140', label: '80-140€', subLabel: 'par mois' },
-              { value: '140-200', label: '140-200€', subLabel: 'par mois' },
-              { value: '200+', label: '+ de 200€', subLabel: 'par mois' }
+              { value: '80-140', label: '80-140€', subLabel: 'par mois', popular: false },
+              { value: '140-200', label: '140-200€', subLabel: 'par mois', popular: true },
+              { value: '200+', label: '+ de 200€', subLabel: 'par mois', popular: false }
             ].map((option) => (
               <button
                 key={option.value}
                 type="button"
-                onClick={() => handleInputChange('facture', option.value)}
+                onClick={() => {
+                  handleInputChange('facture', option.value);
+                  // Tracking Google Ads - conversion secondaire
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'conversion', {
+                      'send_to': 'AW-XXXXXXXXXX/YYYYYYYYYY',
+                      'value': 10.0,
+                      'currency': 'EUR',
+                      'label': 'step3_completed'
+                    });
+                  }
+                }}
                 className={`relative group flex flex-col items-center justify-center p-6 rounded-xl border-2 transition-all ${
                   formData.facture === option.value
                     ? 'border-[#126290] bg-gradient-to-br from-[#126290] to-[#1a7ab3] text-white shadow-lg'
                     : 'border-gray-200 hover:border-[#126290] hover:shadow-md bg-white hover:bg-gradient-to-br hover:from-white hover:to-gray-50'
                 }`}
               >
+                {option.popular && (
+                  <div className="absolute -top-2 -right-2 bg-[#ffb700] text-xs font-bold px-2 py-1 rounded-full text-gray-900 shadow-sm">
+                    Populaire
+                  </div>
+                )}
                 <div className={`w-16 h-16 mb-3 rounded-full flex items-center justify-center ${
                   formData.facture === option.value
                     ? 'bg-white/20'
                     : 'bg-gradient-to-br from-ffeb99 to-ffb700'
                 }`}>
-                  <span className="text-2xl">💶</span>
+                  <CurrencyEuroIcon className={`w-8 h-8 ${formData.facture === option.value ? 'text-white' : 'text-[#126290]'}`} />
                 </div>
                 <span className="font-medium text-lg">{option.label}</span>
                 <span className="text-sm opacity-75">{option.subLabel}</span>
@@ -391,6 +441,12 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
                     <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                   </svg>
                   <span className="text-xs text-gray-500">Données sécurisées</span>
+                </div>
+                <div className="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-600 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-xs text-gray-500">500+ clients satisfaits</span>
                 </div>
               </div>
             </div>

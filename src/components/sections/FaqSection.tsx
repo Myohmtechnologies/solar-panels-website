@@ -48,29 +48,38 @@ export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-16 px-4 bg-white">
+    <section className="py-16 px-4 bg-[#f8fafc]">
       <div className="container mx-auto max-w-4xl">
-        <h2 className="text-3xl font-bold mb-12 text-center">
-          Questions Fréquentes sur le Solaire
-        </h2>
+        <div className="text-center mb-10">
+          <div className="inline-block px-4 py-1 rounded-full bg-[#0a3d5c]/5 mb-4">
+            <p className="text-sm font-medium text-[#0a3d5c]">Foire aux questions</p>
+          </div>
+          <h2 className="text-3xl font-bold mb-4 text-gray-900">
+            Questions fréquentes sur le solaire
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-6">
+            Trouvez les réponses aux questions les plus courantes sur les panneaux solaires et leur installation
+          </p>
+        </div>
+        
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="border border-gray-200 rounded-lg overflow-hidden"
+              className={`rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all ${openIndex === index ? 'border-l-4 border-[#116290]' : ''}`}
             >
               <button
-                className="w-full px-6 py-4 flex justify-between items-center bg-white hover:bg-gray-50 transition-colors"
+                className={`w-full px-6 py-5 flex justify-between items-center bg-white transition-colors ${openIndex === index ? 'bg-white' : 'hover:bg-gray-50'}`}
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
               >
                 <span className="text-left font-semibold text-gray-900">
                   {faq.question}
                 </span>
-                <ChevronDownIcon
-                  className={`w-5 h-5 transform transition-transform ${
-                    openIndex === index ? 'rotate-180' : ''
-                  }`}
-                />
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${openIndex === index ? 'bg-[#116290]' : 'bg-gray-100'}`}>
+                  <ChevronDownIcon
+                    className={`w-5 h-5 transform transition-transform ${openIndex === index ? 'rotate-180 text-white' : 'text-gray-600'}`}
+                  />
+                </div>
               </button>
               <AnimatePresence>
                 {openIndex === index && (
@@ -80,8 +89,8 @@ export default function FaqSection() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <div className="px-6 py-4 bg-gray-50">
-                      <p className="text-gray-700 leading-relaxed">
+                    <div className="px-6 py-5 bg-white border-t border-gray-100">
+                      <p className="text-gray-700 leading-relaxed whitespace-pre-line">
                         {faq.answer}
                       </p>
                     </div>

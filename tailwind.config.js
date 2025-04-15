@@ -37,6 +37,35 @@ module.exports = {
         'light-bg': '#fafaf9',
         'dark-bg': '#0a0a0a',
       },
+      animation: {
+        'fade-in': 'fadeIn 0.8s ease-in-out forwards',
+        'pulse-slow': 'pulseGlow 6s infinite alternate',
+        'float': 'float 6s ease-in-out infinite',
+        'border-flow': 'borderFlow 3s ease infinite',
+        'bounce-slow': 'bounce 3s infinite',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0', transform: 'translateY(10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        pulseGlow: {
+          '0%': { opacity: '0.4' },
+          '50%': { opacity: '0.6' },
+          '100%': { opacity: '0.4' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        borderFlow: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        }
+      },
+      transitionTimingFunction: {
+        'bounce': 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+      },
       fontFamily: {
         montserrat: ['var(--font-montserrat)', 'sans-serif'],
       },

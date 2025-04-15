@@ -139,12 +139,12 @@ const EQUIPMENT_INFO = {
     name: "Pack Full Bourgeois Global",
     panels: {
       brand: "Bourgeois Global",
-      model: "Premium 450W",
+      model: "Premium 500W",
       warranty: "25 ans",
       origin: "Europe",
       // Caractéristiques techniques détaillées
       specs: {
-        power: "450W",
+        power: "500W",
         efficiency: "98,5%",
         dimensions: "180,0 x 185,0 cm",
         weight: "25,5 kg",
@@ -266,6 +266,10 @@ const DevisPage = () => {
     batteryType: 'none' as BatteryType, // 'none', 'physical', 'virtual'
     batteryCapacityIndex: 0, // Pour les batteries physiques (5kW par défaut)
     discount: 0, // Réduction en euros
+    exceptionalService: {
+      description: '',
+      price: 0
+    }
   });
 
   // Calcul du prix total
@@ -284,6 +288,11 @@ const DevisPage = () => {
       price += BATTERY_PRICES.physical[config.batteryCapacityIndex].price;
     } else if (config.batteryType === 'virtual') {
       price += BATTERY_PRICES.virtual.price;
+    }
+    
+    // Ajout du prix de la prestation exceptionnelle si renseignée
+    if (config.exceptionalService.description && config.exceptionalService.price > 0) {
+      price += config.exceptionalService.price;
     }
     
     // Application de la réduction
@@ -466,6 +475,15 @@ const DevisPage = () => {
         'Réduction commerciale',
         '',
         `-${config.discount.toLocaleString()} €`
+      ]);
+    }
+    
+    // Ajouter la prestation exceptionnelle si renseignée
+    if (config.exceptionalService.description && config.exceptionalService.price > 0) {
+      installationDetails.push([
+        'Prestation',
+        config.exceptionalService.description,
+        `${config.exceptionalService.price.toLocaleString()} €`
       ]);
     }
     
@@ -692,12 +710,35 @@ const DevisPage = () => {
       
       // Sauvegarder le devis dans l'historique via l'API
       try {
+        // Vérifier si la prestation exceptionnelle est renseignée
+        const hasExceptionalService = config.exceptionalService && 
+                                     config.exceptionalService.description && 
+                                     config.exceptionalService.price > 0;
+        
+        console.log('Données du devis à sauvegarder:', {
+          client,
+          config,
+          totalPrice,
+          hasExceptionalService,
+          exceptionalService: config.exceptionalService
+        });
+        
+        // Créer une copie de la configuration pour la manipulation
+        const configToSave: any = { ...config };
+        
+        // Si la prestation exceptionnelle n'est pas remplie, la supprimer complètement
+        if (!hasExceptionalService) {
+          delete configToSave.exceptionalService;
+        }
+        
         // Appel asynchrone pour sauvegarder le devis
         saveQuote({
           client,
-          config,
+          config: configToSave,
           totalPrice
         }).then(savedQuote => {
+          console.log('Devis sauvegardé avec succès:', savedQuote);
+          
           if (savedQuote && savedQuote._id) {
             setSuccessMessage(`Devis généré avec succès et sauvegardé dans l'historique (ID: ${savedQuote._id})`);
           } else {
@@ -1124,6 +1165,63 @@ const DevisPage = () => {
                 <span className="ml-2 text-gray-700">€</span>
               </div>
             </div>
+            
+            {/* Prestation exceptionnelle */}
+            <div className="mb-6">
+              <h3 className="text-lg font-medium text-gray-800 mb-3">
+                <PlusIcon className="h-5 w-5 inline mr-2 text-purple-500" />
+                Prestation exceptionnelle (optionnelle)
+              </h3>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Description de la prestation
+                  </label>
+                  <input
+                    type="text"
+                    value={config.exceptionalService.description}
+                    onChange={(e) => {
+                      const newConfig = {
+                        ...config,
+                        exceptionalService: {
+                          ...config.exceptionalService,
+                          description: e.target.value
+                        }
+                      };
+                      setConfig(newConfig);
+                    }}
+                    placeholder="Ex: Installation d'un système de monitoring avancé"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0B6291]"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Prix de la prestation (€)
+                  </label>
+                  <div className="flex items-center">
+                    <input
+                      type="number"
+                      value={config.exceptionalService.price}
+                      onChange={(e) => {
+                        const newConfig = {
+                          ...config,
+                          exceptionalService: {
+                            ...config.exceptionalService,
+                            price: parseInt(e.target.value) || 0
+                          }
+                        };
+                        setConfig(newConfig);
+                      }}
+                      className="w-32 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0B6291]"
+                    />
+                    <span className="ml-2 text-gray-700">€</span>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">Laissez vide si aucune prestation supplémentaire n'est nécessaire.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -1162,6 +1260,12 @@ const DevisPage = () => {
                 {config.discount > 0 && (
                   <p className="text-gray-700">
                     <span className="font-medium">Réduction commerciale :</span> -{config.discount.toLocaleString()} €
+                  </p>
+                )}
+                
+                {config.exceptionalService.description && config.exceptionalService.price > 0 && (
+                  <p className="text-gray-700">
+                    <span className="font-medium">Prestation exceptionnelle :</span> {config.exceptionalService.description} - {config.exceptionalService.price.toLocaleString()} €
                   </p>
                 )}
               </div>

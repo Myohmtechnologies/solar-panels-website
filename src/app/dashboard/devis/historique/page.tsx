@@ -186,7 +186,7 @@ const HistoriquePage = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredQuotes.map((quote) => (
-                    <tr key={quote.id} className="hover:bg-gray-50">
+                    <tr key={quote._id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-10 w-10 bg-[#0B6291]/10 rounded-full flex items-center justify-center">
@@ -215,6 +215,9 @@ const HistoriquePage = () => {
                               ? ` + Batterie ${[5, 10, 15][quote.config.batteryCapacityIndex]}kW` 
                               : ' + Stockage virtuel'
                           )}
+                          {quote.config.exceptionalService?.description && quote.config.exceptionalService.price > 0 && (
+                            <span className="ml-1 text-purple-600"> + Prestation exceptionnelle</span>
+                          )}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -229,7 +232,7 @@ const HistoriquePage = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div className="flex justify-end space-x-2">
                           <button
-                            onClick={() => showQuoteDetails(quote)}
+                            onClick={() => showQuoteDetails(quote as any)}
                             className="text-blue-600 hover:text-blue-900 p-1"
                             title="Voir les détails"
                           >
@@ -330,6 +333,16 @@ const HistoriquePage = () => {
                       <div>
                         <div className="text-sm text-gray-500">Réduction</div>
                         <div className="text-green-600">-{selectedQuote.config.discount.toLocaleString()} €</div>
+                      </div>
+                    )}
+                    
+                    {selectedQuote.config.exceptionalService?.description && selectedQuote.config.exceptionalService.price > 0 && (
+                      <div>
+                        <div className="text-sm text-gray-500">Prestation exceptionnelle</div>
+                        <div>
+                          <div>{selectedQuote.config.exceptionalService.description}</div>
+                          <div className="font-medium">{selectedQuote.config.exceptionalService.price.toLocaleString()} €</div>
+                        </div>
                       </div>
                     )}
                   </div>

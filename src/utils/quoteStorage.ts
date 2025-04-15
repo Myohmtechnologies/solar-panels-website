@@ -1,9 +1,32 @@
-import { Quote } from '@/types/quote';
+// Suppression de l'import qui cause l'erreur
 
-// Interface pour les données du devis avec les types MongoDB
-export interface QuoteData extends Omit<Quote, 'id'> {
-  _id?: string; // Format MongoDB
-  createdAt: string;
+// Interface pour les données de devis
+export interface QuoteData {
+  _id?: string;
+  client: {
+    firstName: string;
+    lastName: string;
+    email?: string;
+    phone: string;
+    address?: string;
+    postalCode?: string;
+    city?: string;
+  };
+  config: {
+    configurationType: 'dualsun_enphase' | 'bourgeois_global';
+    installationPower: number;
+    batteryType: 'none' | 'physical' | 'virtual';
+    batteryCapacityIndex: number;
+    discount: number;
+    exceptionalService?: {
+      description: string;
+      price: number;
+    };
+  };
+  totalPrice: number;
+  pdfUrl?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 // Fonction pour récupérer tous les devis depuis l'API

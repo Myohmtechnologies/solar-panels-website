@@ -1,5 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
-import { Quote } from '@/types/quote';
+
+// Définir explicitement le schéma pour la prestation exceptionnelle
+const ExceptionalServiceSchema = new Schema({
+  description: { type: String },
+  price: { type: Number }
+}, { _id: false }); // Désactiver l'ID automatique pour ce sous-document
 
 // Schéma pour les données client
 const ClientSchema = new Schema({
@@ -10,7 +15,7 @@ const ClientSchema = new Schema({
   address: { type: String },
   postalCode: { type: String },
   city: { type: String }
-});
+}, { _id: false });
 
 // Schéma pour la configuration du devis
 const ConfigSchema = new Schema({
@@ -30,17 +35,24 @@ const ConfigSchema = new Schema({
     required: true 
   },
   batteryCapacityIndex: { type: Number, default: 0 },
-  discount: { type: Number, default: 0 }
-});
+  discount: { type: Number, default: 0 },
+  exceptionalService: ExceptionalServiceSchema
+}, { _id: false, strict: false }); // Désactiver strict mode pour accepter les champs non définis
 
 // Schéma principal pour le devis
 const QuoteSchema = new Schema({
-  client: { type: ClientSchema, required: true },
-  config: { type: ConfigSchema, required: true },
+  client: ClientSchema,
+  config: ConfigSchema,
   totalPrice: { type: Number, required: true },
   pdfUrl: { type: String },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
+}, { strict: false }); // Désactiver strict mode pour le schéma principal
+
+// Ajouter un hook pre-save pour déboguer
+QuoteSchema.pre('save', function(next) {
+  console.log('Saving quote with config:', this.config);
+  next();
 });
 
 // Vérifier si le modèle existe déjà pour éviter les erreurs de redéfinition

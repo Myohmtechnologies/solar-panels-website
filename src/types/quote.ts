@@ -21,6 +21,10 @@ export interface QuoteConfig {
   batteryType: BatteryType;
   batteryCapacityIndex: number;
   discount: number;
+  exceptionalService?: {
+    description: string;
+    price: number;
+  };
 }
 
 // Interface complète pour un devis

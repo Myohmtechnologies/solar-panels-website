@@ -37,15 +37,15 @@ const PRICES = {
       9: 19990,
     },
     bourgeois_global: {
-      1: 3490,
-      2: 6000,
-      3: 8290,
-      4: 9990,
-      5: 12000,
-      6: 13290,
-      7: 14490,
-      8: 16980,
-      9: 17990,
+      1: 3990,
+      2: 6490,
+      3: 8890,
+      4: 10490,
+      5: 12290,
+      6: 13990,
+      7: 15490,
+      8: 17290,
+      9: 18990,
     }
   }
 };
@@ -146,15 +146,15 @@ const EQUIPMENT_INFO = {
       specs: {
         power: "500W",
         efficiency: "98,5%",
-        dimensions: "180,0 x 185,0 cm",
-        weight: "25,5 kg",
+        dimensions: "195,0 x 113,4 cm",
+        weight: "27,1 kg",
         cells: "108 cellules monocristallines",
         maxVoltage: "40,5V",
         maxCurrent: "10,2A"
       },
       // Garanties et certifications
       certifications: [
-        "Garantie de production linéaire sur 25 ans",
+        "Garantie de production linéaire sur 30 ans",
         "Garantie produit de 25 ans",
         "Certifié selon les normes IEC 61215 et IEC 61730",
         "Certification résistance aux intempéries"
@@ -163,11 +163,11 @@ const EQUIPMENT_INFO = {
     inverter: {
       brand: "Bourgeois Global",
       model: "Onduleurs série BG-500",
-      warranty: "20 ans",
+      warranty: "25 ans",
       origin: "Europe",
       // Caractéristiques techniques détaillées
       specs: {
-        maxPower: "500W",
+        maxPower: "670W",
         compatibility: "Panneaux jusqu'à 550W",
         mpptRange: "25-48V",
         efficiency: "98,2%",
@@ -198,7 +198,7 @@ const EQUIPMENT_INFO = {
       certifications: [
         "Certification Eurocode 9",
         "Test en soufflerie selon EN 1991",
-        "Garantie produit de 20 ans",
+        "Garantie produit de 25 ans",
         "Conformité CE"
       ]
     }

@@ -192,8 +192,8 @@ export default function DevisPanneauxSolairesPage() {
           </div>
         </div>
         
-        {/* Contenu principal */}
-        <div className="container relative z-10 mx-auto px-6 md:px-8 lg:px-10">
+        {/* Contenu principal - Version desktop uniquement */}
+        <div className="hidden lg:block container relative z-10 mx-auto px-6 md:px-8 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Contenu mobile-first - Réorganisé pour l'affichage mobile */}
             <div className="lg:col-span-6 text-gray-900 order-1 lg:order-1">

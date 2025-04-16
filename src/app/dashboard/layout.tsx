@@ -23,7 +23,7 @@ const navigation = [
   { name: 'Tableau de bord', href: '/dashboard', icon: HomeIcon },
   { name: 'Prospects', href: '/dashboard/leads', icon: UsersIcon },
   { name: 'Devis', href: '/dashboard/devis', icon: ReceiptRefundIcon },
-  { name: 'Projets', href: '/dashboard/projets', icon: BriefcaseIcon },
+  { name: 'Planning', href: '/dashboard/planning', icon: BriefcaseIcon },
   { name: 'Projets Terminés', href: '/dashboard/completed', icon: CheckCircleIcon },
   { name: 'Blog', href: '/dashboard/blog', icon: DocumentTextIcon },
   { name: 'Réalisations', href: '/dashboard/realisations', icon: PhotoIcon },

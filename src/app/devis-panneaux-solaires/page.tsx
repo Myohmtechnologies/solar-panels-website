@@ -401,13 +401,33 @@ export default function DevisPanneauxSolairesPage() {
               <div className="p-8 text-center">
                 <h3 className="text-2xl font-bold mb-2 text-gray-900">Découvrez le montant de vos aides 2025</h3>
                 <p className="text-gray-800 opacity-90 mb-6">Calculez gratuitement combien vous pourriez économiser avec les aides de l'État</p>
-                <a 
-                  href="/simulator" 
-                  className="inline-flex items-center gap-2 bg-[#0a3d5c] text-white py-3 px-6 rounded-lg font-medium hover:bg-[#116290] transition-colors"
-                >
-                  <span>Estimer mes aides financières</span>
-                  <ArrowRightIcon className="h-5 w-5" />
-                </a>
+                {
+/* Fonction de conversion Google Ads adaptée pour React */}
+<a 
+  href="/simulator" 
+  className="inline-flex items-center gap-2 bg-[#0a3d5c] text-white py-3 px-6 rounded-lg font-medium hover:bg-[#116290] transition-colors"
+  onClick={(e) => {
+    e.preventDefault();
+    
+    // Appel de la fonction de conversion Google Ads
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-16817660787/9PJFCP3gnLkaEPPGpNM-',
+        'value': 10.0,
+        'currency': 'EUR',
+        'event_callback': function() {
+          window.location.href = '/simulator';
+        }
+      });
+    } else {
+      // Fallback si gtag n'est pas disponible
+      window.location.href = '/simulator';
+    }
+  }}
+>
+  <span>Estimer mes aides financières</span>
+  <ArrowRightIcon className="h-5 w-5" />
+</a>
                 <p className="mt-4 text-sm text-gray-700">Simulateur mis à jour avec les dernières aides disponibles</p>
               </div>
             </div>
@@ -535,6 +555,24 @@ export default function DevisPanneauxSolairesPage() {
                 <a 
                   href="/simulator" 
                   className="inline-flex items-center gap-2 bg-[#ffb700] text-gray-900 py-3 px-6 rounded-lg font-medium hover:bg-[#ffeb99] transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    
+                    // Appel de la fonction de conversion Google Ads
+                    if (typeof window !== 'undefined' && window.gtag) {
+                      window.gtag('event', 'conversion', {
+                        'send_to': 'AW-16817660787/bbv9CPi8qLkaEPPGpNM-',
+                        'value': 1.0,
+                        'currency': 'EUR',
+                        'event_callback': function() {
+                          window.location.href = '/simulator';
+                        }
+                      });
+                    } else {
+                      // Fallback si gtag n'est pas disponible
+                      window.location.href = '/simulator';
+                    }
+                  }}
                 >
                   <span>Simuler mon installation avec des experts</span>
                   <ArrowRightIcon className="h-5 w-5" />
@@ -574,6 +612,24 @@ export default function DevisPanneauxSolairesPage() {
                     <a 
                       href="/simulator" 
                       className="inline-flex items-center gap-2 bg-[#0a3d5c] text-white py-3 px-6 rounded-lg font-medium hover:bg-[#116290] transition-colors"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        
+                        // Appel de la fonction de conversion Google Ads
+                        if (typeof window !== 'undefined' && window.gtag) {
+                          window.gtag('event', 'conversion', {
+                            'send_to': 'AW-16817660787/X33tCPnSqbkaEPPGpNM-',
+                            'value': 10.0,
+                            'currency': 'EUR',
+                            'event_callback': function() {
+                              window.location.href = '/simulator';
+                            }
+                          });
+                        } else {
+                          // Fallback si gtag n'est pas disponible
+                          window.location.href = '/simulator';
+                        }
+                      }}
                     >
                       <span>Simuler mon installation personnalisée</span>
                       <ArrowRightIcon className="h-5 w-5" />
@@ -741,6 +797,24 @@ export default function DevisPanneauxSolairesPage() {
                 <a 
                   href="/simulator" 
                   className="inline-flex items-center gap-2 bg-[#0a3d5c] text-white py-3 px-6 rounded-lg font-medium hover:bg-[#116290] transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    
+                    // Appel de la fonction de conversion Google Ads
+                    if (typeof window !== 'undefined' && window.gtag) {
+                      window.gtag('event', 'conversion', {
+                        'send_to': 'AW-16817660787/Wg2QCJfZqLkaEPPGpNM-',
+                        'value': 10.0,
+                        'currency': 'EUR',
+                        'event_callback': function() {
+                          window.location.href = '/simulator';
+                        }
+                      });
+                    } else {
+                      // Fallback si gtag n'est pas disponible
+                      window.location.href = '/simulator';
+                    }
+                  }}
                 >
                   <span>Je calcule mes économies</span>
                   <ArrowRightIcon className="h-5 w-5" />
@@ -782,6 +856,24 @@ export default function DevisPanneauxSolairesPage() {
               <a
                 href="/simulator"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-[#ffb700] to-[#ffeb99] text-gray-900 py-4 px-8 rounded-xl font-medium text-xl hover:shadow-xl transition-all transform hover:scale-105"
+                onClick={(e) => {
+                  e.preventDefault();
+                  
+                  // Appel de la fonction de conversion Google Ads
+                  if (typeof window !== 'undefined' && window.gtag) {
+                    window.gtag('event', 'conversion', {
+                      'send_to': 'AW-16817660787/G0ogCNbAnbkaEPPGpNM-',
+                      'value': 10.0,
+                      'currency': 'EUR',
+                      'event_callback': function() {
+                        window.location.href = '/simulator';
+                      }
+                    });
+                  } else {
+                    // Fallback si gtag n'est pas disponible
+                    window.location.href = '/simulator';
+                  }
+                }}
               >
                 <span>Je calcule mes économies</span>
                 <ArrowRightIcon className="h-6 w-6" />

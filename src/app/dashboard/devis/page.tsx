@@ -385,9 +385,10 @@ const DevisPage = () => {
     const addPdfContent = () => {
     
     // Sous-titre
-    doc.setFontSize(16);
-    doc.setTextColor(0, 0, 0);
-    doc.text("DEVIS INSTALLATION PANNEAUX SOLAIRES", pageWidth / 2, 50, { align: "center" });
+    doc.setFontSize(18);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(11, 98, 145); // #0B6291 - Bleu de MY OHM
+    doc.text("VOTRE DEVIS PANNEAUX SOLAIRES", pageWidth / 2, 50, { align: "center" });
     
     // Date du devis
     const today = new Date();

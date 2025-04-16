@@ -134,14 +134,7 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
       {step < 5 && (
         <div className="px-6 pt-4 space-y-2">
           <div className="flex justify-between items-center">
-            <div className="flex space-x-2">
-              {[1, 2, 3, 4].map((s) => (
-                <div 
-                  key={s} 
-                  className={`w-3 h-3 rounded-full ${s === step ? 'bg-[#126290]' : s < step ? 'bg-[#126290]' : 'bg-gray-200'}`}
-                />
-              ))}
-            </div>
+          
             <div className="text-sm text-gray-500">
               Étape {step}/4
             </div>

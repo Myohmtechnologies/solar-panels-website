@@ -54,13 +54,13 @@ const PRICES = {
 const SOLAR_PANELS_DATA = [
   { power: 1, panels: 2, surface: 4.42, production: 1700 },
   { power: 2, panels: 4, surface: 8.85, production: 3400 },
-  { power: 3, panels: 6, surface: 13.27, production: 4500 },
-  { power: 4, panels: 8, surface: 17.70, production: 6000 },
-  { power: 5, panels: 10, surface: 22.11, production: 7500 },
-  { power: 6, panels: 12, surface: 26.53, production: 9000 },
-  { power: 7, panels: 14, surface: 30.96, production: 10400 },
-  { power: 8, panels: 16, surface: 35.38, production: 11400 },
-  { power: 9, panels: 18, surface: 39.80, production: 12800 },
+  { power: 3, panels: 6, surface: 13.27, production: 4800 },
+  { power: 4, panels: 8, surface: 17.70, production: 6400 },
+  { power: 5, panels: 10, surface: 22.11, production: 7900 },
+  { power: 6, panels: 12, surface: 26.53, production: 9800 },
+  { power: 7, panels: 14, surface: 30.96, production: 11200 },
+  { power: 8, panels: 16, surface: 35.38, production: 12200 },
+  { power: 9, panels: 18, surface: 39.80, production: 14400 },
 ];
 
 // Informations détaillées sur les équipements utilisés
@@ -559,8 +559,8 @@ const DevisPage = () => {
     // Ajouter une nouvelle page pour les détails techniques
     doc.addPage();
     
-    // Titre de la page des spécifications techniques (plus compact)
-    doc.setFontSize(14);
+    // Titre de la page des spécifications techniques (plus grand)
+    doc.setFontSize(16);
     doc.setTextColor(11, 98, 145); // Bleu MY OHM
     doc.setFont('helvetica', 'bold');
     doc.text("SPÉCIFICATIONS TECHNIQUES DÉTAILLÉES", pageWidth / 2, 15, { align: "center" });
@@ -577,48 +577,58 @@ const DevisPage = () => {
     };
     
     const drawSection = (title: string, yPosition: number, content: SectionItem[]): number => {
-      // Fond de la section (plus compact)
+      // Vérifier si nous avons besoin d'une nouvelle page
+      if (yPosition > doc.internal.pageSize.getHeight() - 60) {
+        doc.addPage();
+        yPosition = 20;
+      }
+      
+      // Fond de la section (plus visible)
       doc.setFillColor(240, 240, 240);
-      doc.roundedRect(15, yPosition, pageWidth - 30, 14, 2, 2, 'F');
+      doc.roundedRect(15, yPosition, pageWidth - 30, 16, 2, 2, 'F');
       
       // Titre de la section
-      doc.setFontSize(11); // Taille de texte réduite pour les titres de section
+      doc.setFontSize(13); // Taille de texte augmentée pour les titres de section
       doc.setTextColor(11, 98, 145);
       doc.setFont('helvetica', 'bold');
-      doc.text(title, 20, yPosition + 10);
+      doc.text(title, 20, yPosition + 11);
       
       // Contenu de la section
-      let currentY = yPosition + 22; // Réduit l'espace entre le titre et le contenu
+      let currentY = yPosition + 25; // Plus d'espace entre le titre et le contenu
       content.forEach((item: SectionItem) => {
+        // Vérifier si nous avons besoin d'une nouvelle page
+        if (currentY > doc.internal.pageSize.getHeight() - 40) {
+          doc.addPage();
+          currentY = 20;
+        }
+        
         // Titre de l'item
-        doc.setFontSize(9); // Taille de texte encore plus réduite pour les titres
+        doc.setFontSize(11); // Taille de texte augmentée pour les titres
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(70, 70, 70);
         doc.text(item.title, 20, currentY);
-        currentY += 6; // Moins d'espace après le titre
+        currentY += 8; // Plus d'espace après le titre
         
         // Contenu de l'item
         doc.setFont('helvetica', 'normal');
-        doc.setFontSize(8); // Taille de texte encore plus réduite
+        doc.setFontSize(10); // Taille de texte augmentée
         doc.setTextColor(0, 0, 0);
         
-        // Afficher les détails sur deux colonnes pour gagner de la place
+        // Afficher les détails sur une seule colonne pour plus de lisibilité
         const details = item.details;
-        const midPoint = Math.ceil(details.length / 2);
         
-        for (let i = 0; i < midPoint; i++) {
-          // Première colonne
-          doc.text(`• ${details[i]}`, 25, currentY);
-          
-          // Deuxième colonne (si elle existe)
-          if (i + midPoint < details.length) {
-            doc.text(`• ${details[i + midPoint]}`, pageWidth / 2 + 5, currentY);
+        for (let i = 0; i < details.length; i++) {
+          // Vérifier si nous avons besoin d'une nouvelle page
+          if (currentY > doc.internal.pageSize.getHeight() - 30) {
+            doc.addPage();
+            currentY = 20;
           }
           
-          currentY += 5; // Espacement très réduit entre les lignes
+          doc.text(`• ${details[i]}`, 25, currentY);
+          currentY += 7; // Plus d'espace entre les lignes
         }
         
-        currentY += 3; // Espace minimal entre les items
+        currentY += 5; // Plus d'espace entre les items
       });
       
       return currentY;
@@ -669,7 +679,7 @@ const DevisPage = () => {
     
     // Système de fixation
     yPos += 10;
-    drawSection(`Système de fixation ${equipmentInfoPdf.mounting.brand}`, yPos, [
+    yPos = drawSection(`Système de fixation ${equipmentInfoPdf.mounting.brand}`, yPos, [
       {
         title: "Caractéristiques Techniques",
         details: [
@@ -686,22 +696,98 @@ const DevisPage = () => {
       }
     ]);
     
-    // Mentions légales et conditions d'abord (car plusieurs lignes)
+    // Systèmes de monitoring - Section mise en évidence
+    yPos += 15;
+    
+    // Vérifier si nous avons besoin d'une nouvelle page
+    if (yPos > doc.internal.pageSize.getHeight() - 100) {
+      doc.addPage();
+      yPos = 30;
+      
+      // Ajouter un titre pour la nouvelle page
+      doc.setFontSize(16);
+      doc.setTextColor(11, 98, 145);
+      doc.setFont('helvetica', 'bold');
+      doc.text("SYSTÈMES DE MONITORING INCLUS", pageWidth / 2, 15, { align: "center" });
+      
+      // Ligne de séparation
+      doc.setDrawColor(11, 98, 145);
+      doc.setLineWidth(0.5);
+      doc.line(20, 20, pageWidth - 20, 20);
+    }
+    
+    // Fond spécial pour la section monitoring
+    doc.setFillColor(230, 240, 250); // Bleu très clair pour mettre en évidence
+    doc.roundedRect(15, yPos, pageWidth - 30, 18, 3, 3, 'F');
+    
+    // Titre de la section avec icône
+    doc.setFontSize(14);
+    doc.setTextColor(11, 98, 145);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`SYSTÈMES DE MONITORING INCLUS`, 20, yPos + 12);
+    
+    yPos += 25;
+    
+    yPos = drawSection(`Monitoring Enphase`, yPos, [
+      {
+        title: "Caractéristiques principales",
+        details: [
+          "Visualisation en temps réel de la production des micro-onduleurs",
+          "Suivi de performance détaillé par panneau",
+          "Alertes automatiques en cas de dysfonctionnement",
+          "Application mobile et interface web intuitive",
+          "Historique de production détaillé avec graphiques",
+          "Rapports de performance personnalisables"
+        ]
+      }
+    ]);
+    
+    yPos += 15;
+    
+    yPos = drawSection(`Monitoring Horus Pro 2.0 S (Bourgeois Global)`, yPos, [
+      {
+        title: "Caractéristiques principales",
+        details: [
+          "Visualisation de la production des micro-onduleurs BOURGEOIS GLOBAL",
+          "Suivi précis de la consommation électrique du foyer",
+          "Analyse détaillée des données de production et consommation",
+          "Interface utilisateur intuitive accessible sur tous supports",
+          "Rapports mensuels automatiques par email",
+          "Optimisation intelligente de l'autoconsommation"
+        ]
+      }
+    ]);
+    
+    // Ajouter les mentions légales sur la dernière page
+    // Vérifier sur quelle page nous sommes
+    const currentPage = doc.internal.pages.length - 1; // Les pages commencent à l'index 1, mais l'array à 0
+    doc.setPage(currentPage);
+    
+    // Mentions légales et conditions
     doc.setFontSize(8);
     doc.setTextColor(100, 100, 100);
-    const legalTextPage2 = [
+    const legalTextPage = [
       "Devis valable 30 jours à compter de sa date d'émission.",
       "Conditions de paiement : 30% à la commande, solde à la fin des travaux.",
       "Délai d'exécution : 4 à 8 semaines après acceptation du devis et obtention des autorisations nécessaires."
     ];
     
-    // Positionner les mentions légales plus haut pour éviter la superposition
-    doc.text(legalTextPage2.join("\n"), pageWidth / 2, doc.internal.pageSize.getHeight() - 30, { align: 'center' });
+    // Positionner les mentions légales
+    doc.text(legalTextPage.join("\n"), pageWidth / 2, doc.internal.pageSize.getHeight() - 30, { align: 'center' });
     
-    // Pied de page de la seconde page (une seule ligne, en dernier)
+    // Pied de page (une seule ligne, en dernier)
     doc.setFontSize(8);
     doc.setTextColor(100, 100, 100);
     doc.text("MY OHM TECHNOLOGIES - SIREN: 917601908 - TVA: FR56917601908", pageWidth / 2, doc.internal.pageSize.getHeight() - 10, { align: 'center' });
+    
+    // Ajouter le pied de page sur toutes les pages
+    const totalPages = doc.internal.pages.length - 1; // -1 car la première page est à l'index 0 mais est vide
+    for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8);
+      doc.setTextColor(150, 150, 150);
+      doc.text(`Page ${i} / ${totalPages}`, pageWidth - 20, doc.internal.pageSize.getHeight() - 10, { align: 'right' });
+    }
     
       // Sauvegarder le PDF
       const clientName = `${client.lastName}_${client.firstName}`.replace(/\s+/g, '_').toLowerCase();

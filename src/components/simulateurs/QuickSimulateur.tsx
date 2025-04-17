@@ -33,6 +33,38 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
       const nextStep = step + 1;
       setStep(nextStep);
       onStepChange?.(nextStep);
+      
+      // Tracking Google Ads - conversions secondaires pour chaque étape
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        let conversionId = '';
+        let conversionLabel = '';
+        let conversionValue = 0;
+        
+        if (field === 'type') {
+          // Conversion pour l'étape 1 (choix du type de logement)
+          conversionId = 'AW-16817660787';
+          conversionLabel = 'ypCbCI6G9LkaEPPGpNM-';
+          conversionValue = 1.0;
+        } else if (field === 'chauffage') {
+          // Conversion pour l'étape 2 (choix du type de chauffage)
+          conversionId = 'AW-16817660787';
+          conversionLabel = 'GuogCKyr9rkaEPPGpNM-';
+          conversionValue = 1.0;
+        } else if (field === 'facture') {
+          // Conversion pour l'étape 3 (montant de la facture)
+          conversionId = 'AW-16817660787';
+          conversionLabel = 'Lm7lCJCJ6LkaEPPGpNM-';
+          conversionValue = 1.0;
+        }
+        
+        if (conversionId && conversionLabel) {
+          (window as any).gtag('event', 'conversion', {
+            'send_to': `${conversionId}/${conversionLabel}`,
+            'value': conversionValue,
+            'currency': 'EUR'
+          });
+        }
+      }
     }
   };
   
@@ -58,16 +90,7 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
     setIsSubmitting(true);
 
     try {
-      // Tracking Google Ads - conversion principale
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'conversion', {
-          'send_to': 'AW-XXXXXXXXXX/ZZZZZZZZZZ',
-          'value': 70.0,
-          'currency': 'EUR',
-          'label': 'simulator_completed'
-        });
-      }
-      
+      // Appel API pour soumettre le formulaire
       const response = await fetch('/api/leads', {
         method: 'POST',
         headers: {
@@ -92,6 +115,15 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
 
       if (!response.ok) {
         throw new Error('Erreur lors de l\'envoi du formulaire');
+      }
+      
+      // Tracking Google Ads - conversion principale (seulement après soumission réussie)
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'conversion', {
+          'send_to': 'AW-16817660787/LjhoCLLJ9rkaEPPGpNM-',
+          'value': 10.0,
+          'currency': 'EUR'
+        });
       }
 
       // Sauvegarde des données de simulation en localStorage pour récupération ultérieure

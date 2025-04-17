@@ -119,7 +119,7 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
         <div className="bg-gradient-to-br from-ffeb99 to-ffb700 p-6 rounded-t-2xl">
           <div className="flex justify-between items-center mb-2">
             <h2 className="text-2xl font-bold text-black">
-              💡 Faites Votre Simulation en 2 Minutes !
+              💡 Faites Votre Simulation d'économies en 1 Min !
             </h2>
             
           </div>

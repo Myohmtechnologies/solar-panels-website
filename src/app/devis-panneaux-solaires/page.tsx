@@ -1,12 +1,22 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ReviewSchema } from '@/components/ReviewSchema';
-import FaqSection from '@/components/sections/FaqSection';
 import QuickSimulateur from '@/components/simulateurs/QuickSimulateur';
-import SectionSimulateur from '@/components/simulateurs/SectionSimulateur';
-import { CheckIcon, ArrowRightIcon, PhoneIcon, ChevronDownIcon, StarIcon, ClickIcon } from '@/components/icons/CommonIcons';
+import FaqSection from '@/components/sections/FaqSection';
+import {
+  ArrowRightIcon,
+  CheckIcon,
+  UserIcon,
+  MapPinIcon,
+  ClockIcon,
+  InformationCircleIcon,
+  ChatBubbleLeftIcon,
+  HandThumbUpIcon,
+  StarIcon
+} from '@heroicons/react/24/solid';
+import { PhoneIcon, ChevronDownIcon, ClickIcon } from '@/components/icons/CommonIcons';
 
 // Ajout du composant RealisationsPreview
 import RealisationsPreview from '@/components/sections/RealisationsPreview';
@@ -21,6 +31,8 @@ export default function DevisPanneauxSolairesPage() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -100,78 +112,72 @@ export default function DevisPanneauxSolairesPage() {
 
   return (
     <main>
-      {/* Header personnalisé */}
-      <header className="py-4 bg-white shadow-sm">
-        <div className="container mx-auto px-6 md:px-8 lg:px-10 flex justify-between items-center">
-          <div className="flex items-center">
-            <a href="/">
-              <Image
-                src="/images/logo.webp"
-                alt="Logo Myohm Technologies"
-                width={200}
-                height={80}
-                className="h-16 w-auto"
-                priority
-              />
-            </a>
-          </div>
-          <div className="flex items-center">
-            <a
-              href="tel:+330492766858"
-              className="flex items-center gap-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white py-2 px-4 rounded-lg font-medium hover:shadow-lg transition-all"
-            >
-              <PhoneIcon />
-              <span>04 92 76 68 58</span>
-            </a>
-          </div>
-        </div>
-      </header>
-
-      {/* Séparateur avec dégradé */}
-      <div className="h-1 w-full bg-white"></div>
-
-      {/* Section hero avec simulateur - Design inspiré des sections Aides et Réalisations */}
-      <section className="relative overflow-hidden py-16 lg:py-20">
-        {/* Arrière-plan clair avec motif */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100 z-0">
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("/images/solar-pattern.png")', backgroundSize: '200px' }}></div>
+      {/* Image de fond qui couvre le header et la section hero */}
+      <div className="relative min-h-screen">
+        {/* Image de fond plein écran */}
+        <div className="absolute inset-0 w-full h-full">
+          <img
+            src="/images/maison-panneaux-solaires-borne-de-recharge-batterie-de-stockage.png"
+            alt="Maison panneaux solaires borne de recharge batterie de stockage"
+            className="w-full h-full object-cover object-center"
+            loading="eager"
+            fetchPriority="high"
+            draggable="false"
+          />
+          {/* Overlay sombre pour contraste */}
+          <div className="absolute inset-0 bg-black/60 lg:bg-black/50"></div>
         </div>
         
-        {/* Éléments décoratifs */}
-        <div className="absolute top-20 right-10 w-64 h-64 bg-[#ffb700]/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 left-10 w-80 h-80 bg-[#116290]/10 rounded-full blur-3xl"></div>
-        
-        {/* Version mobile - Visible uniquement sur les écrans mobiles */}
-        <div className="lg:hidden container relative z-10 mx-auto px-6 md:px-8">
-          {/* Badge d'actualité */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#ffb700] text-gray-900 font-medium mb-6 shadow-md">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Aides de l'État 2025 disponibles</span>
+        {/* Header transparent */}
+        <header className="relative z-10 py-4">
+          <div className="container mx-auto px-6 md:px-8 lg:px-10 flex justify-between items-center">
+            <div className="flex items-center">
+              <a href="/">
+                <Image
+                  src="/images/logo-dark.png"
+                  alt="Logo Myohm Technologies"
+                  width={200}
+                  height={80}
+                  className="h-16 w-auto"
+                  priority
+                />
+              </a>
+            </div>
+            <div className="flex items-center">
+              <a
+                href="tel:+330492766858"
+                className="flex items-center gap-2 bg-white/90 backdrop-blur-sm text-[#0a3d5c] py-2 px-4 rounded-lg font-medium hover:bg-white hover:shadow-lg transition-all"
+              >
+                <PhoneIcon />
+                <span>04 92 76 68 58</span>
+              </a>
+            </div>
           </div>
-          
-          {/* Titre principal avec effet de dégradé */}
-          <h1 className="text-4xl font-extrabold mb-6 leading-tight text-gray-900">
-            <span className="block">Divisez par <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#ffb700] to-[#ffeb99]">2</span> votre</span>
-            <span className="block">facture d'électricité</span>
+        </header>
+
+        {/* Section hero ultra épurée pour conversion maximale */}
+        <section className="relative z-10 overflow-hidden min-h-[70vh] flex items-center justify-center">
+          {/* Contenu centré en surimpression */}
+          <div className="relative z-10 w-full flex flex-col items-center justify-center px-4 py-12">
+          <h1 className="text-3xl sm:text-5xl font-extrabold mb-8 leading-tight text-white text-center drop-shadow-lg">
+            Divisez par <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#ffb700] to-[#ffeb99]">2</span> votre facture d'électricité
           </h1>
-          
-          <p className="text-xl text-gray-700 mb-8">
+
+          <p className="text-3xl text-white mb-8">
             Produisez votre propre énergie et réduisez durablement vos factures grâce aux panneaux solaires de qualité française.
           </p>
-          
+
           {/* Simulateur pour mobile */}
           <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
             {/* Barre colorée en haut */}
             <div className="h-3 bg-gradient-to-r from-[#ffb700] to-[#ffeb99]"></div>
-            
+
             <div className="p-6">
-              
-              
+
+
               {/* Simulateur */}
               <QuickSimulateur />
-              
+
               {/* Badge d'information */}
               <div className="mt-4 flex items-center justify-center gap-2 bg-gray-50 p-3 rounded-lg text-sm text-gray-600">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#116290]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -181,120 +187,177 @@ export default function DevisPanneauxSolairesPage() {
               </div>
             </div>
           </div>
-        </div>
-        
-        {/* Contenu principal - Version desktop uniquement */}
-        <div className="hidden lg:block container relative z-10 mx-auto px-6 md:px-8 lg:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Contenu mobile-first - Réorganisé pour l'affichage mobile */}
-            <div className="lg:col-span-6 text-gray-900 order-1 lg:order-1">
-              {/* Badge d'actualité */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#ffb700] text-gray-900 font-medium mb-6 shadow-md">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>Aides de l'État 2025 disponibles</span>
-              </div>
-              
-              {/* Titre principal avec effet de dégradé */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
-                <span className="block">Divisez par <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#ffb700] to-[#ffeb99]">2</span> votre</span>
-                <span className="block">facture d'électricité</span>
-              </h1>
-              
-              <p className="text-xl text-gray-700 mb-8 max-w-xl">
-                Produisez votre propre énergie et réduisez durablement vos factures grâce aux panneaux solaires de qualité française.
-              </p>
-              
-              {/* Points clés avec badges comme dans la section Réalisations - Affichés après le simulateur sur mobile */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 order-3 lg:order-3">
-                {[
-                  { text: "Économies jusqu'à 50%", icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
-                  { text: "Aides de l'État 2025", icon: "M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z" },
-                  { text: "Retour sur investissement rapide", icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
-                  { text: "Qualité Made in France", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" }
-                ].map((item, index) => (
-                  <div key={index} className="bg-white rounded-lg p-3 flex items-center gap-3 border border-gray-100 hover:border-[#116290]/30 transition-colors shadow-sm hover:shadow">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#116290] to-[#0a3d5c] flex items-center justify-center flex-shrink-0 shadow-md">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
-                      </svg>
+          
+          {/* Avis clients et certifications sur toute la largeur */}
+          <div className="relative z-10 w-full mt-8 pt-8 border-t border-white/20">
+            <div className="container mx-auto px-4">
+              {/* Titre avec note Google */}
+              <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
+                <h3 className="text-xl font-semibold text-white drop-shadow-md">Des centaines de propriétaires nous ont déjà fait confiance !</h3>
+                
+                {/* Note Google */}
+                <div className="flex items-center bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1 shadow-md">
+                  <div className="flex items-center gap-1">
+                    <Image src="/images/avis-google.avif" alt="Google Avis" width={60} height={20} className="h-5 w-auto" />
+                    <div className="flex">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <StarIcon key={star} className="w-4 h-4 text-[#ffb700]" />
+                      ))}
                     </div>
-                    <p className="font-medium text-gray-800">{item.text}
-                      {index === 3 && (
-                        <span className="inline-flex ml-2 h-4">
-                          <span className="w-1.5 h-4 bg-blue-700"></span>
-                          <span className="w-1.5 h-4 bg-white"></span>
-                          <span className="w-1.5 h-4 bg-red-600"></span>
-                        </span>
-                      )}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              
-              {/* Localisation avec style inspiré de la section Réalisations - Affichée après les points clés sur mobile */}
-              <div className="bg-white rounded-xl p-5 mb-8 border border-gray-100 shadow-md order-4 lg:order-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-[#116290] flex items-center justify-center flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-lg font-medium text-gray-900">Nous intervenons dans toute la région PACA</p>
-                    <p className="text-sm text-gray-600">Alpes-Maritimes, Var, Bouches-du-Rhône, Vaucluse, Alpes-de-Haute-Provence, Hautes-Alpes</p>
+                    <p className="font-medium text-sm">4,9/5</p>
                   </div>
                 </div>
               </div>
               
-              {/* Badge de confiance avec avis Google - Affiché en dernier sur mobile */}
-              <div className="flex items-center gap-4 mt-6 order-5 lg:order-5">
-                <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg border border-gray-100 shadow-md">
-                  <Image
-                    src="/images/avis-google.avif"
-                    alt="Google Avis"
-                    width={100}
-                    height={32}
-                    className="h-8 w-auto"
-                  />
-                  <div className="flex">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <StarIcon key={star} className="w-5 h-5 text-[#ffb700]" />
-                    ))}
+              {/* Section avis et certifications optimisée pour mobile */}
+              <div className="flex flex-col gap-6">
+                {/* Logos de certification en ligne horizontale pour mobile */}
+                <div className="flex flex-wrap justify-center md:justify-end gap-3 py-2">
+                  <div className="flex items-center backdrop-blur-sm rounded-lg px-3 py-2 shadow-md">
+                    <Image src="/images/logo-QualiPV-2025-RGE_sc.png" alt="Certification QualiPV" width={180} height={160} className="h-14 md:h-16 w-auto" />
                   </div>
-                  <p className="font-medium text-gray-900">4,9/5</p>
-                </div>
-              </div>
-              
-            
-            </div>
-            
-            {/* Simulateur - Affiché après le texte sur mobile, à droite sur desktop */}
-            <div className="lg:col-span-6 order-2 lg:order-2">
-              <div className="relative">
-                {/* Carte du simulateur inspirée de la section Aides */}
-                <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-                  {/* Barre colorée en haut comme dans la section Aides */}
-                  <div className="h-3 bg-gradient-to-r from-[#ffb700] to-[#ffeb99]"></div>
-                  
-                  <div className="p-6">
-                    
-                    
-                    
-                    {/* Simulateur avec style inspiré de la section Aides */}
-                    <QuickSimulateur />
-              
+                  <div className="flex items-center backdrop-blur-sm rounded-lg px-3 py-2 shadow-md">
+                    <Image src="/images/LOGO-garantie-20-ans.png" alt="Certification RGE" width={160} height={120} className="h-14 md:h-16 w-auto" />
+                  </div>
+                  <div className="flex items-center backdrop-blur-sm rounded-lg px-3 py-2 shadow-md">
+                    <Image src="/images/qualifelec.jpg" alt="Certification RGE" width={140} height={120} className="h-14 md:h-16 w-auto" />
                   </div>
                 </div>
                 
-              
+                {/* Carrousel automatique d'avis clients - 3 avis à la fois */}
+                <div className="w-full overflow-hidden">
+                  {/* Titre du carrousel */}
+                  <div className="flex justify-center mb-2">
+                    <div className="flex items-center gap-1">
+                      <span className="text-xs text-white/80">Nos clients témoignent</span>
+                    </div>
+                  </div>
+                  
+                  {/* Carrousel automatique d'avis */}
+                  <div className="relative">
+                    {/* Conteneur du carrousel avec animation */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {/* Première ligne de 3 avis */}
+                      {reviews.slice(0, 3).map((review, index) => (
+                        <div key={index} className="bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-md">
+                          <div className="flex items-center mb-3">
+                            <div className="w-10 h-10 rounded-full bg-[#ffb700]/10 flex items-center justify-center mr-3">
+                              <span className="text-[#ffb700] font-bold">{review.author.charAt(0)}</span>
+                            </div>
+                            <div>
+                              <p className="font-medium">{review.author}</p>
+                              <div className="flex">
+                                {[...Array(5)].map((_, i) => (
+                                  <StarIcon key={i} className={`w-4 h-4 ${i < review.reviewRating ? 'text-[#ffb700]' : 'text-gray-300'}`} />
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                          <p className="text-sm text-gray-600 line-clamp-3">{review.reviewBody}</p>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    {/* Indicateurs de pagination */}
+                    <div className="flex justify-center mt-4 gap-2">
+                      <div className="w-2 h-2 rounded-full bg-white"></div>
+                      <div className="w-2 h-2 rounded-full bg-white/50"></div>
+                      <div className="w-2 h-2 rounded-full bg-white/50"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+
       </section>
+      </div>
+      
+      {/* Nouvelle section: Le choix de l'excellence française */}
+      <div className="relative z-10 w-full mt-8 py-8 ">
+        <div className="container mx-auto px-4">
+          <div className="">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Image à gauche */}
+              <div className="flex items-center justify-center p-4">
+                <Image 
+                  src="/images/nos-produit.png" 
+                  alt="Produits DualSun et My Ohm Technologies" 
+                  width={600}
+                  height={500}
+                  className="object-contain w-full h-auto" 
+                  priority
+                />
+              </div>
+              
+              {/* Avantages à droite */}
+              <div className="p-6 flex flex-col justify-center">
+                <h2 className="text-2xl md:text-3xl font-bold text-black mb-6">Le choix de l'excellence française avec DualSun et My Ohm Technologies</h2>
+                
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold text-black mb-2">Jusqu'à 70% d'économies</h3>
+                  <p className="text-white/90">sur vos factures</p>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#ffb700]/20 flex items-center justify-center">
+                      <span className="text-white text-lg">🇫🇷</span>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-black">Marque française certifiée</h4>
+                      <p className="text-balck text-sm">Qualité, fiabilité et performance garanties</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#ffb700]/20 flex items-center justify-center">
+                      <span className="text-black text-lg">⚡</span>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-black">Produisez toute l'année</h4>
+                      <p className="text-black text-sm">Produisez de l'énergie verte et gratuite toute l'année</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#ffb700]/20 flex items-center justify-center">
+                      <span className="text-black text-lg">💪</span>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-black">Devenez indépendant</h4>
+                      <p className="text-black text-sm">Devenez indépendant des prix de l'électricité</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#ffb700]/20 flex items-center justify-center">
+                      <span className="text-[#ffb700] text-lg">💰</span>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-black">Faites de vraies économies</h4>
+                      <p className="text-black text-sm">Réalisez jusqu'à 1 500 euros d'économies par an</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#ffb700]/20 flex items-center justify-center">
+                      <span className="text-[#ffb700] text-lg">💸</span>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-black">Générez des revenus</h4>
+                      <p className="text-black text-sm">Vendez le surplus d'énergie produite que vous n'avez pas utilisé</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       {/* Section Aides de l'État 2025 */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6 md:px-8 lg:px-10 max-w-6xl">
@@ -372,31 +435,31 @@ export default function DevisPanneauxSolairesPage() {
                 <p className="text-gray-800 opacity-90 mb-6">Calculez gratuitement combien vous pourriez économiser avec les aides de l'État</p>
                 {
 /* Fonction de conversion Google Ads adaptée pour React */}
-<a 
-  href="/simulator" 
-  className="inline-flex items-center gap-2 bg-[#0a3d5c] text-white py-3 px-6 rounded-lg font-medium hover:bg-[#116290] transition-colors"
-  onClick={(e) => {
-    e.preventDefault();
-    
-    // Appel de la fonction de conversion Google Ads
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'conversion', {
-        'send_to': 'AW-16817660787/9PJFCP3gnLkaEPPGpNM-',
-        'value': 10.0,
-        'currency': 'EUR',
-        'event_callback': function() {
-          window.location.href = '/simulator';
-        }
-      });
-    } else {
-      // Fallback si gtag n'est pas disponible
-      window.location.href = '/simulator';
-    }
-  }}
->
-  <span>Estimer mes aides financières</span>
-  <ArrowRightIcon className="h-5 w-5" />
-</a>
+                <a
+                  href="/simulator"
+                  className="inline-flex items-center gap-2 bg-[#0a3d5c] text-white py-3 px-6 rounded-lg font-medium hover:bg-[#116290] transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+
+                    // Appel de la fonction de conversion Google Ads
+                    if (typeof window !== 'undefined' && window.gtag) {
+                      window.gtag('event', 'conversion', {
+                        'send_to': 'AW-16817660787/9PJFCP3gnLkaEPPGpNM-',
+                        'value': 10.0,
+                        'currency': 'EUR',
+                        'event_callback': function () {
+                          window.location.href = '/simulator';
+                        }
+                      });
+                    } else {
+                      // Fallback si gtag n'est pas disponible
+                      window.location.href = '/simulator';
+                    }
+                  }}
+                >
+                  <span>Estimer mes aides financières</span>
+                  <ArrowRightIcon className="h-5 w-5" />
+                </a>
                 <p className="mt-4 text-sm text-gray-700">Simulateur mis à jour avec les dernières aides disponibles</p>
               </div>
             </div>
@@ -408,7 +471,7 @@ export default function DevisPanneauxSolairesPage() {
       <section className="py-16 bg-[#f8fafc]">
         <div className="container mx-auto px-6 md:px-8 lg:px-10 max-w-6xl">
           <h2 className="text-3xl font-bold text-center mb-12">Pourquoi nous choisir ?</h2>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Colonne gauche: Présentation de la société */}
             <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
@@ -423,13 +486,13 @@ export default function DevisPanneauxSolairesPage() {
                   </div>
                   <h3 className="text-xl font-bold text-gray-800">Une entreprise familiale d'experts</h3>
                 </div>
-                
+
                 <p className="text-gray-700 mb-6">
                   Fondée il y a plus de 15 ans par d'anciens ingénieurs d'EDF, My Ohm Technologies est une entreprise familiale spécialisée dans les énergies renouvelables. Notre expertise et notre passion pour l'énergie solaire nous permettent de vous offrir des solutions sur mesure et de qualité.
                 </p>
-                
+
                 <h4 className="text-lg font-semibold text-gray-800 mb-4">Nos engagements</h4>
-                
+
                 <ul className="space-y-4">
                   {[
                     "Entreprise certifiée RGE (Reconnu Garant de l'Environnement)",
@@ -461,7 +524,7 @@ export default function DevisPanneauxSolairesPage() {
                     fill
                     className="object-cover object-center hover:scale-105 transition-transform duration-700"
                   />
-                  
+
                   {/* Badge de localisation comme dans la section Réalisations */}
                   <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[#0a3d5c] px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1 z-20">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -470,13 +533,13 @@ export default function DevisPanneauxSolairesPage() {
                     </svg>
                     <span>Manosque, PACA</span>
                   </div>
-                  
+
                   <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
                     <h3 className="text-xl font-bold text-white mb-2">Notre showroom à votre service</h3>
                     <p className="text-white/90 mb-4">
                       Visitez notre showroom pour découvrir nos solutions et rencontrer nos experts
                     </p>
-                    <a 
+                    <a
                       href="https://maps.app.goo.gl/Vc9Uy5Jg5MbJLmGr8"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -490,13 +553,13 @@ export default function DevisPanneauxSolairesPage() {
                   </div>
                 </div>
               </div>
-              
+
               {/* Nos certifications et partenaires - Style inspiré de la section Aides */}
               <div className="mt-8 bg-white rounded-xl shadow-md overflow-hidden">
                 <div className="h-3 bg-gradient-to-r from-[#ffeb99] to-[#ffb700]"></div>
                 <div className="p-6">
                   <h3 className="text-xl font-semibold mb-4">Nos certifications et partenaires</h3>
-                
+
                   <div className="grid grid-cols-3 gap-4">
                     {["/images/dualsun-logo.svg", "/images/enphase-logo_black.png", "/images/bourgeoislogo.png", "/images/qualipv1.png", "/images/rge1.png", "/images/garantie-decennale-p2a-construction.png"].map((logo, index) => (
                       <div key={index} className="bg-gray-50 p-3 rounded-lg flex items-center justify-center hover:bg-gray-100 transition-colors">
@@ -514,26 +577,26 @@ export default function DevisPanneauxSolairesPage() {
               </div>
             </div>
           </div>
-          
+
           {/* CTA en bas comme celui des aides */}
           <div className="mt-12">
             <div className="rounded-xl shadow-lg overflow-hidden bg-gradient-to-r from-[#116290] to-[#0a3d5c]">
               <div className="p-8 text-center">
                 <h3 className="text-2xl font-bold mb-2 text-white">Faites confiance à des experts certifiés</h3>
                 <p className="text-white/90 mb-6">Bénéficiez de notre expertise de plus de 15 ans dans l'installation de panneaux solaires</p>
-                <a 
-                  href="/simulator" 
+                <a
+                  href="/simulator"
                   className="inline-flex items-center gap-2 bg-[#ffb700] text-gray-900 py-3 px-6 rounded-lg font-medium hover:bg-[#ffeb99] transition-colors"
                   onClick={(e) => {
                     e.preventDefault();
-                    
+
                     // Appel de la fonction de conversion Google Ads
                     if (typeof window !== 'undefined' && window.gtag) {
                       window.gtag('event', 'conversion', {
                         'send_to': 'AW-16817660787/bbv9CPi8qLkaEPPGpNM-',
                         'value': 1.0,
                         'currency': 'EUR',
-                        'event_callback': function() {
+                        'event_callback': function () {
                           window.location.href = '/simulator';
                         }
                       });
@@ -556,7 +619,7 @@ export default function DevisPanneauxSolairesPage() {
             {/* Élément décoratif */}
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#ffb700]/10 rounded-full blur-3xl z-0"></div>
             <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-[#116290]/10 rounded-full blur-3xl z-0"></div>
-            
+
             <div className="relative z-10">
               <div className="text-center mb-10">
                 <div className="inline-block px-4 py-1 rounded-full bg-[#0a3d5c]/5 mb-4">
@@ -567,30 +630,30 @@ export default function DevisPanneauxSolairesPage() {
                   Découvrez nos dernières réalisations dans la région PACA et inspirez-vous pour votre projet
                 </p>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <RealisationsPreview />
               </div>
-              
+
               {/* CTA en bas comme celui des aides et pourquoi nous choisir */}
               <div className="mt-12">
                 <div className="rounded-xl shadow-lg overflow-hidden bg-gradient-to-r from-[#ffb700] to-[#ffeb99]">
                   <div className="p-8 text-center">
                     <h3 className="text-2xl font-bold mb-2 text-gray-900">Inspirez-vous de nos réalisations</h3>
                     <p className="text-gray-800 opacity-90 mb-6">Plus de 500 installations réalisées en région PACA par nos équipes certifiées</p>
-                    <a 
-                      href="/simulator" 
+                    <a
+                      href="/simulator"
                       className="inline-flex items-center gap-2 bg-[#0a3d5c] text-white py-3 px-6 rounded-lg font-medium hover:bg-[#116290] transition-colors"
                       onClick={(e) => {
                         e.preventDefault();
-                        
+
                         // Appel de la fonction de conversion Google Ads
                         if (typeof window !== 'undefined' && window.gtag) {
                           window.gtag('event', 'conversion', {
                             'send_to': 'AW-16817660787/X33tCPnSqbkaEPPGpNM-',
                             'value': 10.0,
                             'currency': 'EUR',
-                            'event_callback': function() {
+                            'event_callback': function () {
                               window.location.href = '/simulator';
                             }
                           });
@@ -613,7 +676,7 @@ export default function DevisPanneauxSolairesPage() {
       </section>
 
 
-      {/* Section Avis Clients */}
+      {/* Section Avis Clients - Style inspiré de la section des aides */}
       <section className="py-16 bg-[#f8fafc]">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-10">
@@ -627,14 +690,6 @@ export default function DevisPanneauxSolairesPage() {
               Découvrez les avis de nos clients satisfaits qui ont fait confiance à My Ohm Technologies pour leur installation solaire
             </p>
             <div className="flex items-center justify-center gap-2 mb-4">
-              <img
-                src="/images/avis-google.avif"
-                alt="Google Avis"
-                width={120}
-                height={32}
-                loading="lazy"
-                className="h-8 w-auto"
-              />
               <div className="flex">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <StarIcon key={star} className="h-6 w-6 text-[#ffb700]" />
@@ -644,14 +699,38 @@ export default function DevisPanneauxSolairesPage() {
             </div>
           </div>
 
-          {/* Première rangée d'avis */}
+          {/* Avis clients - Style inspiré de la section des aides */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {/* Avis 1 */}
             <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
               <div className="h-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c]"></div>
               <div className="p-6">
                 <div className="flex items-start mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-[#116290]/10 flex items-center justify-center mr-4 flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-[#116290]/10 flex items-center justify-center mr-4 flex-shrink-0">
+                    <span className="text-[#116290] font-semibold text-lg">AP</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Alexandra Pantano</h3>
+                    <div className="flex items-center gap-1 mb-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <StarIcon key={star} className="w-4 h-4 text-[#ffb700]" />
+                      ))}
+                    </div>
+                    <p className="text-gray-500 text-sm">Il y a 2 jours</p>
+                  </div>
+                </div>
+                <p className="text-gray-700">
+                  Prestataire très sérieux contacté pour une petite intervention électrique à mon domicile. Le technicien a été très efficace et il m'a d'ailleurs très bien conseillé dans ce domaine qu'il gère très bien. Je recommande vivement ce professionnel.
+                </p>
+              </div>
+            </div>
+
+            {/* Avis 2 */}
+            <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
+              <div className="h-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c]"></div>
+              <div className="p-6">
+                <div className="flex items-start mb-4">
+                  <div className="w-12 h-12 rounded-full bg-[#116290]/10 flex items-center justify-center mr-4 flex-shrink-0">
                     <span className="text-[#116290] font-semibold text-lg">SL</span>
                   </div>
                   <div>
@@ -661,68 +740,12 @@ export default function DevisPanneauxSolairesPage() {
                         <StarIcon key={star} className="w-4 h-4 text-[#ffb700]" />
                       ))}
                     </div>
-                    <p className="text-gray-500 text-sm">Il y a 2 semaines</p>
-                  </div>
-                </div>
-                <p className="text-gray-700">
-                  "Franchement, je suis ravi de mon installation de panneaux solaires de 3 kWc ! L'équipe a été au top du début à la fin : ponctuelle, pro, et super sympa. L'installation s'est faite rapidement et proprement, avec du matériel de qualité. Je recommande sans hésiter !"
-                </p>
-                <div className="mt-4 flex items-center">
-                  <div className="flex-shrink-0 w-5 h-5 bg-[#116290] rounded-full flex items-center justify-center mr-2">
-                    <CheckIcon className="h-3 w-3 text-white" />
-                  </div>
-                  <span className="text-sm text-gray-500">Client vérifié</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Avis vidéo au centre */}
-            <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all md:col-span-2 lg:col-span-1">
-              <div className="h-2 bg-gradient-to-r from-[#ffb700] to-[#ffeb99]"></div>
-              <div className="p-6">
-                <div className="flex items-start mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-[#ffb700]/10 flex items-center justify-center mr-4 flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#ffb700]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">Marie Dupont</h3>
-                    <div className="flex items-center gap-1 mb-1">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <StarIcon key={star} className="w-4 h-4 text-[#ffb700]" />
-                      ))}
-                    </div>
                     <p className="text-gray-500 text-sm">Il y a 1 mois</p>
                   </div>
                 </div>
-                <div className="relative rounded-lg overflow-hidden mb-4 bg-gray-100">
-                  <div className="aspect-w-16 aspect-h-9 relative h-[160px]">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-full bg-[#0a3d5c]/80 flex items-center justify-center cursor-pointer hover:bg-[#0a3d5c] transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                    </div>
-                    <Image 
-                      src="/images/local-my-ohm-technologies.jpg" 
-                      alt="Témoignage vidéo de Marie Dupont"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                </div>
                 <p className="text-gray-700">
-                  "J'ai fait installer 9 panneaux solaires par My Ohm Technologies et je suis très satisfaite du résultat. Regardez ma vidéo pour voir l'installation et les économies réalisées !"
+                  Franchement, je suis ravi de mon installation de panneaux solaires de 3 kWc ! L'équipe a été au top du début à la fin : ponctuelle, pro, et super sympa. L'installation s'est faite rapidement et proprement, avec du matériel de qualité. Tout fonctionne parfaitement, et je vois déjà la différence sur ma consommation. En plus, ils ont pris le temps de bien expliquer le fonctionnement et de donner des conseils utiles. Bref, une super prestation, je recommande sans hésiter !
                 </p>
-                <div className="mt-4 flex items-center">
-                  <div className="flex-shrink-0 w-5 h-5 bg-[#ffb700] rounded-full flex items-center justify-center mr-2">
-                    <CheckIcon className="h-3 w-3 text-white" />
-                  </div>
-                  <span className="text-sm text-gray-500">Client vérifié</span>
-                </div>
               </div>
             </div>
 
@@ -731,11 +754,61 @@ export default function DevisPanneauxSolairesPage() {
               <div className="h-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c]"></div>
               <div className="p-6">
                 <div className="flex items-start mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-[#116290]/10 flex items-center justify-center mr-4 flex-shrink-0">
-                    <span className="text-[#116290] font-semibold text-lg">CI</span>
+                  <div className="w-12 h-12 rounded-full bg-[#116290]/10 flex items-center justify-center mr-4 flex-shrink-0">
+                    <span className="text-[#116290] font-semibold text-lg">BF</span>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">Christelle Irass</h3>
+                    <h3 className="font-semibold text-gray-900">Benoit Furnes</h3>
+                    <div className="flex items-center gap-1 mb-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <StarIcon key={star} className="w-4 h-4 text-[#ffb700]" />
+                      ))}
+                    </div>
+                    <p className="text-gray-500 text-sm">Il y a 2 mois</p>
+                  </div>
+                </div>
+                <p className="text-gray-700">
+                  L'entreprise my ohm a été très professionnel. Tout s'est bien passé, dès le premier contact, en passant parles étapes administratives,jusqu'à l'installation. Nous sommes satisfait de l'installation de nos panneaux solaires. Ils m'ont même dépanner un luminaire gratuitement. Merci à toute l'equipe.
+                </p>
+              </div>
+            </div>
+
+            {/* Avis 4 */}
+            <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
+              <div className="h-2 bg-gradient-to-r from-[#ffb700] to-[#ffeb99]"></div>
+              <div className="p-6">
+                <div className="flex items-start mb-4">
+                  <div className="w-12 h-12 rounded-full bg-[#ffb700]/10 flex items-center justify-center mr-4 flex-shrink-0">
+                    <span className="text-[#ffb700] font-semibold text-lg">CI</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Christelle Irénée</h3>
+                    <div className="flex items-center gap-1 mb-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <StarIcon key={star} className="w-4 h-4 text-[#ffb700]" />
+                      ))}
+                    </div>
+                    <p className="text-gray-500 text-sm">Il y a 5 jours</p>
+                  </div>
+                </div>
+                <p className="text-gray-700">
+                  Une équipe attentive aux besoins du client, alliant professionnalisme et rigueur.
+                  Le chantier à été laissé propre, et nous avons reçu des explications claires sur la gestion des panneaux photovoltaique.
+                  Je recommande vivement My Ohm !
+                </p>
+              </div>
+            </div>
+
+            {/* Avis 5 */}
+            <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
+              <div className="h-2 bg-gradient-to-r from-[#ffb700] to-[#ffeb99]"></div>
+              <div className="p-6">
+                <div className="flex items-start mb-4">
+                  <div className="w-12 h-12 rounded-full bg-[#ffb700]/10 flex items-center justify-center mr-4 flex-shrink-0">
+                    <span className="text-[#ffb700] font-semibold text-lg">AV</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Aurélien Vivona</h3>
                     <div className="flex items-center gap-1 mb-1">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <StarIcon key={star} className="w-4 h-4 text-[#ffb700]" />
@@ -745,17 +818,36 @@ export default function DevisPanneauxSolairesPage() {
                   </div>
                 </div>
                 <p className="text-gray-700">
-                  "Une équipe attentive aux besoins du client, alliant professionnalisme et rigueur. Le chantier a été laissé propre, et nous avons reçu des explications claires. Je recommande vivement My Ohm !"
+                  Très bonne approche, technicien sérieux et competent. Je recommande !
                 </p>
-                <div className="mt-4 flex items-center">
-                  <div className="flex-shrink-0 w-5 h-5 bg-[#116290] rounded-full flex items-center justify-center mr-2">
-                    <CheckIcon className="h-3 w-3 text-white" />
+              </div>
+            </div>
+
+            {/* Avis 6 */}
+            <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all">
+              <div className="h-2 bg-gradient-to-r from-[#ffb700] to-[#ffeb99]"></div>
+              <div className="p-6">
+                <div className="flex items-start mb-4">
+                  <div className="w-12 h-12 rounded-full bg-[#ffb700]/10 flex items-center justify-center mr-4 flex-shrink-0">
+                    <span className="text-[#ffb700] font-semibold text-lg">PG</span>
                   </div>
-                  <span className="text-sm text-gray-500">Client vérifié</span>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Philippe Guizard</h3>
+                    <div className="flex items-center gap-1 mb-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <StarIcon key={star} className="w-4 h-4 text-[#ffb700]" />
+                      ))}
+                    </div>
+                    <p className="text-gray-500 text-sm">Il y a 4 mois</p>
+                  </div>
                 </div>
+                <p className="text-gray-700">
+                  Entreprise sérieuse , travaux réalisés dans le temps imparti avec un service soigné et dans le respect du budget plus que raisonnable je conseille vivement.
+                </p>
               </div>
             </div>
           </div>
+
 
           {/* CTA en bas comme celui des aides */}
           <div className="mt-12">
@@ -763,19 +855,19 @@ export default function DevisPanneauxSolairesPage() {
               <div className="p-8 text-center">
                 <h3 className="text-2xl font-bold mb-2 text-gray-900">Rejoignez nos clients satisfaits</h3>
                 <p className="text-gray-800 opacity-90 mb-6">Simulez gratuitement votre installation et découvrez combien vous pourriez économiser</p>
-                <a 
-                  href="/simulator" 
+                <a
+                  href="/simulator"
                   className="inline-flex items-center gap-2 bg-[#0a3d5c] text-white py-3 px-6 rounded-lg font-medium hover:bg-[#116290] transition-colors"
                   onClick={(e) => {
                     e.preventDefault();
-                    
+
                     // Appel de la fonction de conversion Google Ads
                     if (typeof window !== 'undefined' && window.gtag) {
                       window.gtag('event', 'conversion', {
                         'send_to': 'AW-16817660787/Wg2QCJfZqLkaEPPGpNM-',
                         'value': 10.0,
                         'currency': 'EUR',
-                        'event_callback': function() {
+                        'event_callback': function () {
                           window.location.href = '/simulator';
                         }
                       });
@@ -827,14 +919,14 @@ export default function DevisPanneauxSolairesPage() {
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-[#ffb700] to-[#ffeb99] text-gray-900 py-4 px-8 rounded-xl font-medium text-xl hover:shadow-xl transition-all transform hover:scale-105"
                 onClick={(e) => {
                   e.preventDefault();
-                  
+
                   // Appel de la fonction de conversion Google Ads
                   if (typeof window !== 'undefined' && window.gtag) {
                     window.gtag('event', 'conversion', {
                       'send_to': 'AW-16817660787/G0ogCNbAnbkaEPPGpNM-',
                       'value': 10.0,
                       'currency': 'EUR',
-                      'event_callback': function() {
+                      'event_callback': function () {
                         window.location.href = '/simulator';
                       }
                     });
@@ -926,7 +1018,7 @@ export default function DevisPanneauxSolairesPage() {
                 </a>
               </div>
             </div>
-            
+
             <div className="text-center md:text-left">
               <h3 className="text-lg font-semibold mb-4">Contactez-nous</h3>
               <div className="space-y-3">
@@ -957,7 +1049,7 @@ export default function DevisPanneauxSolairesPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="text-center md:text-left">
               <h3 className="text-lg font-semibold mb-4">Liens utiles</h3>
               <div className="grid grid-cols-1 gap-2">
@@ -974,7 +1066,7 @@ export default function DevisPanneauxSolairesPage() {
               </div>
             </div>
           </div>
-          
+
           <div className="mt-10 pt-6 border-t border-gray-800 text-center">
             <p className="text-gray-500 text-sm">© {new Date().getFullYear()} My Ohm Technologies. Tous droits réservés.</p>
           </div>

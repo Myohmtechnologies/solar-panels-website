@@ -91,23 +91,42 @@ export default function DevisPanneauxSolairesPage() {
   // Données des avis pour le schéma structuré
   const reviews = [
     {
-      author: 'Jean Dupont',
+      author: 'Alexandra Pantano',
       reviewRating: 5,
-      reviewBody: 'Excellente expérience avec My Ohm Technologies. L\'équipe est professionnelle et à l\'écoute. Installation rapide et soignée. Je produis maintenant ma propre électricité et j\'ai réduit ma facture de 65%. Je recommande vivement !',
-      datePublished: '2025-01-15'
+      reviewBody: 'Prestataire très sérieux contacté pour une petite intervention électrique à mon domicile. Le technicien a été très efficace et il m\'a d\'ailleurs très bien conseillé dans ce domaine qu\'il gère très bien. Je recommande vivement ce professionnel.',
+      datePublished: '2025-04-15'
     },
     {
-      author: 'Marie Leroy',
+      author: 'Stéphane Lefevre',
       reviewRating: 5,
-      reviewBody: 'Très satisfaite de mon installation de panneaux solaires. Le conseiller a pris le temps de m\'expliquer toutes les étapes et les économies que je pouvais réaliser. L\'installation s\'est déroulée comme prévu et je suis ravie du résultat.',
+      reviewBody: 'Franchement, je suis ravi de mon installation de panneaux solaires de 3 kWc ! L’équipe a été au top du début à la fin : ponctuelle, pro, et super sympa. L’installation s’est faite rapidement et proprement, avec du matériel de qualité. Tout fonctionne parfaitement, et je vois déjà la différence sur ma consommation. En plus, ils ont pris le temps de bien expliquer le fonctionnement et de donner des conseils utiles. Bref, une super prestation, je recommande sans hésiter !',
       datePublished: '2025-02-20'
     },
     {
-      author: 'Pierre Bertrand',
+      author: 'benoit furnes',
       reviewRating: 5,
-      reviewBody: 'Excellente expérience avec My Ohm Technologies. Le simulateur d\'économies a été très utile pour me convaincre. Je produis maintenant ma propre électricité et j\'ai réduit ma facture de 70%. Je recommande vivement !',
-      datePublished: '2025-01-05'
+      reviewBody: 'L’entreprise my ohm a été très professionnel. Tout s’est bien passé, dès le premier contact, en passant parles étapes administratives,jusqu’à l’installation. Nous sommes satisfait de l’installation de nos panneaux solaires. Ils m’ont même dépanner un luminaire gratuitement. Merci à toute l’equipe.',
+      datePublished: '2025-01-25'
+    },
+    {
+      author: 'Régis Bourlanges',
+      reviewRating: 5,
+      reviewBody: 'Je suis très satisfait de notre installation de panneaux solaires par une équipe sympathique, travail propre et soigné, tous ponctuels et sérieux, à recommander...',
+      datePublished: '2024-11-05'
+    },
+    {
+      author: 'MEVOUILLON-IRENEE Eliane',
+      reviewRating: 5,
+      reviewBody: 'Bonne équipe, travail soigné et efficace. Tout a été fait comme prévu. J\'ai découvert qu\'ils installent aussi des panneaux photovoltaïques, un projet que je prévois de réaliser bientôt.',
+      datePublished: '2025-02-09'
+    },
+    {
+      author: 'Chloe Swati',
+      reviewRating: 5,
+      reviewBody: 'l\'équipe my ohm technologies est très efficace et minutieux ! Son travail est toujours satisfaisant. Merci à vous pour votre écoute et votre disponibilité !',
+      datePublished: '2025-03-02'
     }
+
   ];
 
   return (

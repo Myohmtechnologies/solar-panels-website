@@ -376,6 +376,42 @@ export default function DevisPanneauxSolairesPage() {
               </div>
             </div>
           </div>
+          <div className="mt-12">
+            <div className="rounded-xl shadow-lg overflow-hidden bg-gradient-to-r from-[#ffb700] to-[#ffeb99]">
+              <div className="p-8 text-center">
+                <h3 className="text-2xl font-bold mb-2 text-gray-900">Passez à l'excellence française</h3>
+                <p className="text-gray-800 opacity-90 mb-6">Simulez votre installation DualSun et découvrez combien vous pourriez économiser</p>
+                {
+/* Fonction de conversion Google Ads adaptée pour React */}
+                <a
+                  href="/simulator"
+                  className="inline-flex items-center gap-2 bg-[#0a3d5c] text-white py-3 px-6 rounded-lg font-medium hover:bg-[#116290] transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+
+                    // Appel de la fonction de conversion Google Ads
+                    if (typeof window !== 'undefined' && window.gtag) {
+                      window.gtag('event', 'conversion', {
+                        'send_to': 'AW-16817660787/9PJFCP3gnLkaEPPGpNM-',
+                        'value': 10.0,
+                        'currency': 'EUR',
+                        'event_callback': function () {
+                          window.location.href = '/simulator';
+                        }
+                      });
+                    } else {
+                      // Fallback si gtag n'est pas disponible
+                      window.location.href = '/simulator';
+                    }
+                  }}
+                >
+                  <span>Simuler mon installation DualSun</span>
+                  <ArrowRightIcon className="h-5 w-5" />
+                </a>
+                <p className="mt-4 text-sm text-gray-700">Simulation gratuite et sans engagement</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       

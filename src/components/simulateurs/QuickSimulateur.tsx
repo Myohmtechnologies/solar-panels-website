@@ -58,6 +58,7 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
         }
         
         if (conversionId && conversionLabel) {
+          console.log(`Conversion déclenchée pour l'étape ${field}:`, `${conversionId}/${conversionLabel}`);
           (window as any).gtag('event', 'conversion', {
             'send_to': `${conversionId}/${conversionLabel}`,
             'value': conversionValue,
@@ -119,6 +120,7 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
       
       // Tracking Google Ads - conversion principale (seulement après soumission réussie)
       if (typeof window !== 'undefined' && (window as any).gtag) {
+        console.log('Conversion finale déclenchée (formulaire soumis avec succès):', 'AW-16817660787/LjhoCLLJ9rkaEPPGpNM-');
         (window as any).gtag('event', 'conversion', {
           'send_to': 'AW-16817660787/LjhoCLLJ9rkaEPPGpNM-',
           'value': 10.0,

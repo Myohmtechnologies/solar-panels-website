@@ -278,6 +278,9 @@ export default function DevisPanneauxSolairesPage() {
       {/* Nouvelle section: Le choix de l'excellence française */}
       <div className="relative z-10 w-full mt-8 py-8 ">
         <div className="container mx-auto px-4">
+          <div className="mb-8 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-black">Le choix de l'excellence française avec DualSun et My Ohm Technologies</h2>
+          </div>
           <div className="">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Image à gauche */}
@@ -294,7 +297,6 @@ export default function DevisPanneauxSolairesPage() {
               
               {/* Avantages à droite */}
               <div className="p-6 flex flex-col justify-center">
-                <h2 className="text-2xl md:text-3xl font-bold text-black mb-6">Le choix de l'excellence française avec DualSun et My Ohm Technologies</h2>
                 
                 <div className="mb-6">
                   <h3 className="text-xl font-semibold text-black mb-2">Jusqu'à 70% d'économies</h3>

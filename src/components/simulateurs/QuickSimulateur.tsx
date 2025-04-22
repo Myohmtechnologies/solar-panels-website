@@ -369,10 +369,10 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
               <div className="w-full h-full bg-yellow-300 opacity-20 rounded-full"></div>
             </div>
             <div className="flex items-center">
-              <span className="text-4xl mr-4">🎉</span>
+              <span className="text-4xl mr-4">💡</span>
               <div>
                 <h4 className="font-bold text-white text-xl mb-1">BONNE NOUVELLE !</h4>
-                <p className="text-white text-lg font-medium">Vous êtes éligible aux aides de l'État jusqu'à <span className="font-bold text-yellow-300 text-xl">3 600€</span> pour votre installation solaire.</p>
+                <p className="text-white text-lg font-medium">Produisez votre propre électricité et <span className="font-bold text-yellow-300 text-xl">réduisez jusqu'à 70%</span> de votre facture énergétique !</p>
               </div>
             </div>
           </div>

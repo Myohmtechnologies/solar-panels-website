@@ -208,9 +208,9 @@ const EQUIPMENT_INFO = {
 // Prix des batteries de stockage
 const BATTERY_PRICES = {
   physical: [
-    { capacity: 5, price: 5000, label: "Batterie Huawei 5kW" },
-    { capacity: 10, price: 8000, label: "Batterie Huawei 10kW" },
-    { capacity: 15, price: 11000, label: "Batterie Huawei 15kW" }
+    { capacity: 5, price: 4900, label: "Batterie FOX 5kW" },
+    { capacity: 10, price: 7900, label: "Batterie FOX 10kW" },
+    { capacity: 15, price: 10990, label: "Batterie FOX 15kW" }
   ],
   virtual: { price: 3000, label: "Boîtier AC (stockage virtuel)" }
 };

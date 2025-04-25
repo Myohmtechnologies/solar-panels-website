@@ -56,6 +56,7 @@ interface TaskFormData {
   startTime: string;
   endTime: string;
   type: string;
+  commercialIds: string[];
 }
 
 export default function PlanningPage() {
@@ -74,7 +75,8 @@ export default function PlanningPage() {
     date: format(new Date(), 'yyyy-MM-dd'),
     startTime: '09:00',
     endTime: '10:00',
-    type: 'door-to-door'
+    type: 'door-to-door',
+    commercialIds: []
   });
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
@@ -249,7 +251,8 @@ export default function PlanningPage() {
       ...taskFormData,
       date: format(info.date, 'yyyy-MM-dd'),
       startTime: '09:00',
-      endTime: '10:00'
+      endTime: '10:00',
+      commercialIds: [commercial._id]
     });
     setShowTaskModal(true);
   }
@@ -272,35 +275,49 @@ export default function PlanningPage() {
   async function handleTaskSubmit(e: React.FormEvent) {
     e.preventDefault();
     
-    if (!selectedCommercialForTask) return;
+    if (taskFormData.commercialIds.length === 0) {
+      setError('Veuillez sélectionner au moins un commercial');
+      return;
+    }
     
     try {
       // Créer la date de début et de fin
       const startDate = `${taskFormData.date}T${taskFormData.startTime}:00`;
       const endDate = `${taskFormData.date}T${taskFormData.endTime}:00`;
       
-      const taskData = {
-        title: taskFormData.title,
-        description: taskFormData.description,
-        start: startDate,
-        end: endDate,
-        commercialId: selectedCommercialForTask._id,
-        commercialName: selectedCommercialForTask.name,
-        taskType: taskFormData.type,
-        status: 'pending'
-      };
-      
-      const response = await fetch('/api/tasks', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(taskData),
+      // Créer une tâche pour chaque commercial sélectionné
+      const promises = taskFormData.commercialIds.map(async (commercialId) => {
+        const commercial = commercials.find(c => c._id === commercialId);
+        if (!commercial) return null;
+        
+        const taskData = {
+          title: taskFormData.title,
+          description: taskFormData.description,
+          start: startDate,
+          end: endDate,
+          commercialId: commercial._id,
+          commercialName: commercial.name,
+          taskType: taskFormData.type,
+          status: 'pending',
+          isGroupTask: taskFormData.commercialIds.length > 1 // Indiquer si c'est une tâche de groupe
+        };
+        
+        const response = await fetch('/api/tasks', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(taskData),
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Erreur lors de la création de la tâche pour ${commercial.name}`);
+        }
+        
+        return response.json();
       });
       
-      if (!response.ok) {
-        throw new Error('Erreur lors de la création de la tâche');
-      }
+      await Promise.all(promises);
       
       // Fermer le modal et rafraîchir les données
       setShowTaskModal(false);
@@ -313,7 +330,8 @@ export default function PlanningPage() {
         date: format(new Date(), 'yyyy-MM-dd'),
         startTime: '09:00',
         endTime: '10:00',
-        type: 'door-to-door'
+        type: 'door-to-door',
+        commercialIds: []
       });
       
     } catch (error) {
@@ -540,33 +558,75 @@ export default function PlanningPage() {
               </h2>
             </div>
             
-            {/* Sélecteur de commercial */}
+            {/* Sélecteur de commerciaux (multiple) */}
             <div className="mb-4">
-              <label htmlFor="commercial-select" className="block text-sm font-medium text-gray-700 mb-1.5">
-                Commercial
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Commerciaux
               </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <UserIcon className="h-5 w-5 text-gray-400" />
+              <div className="bg-white rounded-lg border border-gray-300 shadow-sm p-2 max-h-60 overflow-y-auto">
+                {/* Option pour sélectionner tous les commerciaux */}
+                <div className="p-2 hover:bg-gray-50 rounded flex items-center">
+                  <input
+                    type="checkbox"
+                    id="select-all-commercials"
+                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                    checked={taskFormData.commercialIds.length === commercials.length}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        // Sélectionner tous les commerciaux
+                        setTaskFormData({
+                          ...taskFormData,
+                          commercialIds: commercials.map(c => c._id)
+                        });
+                      } else {
+                        // Désélectionner tous les commerciaux
+                        setTaskFormData({
+                          ...taskFormData,
+                          commercialIds: []
+                        });
+                      }
+                    }}
+                  />
+                  <label htmlFor="select-all-commercials" className="ml-2 block text-sm text-gray-900 font-medium">
+                    Sélectionner tous les commerciaux
+                  </label>
                 </div>
-                <select
-                  id="commercial-select"
-                  className="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 py-2.5 pl-10 pr-10 appearance-none"
-                  value={selectedCommercialForTask?._id || ''}
-                  onChange={(e) => {
-                    const selected = commercials.find(c => c._id === e.target.value);
-                    setSelectedCommercialForTask(selected || null);
-                  }}
-                  required
-                >
-                  {commercials.map((commercial) => (
-                    <option key={commercial._id} value={commercial._id}>
+                
+                {/* Liste des commerciaux avec cases à cocher */}
+                {commercials.map((commercial) => (
+                  <div key={commercial._id} className="p-2 hover:bg-gray-50 rounded flex items-center">
+                    <input
+                      type="checkbox"
+                      id={`commercial-${commercial._id}`}
+                      className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                      checked={taskFormData.commercialIds.includes(commercial._id)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          // Ajouter ce commercial à la sélection
+                          setTaskFormData({
+                            ...taskFormData,
+                            commercialIds: [...taskFormData.commercialIds, commercial._id]
+                          });
+                        } else {
+                          // Retirer ce commercial de la sélection
+                          setTaskFormData({
+                            ...taskFormData,
+                            commercialIds: taskFormData.commercialIds.filter(id => id !== commercial._id)
+                          });
+                        }
+                      }}
+                    />
+                    <label htmlFor={`commercial-${commercial._id}`} className="ml-2 block text-sm text-gray-900">
                       {commercial.name}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDownIcon className="h-5 w-5 text-gray-500 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
+                    </label>
+                  </div>
+                ))}
               </div>
+              {taskFormData.commercialIds.length > 0 && (
+                <p className="mt-2 text-sm text-indigo-600">
+                  {taskFormData.commercialIds.length} commercial{taskFormData.commercialIds.length > 1 ? 'x' : ''} sélectionné{taskFormData.commercialIds.length > 1 ? 's' : ''}
+                </p>
+              )}
             </div>
             
             <form onSubmit={handleTaskSubmit}>

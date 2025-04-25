@@ -4,10 +4,13 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useImageUpload } from '@/hooks/useImageUpload';
 import ImageUpload from '@/components/ImageUpload';
+import SEOPreview from '@/components/blog/SEOPreview';
+import SchemaPreview from '@/components/blog/SchemaPreview';
 import { 
   PlusIcon,
   XMarkIcon,
-  TrashIcon
+  TrashIcon,
+  InformationCircleIcon
 } from '@heroicons/react/24/outline';
 import { Editor } from '@tinymce/tinymce-react';
 
@@ -45,6 +48,18 @@ export default function CreateBlogPostPage() {
   const [newTag, setNewTag] = useState('');
   const [mainImage, setMainImage] = useState('');
   const [error, setError] = useState<string | null>(null);
+  
+  // Nouveaux états pour SEO et Schema Markup
+  const [seoData, setSeoData] = useState({
+    seoTitle: '',
+    seoDescription: ''
+  });
+  
+  const [schemaData, setSchemaData] = useState({
+    schemaType: 'BlogPosting',
+    author: 'MyOhm Technologies',
+    keywords: [] as string[]
+  });
   
   const [formData, setFormData] = useState({
     title: '',
@@ -169,7 +184,13 @@ export default function CreateBlogPostPage() {
         slug: formData.title
           .toLowerCase()
           .replace(/[^a-z0-9]+/g, '-')
-          .replace(/(^-|-$)/g, '')
+          .replace(/(^-|-$)/g, ''),
+        // Ajout des données SEO et Schema
+        seoTitle: seoData.seoTitle || formData.title,
+        seoDescription: seoData.seoDescription || formData.description.substring(0, 160),
+        schemaType: schemaData.schemaType,
+        author: schemaData.author,
+        keywords: schemaData.keywords.length > 0 ? schemaData.keywords : selectedTags
       };
 
       const response = await fetch('/api/blog', {
@@ -334,6 +355,137 @@ export default function CreateBlogPostPage() {
                 value={formData.description}
                 onEditorChange={handleEditorChange}
               />
+            </div>
+            
+            {/* Optimisation SEO */}
+            <div className="bg-gray-50 p-6 rounded-xl">
+              <div className="flex items-center mb-6">
+                <h2 className="text-xl font-semibold text-gray-900">Optimisation SEO</h2>
+                <div className="ml-2 text-gray-500 tooltip" title="Ces informations aident à optimiser votre article pour les moteurs de recherche">
+                  <InformationCircleIcon className="h-5 w-5" />
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Titre SEO <span className="text-xs text-gray-500">(max 60 caractères)</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={seoData.seoTitle}
+                    onChange={(e) => setSeoData({ ...seoData, seoTitle: e.target.value })}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-FFDF64 focus:border-FFDF64"
+                    placeholder="Titre optimisé pour les moteurs de recherche"
+                    maxLength={60}
+                  />
+                  <div className="text-xs text-gray-500 mt-1">
+                    {seoData.seoTitle.length}/60 caractères
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Méta-description <span className="text-xs text-gray-500">(max 160 caractères)</span>
+                  </label>
+                  <textarea
+                    value={seoData.seoDescription}
+                    onChange={(e) => setSeoData({ ...seoData, seoDescription: e.target.value })}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-FFDF64 focus:border-FFDF64"
+                    placeholder="Description courte qui apparaîtra dans les résultats de recherche"
+                    rows={3}
+                    maxLength={160}
+                  />
+                  <div className="text-xs text-gray-500 mt-1">
+                    {seoData.seoDescription.length}/160 caractères
+                  </div>
+                </div>
+                
+                <div className="mt-6">
+                  <h3 className="text-md font-medium text-gray-700 mb-3">Prévisualisation</h3>
+                  <SEOPreview 
+                    title={seoData.seoTitle || formData.title}
+                    metaDescription={seoData.seoDescription || formData.description.substring(0, 160)}
+                    url={`myohmtechnologies.com/blog/${formData.title
+                      .toLowerCase()
+                      .replace(/[^a-z0-9]+/g, '-')
+                      .replace(/(^-|-$)/g, '')}`}
+                  />
+                </div>
+              </div>
+            </div>
+            
+            {/* Schema Markup */}
+            <div className="bg-gray-50 p-6 rounded-xl">
+              <div className="flex items-center mb-6">
+                <h2 className="text-xl font-semibold text-gray-900">Schema Markup</h2>
+                <div className="ml-2 text-gray-500 tooltip" title="Le Schema Markup aide les moteurs de recherche à mieux comprendre votre contenu">
+                  <InformationCircleIcon className="h-5 w-5" />
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Type d'article
+                  </label>
+                  <select
+                    value={schemaData.schemaType}
+                    onChange={(e) => setSchemaData({ ...schemaData, schemaType: e.target.value })}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-FFDF64 focus:border-FFDF64"
+                  >
+                    <option value="BlogPosting">Blog (standard)</option>
+                    <option value="NewsArticle">Actualité</option>
+                    <option value="TechArticle">Article technique</option>
+                    <option value="Article">Article général</option>
+                  </select>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Auteur
+                  </label>
+                  <input
+                    type="text"
+                    value={schemaData.author}
+                    onChange={(e) => setSchemaData({ ...schemaData, author: e.target.value })}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-FFDF64 focus:border-FFDF64"
+                    placeholder="Nom de l'auteur"
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Mots-clés Schema (séparés par des virgules)
+                  </label>
+                  <input
+                    type="text"
+                    value={schemaData.keywords.join(', ')}
+                    onChange={(e) => setSchemaData({ 
+                      ...schemaData, 
+                      keywords: e.target.value.split(',').map(k => k.trim()).filter(k => k) 
+                    })}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-FFDF64 focus:border-FFDF64"
+                    placeholder="panneaux solaires, énergie renouvelable, etc."
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Si laissé vide, les tags de l'article seront utilisés
+                  </p>
+                </div>
+                
+                <SchemaPreview 
+                  schemaData={schemaData}
+                  blogData={{
+                    title: formData.title,
+                    description: seoData.seoDescription || formData.description.substring(0, 160),
+                    mainImage: mainImage,
+                    slug: formData.title
+                      .toLowerCase()
+                      .replace(/[^a-z0-9]+/g, '-')
+                      .replace(/(^-|-$)/g, '')
+                  }}
+                />
+              </div>
             </div>
 
             {/* Sections */}

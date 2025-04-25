@@ -77,6 +77,29 @@ const BlogSchema = new mongoose.Schema({
         .replace(/(^-|-$)/g, '');
     }
   },
+  // Nouveaux champs SEO
+  seoTitle: {
+    type: String,
+    maxlength: [60, 'Le titre SEO ne peut pas dépasser 60 caractères']
+  },
+  seoDescription: {
+    type: String,
+    maxlength: [160, 'La description SEO ne peut pas dépasser 160 caractères']
+  },
+  // Champs Schema Markup
+  schemaType: {
+    type: String,
+    enum: ['Article', 'BlogPosting', 'NewsArticle', 'TechArticle'],
+    default: 'BlogPosting'
+  },
+  author: {
+    type: String,
+    default: 'MyOhm Technologies'
+  },
+  keywords: {
+    type: [String],
+    default: []
+  },
   createdAt: {
     type: Date,
     default: Date.now

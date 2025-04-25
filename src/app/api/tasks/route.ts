@@ -98,6 +98,7 @@ export async function POST(request: NextRequest) {
       commercialName,
       taskType,
       status: body.status || 'pending',
+      isGroupTask: body.isGroupTask || false, // Nouveau champ pour les tâches de groupe
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };

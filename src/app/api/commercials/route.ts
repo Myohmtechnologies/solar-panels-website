@@ -2,6 +2,16 @@ import { NextRequest, NextResponse } from 'next/server';
 import { clientPromise } from '@/lib/mongodb';
 import { ObjectId } from 'mongodb';
 
+// Interface pour le type Commercial
+interface Commercial {
+  name: string;
+  email: string;
+  phone?: string;
+  basedCity?: string;
+  workingAreas?: string[];
+  maxTravelDistance?: number;
+}
+
 // GET /api/commercials
 // Récupère la liste des commerciaux
 export async function GET(request: NextRequest) {
@@ -65,6 +75,63 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ 
       success: false, 
       error: 'Erreur lors de la récupération des commerciaux' 
+    }, { status: 500 });
+  }
+}
+
+// POST /api/commercials
+// Ajoute un nouveau commercial
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    
+    // Vérifier les champs obligatoires
+    const { name, email } = body;
+    
+    if (!name || !email) {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Le nom et l\'email sont requis' 
+      }, { status: 400 });
+    }
+    
+    const client = await clientPromise;
+    const db = client.db('myohm');
+    
+    // Vérifier si un commercial avec cet email existe déjà
+    const existingCommercial = await db.collection('commercials').findOne({ email });
+    
+    if (existingCommercial) {
+      return NextResponse.json({ 
+        success: false, 
+        error: 'Un commercial avec cet email existe déjà' 
+      }, { status: 400 });
+    }
+    
+    // Créer le nouveau commercial
+    const newCommercial: Commercial = {
+      name,
+      email,
+      phone: body.phone || '',
+      basedCity: body.basedCity || '',
+      workingAreas: body.workingAreas || [],
+      maxTravelDistance: body.maxTravelDistance || 50
+    };
+    
+    const result = await db.collection('commercials').insertOne(newCommercial);
+    
+    return NextResponse.json({ 
+      success: true, 
+      commercial: {
+        ...newCommercial,
+        _id: result.insertedId.toString()
+      }
+    });
+  } catch (error) {
+    console.error('Erreur lors de la création du commercial:', error);
+    return NextResponse.json({ 
+      success: false, 
+      error: 'Erreur lors de la création du commercial' 
     }, { status: 500 });
   }
 }

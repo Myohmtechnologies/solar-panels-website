@@ -138,11 +138,46 @@ export default function BlogDashboardPage() {
               <div className="relative h-48 bg-gray-100 overflow-hidden">
                 {/* Affichage de l'image avec une balise img standard */}
                 <img 
-                  src={post.mainImage.includes('http') ? post.mainImage : post.mainImage.startsWith('/') ? post.mainImage : `/uploads/blog/${post.mainImage}`}
+                  src={(() => {
+                    // Fonction pour construire le chemin de l'image avec plus de robustesse
+                    const imagePath = post.mainImage || '';
+                    console.log('Image originale:', imagePath);
+                    
+                    // Cas 1: URL complète (http/https)
+                    if (imagePath.includes('http')) {
+                      console.log('Cas 1 - URL complète:', imagePath);
+                      return imagePath;
+                    }
+                    
+                    // Cas 2: Chemin absolu commençant par /
+                    if (imagePath.startsWith('/')) {
+                      // Si c'est déjà /uploads/blog, on ne modifie pas
+                      if (imagePath.includes('/uploads/blog/')) {
+                        console.log('Cas 2a - Chemin absolu uploads/blog:', imagePath);
+                        return imagePath;
+                      }
+                      // Sinon on ajoute le préfixe si nécessaire
+                      console.log('Cas 2b - Autre chemin absolu:', imagePath);
+                      return imagePath;
+                    }
+                    
+                    // Cas 3: Nom de fichier simple ou chemin relatif
+                    // On vérifie si le chemin contient déjà 'uploads/blog'
+                    if (imagePath.includes('uploads/blog/')) {
+                      console.log('Cas 3a - Chemin relatif avec uploads/blog:', `/${imagePath}`);
+                      return `/${imagePath}`;
+                    }
+                    
+                    // Cas par défaut: on ajoute le préfixe /uploads/blog/
+                    const finalPath = `/uploads/blog/${imagePath}`;
+                    console.log('Cas 3b - Nom de fichier simple:', finalPath);
+                    return finalPath;
+                  })()}
                   alt={post.title}
                   className="absolute inset-0 w-full h-full object-cover object-center"
                   onError={(e) => {
-                    console.error('Erreur de chargement d\'image:', post.mainImage);
+                    const target = e.target as HTMLImageElement;
+                    console.error('Erreur de chargement d\'image:', post.mainImage, 'URL complète:', target.src);
                     // Aucune image de fallback pour le moment
                   }}
                 />

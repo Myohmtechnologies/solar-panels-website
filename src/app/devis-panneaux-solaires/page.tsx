@@ -146,7 +146,7 @@ export default function DevisPanneauxSolairesPage() {
           {/* Overlay sombre pour contraste */}
           <div className="absolute inset-0 bg-black/60 lg:bg-black/50"></div>
         </div>
-        
+
         {/* Header transparent */}
         <header className="relative z-10 py-4">
           <div className="container mx-auto px-6 md:px-8 lg:px-10 flex justify-between items-center">
@@ -162,6 +162,9 @@ export default function DevisPanneauxSolairesPage() {
                 />
               </a>
             </div>
+
+
+
             <div className="flex items-center">
               <a
                 href="tel:+330492766858"
@@ -178,110 +181,106 @@ export default function DevisPanneauxSolairesPage() {
         <section className="relative z-10 overflow-hidden min-h-[70vh] flex items-center justify-center">
           {/* Contenu centré en surimpression */}
           <div className="relative z-10 w-full flex flex-col items-center justify-center px-4 py-12">
-          <h1 className="text-3xl sm:text-5xl font-extrabold mb-8 leading-tight text-white text-center drop-shadow-lg">
-            Trouvez <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#ffb700] to-[#ffeb99]">La solution solaire</span> adaptée à vos besoins
-          </h1>
+            <h1 className="text-3xl sm:text-5xl font-extrabold mb-8 leading-tight text-white text-center drop-shadow-lg">
+              Trouvez <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#ffb700] to-[#ffeb99]">La solution solaire</span> adaptée à vos besoins
+            </h1>
 
-          <p className="text-3xl text-white mb-8 flex items-center justify-center flex-wrap gap-2">
-          Une offre sur-mesure, rien que pour vous - 
-            <span className="flex items-center">
-              <img src="/images/avis-google.avif" alt="Google" className="h-6 w-auto mr-1" />
-              <span className="font-semibold">4,9/5</span>
-            </span>
-          </p>
+            <p className="text-3xl text-white mb-8 flex items-center justify-center flex-wrap gap-2">
+              <span className="font-medium">
+                Le meilleur installateur de panneaux solaires en région PACA
+              </span>
+              <span className="flex items-center bg-white backdrop-blur-sm rounded-lg px-3 py-1 shadow-sm">
+              <Image src="/images/avis-google.avif" alt="Google Avis" width={60} height={20} className="h-5 w-auto" />
+                <div className="flex">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <StarIcon key={star} className="w-4 h-4 text-[#ffb700]" />
+                  ))}
+                </div>
+                <span className="font-semibold text-black">4,9/5</span>
+              </span>
+            </p>
 
-         {/* Simulateur */}
-          <div className="mb-8 max-w-xl w-full">
-            <QuickSimulateur />
-          </div>
-          
-          {/* Avis clients et certifications sur toute la largeur */}
-          <div className="relative z-10 w-full mt-8 pt-8 border-t border-white/20">
-            <div className="container mx-auto px-4">
-              {/* Titre avec note Google */}
-              <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
-                <h3 className="text-xl font-semibold text-white drop-shadow-md">Des centaines de propriétaires nous ont déjà fait confiance !</h3>
-                
-                {/* Note Google */}
-                <div className="flex items-center bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1 shadow-md">
-                  <div className="flex items-center gap-1">
-                    <Image src="/images/avis-google.avif" alt="Google Avis" width={60} height={20} className="h-5 w-auto" />
-                    <div className="flex">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <StarIcon key={star} className="w-4 h-4 text-[#ffb700]" />
-                      ))}
+            {/* Simulateur */}
+            <div className="mb-8 max-w-xl w-full">
+              <QuickSimulateur />
+            </div>
+
+            {/* Avis clients et certifications sur toute la largeur */}
+            <div className="relative z-10 w-full mt-8 pt-8 border-t border-white/20">
+              <div className="container mx-auto px-4">
+                {/* Titre avec note Google */}
+                <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
+                  <h3 className="text-xl font-semibold text-white drop-shadow-md">Des centaines de propriétaires nous ont déjà fait confiance !</h3>
+
+                 
+                </div>
+
+                {/* Section avis et certifications optimisée pour mobile */}
+                <div className="flex flex-col gap-6">
+                  {/* Logos de certification en ligne horizontale pour mobile */}
+                  <div className="flex flex-wrap justify-center md:justify-end gap-3 py-2">
+                    <div className="flex items-center backdrop-blur-sm rounded-lg px-3 py-2 shadow-md">
+                      <Image src="/images/logo-QualiPV-2025-RGE_sc.png" alt="Certification QualiPV" width={180} height={160} className="h-14 md:h-16 w-auto" />
                     </div>
-                    <p className="font-medium text-sm">4,9/5</p>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Section avis et certifications optimisée pour mobile */}
-              <div className="flex flex-col gap-6">
-                {/* Logos de certification en ligne horizontale pour mobile */}
-                <div className="flex flex-wrap justify-center md:justify-end gap-3 py-2">
-                  <div className="flex items-center backdrop-blur-sm rounded-lg px-3 py-2 shadow-md">
-                    <Image src="/images/logo-QualiPV-2025-RGE_sc.png" alt="Certification QualiPV" width={180} height={160} className="h-14 md:h-16 w-auto" />
-                  </div>
-                  <div className="flex items-center backdrop-blur-sm rounded-lg px-3 py-2 shadow-md">
-                    <Image src="/images/LOGO-garantie-20-ans.png" alt="Certification RGE" width={160} height={120} className="h-14 md:h-16 w-auto" />
-                  </div>
-                  <div className="flex items-center backdrop-blur-sm rounded-lg px-3 py-2 shadow-md">
-                    <Image src="/images/qualifelec.jpg" alt="Certification RGE" width={140} height={120} className="h-14 md:h-16 w-auto" />
-                  </div>
-                </div>
-                
-                {/* Carrousel automatique d'avis clients - 3 avis à la fois */}
-                <div className="w-full overflow-hidden">
-                  {/* Titre du carrousel */}
-                  <div className="flex justify-center mb-2">
-                    <div className="flex items-center gap-1">
-                      <span className="text-xs text-white/80">Nos clients témoignent</span>
+                    <div className="flex items-center backdrop-blur-sm rounded-lg px-3 py-2 shadow-md">
+                      <Image src="/images/LOGO-garantie-20-ans.png" alt="Certification RGE" width={160} height={120} className="h-14 md:h-16 w-auto" />
+                    </div>
+                    <div className="flex items-center backdrop-blur-sm rounded-lg px-3 py-2 shadow-md">
+                      <Image src="/images/qualifelec.jpg" alt="Certification RGE" width={140} height={120} className="h-14 md:h-16 w-auto" />
                     </div>
                   </div>
-                  
-                  {/* Carrousel automatique d'avis */}
-                  <div className="relative">
-                    {/* Conteneur du carrousel avec animation */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      {/* Première ligne de 3 avis */}
-                      {reviews.slice(0, 3).map((review, index) => (
-                        <div key={index} className="bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-md">
-                          <div className="flex items-center mb-3">
-                            <div className="w-10 h-10 rounded-full bg-[#ffb700]/10 flex items-center justify-center mr-3">
-                              <span className="text-[#ffb700] font-bold">{review.author.charAt(0)}</span>
-                            </div>
-                            <div>
-                              <p className="font-medium">{review.author}</p>
-                              <div className="flex">
-                                {[...Array(5)].map((_, i) => (
-                                  <StarIcon key={i} className={`w-4 h-4 ${i < review.reviewRating ? 'text-[#ffb700]' : 'text-gray-300'}`} />
-                                ))}
+
+                  {/* Carrousel automatique d'avis clients - 3 avis à la fois */}
+                  <div className="w-full overflow-hidden">
+                    {/* Titre du carrousel */}
+                    <div className="flex justify-center mb-2">
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs text-white/80">Nos clients témoignent</span>
+                      </div>
+                    </div>
+
+                    {/* Carrousel automatique d'avis */}
+                    <div className="relative">
+                      {/* Conteneur du carrousel avec animation */}
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {/* Première ligne de 3 avis */}
+                        {reviews.slice(0, 3).map((review, index) => (
+                          <div key={index} className="bg-white/90 backdrop-blur-sm rounded-lg p-4 shadow-md">
+                            <div className="flex items-center mb-3">
+                              <div className="w-10 h-10 rounded-full bg-[#ffb700]/10 flex items-center justify-center mr-3">
+                                <span className="text-[#ffb700] font-bold">{review.author.charAt(0)}</span>
+                              </div>
+                              <div>
+                                <p className="font-medium">{review.author}</p>
+                                <div className="flex">
+                                  {[...Array(5)].map((_, i) => (
+                                    <StarIcon key={i} className={`w-4 h-4 ${i < review.reviewRating ? 'text-[#ffb700]' : 'text-gray-300'}`} />
+                                  ))}
+                                </div>
                               </div>
                             </div>
+                            <p className="text-sm text-gray-600 line-clamp-3">{review.reviewBody}</p>
                           </div>
-                          <p className="text-sm text-gray-600 line-clamp-3">{review.reviewBody}</p>
-                        </div>
-                      ))}
-                    </div>
-                    
-                    {/* Indicateurs de pagination */}
-                    <div className="flex justify-center mt-4 gap-2">
-                      <div className="w-2 h-2 rounded-full bg-white"></div>
-                      <div className="w-2 h-2 rounded-full bg-white/50"></div>
-                      <div className="w-2 h-2 rounded-full bg-white/50"></div>
+                        ))}
+                      </div>
+
+                      {/* Indicateurs de pagination */}
+                      <div className="flex justify-center mt-4 gap-2">
+                        <div className="w-2 h-2 rounded-full bg-white"></div>
+                        <div className="w-2 h-2 rounded-full bg-white/50"></div>
+                        <div className="w-2 h-2 rounded-full bg-white/50"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
 
-      </section>
+        </section>
       </div>
-      
+
       {/* Nouvelle section: Le choix de l'excellence française */}
       <div className="relative z-10 w-full mt-8 py-8 ">
         <div className="container mx-auto px-4">
@@ -292,24 +291,24 @@ export default function DevisPanneauxSolairesPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Image à gauche */}
               <div className="flex items-center justify-center p-4">
-                <Image 
-                  src="/images/nos-produit.png" 
-                  alt="Produits DualSun et My Ohm Technologies" 
+                <Image
+                  src="/images/nos-produit.png"
+                  alt="Produits DualSun et My Ohm Technologies"
                   width={600}
                   height={500}
-                  className="object-contain w-full h-auto" 
+                  className="object-contain w-full h-auto"
                   priority
                 />
               </div>
-              
+
               {/* Avantages à droite */}
               <div className="p-6 flex flex-col justify-center">
-                
+
                 <div className="mb-6">
                   <h3 className="text-xl font-semibold text-black mb-2">Jusqu'à 70% d'économies</h3>
                   <p className="text-white/90">sur vos factures</p>
                 </div>
-                
+
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#ffb700]/20 flex items-center justify-center">
@@ -320,7 +319,7 @@ export default function DevisPanneauxSolairesPage() {
                       <p className="text-balck text-sm">Qualité, fiabilité et performance garanties</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start gap-3">
                     <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#ffb700]/20 flex items-center justify-center">
                       <span className="text-black text-lg">⚡</span>
@@ -330,7 +329,7 @@ export default function DevisPanneauxSolairesPage() {
                       <p className="text-black text-sm">Produisez de l'énergie verte et gratuite toute l'année</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start gap-3">
                     <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#ffb700]/20 flex items-center justify-center">
                       <span className="text-black text-lg">💪</span>
@@ -340,7 +339,7 @@ export default function DevisPanneauxSolairesPage() {
                       <p className="text-black text-sm">Devenez indépendant des prix de l'électricité</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start gap-3">
                     <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#ffb700]/20 flex items-center justify-center">
                       <span className="text-[#ffb700] text-lg">💰</span>
@@ -350,7 +349,7 @@ export default function DevisPanneauxSolairesPage() {
                       <p className="text-black text-sm">Réalisez jusqu'à 1 500 euros d'économies par an</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start gap-3">
                     <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#ffb700]/20 flex items-center justify-center">
                       <span className="text-[#ffb700] text-lg">💸</span>
@@ -402,7 +401,7 @@ export default function DevisPanneauxSolairesPage() {
           </div>
         </div>
       </div>
-      
+
       {/* Section Aides de l'État 2025 */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6 md:px-8 lg:px-10 max-w-6xl">

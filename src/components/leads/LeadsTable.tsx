@@ -102,11 +102,12 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
       <div className="overflow-x-auto">
         <table className="w-full table-fixed divide-y divide-gray-200">
           <colgroup>
-            <col className="w-[18%]" />
-            <col className="w-[20%]" />
             <col className="w-[15%]" />
             <col className="w-[15%]" />
-            <col className="w-[24%]" />
+            <col className="w-[12%]" />
+            <col className="w-[12%]" />
+            <col className="w-[15%]" />
+            <col className="w-[23%]" />
             <col className="w-[8%]" />
           </colgroup>
           <thead className="bg-gradient-to-r from-[#0B6291]/10 to-[#d7f0fc]/10 rounded-t-xl">
@@ -122,6 +123,9 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
               </th>
               <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
                 Statut
+              </th>
+              <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
+                Commercial
               </th>
               <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
                 Prochaine Action
@@ -151,6 +155,15 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
                   <span className={`px-3 py-1.5 inline-flex text-xs leading-5 font-medium rounded-xl ${STATUS_COLORS[lead.status]}`}>
                     {STATUS_LABELS[lead.status]}
                   </span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {lead.status === LeadStatus.RDV_SCHEDULED && lead.nextAction && 'commercialName' in lead.nextAction ? (
+                    <div className="text-sm font-medium text-[#0B6291]">
+                      {(lead.nextAction as any).commercialName || '-'}
+                    </div>
+                  ) : (
+                    <div className="text-sm text-gray-400">-</div>
+                  )}
                 </td>
                 <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
                   <div className="flex flex-col">

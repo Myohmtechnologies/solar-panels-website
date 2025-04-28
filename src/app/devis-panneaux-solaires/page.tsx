@@ -179,32 +179,20 @@ export default function DevisPanneauxSolairesPage() {
           {/* Contenu centré en surimpression */}
           <div className="relative z-10 w-full flex flex-col items-center justify-center px-4 py-12">
           <h1 className="text-3xl sm:text-5xl font-extrabold mb-8 leading-tight text-white text-center drop-shadow-lg">
-            Divisez par <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#ffb700] to-[#ffeb99]">2</span> votre facture d'électricité
+            Trouvez <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#ffb700] to-[#ffeb99]">La solution solaire</span> adaptée à vos besoins
           </h1>
 
-          <p className="text-3xl text-white mb-8">
-            Produisez votre propre énergie et réduisez durablement vos factures grâce aux panneaux solaires de qualité française.
+          <p className="text-3xl text-white mb-8 flex items-center justify-center flex-wrap gap-2">
+          Une offre sur-mesure, rien que pour vous - 
+            <span className="flex items-center">
+              <img src="/images/avis-google.avif" alt="Google" className="h-6 w-auto mr-1" />
+              <span className="font-semibold">4,9/5</span>
+            </span>
           </p>
 
-          {/* Simulateur pour mobile */}
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
-            {/* Barre colorée en haut */}
-            <div className="h-3 bg-gradient-to-r from-[#ffb700] to-[#ffeb99]"></div>
-
-            <div className="p-6">
-
-
-              {/* Simulateur */}
-              <QuickSimulateur />
-
-              {/* Badge d'information */}
-              <div className="mt-4 flex items-center justify-center gap-2 bg-gray-50 p-3 rounded-lg text-sm text-gray-600">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#116290]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>Simulation gratuite et sans engagement</span>
-              </div>
-            </div>
+         {/* Simulateur */}
+          <div className="mb-8 max-w-xl w-full">
+            <QuickSimulateur />
           </div>
           
           {/* Avis clients et certifications sur toute la largeur */}

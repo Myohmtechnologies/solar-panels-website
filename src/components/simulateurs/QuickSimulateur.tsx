@@ -147,20 +147,35 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl">
+    <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl overflow-hidden">
       {/* Titre qui apparaît uniquement aux étapes 1, 2 et 3 */}
       {step < 4 && (
-        <div className="bg-gradient-to-br from-ffeb99 to-ffb700 p-6 rounded-t-2xl">
+        <div className="bg-gradient-to-r from-[#ffb700] to-[#ffeb99] p-6 rounded-t-2xl">
           <div className="flex justify-between items-center mb-2">
-            <h2 className="text-2xl font-bold text-black">
-              💡 Faites Votre Simulation d'économies en 1 Min !
+            <h2 className="text-2xl font-bold text-black flex items-center">
+              <span className="bg-white rounded-full p-1.5 mr-2 shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#126290]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </span>
+              Configurez votre installation en 1 min !
             </h2>
-            
           </div>
           <p className="text-black mb-3">
-            Découvrez combien vous pouvez économiser grâce à l'énergie solaire.
+            <div className="flex flex-wrap justify-center gap-3 mb-2">
+              <span className="inline-flex items-center bg-white/80 backdrop-blur-sm rounded-full px-3 py-1 shadow-sm">
+                <span className="mr-1">💰</span> Prix
+              </span>
+              <span className="inline-flex items-center bg-white/80 backdrop-blur-sm rounded-full px-3 py-1 shadow-sm">
+                <span className="mr-1">⚡</span> Puissance
+              </span>
+              <span className="inline-flex items-center bg-white/80 backdrop-blur-sm rounded-full px-3 py-1 shadow-sm">
+                <span className="mr-1">📈</span> Économies
+              </span>
+            </div>
+            <span className="text-black/80 block w-full text-center">calculés selon vos besoins réels</span>
           </p>
-
         </div>
       )}
 
@@ -168,15 +183,22 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
       {step < 5 && (
         <div className="px-6 pt-4 space-y-2">
           <div className="flex justify-between items-center">
-          
-            <div className="text-sm text-gray-500">
-              Étape {step}/4
+            <div className="flex items-center">
+              <span className="inline-flex items-center justify-center w-6 h-6 bg-[#126290] text-white text-xs font-bold rounded-full mr-2">
+                {step}
+              </span>
+              <div className="text-sm font-medium text-[#126290]">
+                Étape {step} sur 4
+              </div>
+            </div>
+            <div className="text-xs text-gray-500 font-medium bg-gray-100 px-2 py-1 rounded-full">
+              {step === 1 ? 'Type de logement' : step === 2 ? 'Chauffage' : step === 3 ? 'Facture' : 'Vos coordonnées'}
             </div>
           </div>
           {/* Barre de progression plus explicite */}
-          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden mt-2">
             <div 
-              className="h-full bg-gradient-to-r from-[#126290] to-[#1a7ab3] transition-all duration-300 ease-out"
+              className="h-full bg-gradient-to-r from-[#126290] to-[#1a7ab3] transition-all duration-300 ease-out shadow-inner"
               style={{ width: `${progressPercentage}%` }}
             ></div>
           </div>
@@ -197,8 +219,8 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
                 onClick={() => handleInputChange('type', 'proprietaire')}
                 className={`relative group flex flex-col items-center justify-center p-6 rounded-xl border-2 transition-all ${
                   formData.type === 'proprietaire'
-                    ? 'border-[#126290] bg-gradient-to-br from-[#126290] to-[#1a7ab3] text-white shadow-lg'
-                    : 'border-gray-200 hover:border-[#126290] hover:shadow-md bg-white hover:bg-gradient-to-br hover:from-white hover:to-gray-50'
+                    ? 'border-[#126290] bg-gradient-to-br from-[#126290] to-[#1a7ab3] text-white shadow-lg transform scale-105'
+                    : 'border-gray-200 hover:border-[#126290] hover:shadow-md bg-white hover:bg-gradient-to-br hover:from-white hover:to-gray-50 hover:scale-102'
                 }`}
               >
                 <div className={`w-16 h-16 mb-3 rounded-full flex items-center justify-center ${
@@ -372,14 +394,12 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
               <span className="text-4xl mr-4">💡</span>
               <div>
                 <h4 className="font-bold text-white text-xl mb-1">BONNE NOUVELLE !</h4>
-                <p className="text-white text-lg font-medium">Produisez votre propre électricité et <span className="font-bold text-yellow-300 text-xl">réduisez jusqu'à 70%</span> de votre facture énergétique !</p>
+                <p className="text-white text-lg font-medium">Recevez votre étude personnalisée d'économies d'énergie</p>
               </div>
             </div>
           </div>
           <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-center text-black">
-              Recevez votre étude personnalisée d'économies d'énergie
-            </h3>
+            
             <p className="text-center text-gray-600 mb-2">
               Un expert analysera votre situation et vous enverra une estimation détaillée
             </p>
@@ -436,10 +456,18 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
                 className={`w-full py-4 px-6 text-white font-semibold rounded-lg transition-all ${
                   isSubmitting
                     ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-[#126290] to-[#1a7ab3] hover:shadow-lg'
+                    : 'bg-gradient-to-r from-[#126290] to-[#1a7ab3] hover:shadow-xl hover:scale-[1.02] transform-gpu'
                 }`}
               >
-                {isSubmitting ? 'Envoi en cours...' : (
+                {isSubmitting ? (
+                  <span className="flex items-center justify-center">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Envoi en cours...
+                  </span>
+                ) : (
                   <span className="flex items-center justify-center">
                     <DocumentTextIcon className="w-5 h-5 mr-2" />
                     Recevoir mon estimation gratuite
@@ -475,6 +503,23 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
                   </svg>
                   <span className="text-xs text-gray-500">500+ clients satisfaits</span>
                 </div>
+              </div>
+              
+              {/* Logos de certification */}
+              <div className="mt-6 pt-6 border-t border-gray-100">
+              
+                <div className="flex flex-wrap justify-center gap-4 py-2">
+                  <div className="flex items-center bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                    <img src="/images/logo-QualiPV-2025-RGE_sc.png" alt="Certification QualiPV" className="h-14 w-auto" />
+                  </div>
+                  <div className="flex items-center bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                    <img src="/images/LOGO-garantie-20-ans.png" alt="Garantie 20 ans" className="h-14 w-auto" />
+                  </div>
+                  <div className="flex items-center bg-white rounded-lg px-3 py-2 shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                    <img src="/images/qualifelec.jpg" alt="Certification Qualifelec" className="h-14 w-auto" />
+                  </div>
+                </div>
+              
               </div>
             </div>
           </div>

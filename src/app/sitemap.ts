@@ -52,9 +52,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Function to generate URLs for a department
-  const generateDepartmentUrls = (departmentCode: string, cities: any) => {
+  const generateDepartmentUrls = (departmentCode: string, departmentName: string, cities: any) => {
     return Object.keys(cities).map(citySlug => ({
-      url: `https://www.myohmtechnologies.com/region/paca/departements/${departmentCode}/villes/${citySlug}`,
+      url: `https://www.myohmtechnologies.com/region/paca/departements/${departmentCode}-${departmentName}/villes/${citySlug}`,
       lastModified: new Date(),
 
     }));
@@ -62,12 +62,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Generate URLs for each department
   const departmentUrls = [
-    ...generateDepartmentUrls('13', bouchesdurhone.cities),
-    ...generateDepartmentUrls('04', alpesdehauteprovence.cities),
-    ...generateDepartmentUrls('05', hautesalpes.cities),
-    ...generateDepartmentUrls('06', alpesmaritimes.cities),
-    ...generateDepartmentUrls('83', var83.cities),
-    ...generateDepartmentUrls('84', vaucluse.cities),
+    ...generateDepartmentUrls('13', 'bouches-du-rhone', bouchesdurhone.cities),
+    ...generateDepartmentUrls('04', 'alpes-de-haute-provence', alpesdehauteprovence.cities),
+    ...generateDepartmentUrls('05', 'hautes-alpes', hautesalpes.cities),
+    ...generateDepartmentUrls('06', 'alpes-maritimes', alpesmaritimes.cities),
+    ...generateDepartmentUrls('83', 'var', var83.cities),
+    ...generateDepartmentUrls('84', 'vaucluse', vaucluse.cities),
   ];
 
   return [...baseUrls, ...departmentUrls];

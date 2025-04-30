@@ -38,6 +38,7 @@ export interface BlogQuery {
   sortOrder?: 'asc' | 'desc';
   type?: 'pilier' | 'niche' | 'standard';
   pilierParent?: string;
+  _id?: string; // Ajout du filtre par ID
 }
 
 export class BlogService {
@@ -55,7 +56,8 @@ export class BlogService {
         sortBy = 'createdAt',
         sortOrder = 'desc',
         type,
-        pilierParent
+        pilierParent,
+        _id
       } = query;
 
       const skip = (page - 1) * limit;
@@ -91,6 +93,11 @@ export class BlogService {
       // Filtrer par article pilier parent
       if (pilierParent) {
         filter.pilierParent = pilierParent;
+      }
+      
+      // Filtrer par ID
+      if (_id) {
+        filter._id = _id;
       }
 
       console.log('MongoDB Filter:', filter); // Pour le débogage

@@ -44,10 +44,19 @@ export default function RelatedArticles({
         } else if (articleType === 'niche' && pilierParentId) {
           // Pour un article de niche, récupérer l'article pilier parent et 3 autres articles de niche liés au même pilier
           // 1. Récupérer l'article pilier parent
-          const pilierResponse = await fetch(`/api/blog/${pilierParentId}`);
-          if (pilierResponse.ok) {
-            const pilierData = await pilierResponse.json();
-            setPilierArticle(pilierData);
+          // Nous devons d'abord obtenir le slug de l'article pilier
+          const pilierInfoResponse = await fetch(`/api/blog?type=pilier&_id=${pilierParentId}`);
+          if (pilierInfoResponse.ok) {
+            const pilierInfoData = await pilierInfoResponse.json();
+            if (pilierInfoData.blogs && pilierInfoData.blogs.length > 0) {
+              const pilierSlug = pilierInfoData.blogs[0].slug;
+              // Maintenant nous pouvons récupérer les détails complets avec le slug
+              const pilierResponse = await fetch(`/api/blog/${pilierSlug}`);
+              if (pilierResponse.ok) {
+                const pilierData = await pilierResponse.json();
+                setPilierArticle(pilierData);
+              }
+            }
           }
           
           // 2. Récupérer d'autres articles de niche liés au même pilier (excluant l'article courant)

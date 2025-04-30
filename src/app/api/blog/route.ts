@@ -20,7 +20,10 @@ export async function GET(request: Request) {
       page: Number(searchParams.get('page')) || 1,
       limit: Number(searchParams.get('limit')) || 10,
       sortBy: searchParams.get('sortBy') || 'createdAt',
-      sortOrder: (searchParams.get('sortOrder') as 'asc' | 'desc') || 'desc'
+      sortOrder: (searchParams.get('sortOrder') as 'asc' | 'desc') || 'desc',
+      // Nouveaux paramètres pour le maillage interne
+      type: searchParams.get('type') as 'pilier' | 'niche' | 'standard' || undefined,
+      pilierParent: searchParams.get('pilierParent') || undefined
     };
 
     console.log('GET /api/blog - Query parameters:', query);

@@ -8,12 +8,19 @@ import {
   PencilIcon, 
   TrashIcon,
   TagIcon,
-  ClockIcon
+  ClockIcon,
+  LinkIcon,
+  BookOpenIcon,
+  DocumentTextIcon,
+  DocumentDuplicateIcon
 } from '@heroicons/react/24/outline';
 import type { BlogPost } from '@/services/blogService';
 
 interface BlogWithId extends BlogPost {
   _id: string;
+  articleType?: 'pilier' | 'niche' | 'standard';
+  pilierParent?: string;
+  articlesNicheLies?: string[];
 }
 
 export default function BlogDashboardPage() {
@@ -21,16 +28,39 @@ export default function BlogDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [pilierArticles, setPilierArticles] = useState<{[key: string]: BlogWithId}>({});
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('/api/blog');
+        // Construire l'URL avec les paramètres de filtre
+        let url = '/api/blog';
+        const params = new URLSearchParams();
+        
+        if (selectedType) {
+          params.append('type', selectedType);
+        }
+        
+        if (params.toString()) {
+          url += `?${params.toString()}`;
+        }
+        
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error('Failed to fetch posts');
         }
         const data = await response.json();
         setPosts(data.blogs || []); 
+        
+        // Créer un dictionnaire des articles piliers pour référence rapide
+        const pilierDict: {[key: string]: BlogWithId} = {};
+        data.blogs.forEach((blog: BlogWithId) => {
+          if (blog.articleType === 'pilier') {
+            pilierDict[blog._id] = blog;
+          }
+        });
+        setPilierArticles(pilierDict);
       } catch (err) {
         console.error('Error fetching posts:', err);
         setError('Une erreur est survenue lors du chargement des articles');
@@ -40,16 +70,50 @@ export default function BlogDashboardPage() {
     };
 
     fetchPosts();
-  }, []);
+  }, [selectedType]);
 
   // Extraire tous les tags uniques
   const allTags = Array.from(
     new Set(posts.flatMap(post => post.tags || []))
   );
 
+  // Filtrer les posts par tag si un tag est sélectionné
   const filteredPosts = selectedTag
     ? posts.filter(post => post.tags?.includes(selectedTag))
     : posts;
+    
+  // Fonction pour obtenir le nom de l'article pilier parent
+  const getPilierName = (pilierParentId: string | undefined) => {
+    if (!pilierParentId) return '';
+    return pilierArticles[pilierParentId]?.title || 'Article pilier inconnu';
+  };
+  
+  // Fonction pour obtenir le badge de type d'article
+  const getArticleTypeBadge = (type: string | undefined) => {
+    switch(type) {
+      case 'pilier':
+        return (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+            <BookOpenIcon className="h-3 w-3 mr-1" />
+            Article Pilier
+          </span>
+        );
+      case 'niche':
+        return (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+            <DocumentDuplicateIcon className="h-3 w-3 mr-1" />
+            Article de Niche
+          </span>
+        );
+      default:
+        return (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+            <DocumentTextIcon className="h-3 w-3 mr-1" />
+            Article Standard
+          </span>
+        );
+    }
+  };
 
   const handleDelete = async (postId: string) => {
     if (!confirm('Êtes-vous sûr de vouloir supprimer cet article ?')) {
@@ -101,8 +165,59 @@ export default function BlogDashboardPage() {
         </Link>
       </div>
 
+      {/* Type d'article filter */}
+      <div className="mb-4">
+        <h2 className="text-lg font-medium text-gray-900 mb-2">Type d'article</h2>
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={() => setSelectedType(null)}
+            className={`px-3 py-1 rounded-full text-sm ${
+              selectedType === null
+                ? 'bg-6C8D2F text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            Tous les types
+          </button>
+          <button
+            onClick={() => setSelectedType('pilier')}
+            className={`px-3 py-1 rounded-full text-sm ${
+              selectedType === 'pilier'
+                ? 'bg-blue-600 text-white'
+                : 'bg-blue-100 text-blue-800 hover:bg-blue-200'
+            }`}
+          >
+            <BookOpenIcon className="h-4 w-4 inline mr-1" />
+            Articles Piliers
+          </button>
+          <button
+            onClick={() => setSelectedType('niche')}
+            className={`px-3 py-1 rounded-full text-sm ${
+              selectedType === 'niche'
+                ? 'bg-green-600 text-white'
+                : 'bg-green-100 text-green-800 hover:bg-green-200'
+            }`}
+          >
+            <DocumentDuplicateIcon className="h-4 w-4 inline mr-1" />
+            Articles de Niche
+          </button>
+          <button
+            onClick={() => setSelectedType('standard')}
+            className={`px-3 py-1 rounded-full text-sm ${
+              selectedType === 'standard'
+                ? 'bg-gray-600 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            <DocumentTextIcon className="h-4 w-4 inline mr-1" />
+            Articles Standards
+          </button>
+        </div>
+      </div>
+
       {/* Tags filter */}
       <div className="mb-6">
+        <h2 className="text-lg font-medium text-gray-900 mb-2">Tags</h2>
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setSelectedTag(null)}
@@ -112,7 +227,7 @@ export default function BlogDashboardPage() {
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
-            Tous
+            Tous les tags
           </button>
           {allTags.map((tag) => (
             <button
@@ -184,11 +299,36 @@ export default function BlogDashboardPage() {
               </div>
             )}
             <div className="p-4">
-              <h2 className="text-xl font-semibold text-gray-900 mb-2">{post.title}</h2>
+              <div className="flex justify-between items-start mb-2">
+                <h2 className="text-xl font-semibold text-gray-900">{post.title}</h2>
+                {getArticleTypeBadge(post.articleType)}
+              </div>
+              
               <div 
                 className="text-gray-600 text-sm mb-4 line-clamp-2"
                 dangerouslySetInnerHTML={{ __html: post.description }}
               />
+              
+              {/* Afficher la relation avec l'article pilier si c'est un article de niche */}
+              {post.articleType === 'niche' && post.pilierParent && (
+                <div className="mb-3 p-2 bg-blue-50 rounded-md">
+                  <div className="flex items-center text-sm text-blue-700">
+                    <LinkIcon className="h-4 w-4 mr-1" />
+                    <span className="font-medium">Article pilier parent:</span>
+                    <span className="ml-1 truncate">{getPilierName(post.pilierParent)}</span>
+                  </div>
+                </div>
+              )}
+              
+              {/* Afficher le nombre d'articles de niche liés si c'est un article pilier */}
+              {post.articleType === 'pilier' && post.articlesNicheLies && post.articlesNicheLies.length > 0 && (
+                <div className="mb-3 p-2 bg-green-50 rounded-md">
+                  <div className="flex items-center text-sm text-green-700">
+                    <DocumentDuplicateIcon className="h-4 w-4 mr-1" />
+                    <span className="font-medium">{post.articlesNicheLies.length} article{post.articlesNicheLies.length > 1 ? 's' : ''} de niche lié{post.articlesNicheLies.length > 1 ? 's' : ''}</span>
+                  </div>
+                </div>
+              )}
               
               <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
                 <div className="flex items-center gap-1">
@@ -199,9 +339,12 @@ export default function BlogDashboardPage() {
                   <ClockIcon className="h-4 w-4" />
                   <span>
                     {post.createdAt 
-                      ? new Date(post.createdAt).toLocaleDateString()
-                      : 'Date non disponible'
-                    }
+                      ? new Date(post.createdAt).toLocaleDateString('fr-FR', {
+                          day: '2-digit',
+                          month: 'short',
+                          year: 'numeric'
+                        })
+                      : 'Date inconnue'}
                   </span>
                 </div>
               </div>

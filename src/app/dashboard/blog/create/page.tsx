@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useImageUpload } from '@/hooks/useImageUpload';
 import ImageUpload from '@/components/ImageUpload';
@@ -10,7 +10,8 @@ import {
   PlusIcon,
   XMarkIcon,
   TrashIcon,
-  InformationCircleIcon
+  InformationCircleIcon,
+  LinkIcon
 } from '@heroicons/react/24/outline';
 import { Editor } from '@tinymce/tinymce-react';
 
@@ -27,6 +28,12 @@ const categories = [
   'environnement',
   'technologie',
   'actualites'
+];
+
+const articleTypes = [
+  { value: 'standard', label: 'Article Standard' },
+  { value: 'pilier', label: 'Article Pilier' },
+  { value: 'niche', label: 'Article de Niche' }
 ];
 
 const commonTags = [
@@ -61,10 +68,14 @@ export default function CreateBlogPostPage() {
     keywords: [] as string[]
   });
   
+  const [pilierArticles, setPilierArticles] = useState<Array<{_id: string, title: string}>>([]);
+  
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     category: 'actualites',
+    articleType: 'standard',
+    pilierParent: '',
     sections: [
       {
         title: '',
@@ -74,6 +85,23 @@ export default function CreateBlogPostPage() {
       }
     ] as BlogSection[]
   });
+  
+  // Charger les articles piliers existants
+  useEffect(() => {
+    const fetchPilierArticles = async () => {
+      try {
+        const response = await fetch('/api/blog?type=pilier');
+        if (response.ok) {
+          const data = await response.json();
+          setPilierArticles(data.blogs || []);
+        }
+      } catch (error) {
+        console.error('Erreur lors du chargement des articles piliers:', error);
+      }
+    };
+    
+    fetchPilierArticles();
+  }, []);
 
   const handleMainImageUpload = async (file: File) => {
     try {
@@ -190,7 +218,10 @@ export default function CreateBlogPostPage() {
         seoDescription: seoData.seoDescription || formData.description.substring(0, 160),
         schemaType: schemaData.schemaType,
         author: schemaData.author,
-        keywords: schemaData.keywords.length > 0 ? schemaData.keywords : selectedTags
+        keywords: schemaData.keywords.length > 0 ? schemaData.keywords : selectedTags,
+        // Données de maillage interne
+        articleType: formData.articleType,
+        pilierParent: formData.articleType === 'niche' ? formData.pilierParent : null
       };
 
       const response = await fetch('/api/blog', {
@@ -262,14 +293,12 @@ export default function CreateBlogPostPage() {
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Catégorie
-                  </label>
+                <div className="mb-6">
+                  <label className="block text-gray-700 font-medium mb-2">Catégorie</label>
                   <select
                     value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-FFDF64 focus:border-FFDF64 transition-colors"
+                    onChange={(e) => setFormData({...formData, category: e.target.value})}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                   >
                     {categories.map((category) => (
                       <option key={category} value={category}>
@@ -279,6 +308,62 @@ export default function CreateBlogPostPage() {
                   </select>
                 </div>
 
+                <div className="mb-6">
+                  <label className="block text-gray-700 font-medium mb-2">
+                    Type d'article
+                    <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                      <InformationCircleIcon className="h-4 w-4 mr-1" />
+                      Pour maillage interne
+                    </span>
+                  </label>
+                  <select
+                    value={formData.articleType}
+                    onChange={(e) => setFormData({...formData, articleType: e.target.value})}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                  >
+                    {articleTypes.map((type) => (
+                      <option key={type.value} value={type.value}>
+                        {type.label}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="mt-1 text-sm text-gray-500">
+                    {formData.articleType === 'pilier' && 
+                      "Un article pilier est un contenu complet qui couvre un sujet large. Il sera lié à plusieurs articles de niche."}
+                    {formData.articleType === 'niche' && 
+                      "Un article de niche traite d'un aspect spécifique d'un sujet plus large. Il doit être lié à un article pilier."}
+                    {formData.articleType === 'standard' && 
+                      "Un article standard n'est pas intégré dans la stratégie de maillage interne pilier/niche."}
+                  </p>
+                </div>
+
+                {formData.articleType === 'niche' && (
+                  <div className="mb-6">
+                    <label className="block text-gray-700 font-medium mb-2">
+                      <LinkIcon className="h-4 w-4 inline mr-1" />
+                      Article pilier parent
+                    </label>
+                    <select
+                      value={formData.pilierParent}
+                      onChange={(e) => setFormData({...formData, pilierParent: e.target.value})}
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                      required
+                    >
+                      <option value="">Sélectionnez un article pilier</option>
+                      {pilierArticles.map((article) => (
+                        <option key={article._id} value={article._id}>
+                          {article.title}
+                        </option>
+                      ))}
+                    </select>
+                    {pilierArticles.length === 0 && (
+                      <p className="mt-1 text-sm text-red-500">
+                        Aucun article pilier disponible. Veuillez d'abord créer un article pilier.
+                      </p>
+                    )}
+                  </div>
+                )}
+                
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Tags

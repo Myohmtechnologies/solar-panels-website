@@ -77,6 +77,24 @@ const BlogSchema = new mongoose.Schema({
         .replace(/(^-|-$)/g, '');
     }
   },
+  // Type d'article pour le maillage interne
+  articleType: {
+    type: String,
+    enum: ['pilier', 'niche', 'standard'],
+    default: 'standard',
+    required: true
+  },
+  // Pour les articles de niche, référence à leur article pilier
+  pilierParent: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Blog',
+    required: false
+  },
+  // Pour les articles piliers, liste des articles de niche liés
+  articlesNicheLies: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Blog'
+  }],
   // Nouveaux champs SEO
   seoTitle: {
     type: String,

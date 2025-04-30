@@ -212,7 +212,6 @@ export default function DevisPanneauxSolairesPage() {
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
                   <h3 className="text-xl font-semibold text-white drop-shadow-md">Des centaines de propriétaires nous ont déjà fait confiance !</h3>
 
-                 
                 </div>
 
                 {/* Section avis et certifications optimisée pour mobile */}

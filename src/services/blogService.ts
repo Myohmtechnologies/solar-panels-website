@@ -21,6 +21,10 @@ export interface BlogPost {
   author?: string;
   createdAt?: string | Date;
   updatedAt?: string | Date;
+  // Champs pour le maillage interne
+  articleType?: 'pilier' | 'niche' | 'standard';
+  pilierParent?: string;
+  articlesNicheLies?: string[];
 }
 
 export interface BlogQuery {
@@ -32,6 +36,8 @@ export interface BlogQuery {
   limit?: number;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
+  type?: 'pilier' | 'niche' | 'standard';
+  pilierParent?: string;
 }
 
 export class BlogService {
@@ -47,7 +53,9 @@ export class BlogService {
         page = 1,
         limit = 50,
         sortBy = 'createdAt',
-        sortOrder = 'desc'
+        sortOrder = 'desc',
+        type,
+        pilierParent
       } = query;
 
       const skip = (page - 1) * limit;
@@ -74,6 +82,16 @@ export class BlogService {
       if (tags && tags.length > 0) {
         filter.tags = { $in: tags };
       }
+      
+      // Filtrer par type d'article (pilier, niche, standard)
+      if (type) {
+        filter.articleType = type;
+      }
+      
+      // Filtrer par article pilier parent
+      if (pilierParent) {
+        filter.pilierParent = pilierParent;
+      }
 
       console.log('MongoDB Filter:', filter); // Pour le débogage
 
@@ -83,7 +101,7 @@ export class BlogService {
         .sort({ [sortBy]: sortOrder === 'desc' ? -1 : 1 })
         .skip(skip)
         .limit(limit)
-        .select('title description mainImage category tags status slug author createdAt')
+        .select('title description mainImage category tags status slug author createdAt articleType pilierParent articlesNicheLies')
         .lean();
 
       const total = await Blog.countDocuments(filter);
@@ -119,17 +137,35 @@ export class BlogService {
       if (!blogData.mainImage) {
         throw new Error('L\'image principale est requise');
       }
+      
+      // Validation pour les articles de niche
+      if (blogData.articleType === 'niche' && !blogData.pilierParent) {
+        throw new Error('Un article de niche doit être lié à un article pilier');
+      }
 
       // Création du slug unique
       const slug = await this.generateUniqueSlug(blogData.title);
-
-      // Création du blog avec les données validées
-      const blog = await Blog.create({
+      
+      // Préparation des données
+      const blogToCreate = {
         ...blogData,
         slug,
         status: blogData.status || 'draft',
-        createdAt: new Date()
-      });
+        createdAt: new Date(),
+        articleType: blogData.articleType || 'standard',
+        articlesNicheLies: []
+      };
+
+      // Création du blog avec les données validées
+      const blog = await Blog.create(blogToCreate);
+      
+      // Si c'est un article de niche, mettre à jour l'article pilier parent
+      if (blogData.articleType === 'niche' && blogData.pilierParent) {
+        await Blog.findByIdAndUpdate(
+          blogData.pilierParent,
+          { $push: { articlesNicheLies: blog._id } }
+        );
+      }
 
       return blog;
     } catch (error) {
@@ -168,9 +204,56 @@ export class BlogService {
     try {
       await dbConnect();
       
+      // Récupérer l'article actuel pour vérifier les changements
+      const currentBlog = await Blog.findById(id).lean();
+      if (!currentBlog) {
+        throw new Error('Blog non trouvé');
+      }
+      
       // Si le titre est modifié, générer un nouveau slug
       if (blogData.title) {
         blogData.slug = await this.generateUniqueSlug(blogData.title);
+      }
+      
+      // Gestion des changements de type d'article et de relations
+      const oldType = currentBlog.articleType;
+      const newType = blogData.articleType;
+      const oldPilierParent = currentBlog.pilierParent?.toString();
+      const newPilierParent = blogData.pilierParent;
+      
+      // Si on change d'un article standard/pilier à un article de niche
+      if (newType === 'niche' && oldType !== 'niche') {
+        if (!newPilierParent) {
+          throw new Error('Un article de niche doit être lié à un article pilier');
+        }
+        
+        // Ajouter cet article à la liste des articles de niche de l'article pilier
+        await Blog.findByIdAndUpdate(
+          newPilierParent,
+          { $addToSet: { articlesNicheLies: id } }
+        );
+      }
+      // Si on change d'article de niche à un autre type
+      else if (oldType === 'niche' && newType !== 'niche' && oldPilierParent) {
+        // Retirer cet article de la liste des articles de niche de l'ancien article pilier
+        await Blog.findByIdAndUpdate(
+          oldPilierParent,
+          { $pull: { articlesNicheLies: id } }
+        );
+      }
+      // Si on change d'article pilier parent
+      else if (newType === 'niche' && oldType === 'niche' && newPilierParent && oldPilierParent !== newPilierParent) {
+        // Retirer de l'ancien pilier
+        await Blog.findByIdAndUpdate(
+          oldPilierParent,
+          { $pull: { articlesNicheLies: id } }
+        );
+        
+        // Ajouter au nouveau pilier
+        await Blog.findByIdAndUpdate(
+          newPilierParent,
+          { $addToSet: { articlesNicheLies: id } }
+        );
       }
 
       const updatedBlog = await Blog.findByIdAndUpdate(

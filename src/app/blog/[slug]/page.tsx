@@ -3,6 +3,7 @@ import BlogHead from '@/components/sections/BlogHead';
 import BlogSection from '@/components/sections/BlogSection';
 import BlogSocialShare from '@/components/blog/BlogSocialShare';
 import BlogSchemaMarkup from '@/components/BlogSchemaMarkup';
+import RelatedArticles from '@/components/blog/RelatedArticles';
 import { BlogService } from '@/services/blogService';
 import { Metadata } from 'next';
 
@@ -96,6 +97,14 @@ export default async function BlogDetailPage({ params }: Props) {
           <BlogSection 
             sections={adaptedSections}
             tableOfContents={tableOfContents}
+          />
+          
+          {/* Articles liés (maillage interne) */}
+          <RelatedArticles
+            currentArticleId={blog._id}
+            articleType={blog.articleType}
+            pilierParentId={blog.pilierParent}
+            articlesNicheLies={blog.articlesNicheLies}
           />
 
         </main>

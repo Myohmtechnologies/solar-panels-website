@@ -15,8 +15,10 @@ import { fr } from 'date-fns/locale';
 interface LeadsTableProps {
   leads: (Lead & {
     nextAction?: NextAction;
+    nextFollowUpDate?: string; // Ajouter cette propriété pour les projets terminés
   })[];
   onLeadUpdate: () => void;
+  showNextFollowUp?: boolean; // Propriété optionnelle pour afficher la date du prochain suivi
 }
 
 const STATUS_LABELS = {
@@ -62,7 +64,7 @@ const formatDate = (date: string | undefined | null) => {
   }
 };
 
-export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
+export default function LeadsTable({ leads, onLeadUpdate, showNextFollowUp = false }: LeadsTableProps) {
   const router = useRouter();
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [isActionModalOpen, setIsActionModalOpen] = useState(false);
@@ -107,8 +109,18 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
             <col className="w-[12%]" />
             <col className="w-[12%]" />
             <col className="w-[15%]" />
-            <col className="w-[23%]" />
-            <col className="w-[8%]" />
+            {showNextFollowUp ? (
+              <>
+                <col className="w-[15%]" />
+                <col className="w-[8%]" />
+                <col className="w-[8%]" />
+              </>
+            ) : (
+              <>
+                <col className="w-[23%]" />
+                <col className="w-[8%]" />
+              </>
+            )}
           </colgroup>
           <thead className="bg-gradient-to-r from-[#0B6291]/10 to-[#d7f0fc]/10 rounded-t-xl">
             <tr>
@@ -128,8 +140,13 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
                 Commercial
               </th>
               <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
-                Prochaine Action
+                {showNextFollowUp ? 'Dernière Action' : 'Prochaine Action'}
               </th>
+              {showNextFollowUp && (
+                <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
+                  Prochain Suivi
+                </th>
+              )}
               <th scope="col" className="relative px-6 py-4">
                 <span className="sr-only">Actions</span>
               </th>
@@ -168,19 +185,35 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
                 <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
                   <div className="flex flex-col">
                     <span className="font-medium">
-                      {lead.status === LeadStatus.NEW 
+                      {showNextFollowUp 
                         ? (
-                          <>
-                            <span className="text-xs text-blue-600 block">Date de simulation:</span>
-                            {formatDate(lead.createdAt)}
-                          </>
-                        )
-                        : (lead.nextAction && 'plannedDate' in lead.nextAction 
-                          ? formatDate((lead.nextAction as any).plannedDate) 
-                          : '-')}
+                          // Pour les projets terminés, afficher la dernière action
+                          formatDate(lead.updatedAt || lead.createdAt)
+                        ) 
+                        : (lead.status === LeadStatus.NEW 
+                          ? (
+                            <>
+                              <span className="text-xs text-blue-600 block">Date de simulation:</span>
+                              {formatDate(lead.createdAt)}
+                            </>
+                          )
+                          : (lead.nextAction && 'plannedDate' in lead.nextAction 
+                            ? formatDate((lead.nextAction as any).plannedDate) 
+                            : '-'))}
                     </span>
                   </div>
                 </td>
+                {showNextFollowUp && (
+                  <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
+                    <div className="flex flex-col">
+                      <span className="font-medium">
+                        {lead.nextFollowUpDate 
+                          ? formatDate(lead.nextFollowUpDate)
+                          : '-'}
+                      </span>
+                    </div>
+                  </td>
+                )}
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <Menu as="div" className="relative inline-block text-left">
                     <Menu.Button className="p-2 hover:bg-[#0B6291]/10 rounded-full transition-colors">

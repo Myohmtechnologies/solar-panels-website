@@ -13,7 +13,9 @@ import {
   ArrowLeftOnRectangleIcon,
   DocumentDuplicateIcon,
   ReceiptRefundIcon,
-  ClockIcon
+  ClockIcon,
+  HandThumbDownIcon,
+  CheckCircleIcon
 } from '@heroicons/react/24/outline';
 
 const navigation = [
@@ -21,6 +23,8 @@ const navigation = [
   { name: 'Prospects', href: '/dashboard/prospects', icon: UsersIcon },
   { name: 'Devis', href: '/dashboard/devis', icon: ReceiptRefundIcon },
   { name: 'Historique devis', href: '/dashboard/devis/historique', icon: ClockIcon },
+  { name: 'Projets terminés', href: '/dashboard/completed', icon: CheckCircleIcon },
+  { name: 'Prospects non intéressés', href: '/dashboard/not-interested', icon: HandThumbDownIcon },
   { name: 'Blog', href: '/dashboard/blog', icon: DocumentTextIcon },
   { name: 'Réalisations', href: '/dashboard/realisations', icon: PhotoIcon },
   { name: 'Projets', href: '/dashboard/projets', icon: BriefcaseIcon },

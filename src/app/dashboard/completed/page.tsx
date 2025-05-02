@@ -26,13 +26,13 @@ export default function CompletedProjectsPage() {
       const data = await response.json();
       
       // Vérifier la structure des données
-      if (!data || !data.leads || !Array.isArray(data.leads)) {
+      if (!data || !data.success || !data.data || !Array.isArray(data.data)) {
         console.error('Structure de données inattendue:', data);
         throw new Error('Format de données incorrect');
       }
 
       // Filtrer pour ne garder que les projets terminés
-      const completedLeads = data.leads
+      const completedLeads = data.data
         .filter((lead: Lead) => lead.status === LeadStatus.COMPLETED)
         .map((lead: Lead) => {
           // Calculer la date du prochain suivi (1 an après la dernière action)

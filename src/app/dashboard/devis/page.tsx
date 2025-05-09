@@ -214,8 +214,8 @@ const BATTERY_PRICES = {
       { capacity: 15, price: 9490, label: "Batterie FOX 15kW" }
     ],
     enphase: [
-      { capacity: 3, price: 6490, label: "Batterie Enphase 5kW" },
-      { capacity: 6, price: 10490, label: "Batterie Enphase 10kW" },
+      { capacity: 5, price: 6490, label: "Batterie Enphase 5kW" },
+      { capacity: 10, price: 10490, label: "Batterie Enphase 10kW" },
       { capacity: 15, price: 15490, label: "Batterie Enphase 15kW" }
     ]
   },

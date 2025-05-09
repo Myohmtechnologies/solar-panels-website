@@ -153,7 +153,7 @@ export default function BatterieStockagePage() {
             >
               <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-[#116290]/10">
                 <Image
-                  src="/images/batterie-de-stockage-solaires.png"
+                  src="/images/produit/batterie-de-stackage.png"
                   alt="Système de stockage d'énergie intelligent"
                   width={600}
                   height={400}

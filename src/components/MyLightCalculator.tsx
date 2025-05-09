@@ -93,21 +93,21 @@ export const MyLightCalculator = () => {
       label: "3 kWc - Petite famille", 
       description: "Idéal pour un couple ou une petite famille", 
       price: 9890,
-      production: 5500 // 3kWc × 1400 kWh/kWc
+      production: 4800 // 3kWc × 1400 kWh/kWc
     },
     { 
       size: 6, 
       label: "6 kWc - Famille moyenne", 
       description: "Parfait pour une famille de 3-4 personnes", 
       price: 14890,
-      production: 10800// 6kWc × 1400 kWh/kWc
+      production: 9900// 6kWc × 1400 kWh/kWc
     },
     { 
       size: 9, 
       label: "9 kWc - Grande famille", 
       description: "Adapté pour une grande famille ou une grande maison", 
       price: 19890,
-      production: 18500 // 9kWc × 1400 kWh/kWc
+      production: 14900 // 9kWc × 1400 kWh/kWc
     }
   ];
 
@@ -152,7 +152,7 @@ export const MyLightCalculator = () => {
     const edfAutoConsumption = annualProduction * 0.60;
     const edfInjection = annualProduction * 0.40;
     
-    const EDF_BUYBACK_RATE = 0.13; // 10 centimes/kWh
+    const EDF_BUYBACK_RATE = 0.04; // 10 centimes/kWh
 
     edfSavings = Math.round(
       (edfAutoConsumption * ELECTRICITY_PRICE) + // Économies sur l'autoconsommation
@@ -231,7 +231,7 @@ export const MyLightCalculator = () => {
           <tr>
             <th className="text-left p-2">Année</th>
             <th className="text-left p-2">My Light</th>
-            <th className="text-left p-2">EDF OA</th>
+            <th className="text-left p-2">EDF </th>
             <th className="text-left p-2">Différence</th>
           </tr>
         </thead>
@@ -360,8 +360,8 @@ export const MyLightCalculator = () => {
 
                     <div className="flex items-center justify-between p-3 rounded-lg bg-white/50">
                       <div>
-                        <h4 className="font-semibold text-[#232323]">EDF OA</h4>
-                        <p className="text-sm text-gray-600">Revente classique</p>
+                        <h4 className="font-semibold text-[#232323]">EDF </h4>
+                        <p className="text-sm text-gray-600">Production classique</p>
                       </div>
                       <span className="text-2xl font-bold text-gray-700">
                         {results.annualSavingsEdfOa.toLocaleString('fr-FR')} €/an

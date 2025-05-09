@@ -29,14 +29,14 @@ interface SimulationResult {
 }
 
 const ELECTRICITY_PRICE = 0.205;
-const BUYBACK_PRICE = 0.12;
+const BUYBACK_PRICE = 0.04;
 const EDF_OA_AUTOCONSUMPTION_RATE = 0.6;
 const BATTERY_AUTOCONSUMPTION_RATE = 0.9;
 
 const INSTALLATION_SIZES = [
-  { value: 3, label: '3 kWc', production: 5500 },
-  { value: 6, label: '6 kWc', production: 10800 },
-  { value: 9, label: '9 kWc', production: 17500 },
+  { value: 3, label: '3 kWc', production: 4800 },
+  { value: 6, label: '6 kWc', production: 9900 },
+  { value: 9, label: '9 kWc', production: 14900 },
 ];
 
 const BATTERY_CAPACITIES = [

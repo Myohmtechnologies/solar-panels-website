@@ -25,11 +25,11 @@ export default function FinancialIncentivesSection() {
             </div>
             <div className="text-gray-700">
               <ul className="list-disc list-inside space-y-2">
-                <li>3 kWc : 660 €</li>
-                <li>6 kWc : 960 €</li>
-                <li>9 kWc : 1 440 €</li>
+                <li>3 kWc : 240 €</li>
+                <li>6 kWc : 480 €</li>
+                <li>9 kWc : 720 €</li>
               </ul>
-              <p className="text-sm text-gray-500 mt-2">Valable jusqu&rsquo;au 31 Mars 2025</p>
+              <p className="text-sm text-gray-500 mt-2">Valable jusqu&rsquo;au 31 juin 2025</p>
             </div>
           </div>
 

@@ -26,26 +26,26 @@ import {
 const PRICES = {
   installation: {
     dualsun_enphase: {
-      1: 4990,
-      2: 7490,
-      3: 9890,
-      4: 11490,
-      5: 13290,
-      6: 14990,
-      7: 16490,
-      8: 18290,
-      9: 19990,
+      1: 3990,
+      2: 6890,
+      3: 9490,
+      4: 10990,
+      5: 12490,
+      6: 14290,
+      7: 15490,
+      8: 17490,
+      9: 19490,
     },
     bourgeois_global: {
-      1: 3990,
-      2: 6490,
-      3: 8890,
-      4: 10490,
-      5: 12290,
-      6: 13990,
-      7: 15490,
-      8: 17290,
-      9: 18990,
+      1: 3290,
+      2: 5690,
+      3: 8490,
+      4: 9990,
+      5: 11490,
+      6: 13490,
+      7: 14990,
+      8: 16290,
+      9: 18490,
     }
   }
 };
@@ -207,11 +207,18 @@ const EQUIPMENT_INFO = {
 
 // Prix des batteries de stockage
 const BATTERY_PRICES = {
-  physical: [
-    { capacity: 5, price: 4990, label: "Batterie FOX 5kW" },
-    { capacity: 10, price: 7990, label: "Batterie FOX 10kW" },
-    { capacity: 15, price: 10990, label: "Batterie FOX 15kW" }
-  ],
+  physical: {
+    fox: [
+      { capacity: 5, price: 4490, label: "Batterie FOX 5kW" },
+      { capacity: 10, price: 7490, label: "Batterie FOX 10kW" },
+      { capacity: 15, price: 9490, label: "Batterie FOX 15kW" }
+    ],
+    enphase: [
+      { capacity: 3, price: 6490, label: "Batterie Enphase 3kW" },
+      { capacity: 6, price: 10490, label: "Batterie Enphase 6kW" },
+      { capacity: 15, price: 15490, label: "Batterie Enphase 15kW" }
+    ]
+  },
   virtual: { price: 3000, label: "Boîtier AC (stockage virtuel)" }
 };
 
@@ -264,6 +271,7 @@ const DevisPage = () => {
     configurationType: 'dualsun_enphase' as ConfigurationType, // Type de configuration
     installationPower: 3 as PowerOption, // 3kWc par défaut
     batteryType: 'none' as BatteryType, // 'none', 'physical', 'virtual'
+    batteryBrand: 'fox' as 'fox' | 'enphase', // Marque de batterie (fox par défaut)
     batteryCapacityIndex: 0, // Pour les batteries physiques (5kW par défaut)
     discount: 0, // Réduction en euros
     exceptionalService: {
@@ -285,7 +293,7 @@ const DevisPage = () => {
     
     // Ajout du prix de la batterie si sélectionnée
     if (config.batteryType === 'physical') {
-      price += BATTERY_PRICES.physical[config.batteryCapacityIndex].price;
+      price += BATTERY_PRICES.physical[config.batteryBrand][config.batteryCapacityIndex].price;
     } else if (config.batteryType === 'virtual') {
       price += BATTERY_PRICES.virtual.price;
     }
@@ -458,7 +466,7 @@ const DevisPage = () => {
     if (config.batteryType === 'physical') {
       const selectedBattery = BATTERY_PRICES.physical[config.batteryCapacityIndex];
       installationDetails.push([
-        `Batterie de stockage Huawei ${selectedBattery.capacity} kW`,
+        `Batterie de stockage Fox ${selectedBattery.capacity} kW`,
         `Stockage physique d'énergie`,
         `${selectedBattery.price.toLocaleString()} €`
       ]);
@@ -1155,7 +1163,7 @@ const DevisPage = () => {
                     </div>
                     <span className="font-medium">Batterie physique</span>
                   </div>
-                  <p className="text-sm text-gray-500">Stockage Huawei pour une autonomie énergétique</p>
+                  <p className="text-sm text-gray-500">Stockage Fox pour une autonomie énergétique</p>
                 </div>
                 
                 <div 
@@ -1178,43 +1186,131 @@ const DevisPage = () => {
                     </div>
                     <span className="font-medium">Stockage virtuel</span>
                   </div>
-                  <p className="text-sm text-gray-500">Boîtier AC pour stockage virtuel sur le réseau</p>
+                  <p className="text-sm text-gray-500">Boîtier MyLight pour stockage virtuel sur le réseau</p>
                   <p className="text-sm font-medium text-[#0B6291] mt-2">+ {BATTERY_PRICES.virtual.price.toLocaleString()} €</p>
                 </div>
               </div>
               
-              {/* Options de capacité pour les batteries physiques */}
+              {/* Options de marque pour les batteries physiques */}
               {config.batteryType === 'physical' && (
                 <div className="mt-4 border rounded-lg p-4 bg-gray-50">
-                  <h4 className="font-medium mb-3">Capacité de la batterie Huawei</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {BATTERY_PRICES.physical.map((battery, index) => (
-                      <div 
-                        key={index}
-                        className={`border rounded-lg p-3 cursor-pointer ${
-                          config.batteryCapacityIndex === index 
-                            ? 'border-[#0B6291] bg-white' 
-                            : 'border-gray-200 bg-white hover:border-gray-300'
-                        }`}
-                        onClick={() => handleConfigChange('batteryCapacityIndex', index)}
-                      >
-                        <div className="flex items-center mb-1">
-                          <div className={`w-4 h-4 rounded-full border ${
-                            config.batteryCapacityIndex === index 
-                              ? 'bg-[#0B6291] border-[#0B6291]' 
-                              : 'border-gray-300'
-                          } flex items-center justify-center mr-2`}>
-                            {config.batteryCapacityIndex === index && (
-                              <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
-                            )}
-                          </div>
-                          <span className="font-medium">{battery.capacity} kW</span>
+                  <h4 className="font-medium mb-3">Marque de batterie</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div 
+                      className={`border rounded-lg p-3 cursor-pointer ${
+                        config.batteryBrand === 'fox' 
+                          ? 'border-[#0B6291] bg-white' 
+                          : 'border-gray-200 bg-white hover:border-gray-300'
+                      }`}
+                      onClick={() => handleConfigChange('batteryBrand', 'fox')}
+                    >
+                      <div className="flex items-center mb-1">
+                        <div className={`w-4 h-4 rounded-full border ${
+                          config.batteryBrand === 'fox' 
+                            ? 'bg-[#0B6291] border-[#0B6291]' 
+                            : 'border-gray-300'
+                        } flex items-center justify-center mr-2`}>
+                          {config.batteryBrand === 'fox' && (
+                            <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
+                          )}
                         </div>
-                        <p className="text-sm text-gray-500">{battery.label}</p>
-                        <p className="text-sm font-medium text-[#0B6291] mt-1">+ {battery.price.toLocaleString()} €</p>
+                        <span className="font-medium">Fox</span>
                       </div>
-                    ))}
+                      <p className="text-sm text-gray-500">Batteries de stockage Fox</p>
+                    </div>
+                    <div 
+                      className={`border rounded-lg p-3 cursor-pointer ${
+                        config.batteryBrand === 'enphase' 
+                          ? 'border-[#0B6291] bg-white' 
+                          : 'border-gray-200 bg-white hover:border-gray-300'
+                      }`}
+                      onClick={() => handleConfigChange('batteryBrand', 'enphase')}
+                    >
+                      <div className="flex items-center mb-1">
+                        <div className={`w-4 h-4 rounded-full border ${
+                          config.batteryBrand === 'enphase' 
+                            ? 'bg-[#0B6291] border-[#0B6291]' 
+                            : 'border-gray-300'
+                        } flex items-center justify-center mr-2`}>
+                          {config.batteryBrand === 'enphase' && (
+                            <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
+                          )}
+                        </div>
+                        <span className="font-medium">Enphase</span>
+                      </div>
+                      <p className="text-sm text-gray-500">Batteries de stockage Enphase</p>
+                    </div>
                   </div>
+                  
+                  {/* Options de capacité pour les batteries Fox */}
+                  {config.batteryBrand === 'fox' && (
+                    <div>
+                      <h4 className="font-medium mb-3">Capacité de la batterie Fox</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {BATTERY_PRICES.physical.fox.map((battery, index) => (
+                          <div 
+                            key={index}
+                            className={`border rounded-lg p-3 cursor-pointer ${
+                              config.batteryCapacityIndex === index 
+                                ? 'border-[#0B6291] bg-white' 
+                                : 'border-gray-200 bg-white hover:border-gray-300'
+                            }`}
+                            onClick={() => handleConfigChange('batteryCapacityIndex', index)}
+                          >
+                            <div className="flex items-center mb-1">
+                              <div className={`w-4 h-4 rounded-full border ${
+                                config.batteryCapacityIndex === index 
+                                  ? 'bg-[#0B6291] border-[#0B6291]' 
+                                  : 'border-gray-300'
+                              } flex items-center justify-center mr-2`}>
+                                {config.batteryCapacityIndex === index && (
+                                  <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
+                                )}
+                              </div>
+                              <span className="font-medium">{battery.capacity} kW</span>
+                            </div>
+                            <p className="text-sm text-gray-500">{battery.label}</p>
+                            <p className="text-sm font-medium text-[#0B6291] mt-1">+ {battery.price.toLocaleString()} €</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Options de capacité pour les batteries Enphase */}
+                  {config.batteryBrand === 'enphase' && (
+                    <div>
+                      <h4 className="font-medium mb-3">Capacité de la batterie Enphase</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {BATTERY_PRICES.physical.enphase.map((battery, index) => (
+                          <div 
+                            key={index}
+                            className={`border rounded-lg p-3 cursor-pointer ${
+                              config.batteryCapacityIndex === index 
+                                ? 'border-[#0B6291] bg-white' 
+                                : 'border-gray-200 bg-white hover:border-gray-300'
+                            }`}
+                            onClick={() => handleConfigChange('batteryCapacityIndex', index)}
+                          >
+                            <div className="flex items-center mb-1">
+                              <div className={`w-4 h-4 rounded-full border ${
+                                config.batteryCapacityIndex === index 
+                                  ? 'bg-[#0B6291] border-[#0B6291]' 
+                                  : 'border-gray-300'
+                              } flex items-center justify-center mr-2`}>
+                                {config.batteryCapacityIndex === index && (
+                                  <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
+                                )}
+                              </div>
+                              <span className="font-medium">{battery.capacity} kW</span>
+                            </div>
+                            <p className="text-sm text-gray-500">{battery.label}</p>
+                            <p className="text-sm font-medium text-[#0B6291] mt-1">+ {battery.price.toLocaleString()} €</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -1334,7 +1430,7 @@ const DevisPage = () => {
                 
                 {config.batteryType === 'physical' && (
                   <p className="text-gray-700">
-                    <span className="font-medium">Batterie de stockage :</span> {BATTERY_PRICES.physical[config.batteryCapacityIndex].label}
+                    <span className="font-medium">Batterie de stockage :</span> {BATTERY_PRICES.physical[config.batteryBrand][config.batteryCapacityIndex].label}
                   </p>
                 )}
                 

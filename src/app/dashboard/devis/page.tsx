@@ -392,45 +392,66 @@ const DevisPage = () => {
     // Fonction pour ajouter le contenu du PDF après l'en-tête
     const addPdfContent = () => {
     
-    // Sous-titre
-    doc.setFontSize(18);
+    // Informations de l'entreprise (colonne gauche)
+    const leftColumnX = 20;
+    let currentY = 50;
+    
+    doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(11, 98, 145); // #0B6291 - Bleu de MY OHM
-    doc.text("VOTRE DEVIS PANNEAUX SOLAIRES", pageWidth / 2, 50, { align: "center" });
-    
-    // Date du devis
-    const today = new Date();
-    doc.setFontSize(10);
-    doc.setTextColor(100, 100, 100);
-    doc.text(`Date: ${today.toLocaleDateString()}`, pageWidth - 20, 65, { align: "right" });
-    doc.text(`Référence: DEVIS-${today.getFullYear()}${(today.getMonth() + 1).toString().padStart(2, '0')}${today.getDate().toString().padStart(2, '0')}-${Math.floor(Math.random() * 1000)}`, pageWidth - 20, 70, { align: "right" });
-    
-    // Informations de l'entreprise
-    doc.setFontSize(10);
-    doc.text("MY OHM TECHNOLOGIES", 20, 65);
-    doc.text("SIREN: " + COMPANY_INFO.siren, 20, 75);
-    doc.text("SIRET: " + COMPANY_INFO.siret, 20, 80);
-    doc.text("TVA: " + COMPANY_INFO.tva, 20, 85);
-    doc.text(COMPANY_INFO.address, 20, 90);
-    
-    // Informations du client
-    doc.setFontSize(12);
     doc.setTextColor(0, 0, 0);
-    doc.text("Informations client:", 20, 105);
+    doc.text("MY OHM TECHNOLOGIES", leftColumnX, currentY);
+    currentY += 6;
+    
+    doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
-    doc.text(`${client.firstName} ${client.lastName}`, 20, 115);
-    if (client.email) doc.text(`Email: ${client.email}`, 20, 120);
-    doc.text(`Téléphone: ${client.phone}`, 20, 125);
+    doc.text("544 Avenue Frédéric Mistral", leftColumnX, currentY);
+    currentY += 6;
+    doc.text("04100 MANOSQUE", leftColumnX, currentY);
+    currentY += 6;
+    doc.text("FRANCE", leftColumnX, currentY);
+    currentY += 6;
+    doc.text("Tel : +33 4 92 76 68 58", leftColumnX, currentY);
+    currentY += 6;
+    doc.text("contact@myohmtechnologies.com", leftColumnX, currentY);
+    currentY += 6;
+    doc.text(`N° SIRET : ${COMPANY_INFO.siret}`, leftColumnX, currentY);
+    
+    // Informations du client (colonne droite)
+    const rightColumnX = pageWidth - 20;
+    currentY = 50;
+    
+    doc.setFont('helvetica', 'bold');
+    doc.text(`M. ${client.firstName} ${client.lastName}`.toUpperCase(), rightColumnX, currentY, { align: "right" });
+    currentY += 6;
+    
+    doc.setFont('helvetica', 'normal');
     if (client.address) {
-      doc.text(`Adresse: ${client.address}`, 20, 130);
-      if (client.postalCode || client.city) {
-        doc.text(`${client.postalCode || ''} ${client.city || ''}`, 20, 135);
-      }
+      doc.text(client.address, rightColumnX, currentY, { align: "right" });
+      currentY += 6;
     }
+    
+    if (client.postalCode || client.city) {
+      doc.text(`${client.postalCode || ''} ${client.city || ''}`.toUpperCase(), rightColumnX, currentY, { align: "right" });
+      currentY += 6;
+    }
+    
+    // Numéro de devis et date
+    currentY = 100;
+    const today = new Date();
+    const devisNumber = `I-${today.getDate()}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${Math.floor(Math.random() * 10)}`;
+    
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.text(`DEVIS N° ${devisNumber}`, leftColumnX, currentY);
+    currentY += 6;
+    
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.text(`Le ${today.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}`, leftColumnX, currentY);
     
     // Détails de l'installation
     doc.setFontSize(12);
-    doc.text("Détails de l'installation:", 20, 150);
+    doc.text("Détails de l'installation:", 20, 120);
     
     // Récupérer les données techniques pour la puissance sélectionnée
     const selectedPower = config.installationPower;
@@ -441,48 +462,67 @@ const DevisPage = () => {
     // Créer un tableau pour les détails de l'installation (version simplifiée pour la première page)
     const installationDetails = [
       [
-        'Description', 
+        'Désignation', 
         'Détails', 
         'Prix TTC'
-      ],
-      [
-        `Installation panneaux solaires ${selectedPower} kWc (${equipmentInfo.name})`, 
-        `${getPanelCount(selectedPower)} panneaux ${equipmentInfo.panels.brand} ${equipmentInfo.panels.model} - ${getSurfaceArea(selectedPower)} m² - ${getProduction(selectedPower)} kWh/an`,
-        `${formatPrice(PRICES.installation[configurationType][selectedPower])} €`
-      ],
-      [
-        `Micro-onduleurs`, 
-        `${equipmentInfo.inverter.brand} ${equipmentInfo.inverter.model} - Garantie ${equipmentInfo.inverter.warranty} - Fabriqué en ${equipmentInfo.inverter.origin}`,
-        `Inclus`
-      ],
-      [
-        `Système de fixation`, 
-        `${equipmentInfo.mounting.brand} ${equipmentInfo.mounting.model || ""} - Fabriqué en ${equipmentInfo.mounting.origin}`,
-        `Inclus`
       ]
+    ];
+    
+    // Créer une entrée principale pour la solution complète
+    let solutionTitle = `SOLUTION PREMIUM ${selectedPower} kWc :`;
+    let solutionDetails = [
+      `-${getPanelCount(selectedPower)} MODULES ${equipmentInfo.panels.brand.toUpperCase()} ${equipmentInfo.panels.model.toUpperCase()} HALF CUT GLASS GLASS TOPCON`,
+      `-${getPanelCount(selectedPower)} MICRO ONDULEURS ${equipmentInfo.inverter.brand.toUpperCase()} ${equipmentInfo.inverter.model.toUpperCase()}`,
+      `-1 COFFRET DE PROTECTION AC ${selectedPower}kWc`,
+      `-1 PASSERELLE DE COMMUNICATION ENVOY-S METERED`,
+      `-1 KIT DE FIXATION SUR TOITURE "${equipmentInfo.mounting.brand.toUpperCase()} SYSTEMS"`,
+      `- DIVERS : CÂBLES, BOITES, VISSERIES, TUBE IRL, WAGOS...`
     ];
     
     // Ajouter la batterie si sélectionnée
     if (config.batteryType === 'physical') {
       const selectedBattery = BATTERY_PRICES.physical[config.batteryBrand][config.batteryCapacityIndex];
-      const batteryBrandName = config.batteryBrand === 'fox' ? 'Fox' : 'Enphase';
+      const batteryBrandName = config.batteryBrand === 'fox' ? 'FOX' : 'ENPHASE';
+      solutionDetails.push(`-1 BATTERIE DE STOCKAGE ${batteryBrandName} ${selectedBattery.capacity}kW`);
+    } else if (config.batteryType === 'virtual') {
+      solutionDetails.push(`-1 ${BATTERY_PRICES.virtual.label.toUpperCase()}`);
+    }
+    
+    // Ajouter la solution complète au tableau
+    installationDetails.push([
+      solutionTitle,
+      solutionDetails.join('\n'),
+      `${formatPrice(PRICES.installation[configurationType][selectedPower])} €`
+    ]);
+    
+    // Ajouter le prix de la batterie séparément si sélectionnée
+    if (config.batteryType === 'physical') {
+      const selectedBattery = BATTERY_PRICES.physical[config.batteryBrand][config.batteryCapacityIndex];
+      const batteryBrandName = config.batteryBrand === 'fox' ? 'FOX' : 'ENPHASE';
       installationDetails.push([
-        `Batterie de stockage ${batteryBrandName} ${selectedBattery.capacity} kW`,
-        `Stockage physique d'énergie`,
+        '',
+        `BATTERIE DE STOCKAGE ${batteryBrandName} ${selectedBattery.capacity}kW`,
         `${selectedBattery.price.toLocaleString()} €`
       ]);
     } else if (config.batteryType === 'virtual') {
       installationDetails.push([
-        BATTERY_PRICES.virtual.label,
-        `Stockage virtuel sur le réseau`,
+        '',
+        'STOCKAGE VIRTUEL',
         `${BATTERY_PRICES.virtual.price.toLocaleString()} €`
       ]);
     }
     
+    // Ajouter une section PRESTATIONS
+    installationDetails.push([
+      'PRESTATIONS :',
+      `-DÉMARCHES ADMINISTRATIVES\n(DÉCLARATION PRÉALABLE, CONSUEL, DEMANDE DE RACCORDEMENT ENEDIS)\n\n-INSTALLATION PAR NOS ÉQUIPES QUALIFIÉES\n\nNUMÉRO QUALIPV : QPV/72020\nASSURANCE DÉCENNALE N°14004036 P 001-MAAF\n\n-MISE EN SERVICE ET NETTOYAGE FIN DE CHANTIER`,
+      'Inclus'
+    ]);
+    
     // Ajouter la réduction si applicable
     if (config.discount > 0) {
       installationDetails.push([
-        'Réduction commerciale',
+        'REMISE COMMERCIALE',
         '',
         `-${config.discount.toLocaleString()} €`
       ]);
@@ -491,8 +531,8 @@ const DevisPage = () => {
     // Ajouter la prestation exceptionnelle si renseignée
     if (config.exceptionalService.description && config.exceptionalService.price > 0) {
       installationDetails.push([
-        'Prestation',
-        config.exceptionalService.description,
+        'PRESTATION EXCEPTIONNELLE',
+        config.exceptionalService.description.toUpperCase(),
         `${config.exceptionalService.price.toLocaleString()} €`
       ]);
     }
@@ -501,7 +541,7 @@ const DevisPage = () => {
     
     // Ajouter le tableau au document
     autoTable(doc, {
-      startY: 155,
+      startY: 125,
       head: [installationDetails[0]],
       body: installationDetails.slice(1),
       theme: 'grid',

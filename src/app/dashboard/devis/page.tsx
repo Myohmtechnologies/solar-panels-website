@@ -464,9 +464,10 @@ const DevisPage = () => {
     
     // Ajouter la batterie si sélectionnée
     if (config.batteryType === 'physical') {
-      const selectedBattery = BATTERY_PRICES.physical[config.batteryCapacityIndex];
+      const selectedBattery = BATTERY_PRICES.physical[config.batteryBrand][config.batteryCapacityIndex];
+      const batteryBrandName = config.batteryBrand === 'fox' ? 'Fox' : 'Enphase';
       installationDetails.push([
-        `Batterie de stockage Fox ${selectedBattery.capacity} kW`,
+        `Batterie de stockage ${batteryBrandName} ${selectedBattery.capacity} kW`,
         `Stockage physique d'énergie`,
         `${selectedBattery.price.toLocaleString()} €`
       ]);

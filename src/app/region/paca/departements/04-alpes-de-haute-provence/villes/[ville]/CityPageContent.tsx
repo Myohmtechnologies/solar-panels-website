@@ -100,9 +100,9 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
 
   // Données du commercial
   const commercialData = {
-    name: "Rudy",
+    name: "Thomas",
     role: "Expert en solutions solaires",
-    image: "/images/team/rudy.jpg",
+    image: "/images/team/thomas.png",
     phone: "06 47 76 07 25",
     email: "contact@myohmtechnologies.com",
     location: "Alpes-de-Haute-Provence"

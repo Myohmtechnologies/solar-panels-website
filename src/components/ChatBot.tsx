@@ -119,7 +119,7 @@ export default function ChatBot() {
         if (isOpen && !hasJoined) {
             trackChatbotEvent('start_conversation');
             setMessages([{ 
-                text: "Rudy vient de rejoindre la conversation", 
+                text: "Thomas vient de rejoindre la conversation", 
                 type: 'system',
                 showAvatar: false 
             }]);
@@ -269,14 +269,14 @@ export default function ChatBot() {
             <div className="p-4 border-b border-e3e9f0 bg-gradient-solar flex justify-between items-center">
                 <div className="flex items-center space-x-2">
                     <Image
-                        src="/images/team/rudy.jpg"
-                        alt="Conseiller Rudy"
+                        src="/images/team/thomas.png"
+                        alt="Conseiller Thomas"
                         width={40}
                         height={40}
                         className="rounded-full border-2 border-white"
                     />
                     <div>
-                        <h3 className="font-semibold text-232323">Rudy</h3>
+                        <h3 className="font-semibold text-232323">Thomas</h3>
                         <p className="text-xs text-232323">Conseiller My Ohm</p>
                     </div>
                 </div>
@@ -311,8 +311,8 @@ export default function ChatBot() {
                             {message.type === 'bot' && message.showAvatar && (
                                 <div className="flex-shrink-0">
                                     <Image
-                                        src="/images/team/rudy.jpg"
-                                        alt="Conseiller Rudy"
+                                        src="/images/team/thomas.png"
+                                        alt="Conseiller Thomas"
                                         width={40}
                                         height={40}
                                         className="rounded-full border-2 border-white shadow-md"
@@ -341,8 +341,8 @@ export default function ChatBot() {
                         <div className="flex space-x-2">
                             <div className="flex-shrink-0">
                                 <Image
-                                    src="/images/team/rudy.jpg"
-                                    alt="Conseiller Rudy"
+                                    src="/images/team/thomas.png"
+                                    alt="Conseiller Thomas"
                                     width={40}
                                     height={40}
                                     className="rounded-full border-2 border-white shadow-md"

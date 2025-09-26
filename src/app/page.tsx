@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import HeroSection from '@/components/sections/HeroSection';
+import ChargingSolutionsSection from '@/components/sections/ChargingSolutionsSection';
 import CaseStudySection from '@/components/sections/CaseStudySection';
 import SolarBenefitsSection from '@/components/sections/SolarBenefitsSection';
 import SolarPanelSection from '@/components/sections/SolarPanelSection';
@@ -16,14 +17,14 @@ import SolarSolutionsSection from '@/components/sections/SolarSolutionsSection';
 import InteractiveSolarSection from '@/components/sections/InteractiveSolarSection';
 
 export const metadata: Metadata = {
-  title: 'MY OHM Technologies - Installation de panneaux solaires en PACA',
-  description: 'MY OHM Technologies, votre expert en installation de panneaux solaires en région PACA. Profitez des aides et subventions pour votre projet solaire.',
+  title: 'MY OHM Technologies – Bornes de Recharge & Électricité Générale en PACA',
+  description: 'Installateur certifié de bornes de recharge pour véhicules électriques et spécialiste en électricité générale en Provence-Alpes-Côte d’Azur. Installation de panneaux solaires. Devis gratuit, intervention rapide.',
   alternates: {
     canonical: 'https://www.myohmtechnologies.com',
   },
   openGraph: {
-    title: 'MY OHM Technologies - Installation de panneaux solaires en PACA',
-    description: 'MY OHM Technologies, votre expert en installation de panneaux solaires en région PACA. Profitez des aides et subventions pour votre projet solaire.',
+    title: 'MY OHM Technologies – Bornes de Recharge & Électricité Générale en PACA',
+    description: 'Installateur certifié de bornes de recharge pour véhicules électriques et spécialiste en électricité générale en Provence-Alpes-Côte d’Azur. Installation de panneaux solaires. Devis gratuit, intervention rapide.',
     url: 'https://www.myohmtechnologies.com',
     siteName: 'MY OHM Technologies',
     images: [
@@ -39,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'MY OHM Technologies - Installation de panneaux solaires en PACA',
-    description: 'MY OHM Technologies, votre expert en installation de panneaux solaires en région PACA. Profitez des aides et subventions pour votre projet solaire.',
+    title: 'MY OHM Technologies – Bornes de Recharge & Électricité Générale en PACA',
+    description: 'Installateur certifié de bornes de recharge pour véhicules électriques et spécialiste en électricité générale en Provence-Alpes-Côte d’Azur. Installation de panneaux solaires. Devis gratuit, intervention rapide.',
     images: ['/images/og-image.jpg'],
   },
   robots: {
@@ -61,18 +62,16 @@ export default function Home() {
     <main className="overflow-x-hidden">
       <HomeSchemaMarkup />
       <HeroSection />
+      <ChargingSolutionsSection />
       <ClientTestimonialsSection />
-      <CompanyPresentationSection />
-      <SolarSolutionsSection />
       <InteractiveSolarSection />
       <CityActionButtons />
       <SolarBenefitsSection />
-      <SolarPanelSection />
       <SolarServicesSection cityName="PACA" />
-      <CaseStudySection />
       <SolarInstallationStepsSection />
-      <FaqSection />
       <RegionMapSection region="PACA" />
+      <FaqSection />
+      
       <ChatBot />
     </main>
   );

@@ -56,7 +56,7 @@ const InteractiveSolarSection = () => {
       <div className={`absolute bg-white rounded-lg shadow-xl p-4 max-w-xs z-20 ${getPopupPosition(popupKey)}`}>
         <div className="flex justify-between items-start mb-2">
           <div className="flex items-center gap-3">
-            <div className="bg-gray-100 rounded-lg p-2">
+            <div className="bg-white rounded-lg p-2">
               <Image 
                 src={popupInfo.iconSrc || "/images/placeholder-image.png"} 
                 alt={popupInfo.title} 

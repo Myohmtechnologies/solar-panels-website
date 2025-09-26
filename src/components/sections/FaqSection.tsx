@@ -6,41 +6,79 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 const faqs = [
   {
-    question: "Quel est le prix des panneaux solaires photovoltaïques en région PACA ?",
-    answer: "En région PACA, le prix d'une installation solaire varie selon plusieurs critères :\n\n" +
-           "• Installation 3kWc (15m²) : 7890€ - 10 000€\n" +
-           "• Installation 6kWc (30m²) : 15 000€ - 18 000€\n" +
-           "• Installation 9kWc (45m²) : 20 000€ - 25 000€\n\n" +
+    question: "Combien coûte l'installation d'une borne de recharge IRVE ?",
+    answer: "Le prix d'une borne de recharge varie selon la puissance et les fonctionnalités :\n\n" +
+           "• Borne 7kW (monophasé) : 1 200€ - 1 800€ TTC posée\n" +
+           "• Borne 22kW (triphasé) : 1 800€ - 2 500€ TTC posée\n" +
+           "• Options RFID, WiFi : +200€ à 400€\n\n" +
            "Ces prix incluent :\n" +
-           "✓ La fourniture du matériel (panneaux, onduleur, fixations)\n" +
-           "✓ L'installation complète par nos équipes certifiées\n" +
-           "✓ Les démarches administratives\n" +
-           "✓ La garantie décennale\n\n" +
-           "Important : Ces prix sont AVANT déduction des aides de l'État qui peuvent réduire votre investissement de 640€ à 1440€ selon votre situation. De plus, en région PACA, l'excellent ensoleillement permet un retour sur investissement plus rapide (5-7 ans en moyenne)."
+           "✓ La fourniture de la borne certifiée\n" +
+           "✓ L'installation par électricien IRVE qualifié\n" +
+           "✓ La mise en service et formation\n" +
+           "✓ La garantie fabricant\n\n" +
+           "Important : Vous pouvez bénéficier de la prime Advenir jusqu'à 500€ remboursés pour les particuliers, et jusqu'à 2 100€ pour les copropriétés."
   },
   {
-    question: "Quel est le tarif d'achat de l'électricité photovoltaïque en France en 2024 ?",
-    answer: "En 2024, le tarif d'achat varie selon la puissance installée : pour une installation ≤ 3kWc, le tarif est d'environ 0,1270€/kWh, pour 3-9kWc environ 0,1270€/kWh, et pour 9-36kWc environ 0,1270€/kWh. Ces tarifs sont garantis sur 20 ans par l'État français. L'autoconsommation avec vente du surplus est souvent la solution la plus avantageuse pour les particuliers."
+    question: "Qu'est-ce que la qualification IRVE et pourquoi est-elle obligatoire ?",
+    answer: "La qualification IRVE (Infrastructure de Recharge pour Véhicules Électriques) est obligatoire depuis 2017 pour installer des bornes de plus de 3,7kW. Elle garantit :\n\n" +
+           "✓ La sécurité de l'installation électrique\n" +
+           "✓ Le respect des normes en vigueur\n" +
+           "✓ L'éligibilité aux aides publiques (Prime Advenir)\n" +
+           "✓ La validation des assurances\n\n" +
+           "MY OHM Technologies est certifié IRVE Qualifelec niveau P2 (jusqu'à 22kW) et peut installer tous types de bornes résidentielles et d'entreprise."
   },
   {
-    question: "Quel est le rendement des panneaux photovoltaïques ?",
-    answer: "Le rendement moyen des panneaux photovoltaïques modernes se situe à 99,7% . En région PACA, grâce à l'excellent ensoleillement, un panneau de 1kWc peut produire jusqu'à 1 400 kWh par an. Les dernières technologies de panneaux monocristallins offrent les meilleurs rendements du marché."
+    question: "Puis-je installer une borne de recharge dans mon appartement ou copropriété ?",
+    answer: "Oui, c'est votre droit ! Depuis 2014, tout locataire ou propriétaire peut demander l'installation d'une borne dans sa copropriété :\n\n" +
+           "• Droit à la prise : installation à vos frais dans votre parking\n" +
+           "• Solution collective : installation partagée avec la copropriété\n" +
+           "• Prime Advenir copropriété : jusqu'à 50% du coût pris en charge\n\n" +
+           "Nous nous occupons de toutes les démarches administratives et de la présentation en assemblée générale."
   },
   {
-    question: "Quelle orientation doit être privilégiée lors de l'installation des panneaux solaires ?",
-    answer: "L'orientation optimale est plein sud (sud ±15°) avec une inclinaison de 30-35°. Cependant, une orientation sud-est ou sud-ouest reste très performante avec une perte de rendement limitée à 5-10%. En région PACA, même une orientation est-ouest peut être viable grâce au fort ensoleillement, avec une perte de rendement d'environ 15-20%."
+    question: "À quoi sert la mise aux normes électriques NF C 15-100 ?",
+    answer: "La norme NF C 15-100 régit les installations électriques domestiques et garantit :\n\n" +
+           "✓ La sécurité des personnes et des biens\n" +
+           "✓ La protection contre les incendies d'origine électrique\n" +
+           "✓ La conformité lors de la vente d'un bien\n" +
+           "✓ L'éligibilité aux assurances habitation\n\n" +
+           "Les points clés : présence d'un disjoncteur différentiel, mise à la terre, nombre suffisant de prises, éclairage de sécurité. Une installation non conforme peut être dangereuse et compromettre votre assurance."
   },
   {
-    question: "Quelle différence entre des panneaux solaires photovoltaïques et thermiques ?",
-    answer: "Les panneaux photovoltaïques produisent de l'électricité à partir de la lumière solaire, tandis que les panneaux thermiques chauffent un fluide pour produire de l'eau chaude. Les photovoltaïques sont plus polyvalents car ils permettent d'alimenter tous vos appareils électroniques et de revendre le surplus, alors que les thermiques ne servent qu'au chauffage de l'eau."
+    question: "Quand faut-il rénover son tableau électrique ?",
+    answer: "Il est temps de rénover votre tableau électrique si :\n\n" +
+           "• Il date de plus de 15 ans (anciens disjoncteurs)\n" +
+           "• Il possède encore des fusibles à cartouche\n" +
+           "• Il n'y a pas de différentiel 30mA\n" +
+           "• Les disjoncteurs se déclenchent souvent\n" +
+           "• Vous ajoutez de nouveaux équipements (borne, pompe à chaleur...)\n\n" +
+           "Un tableau moderne améliore la sécurité, facilite la maintenance et permet d'intégrer de nouveaux équipements comme les bornes de recharge."
   },
   {
-    question: "Quels sont les produits qui composent les installations solaires photovoltaïques ?",
-    answer: "Une installation photovoltaïque complète comprend : les panneaux solaires, un onduleur pour convertir le courant continu en courant alternatif, un système de fixation adapté à votre toit, un compteur de production, un coffret de protection électronique, et éventuellement des batteries de stockage pour l'autoconsommation. Tous nos composants sont certifiés et garantis jusqu à 25 ans."
+    question: "Quel est le prix des panneaux solaires en région PACA ?",
+    answer: "En région PACA, le prix d'une installation solaire varie selon la puissance :\n\n" +
+           "• Installation 3kWc : 7 500€ - 9 500€\n" +
+           "• Installation 6kWc : 13 500€ - 16 500€\n" +
+           "• Installation 9kWc : 18 500€ - 23 500€\n\n" +
+           "Ces prix incluent matériel, pose et démarches administratives. L'excellent ensoleillement de PACA permet un retour sur investissement rapide (6-8 ans). Possibilité de coupler avec une borne de recharge pour une solution complète."
   },
   {
-    question: "Puis-je bénéficier d'une exonération d'impôt sur le revenu pour la revente d'électricité ?",
-    answer: "Oui, les revenus issus de la vente d'électricité photovoltaïque sont exonérés d'impots sur le revenu si la puissance de votre installation ne dépasse pas 3kWc. Au-delà, vous pouvez opter pour le régime micro-BIC avec un abattement forfaitaire de 71% sur vos revenus, rendant la fiscalité très avantageuse."
+    question: "Puis-je alimenter ma borne de recharge avec mes panneaux solaires ?",
+    answer: "Absolument ! C'est même une solution très avantageuse :\n\n" +
+           "✓ Recharge gratuite avec votre propre électricité\n" +
+           "✓ Optimisation de l'autoconsommation solaire\n" +
+           "✓ Pilotage intelligent avec surplus solaire\n" +
+           "✓ Réduction de l'empreinte carbone\n\n" +
+           "Nous dimensionnons votre installation solaire en tenant compte de votre consommation domestique ET de votre véhicule électrique. Une installation de 6-9kWc permet généralement de couvrir les deux besoins."
+  },
+  {
+    question: "Combien de temps prend l'installation d'une borne de recharge ?",
+    answer: "L'installation d'une borne de recharge prend généralement :\n\n" +
+           "• Borne simple (proche tableau) : 2-4 heures\n" +
+           "• Borne avec câblage long : 4-6 heures\n" +
+           "• Borne avec mise aux normes : 1 journée\n" +
+           "• Projet copropriété : 2-3 semaines (études incluses)\n\n" +
+           "Délai total depuis devis accepté : 2-4 semaines (incluant commande matériel et planification). Intervention propre et remise en état des lieux incluse."
   }
 ];
 
@@ -48,17 +86,17 @@ export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-16 px-4 bg-[#f8fafc]">
+    <section className="py-16 px-4 bg-white">
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-10">
           <div className="inline-block px-4 py-1 rounded-full bg-[#0a3d5c]/5 mb-4">
             <p className="text-sm font-medium text-[#0a3d5c]">Foire aux questions</p>
           </div>
           <h2 className="text-3xl font-bold mb-4 text-gray-900">
-            Questions fréquentes sur le solaire
+            Questions fréquentes
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto mb-6">
-            Trouvez les réponses aux questions les plus courantes sur les panneaux solaires et leur installation
+            Trouvez les réponses aux questions les plus courantes sur nos services : bornes de recharge, électricité générale et panneaux solaires
           </p>
         </div>
         

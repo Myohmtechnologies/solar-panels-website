@@ -59,51 +59,15 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, features,
 const SolarServicesSection: React.FC<SolarServicesSectionProps> = ({ cityName }) => {
   const services: ServiceCardProps[] = [
     {
-      title: "Étude et diagnostic personnalisé",
-      description: "Analyse complète de votre projet solaire",
+      title: "Électricité générale",
+      description: "Installation et rénovation électrique complète",
       icon: <WrenchScrewdriverIcon className="w-6 h-6 text-FFDF64" />,
       imagePath: "/images/produit/diagnostic-personnalise.png",
       features: [
-        "Analyse détaillée des besoins énergétiques",
-        "Étude de faisabilité technique",
-        "Simulation de production solaire",
-        "Estimation des économies réalisables"
-      ]
-    },
-    {
-      title: "Installation de panneaux solaires",
-      description: "Solutions photovoltaïques haute performance",
-      icon: <BoltIcon className="w-6 h-6 text-FFDF64" />,
-      imagePath: "/images/produit/panneau-solaire.jpeg",
-      features: [
-        "Panneaux monocristallins haute efficacité",
-        "Installation sur toiture ou au sol",
-        "Pose de supports et fixations adaptés",
-        "Raccordement et mise en service"
-      ]
-    },
-    {
-      title: "Batteries de stockage",
-      description: "Optimisez votre autoconsommation",
-      icon: <Battery100Icon className="w-6 h-6 text-FFDF64" />,
-      imagePath: "/images/produit/batterie-de-stockage-enphase.png",
-      features: [
-        "Stockage de l'énergie excédentaire",
-        "Utilisation en cas de besoin",
-        "Monitoring de la consommation",
-        "Installation plug-and-play"
-      ]
-    },
-    {
-      title: "Batterie virtuelle",
-      description: "Solution innovante de stockage",
-      icon: <CloudIcon className="w-6 h-6 text-FFDF64" />,
-      imagePath: "/images/produit/batterie-virtuelle-mylight.png",
-      features: [
-        "Stockage intelligent d'énergie",
-        "Gestion automatisée des surplus",
-        "Suivi en temps réel",
-        "Économies optimisées"
+        "Mise aux normes électriques NF C 15-100",
+        "Installation et rénovation de tableaux électriques",
+        "Dépannage électrique d'urgence 24h/7j",
+        "Éclairage intérieur et extérieur"
       ]
     },
     {
@@ -119,17 +83,20 @@ const SolarServicesSection: React.FC<SolarServicesSectionProps> = ({ cityName })
       ]
     },
     {
-      title: "Ballon thermodynamique",
-      description: "Eau chaude écologique",
-      icon: <BeakerIcon className="w-6 h-6 text-FFDF64" />,
-      imagePath: "/images/produit/ballon-thermodynamique.png",
+      title: "Installation de panneaux solaires",
+      description: "Solutions photovoltaïques haute performance",
+      icon: <BoltIcon className="w-6 h-6 text-FFDF64" />,
+      imagePath: "/images/produit/panneau-solaire.jpeg",
       features: [
-        "Chauffe-eau économique",
-        "Fonctionnement écologique",
-        "Installation optimisée",
-        "Économies d'énergie garanties"
+        "Panneaux monocristallins haute efficacité",
+        "Installation sur toiture ou au sol",
+        "Pose de supports et fixations adaptés",
+        "Raccordement et mise en service"
       ]
-    }
+    },
+ 
+  
+ 
   ];
 
   return (

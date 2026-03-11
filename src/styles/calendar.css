@@ -1,0 +1,200 @@
+/* Styles personnalisés pour FullCalendar */
+
+/* Styles généraux */
+.fc {
+  --fc-border-color: #e5e7eb;
+  --fc-button-bg-color: #116290; /* Bleu principal du site */
+  --fc-button-border-color: #116290;
+  --fc-button-hover-bg-color: #0e5075; /* Version plus foncée du bleu */
+  --fc-button-hover-border-color: #0e5075;
+  --fc-button-active-bg-color: #0e5075;
+  --fc-button-active-border-color: #0e5075;
+  --fc-event-bg-color: #116290; /* Bleu principal du site */
+  --fc-event-border-color: #116290;
+  --fc-today-bg-color: #f0f9ff; /* Bleu très clair */
+  font-family: inherit;
+}
+
+/* En-tête du calendrier */
+.fc .fc-toolbar {
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem !important;
+}
+
+.fc .fc-toolbar-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Boutons du calendrier */
+.fc .fc-button {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  text-transform: capitalize;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+}
+
+.fc .fc-button:focus {
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+  outline: none;
+}
+
+.fc .fc-button-primary:not(:disabled):active,
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+  background-color: var(--fc-button-active-bg-color);
+  border-color: var(--fc-button-active-border-color);
+}
+
+.fc .fc-button-group {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.fc .fc-button-group .fc-button {
+  border-radius: 0;
+}
+
+.fc .fc-button-group .fc-button:first-child {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.fc .fc-button-group .fc-button:last-child {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+/* Cellules du calendrier */
+.fc .fc-daygrid-day {
+  transition: background-color 0.2s;
+}
+
+.fc .fc-daygrid-day:hover {
+  background-color: #f9fafb;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: var(--fc-today-bg-color);
+}
+
+.fc .fc-daygrid-day-frame {
+  min-height: 100px;
+}
+
+.fc .fc-daygrid-day-number {
+  padding: 0.5rem;
+  font-weight: 500;
+}
+
+.fc .fc-col-header-cell {
+  padding: 0.75rem 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  background-color: #f9fafb;
+}
+
+/* Événements */
+.fc .fc-event {
+  border-radius: 0.375rem;
+  padding: 0.125rem 0.25rem;
+  font-size: 0.875rem;
+  border-width: 0;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.fc .fc-event:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.fc .fc-event-main {
+  padding: 0.25rem;
+}
+
+.fc .fc-event-time {
+  font-weight: 500;
+}
+
+.fc .fc-event-title {
+  font-weight: 500;
+}
+
+/* Styles spécifiques par type d'événement */
+.fc .fc-event[data-event-type="appointment"] {
+  background-color: #116290 !important; /* Bleu principal pour les rendez-vous */
+  border-color: #116290 !important;
+}
+
+.fc .fc-event[data-event-type="door-to-door"] {
+  background-color: #ffb700 !important; /* Jaune principal pour les tâches porte à porte */
+  border-color: #ffb700 !important;
+  color: #000 !important;
+}
+
+.fc .fc-event[data-event-type="technical-visit"] {
+  background-color: #0e8a5f !important; /* Vert pour les visites techniques */
+  border-color: #0e8a5f !important;
+}
+
+.fc .fc-event[data-event-type="follow-up"] {
+  background-color: #3182ce !important; /* Bleu clair pour les suivis */
+  border-color: #3182ce !important;
+}
+
+.fc .fc-event[data-event-type="admin"] {
+  background-color: #805ad5 !important; /* Violet pour les tâches administratives */
+  border-color: #805ad5 !important;
+}
+
+/* Vue semaine et jour */
+.fc .fc-timegrid-slot {
+  height: 3rem;
+}
+
+.fc .fc-timegrid-axis {
+  padding: 0.5rem;
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+
+.fc .fc-timegrid-event {
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.fc .fc-timegrid-now-indicator-line {
+  border-color: #ffb700; /* Jaune principal pour l'indicateur d'heure actuelle */
+  border-width: 2px;
+}
+
+.fc .fc-timegrid-now-indicator-arrow {
+  border-color: #ffb700; /* Jaune principal pour l'indicateur d'heure actuelle */
+  border-width: 5px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .fc .fc-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .fc .fc-toolbar-chunk {
+    margin-bottom: 0.5rem;
+  }
+  
+  .fc .fc-toolbar-title {
+    font-size: 1.125rem;
+  }
+  
+  .fc .fc-daygrid-day-frame {
+    min-height: 80px;
+  }
+}

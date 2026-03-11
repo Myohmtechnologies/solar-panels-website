@@ -1,0 +1,76 @@
+// Règles typographiques de base avec Montserrat
+h1, h2, h3, h4, h5, h6, p, span, div {
+  @apply font-montserrat;
+}
+
+// Tailles et poids pour les titres
+h1 {
+  @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight;
+}
+
+h2 {
+  @apply text-3xl md:text-4xl lg:text-5xl font-semibold tracking-normal;
+}
+
+h3 {
+  @apply text-2xl md:text-3xl lg:text-4xl font-medium tracking-normal;
+}
+
+h4 {
+  @apply text-xl md:text-2xl lg:text-3xl font-medium;
+}
+
+// Texte de base
+p {
+  @apply text-base md:text-lg leading-relaxed font-normal;
+}
+
+// Classes utilitaires
+.text-display {
+  @apply text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight;
+}
+
+.text-heading-1 {
+  @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight;
+}
+
+.text-heading-2 {
+  @apply text-3xl md:text-4xl lg:text-5xl font-semibold;
+}
+
+.text-heading-3 {
+  @apply text-2xl md:text-3xl lg:text-4xl font-medium;
+}
+
+.text-body-large {
+  @apply text-lg md:text-xl leading-relaxed;
+}
+
+.text-body {
+  @apply text-base md:text-lg leading-relaxed;
+}
+
+.text-body-small {
+  @apply text-sm md:text-base leading-relaxed;
+}
+
+// Utilitaires de poids de police
+.font-light {
+  @apply font-[300];
+}
+
+.font-regular {
+  @apply font-[400];
+}
+
+.font-medium {
+  @apply font-[500];
+}
+
+.font-semibold {
+  @apply font-[600];
+}
+
+.font-bold {
+  @apply font-[700];
+}

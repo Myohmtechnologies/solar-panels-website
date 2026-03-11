@@ -1,0 +1,41 @@
+/* Styles critiques pour le LCP */
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.leading-tight {
+  line-height: 1.25;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.text-\[\#146390\] {
+  color: #146390;
+}
+
+/* Media queries optimisées */
+@media (min-width: 768px) {
+  .md\:text-6xl {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+}
+
+/* Optimisations de performance */
+.hero-title {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 50px;
+  will-change: transform;
+}

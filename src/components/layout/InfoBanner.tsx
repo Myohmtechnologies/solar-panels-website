@@ -9,7 +9,7 @@ const InfoBanner = () => {
         <p className="text-sm md:text-base font-medium flex items-center gap-2">
           <span className="animate-pulse">☀️</span>
           <span>
-            <strong>Showroom fermé jusqu&apos;au 31 mars</strong>, mais MyOhm continue ! Nos experts restent 100% disponibles pour vos installations à domicile.
+            <strong>Le showroom est fermé pour travaux jusqu&apos;au 31 mars</strong>, mais nous restons à votre entière disposition. L&apos;activité de l&apos;entreprise continue normalement.
           </span>
         </p>
       </div>

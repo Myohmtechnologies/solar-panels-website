@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import MobileMenu from './MobileMenu';
+import InfoBanner from './InfoBanner';
 import { Popover } from '@headlessui/react';
 import { ChevronDownIcon, Bars3Icon, XMarkIcon, CalculatorIcon } from '@heroicons/react/24/outline';
 import { PhoneIcon } from '@heroicons/react/24/outline';
@@ -63,11 +64,10 @@ const Header = () => {
       <header 
         className="hidden md:block fixed top-0 left-0 right-0 bg-white shadow-sm"
         style={{ 
-          height: 'var(--header-height)',
           zIndex: 'var(--z-header)'
         }}
       >
-        <div className="mx-auto h-full">
+        <div className="mx-auto h-[5rem]">
           <div className="flex justify-around items-center h-full">
             {/* Logo */}
             <Link 
@@ -226,6 +226,7 @@ const Header = () => {
             </nav>
           </div>
         </div>
+        <InfoBanner />
       </header>
 
       {/* Header Mobile */}
@@ -236,11 +237,10 @@ const Header = () => {
           ${showMobileHeader ? 'translate-y-0' : '-translate-y-full'}
         `}
         style={{ 
-          height: 'var(--header-mobile-height)',
           zIndex: 'var(--z-header)'
         }}
       >
-        <div className="flex items-center justify-between h-full px-4">
+        <div className="flex items-center justify-between h-[4rem] px-4">
           <Link href="/" className="flex-shrink-0" aria-label="Retour à l'accueil">
             <Image 
               src="/images/logo.png" 
@@ -278,6 +278,7 @@ const Header = () => {
             </button>
           </div>
         </div>
+        <InfoBanner />
       </header>
 
       {/* Menu mobile */}

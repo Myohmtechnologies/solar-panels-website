@@ -24,4 +24,4 @@ Allow: /*.woff2$
 Host: https://www.myohmtechnologies.com
 
 # Sitemaps
-Sitemap: https://www.myohmtechnologies.com/sitemap.xml
+Sitemap: https://www.myohmtechnologies.com/sitemap-index.xml

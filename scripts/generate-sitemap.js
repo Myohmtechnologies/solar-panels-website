@@ -59,7 +59,7 @@ const generateMainSitemap = () => {
 
   <!-- Simulateur -->
   <url>
-    <loc>${baseUrl}/simulateur</loc>
+    <loc>${baseUrl}/simulator</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -75,10 +75,66 @@ const generateMainSitemap = () => {
 
   <!-- Réalisations -->
   <url>
-    <loc>${baseUrl}/realisations</loc>
+    <loc>${baseUrl}/nos-realisation</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <!-- Service: Panneaux Solaires -->
+  <url>
+    <loc>${baseUrl}/panneaux-solaire</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Service: Bornes de Recharge -->
+  <url>
+    <loc>${baseUrl}/borne-de-recharge</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Service: Batterie de stockage -->
+  <url>
+    <loc>${baseUrl}/batterie-de-stockage</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Service: Batterie virtuelle -->
+  <url>
+    <loc>${baseUrl}/solutions/batterie-virtuelle</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Service: Ballon thermodynamique -->
+  <url>
+    <loc>${baseUrl}/ballon-thermodynamique</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Service: Climatisation -->
+  <url>
+    <loc>${baseUrl}/climatisation</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Service: Électricité générale -->
+  <url>
+    <loc>${baseUrl}/electricite-generale</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <!-- Blog -->

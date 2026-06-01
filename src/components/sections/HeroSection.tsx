@@ -1,82 +1,11 @@
 'use client';
 
-import React, { useState, useEffect, Fragment, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRightIcon, CurrencyEuroIcon, MapPinIcon, BuildingOffice2Icon } from '@heroicons/react/24/outline';
-import dynamic from 'next/dynamic';
-import QuickSimulateur from '../simulateurs/QuickSimulateur';
-
-// Imports dynamiques avec priorité
-const QuickLeadForm = dynamic(() => import('../forms/QuickLeadForm'), { 
-  ssr: false,
-  loading: () => <div className="animate-pulse bg-gray-100 h-[300px] rounded-lg" />
-});
-
-const Dialog = dynamic(() => import('@headlessui/react').then(mod => mod.Dialog), { ssr: false });
-const Transition = dynamic(() => import('@headlessui/react').then(mod => mod.Transition), { ssr: false });
-
-import { engagementEvents, navigationEvents } from '@/utils/analytics';
-
-// Préchargement des images critiques
-const preloadImages = () => {
-  if (typeof window !== 'undefined') {
-    const images = [
-      '/images/google.png',
-      '/images/rge1.png',
-      '/images/qualipv1.png',
-      '/images/france-flag.png'
-    ];
-    
-    images.forEach(src => {
-      const img = new window.Image();
-      img.src = src;
-    });
-  }
-};
-
-// Hook personnalisé pour la position de défilement
-const useScrollPosition = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  useEffect(() => {
-    const updatePosition = () => {
-      setScrollPosition(window.pageYOffset);
-    };
-    window.addEventListener('scroll', updatePosition);
-    updatePosition();
-    return () => window.removeEventListener('scroll', updatePosition);
-  }, []);
-
-  return scrollPosition;
-};
+import Link from 'next/link';
+import Image from 'next/image';
 
 const HeroSection = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const scrollPosition = useScrollPosition();
-  const [heroHeight, setHeroHeight] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    // Préchargement des ressources critiques
-    preloadImages();
-  }, []);
-
-  useEffect(() => {
-    const hero = document.getElementById('hero');
-    if (hero) {
-      setHeroHeight(hero.offsetHeight);
-    }
-  }, []);
-
-  useEffect(() => {
-    // Lecture automatique de la vidéo lorsque le composant est monté
-    if (videoRef.current) {
-      videoRef.current.play().catch(e => {
-        console.log('Lecture automatique empêchée:', e);
-        // Fallback pour les navigateurs qui bloquent l'autoplay
-      });
-    }
-  }, []);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -92,94 +21,192 @@ const HeroSection = () => {
     gtag('config', 'AW-11362141606');
 
     return () => {
-      document.head.removeChild(script);
+      if (document.head && document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
     };
   }, []);
 
-  const FranceFlagIcon = () => (
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="2" y="8" width="28" height="16" rx="2" fill="white"/>
-      <rect x="2" y="8" width="9.33333" height="16" fill="#002395"/>
-      <rect x="20.6667" y="8" width="9.33333" height="16" fill="#ED2939"/>
-    </svg>
-  );
-
-  const onRequestQuote = () => {
-    // Code pour la demande de devis
-  };
-
   return (
-    <section id="hero" className="relative min-h-[90vh] md:mt-0 -mt-[var(--header-mobile-height)] overflow-hidden">
-      {/* Overlay pattern pour texture subtile */}
-      <div className="absolute inset-0 bg-black/5 z-10 pointer-events-none"></div>
-      
-      <div className="container mx-auto px-4 h-full relative z-10">
-        <div className="flex flex-col lg:flex-row h-full items-center py-12">
-          {/* Côté gauche avec vidéo - Visible uniquement sur desktop */}
-          <div className="w-full lg:w-1/2 h-full relative hidden lg:block">
-            <div className="relative w-full h-[80vh] overflow-hidden rounded-2xl shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#116290]/30 to-transparent z-10"></div>
-              <video 
-                ref={videoRef}
-                className="absolute inset-0 w-full h-full object-cover"
-                autoPlay 
-                muted 
-                loop 
-                playsInline
-              >
-                <source src="/images/my-ohm-technologies-entreprise-d'installation-de-panneaux-solaires.mp4" type="video/mp4" />
-                Votre navigateur ne prend pas en charge la lecture vidéo.
-              </video>
-            </div>
-          </div>
-          
-          {/* Côté droit avec contenu */}
-          <div className="w-full lg:w-1/2 lg:pl-12 space-y-8 z-20">
-            {/* En-tête avec titre */}
-            <div className="pt-16 md:pt-0">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="space-y-6"
-              >
-                <span className="inline-block px-4 py-2 rounded-full bg-[#116290] text-white font-medium text-sm shadow-md">
-                  Installation de panneaux solaires en PACA
-                </span>
-                
-                <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900">
-                  <span className="text-[#116290]">Divisez par 2 </span>
-                  votre facture d'électricité
-                </h1>
-                
-                <p className="text-lg text-gray-700 max-w-xl">
-                  Produisez votre propre énergie verte et réduisez durablement vos factures avec nos solutions photovoltaïques sur-mesure.
-                </p>
-              </motion.div>
-            </div>
+    <section id="hero" className="relative min-h-[90vh] pt-24 md:pt-32 pb-16 md:pb-24 bg-white overflow-hidden flex flex-col justify-center items-center">
+      {/* Overlay pattern pour texture subtile comme l'ancien */}
+      <div className="absolute inset-0 bg-black/5 z-0 pointer-events-none"></div>
 
-            {/* Vidéo pour mobile uniquement - entre le titre et le simulateur */}
-            <div className="w-full lg:hidden">
-              <div className="relative w-full h-[30vh] overflow-hidden rounded-xl shadow-lg">
-                <video 
-                  className="w-full h-full object-cover"
-                  autoPlay 
-                  muted 
-                  loop 
-                  playsInline
-                >
-                  <source src="/images/my-ohm-technologies-entreprise-d'installation-de-panneaux-solaires.mp4" type="video/mp4" />
-                  Votre navigateur ne prend pas en charge la lecture vidéo.
-                </video>
-              </div>
-            </div>
+      <div className="w-full relative z-10 flex flex-col items-center">
+        {/* Titre principal */}
+        <motion.div
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center w-full max-w-7xl mb-14 md:mb-20 px-4"
+        >
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-[#116290] tracking-wide leading-tight lg:whitespace-nowrap">
+            L'énergie de demain, installée chez vous dès aujourd'hui. ☀️
+          </h1>
+        </motion.div>
 
-            {/* Simulateur */}
-            <div className="w-full transition-all duration-300 bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-2 border border-gray-100">
-            <QuickSimulateur />
+        {/* Grille de cartes 2x2 (Bento Grid) - Pleine Largeur avec grands espaces */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 bg-transparent w-full p-4 md:p-8">
+          {/* Cadran 1 : Panneaux Solaires */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="group relative h-[450px] md:h-[680px] overflow-hidden flex flex-col justify-end p-10 md:p-16 bg-black rounded-2xl md:rounded-3xl shadow-lg"
+          >
+            {/* Image de fond */}
+            <Image
+              src="/images/paneaux-solaire.jpg"
+              alt="Installation de panneaux solaires"
+              fill
+              className="object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
+            />
+            
+            {/* Overlay gradient progressif */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-10" />
+
+            {/* Contenu textuel */}
+            <div className="relative z-20 flex flex-col items-center text-center">
+              <span className="text-base md:text-xl font-extrabold text-[#ffb700] uppercase tracking-widest mb-3">
+                À partir de 5 990€
+              </span>
+              <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-wide">
+                Panneaux Solaires
+              </h2>
+              <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-8 font-light leading-relaxed max-w-sm md:max-w-xl">
+                Produisez votre propre électricité verte et réduisez vos factures grâce à nos installations photovoltaïques.
+              </p>
+              <Link
+                href="/panneaux-solaire"
+                className="inline-block bg-white text-black text-center py-4 px-10 rounded-full font-black hover:bg-gray-100 transition-all hover:scale-105 shadow-2xl text-base md:text-lg mx-auto"
+              >
+                En Savoir Plus
+              </Link>
             </div>
-          </div>
+          </motion.div>
+
+          {/* Cadran 2 : Borne de Recharge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="group relative h-[450px] md:h-[680px] overflow-hidden flex flex-col justify-end p-10 md:p-16 bg-gray-900 rounded-2xl md:rounded-3xl shadow-lg"
+          >
+            {/* Image de fond */}
+            <Image
+              src="/images/left.png"
+              alt="Borne de recharge pour véhicule électrique"
+              fill
+              className="object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
+            />
+            
+            {/* Overlay gradient progressif */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-10" />
+
+            {/* Contenu textuel */}
+            <div className="relative z-20 flex flex-col items-center text-center">
+              <span className="text-base md:text-xl font-extrabold text-[#ffb700] uppercase tracking-widest mb-3">
+                À partir de 1 390€
+              </span>
+              <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-wide">
+                Borne de Recharge
+              </h2>
+              <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-8 font-light leading-relaxed max-w-sm md:max-w-xl">
+                Installez une borne de recharge rapide et sécurisée à domicile, compatible avec tous les véhicules.
+              </p>
+              <Link
+                href="/borne-de-recharge"
+                className="inline-block bg-white text-black text-center py-4 px-10 rounded-full font-black hover:bg-gray-100 transition-all hover:scale-105 shadow-2xl text-base md:text-lg mx-auto"
+              >
+                En Savoir Plus
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Cadran 3 : Climatisation */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="group relative h-[450px] md:h-[680px] overflow-hidden flex flex-col justify-end p-10 md:p-16 bg-gray-900 rounded-2xl md:rounded-3xl shadow-lg"
+          >
+            {/* Image de fond */}
+            <Image
+              src="/images/clim.jpeg"
+              alt="Climatisation réversible installée dans un salon"
+              fill
+              className="object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            
+            {/* Overlay gradient progressif */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent z-10" />
+
+            {/* Contenu textuel */}
+            <div className="relative z-20 flex flex-col items-center text-center">
+              <span className="text-base md:text-xl font-extrabold text-[#ffb700] uppercase tracking-widest mb-3">
+                À partir de 1 190€
+              </span>
+              <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-wide">
+                Climatisation
+              </h2>
+              <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-8 font-light leading-relaxed max-w-sm md:max-w-xl">
+                Chauffage et climatisation réversible deux-en-un pour un confort thermique optimal en toute saison.
+              </p>
+              <Link
+                href="/climatisation"
+                className="inline-block bg-white text-black text-center py-4 px-10 rounded-full font-black hover:bg-gray-100 transition-all hover:scale-105 shadow-2xl text-base md:text-lg mx-auto"
+              >
+                En Savoir Plus
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Cadran 4 : Électricité Générale */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="group relative h-[450px] md:h-[680px] overflow-hidden flex flex-col justify-end p-10 md:p-16 bg-gray-900 rounded-2xl md:rounded-3xl shadow-lg"
+          >
+            {/* Image de fond */}
+            <Image
+              src="/images/elec.jpg"
+              alt="Installation électrique par MyOhm Technologies"
+              fill
+              className="object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            
+            {/* Overlay gradient progressif */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-transparent z-10" />
+
+            {/* Contenu textuel */}
+            <div className="relative z-20 flex flex-col items-center text-center">
+              <span className="text-base md:text-xl font-extrabold text-[#ffb700] uppercase tracking-widest mb-3">
+                Installation & Mise en conformité
+              </span>
+              <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-wide">
+                Électricité Générale
+              </h2>
+              <p className="text-sm sm:text-base md:text-lg text-gray-200 mb-8 font-light leading-relaxed max-w-sm md:max-w-xl">
+                Rénovation complète, mise aux normes de tableaux électriques NF C 15-100 et dépannage.
+              </p>
+              <Link
+                href="/electricite-generale"
+                className="inline-block bg-white text-black text-center py-4 px-10 rounded-full font-black hover:bg-gray-100 transition-all hover:scale-105 shadow-2xl text-base md:text-lg mx-auto"
+              >
+                En Savoir Plus
+              </Link>
+            </div>
+          </motion.div>
         </div>
+
+
       </div>
     </section>
   );

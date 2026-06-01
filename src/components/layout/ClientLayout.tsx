@@ -19,10 +19,12 @@ export default function ClientLayout({
     return children;
   }
 
+  const isHome = pathname === '/';
+
   return (
     <>
       <Header />
-      <main className="min-h-screen pt-32 md:pt-28">
+      <main className={`min-h-screen ${isHome ? '' : 'pt-32 md:pt-28'}`}>
         {children}
       </main>
       <Footer />

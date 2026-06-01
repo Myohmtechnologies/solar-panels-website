@@ -12,42 +12,58 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: 'https://www.myohmtechnologies.com',
       lastModified: new Date(),
-     
     },
     {
       url: 'https://www.myohmtechnologies.com/simulator',
       lastModified: new Date(),
-
     },
     {
       url: 'https://www.myohmtechnologies.com/qui-sommes-nous',
       lastModified: new Date(),
-
     },
     {
-      url: 'https://www.myohmtechnologies.com/guide-aides-subventions',
+      url: 'https://www.myohmtechnologies.com/panneaux-solaire',
       lastModified: new Date(),
-
+    },
+    {
+      url: 'https://www.myohmtechnologies.com/borne-de-recharge',
+      lastModified: new Date(),
+    },
+    {
+      url: 'https://www.myohmtechnologies.com/batterie-de-stockage',
+      lastModified: new Date(),
+    },
+    {
+      url: 'https://www.myohmtechnologies.com/solutions/batterie-virtuelle',
+      lastModified: new Date(),
+    },
+    {
+      url: 'https://www.myohmtechnologies.com/ballon-thermodynamique',
+      lastModified: new Date(),
+    },
+    {
+      url: 'https://www.myohmtechnologies.com/climatisation',
+      lastModified: new Date(),
+    },
+    {
+      url: 'https://www.myohmtechnologies.com/electricite-generale',
+      lastModified: new Date(),
     },
     {
       url: 'https://www.myohmtechnologies.com/terms-and-conditions',
       lastModified: new Date(),
-
     },
     {
       url: 'https://www.myohmtechnologies.com/mentions-legales',
       lastModified: new Date(),
-
     },
     {
       url: 'https://www.myohmtechnologies.com/nos-realisation',
       lastModified: new Date(),
-
     },
     {
       url: 'https://www.myohmtechnologies.com/blog',
       lastModified: new Date(),
-
     }
   ];
 

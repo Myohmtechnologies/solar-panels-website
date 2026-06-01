@@ -9,7 +9,7 @@ import { submitLead } from '@/services/leadService';
 interface EnergyExpertModalProps {
   isOpen: boolean;
   onClose: () => void;
-  source?: 'battery' | 'solar' | 'ballon' | 'other';
+  source?: 'battery' | 'solar' | 'ballon' | 'climatisation' | 'electricite' | 'borne' | 'other';
 }
 
 export default function EnergyExpertModal({ isOpen, onClose, source = 'other' }: EnergyExpertModalProps) {
@@ -50,6 +50,18 @@ export default function EnergyExpertModal({ isOpen, onClose, source = 'other' }:
         case 'ballon':
           sourceValue = 'hero';
           notes = 'Demande de rappel - Page Ballon thermodynamique';
+          break;
+        case 'climatisation':
+          sourceValue = 'hero';
+          notes = 'Demande de rappel - Page Climatisation & PAC';
+          break;
+        case 'electricite':
+          sourceValue = 'hero';
+          notes = 'Demande de rappel - Page Électricité Générale';
+          break;
+        case 'borne':
+          sourceValue = 'hero';
+          notes = 'Demande de rappel - Page Borne de recharge';
           break;
         default:
           sourceValue = 'hero';
@@ -152,126 +164,146 @@ export default function EnergyExpertModal({ isOpen, onClose, source = 'other' }:
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                <div className="absolute top-4 right-4">
-                  <button
-                    type="button"
-                    className="text-gray-400 hover:text-gray-500"
-                    onClick={onClose}
-                  >
-                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
+              <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-3xl bg-white text-left align-middle shadow-xl transition-all flex flex-col md:flex-row">
+                {/* Block Gauche - Image */}
+                <div className="relative w-full md:w-1/2 min-h-[300px] md:min-h-auto hidden md:block">
+                  <Image
+                    src="/images/left.png"
+                    alt="MyOhm Technologies"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-[#116290]/10 mix-blend-multiply" />
                 </div>
                 
-                <div className="text-center mb-6">
-                  <Dialog.Title as="h3" className="text-xl font-semibold leading-6 text-gray-900">
-                    Demande de rappel par un expert
-                  </Dialog.Title>
-                </div>
-                
-                <div className="flex flex-col items-center mb-6">
-                  <div className="w-24 h-24 rounded-full overflow-hidden mb-2">
-                    <Image
-                      src="/images/team/rudy.jpg"
-                      alt="Rudy - Expert en énergie solaire"
-                      width={96}
-                      height={96}
-                      className="object-cover w-full h-full"
-                    />
+                {/* Block Droit - Formulaire */}
+                <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-center relative">
+                  <div className="absolute top-4 right-4">
+                    <button
+                      type="button"
+                      className="text-gray-400 hover:text-gray-500 focus:outline-none"
+                      onClick={onClose}
+                    >
+                      <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                    </button>
                   </div>
-                  <h4 className="text-lg font-medium text-gray-900">Rudy</h4>
-                  <p className="text-sm text-gray-600">Expert en énergie solaire</p>
-                </div>
-                
-                {isSubmitted ? (
-                  <div className="text-center py-8">
-                    <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
-                      <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <h3 className="text-lg font-medium text-gray-900">Demande envoyée !</h3>
-                    <p className="text-sm text-gray-500 mt-2">
-                      Rudy vous contactera très prochainement.
+                  
+                  <div className="text-center md:text-left mb-6">
+                    <Dialog.Title as="h3" className="text-xl font-bold leading-6 text-gray-900">
+                      Demande de rappel gratuit
+                    </Dialog.Title>
+                    <p className="text-sm text-gray-500 mt-1">
+                      Un expert vous rappelle rapidement.
                     </p>
                   </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    {error && (
-                      <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">
-                        {error}
+                  
+                  {/* Conseiller Paul */}
+                  <div className="flex items-center space-x-3 mb-6 bg-gray-50 p-3 rounded-2xl border border-gray-100">
+                    <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 relative">
+                      <Image
+                        src="/images/paul.jpeg"
+                        alt="Paul - Conseiller Technique"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-semibold text-gray-900">Paul</h4>
+                      <p className="text-xs text-gray-500">Votre conseiller technique dédié</p>
+                    </div>
+                  </div>
+                  
+                  {isSubmitted ? (
+                    <div className="text-center py-8">
+                      <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
+                        <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
                       </div>
-                    )}
-                    
-                    <div>
-                      <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
-                        Nom complet
-                      </label>
-                      <input
-                        type="text"
-                        name="fullName"
-                        id="fullName"
-                        required
-                        value={formData.fullName}
-                        onChange={handleChange}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
-                        placeholder="Jean Dupont"
-                      />
+                      <h3 className="text-lg font-medium text-gray-900">Demande envoyée !</h3>
+                      <p className="text-sm text-gray-500 mt-2">
+                        Paul vous contactera très prochainement.
+                      </p>
                     </div>
-                    
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
-                        placeholder="jean.dupont@example.com"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                        Numéro de téléphone
-                      </label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        id="phone"
-                        required
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm"
-                        placeholder="06 12 34 56 78"
-                      />
-                    </div>
-                    
-                    <div className="pt-4">
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full inline-flex justify-center rounded-md border border-transparent bg-gradient-to-br from-ffeb99 to-ffb700 px-4 py-2 text-sm font-medium text-black shadow-sm hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
-                      >
-                        {isSubmitting ? (
-                          <span className="flex items-center">
-                            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            Envoi en cours...
-                          </span>
-                        ) : (
-                          'Demander à être rappelé'
-                        )}
-                      </button>
-                    </div>
-                  </form>
-                )}
+                  ) : (
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                      {error && (
+                        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm">
+                          {error}
+                        </div>
+                      )}
+                      
+                      <div>
+                        <label htmlFor="fullName" className="block text-sm font-semibold text-gray-700 mb-1">
+                          Nom complet
+                        </label>
+                        <input
+                          type="text"
+                          name="fullName"
+                          id="fullName"
+                          required
+                          value={formData.fullName}
+                          onChange={handleChange}
+                          className="block w-full rounded-xl border border-gray-300 px-4 py-3 text-base shadow-sm placeholder-gray-400 focus:border-[#116290] focus:ring-2 focus:ring-[#116290]/20 outline-none transition-all"
+                          placeholder="Jean Dupont"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1">
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          name="email"
+                          id="email"
+                          required
+                          value={formData.email}
+                          onChange={handleChange}
+                          className="block w-full rounded-xl border border-gray-300 px-4 py-3 text-base shadow-sm placeholder-gray-400 focus:border-[#116290] focus:ring-2 focus:ring-[#116290]/20 outline-none transition-all"
+                          placeholder="jean.dupont@example.com"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-1">
+                          Numéro de téléphone
+                        </label>
+                        <input
+                          type="tel"
+                          name="phone"
+                          id="phone"
+                          required
+                          value={formData.phone}
+                          onChange={handleChange}
+                          className="block w-full rounded-xl border border-gray-300 px-4 py-3 text-base shadow-sm placeholder-gray-400 focus:border-[#116290] focus:ring-2 focus:ring-[#116290]/20 outline-none transition-all"
+                          placeholder="06 12 34 56 78"
+                        />
+                      </div>
+                      
+                      <div className="pt-4">
+                        <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="w-full inline-flex justify-center items-center rounded-xl bg-gradient-to-br from-ffeb99 to-ffb700 py-4 text-base font-semibold text-black shadow-md hover:shadow-lg hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition-all"
+                        >
+                          {isSubmitting ? (
+                            <span className="flex items-center">
+                              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                              </svg>
+                              Envoi en cours...
+                            </span>
+                          ) : (
+                            'Demander à être rappelé'
+                          )}
+                        </button>
+                      </div>
+                    </form>
+                  )}
+                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>

@@ -49,7 +49,7 @@ export default function CommercialModal({ isOpen, closeModal, cityName }: Commer
                 <div className="mt-4 flex flex-col items-center">
                   <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4">
                     <Image
-                      src="/images/team/rudy.jpg"
+                      src="/images/paul.jpeg"
                       alt="Commercial MyOhm Technologies"
                       layout="fill"
                       objectFit="cover"
@@ -57,7 +57,7 @@ export default function CommercialModal({ isOpen, closeModal, cityName }: Commer
                     />
                   </div>
                   
-                  <h4 className="text-xl font-semibold mb-1">Rudy</h4>
+                  <h4 className="text-xl font-semibold mb-1">Paul</h4>
                   <p className="text-gray-600 mb-4">Technico-Commercial</p>
 
                   <a

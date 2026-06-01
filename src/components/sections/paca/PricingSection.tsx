@@ -34,7 +34,7 @@ export default function PricingSection() {
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
                     <span className="text-[#126290]">✅</span>
-                    <p className="text-black">Prix avant aides : ~7 890 €</p>
+                    <p className="text-black">Prix avant aides : ~7 990 €</p>
                   </div>
                   <div className="flex items-center space-x-3">
                     <span className="text-[#126290]">✅</span>
@@ -102,7 +102,7 @@ export default function PricingSection() {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <span className="text-[#126290]">✅</span>
-                  <p className="text-black">Prix avant aides : ~7 890 €</p>
+                  <p className="text-black">Prix avant aides : ~7 990 €</p>
                 </div>
                 <div className="flex items-center space-x-3">
                   <span className="text-[#126290]">✅</span>

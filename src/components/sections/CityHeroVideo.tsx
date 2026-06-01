@@ -177,7 +177,7 @@ const CityHeroVideo = ({
                     <div className="space-y-1">
                       <p className="text-black/90 font-medium text-lg">Installation  compléte</p>
                       <div className="flex items-baseline gap-3">
-                        <p className="text-4xl font-bold text-black">À partir de 7 890€</p>
+                        <p className="text-4xl font-bold text-black">À partir de 5 990€</p>
                     
                       </div>
                       <div className="flex items-center gap-2 mt-1">

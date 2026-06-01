@@ -15,8 +15,8 @@ export const pricingData = [
     title: "Pack Essentiel",
     power: "3 kWc",
     price: {
-      original: "9 890€",
-      final: "7 890€"
+      original: "7 990€",
+      final: "5 990€"
     },
     details: {
       surface: "15m²",
@@ -29,8 +29,8 @@ export const pricingData = [
     title: "Pack Confort",
     power: "6 kWc",
     price: {
-      original: "14 890€",
-      final: "12 890€"
+      original: "9 890€",
+      final: "7 890€"
     },
     details: {
       surface: "30m²",
@@ -43,8 +43,8 @@ export const pricingData = [
     title: "Pack Premium",
     power: "9 kWc",
     price: {
-      original: "19 890€",
-      final: "17 890€"
+      original: "11 990€",
+      final: "9 990€"
     },
     details: {
       surface: "45m²",

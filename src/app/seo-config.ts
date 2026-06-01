@@ -5,28 +5,28 @@ export const seoConfig = {
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
-    url: 'https://votresite.fr/',
-    site_name: 'Installation Panneaux Solaires PACA',
+    url: 'https://www.myohmtechnologies.com/',
+    site_name: 'MY OHM Technologies',
   },
   // Données structurées par défaut
   organizationSchema: {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Installation Panneaux Solaires PACA",
-    description: "Expert en installation de panneaux solaires en région PACA. Installation certifiée RGE, devis gratuit et accompagnement personnalisé.",
-    url: "https://votresite.fr",
-    logo: "https://votresite.fr/logo.png",
+    name: "MY OHM Technologies",
+    description: "Expert en installation de panneaux solaires, bornes de recharge, climatisation et électricité en région PACA.",
+    url: "https://www.myohmtechnologies.com",
+    logo: "https://www.myohmtechnologies.com/images/logo.png",
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+33400000000",
+      telephone: "+33492766858",
       contactType: "customer service",
       areaServed: "FR",
       availableLanguage: "French"
     },
     sameAs: [
-      "https://www.facebook.com/votrepage",
-      "https://www.linkedin.com/company/votrepage",
-      "https://www.instagram.com/votrepage"
+      "https://www.facebook.com/myohmtechnologies",
+      "https://www.linkedin.com/company/myohmtechnologies",
+      "https://www.instagram.com/myohmtechnologies"
     ]
   },
   // Configuration des breadcrumbs
@@ -41,10 +41,10 @@ export const seoConfig = {
     "@type": "Article",
     publisher: {
       "@type": "Organization",
-      name: "Installation Panneaux Solaires PACA",
+      name: "MY OHM Technologies",
       logo: {
         "@type": "ImageObject",
-        url: "https://votresite.fr/logo.png"
+        url: "https://www.myohmtechnologies.com/images/logo.png"
       }
     }
   },

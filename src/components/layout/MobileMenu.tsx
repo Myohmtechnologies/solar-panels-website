@@ -14,13 +14,8 @@ interface MobileMenuProps {
 const menuLinks = [
   {
     href: '/panneaux-solaire',
-    label: 'Installation Panneaux Solaires',
+    label: 'Panneaux Solaires',
     icon: '/images/icone-pv.png'
-  },
-  {
-    href: '/borne-de-recharge',
-    label: 'Installation Borne de Recharge',
-    icon: '/images/mise-en-charge.png'
   },
   {
     href: '/batterie-de-stockage',
@@ -28,9 +23,23 @@ const menuLinks = [
     icon: '/images/battery.png'
   },
   {
-    href: '/ballon-thermodynamique',
-    label: 'Ballon thermodynamique',
-    icon: '/images/icon-chauffe-eau.png'
+    href: '/solutions/batterie-virtuelle',
+    label: 'Batterie Virtuelle',
+    icon: '/images/icons/icone-batterie-virtuelle.png'
+  },
+  {
+    href: '/climatisation',
+    label: 'Climatisation & PAC',
+  },
+  {
+    href: '/borne-de-recharge',
+    label: 'Installation Borne de Recharge',
+    icon: '/images/mise-en-charge.png'
+  },
+  {
+    href: '/electricite-generale',
+    label: 'Électricité Générale',
+    icon: '/images/eclairage.png'
   },
   {
     href: '/qui-sommes-nous',
@@ -41,7 +50,7 @@ const menuLinks = [
     label: 'Notre Showroom'
   },
   {
-    href: '/nos-realisations',
+    href: '/nos-realisation',
     label: 'Nos réalisations'
   },
   {

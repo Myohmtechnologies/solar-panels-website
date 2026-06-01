@@ -113,28 +113,50 @@ const Header = () => {
                   )}
                 </Popover.Button>
 
-                <Popover.Panel className="absolute left-0 z-[var(--z-tooltip)] mt-3 w-56 bg-white shadow-lg rounded-lg p-2">
+                <Popover.Panel className="absolute left-0 z-[var(--z-tooltip)] mt-3 bg-white shadow-xl rounded-xl border border-gray-100 p-4 min-w-[32rem]">
                   {({ close }) => (
                     <div 
-                      className="space-y-1"
+                      className="grid grid-cols-2 gap-6"
                       onMouseLeave={() => close()}
                     >
-                      {[
-                        { href: '/panneaux-solaire', label: 'Installation Panneaux Solaires' },
-                        { href: '/borne-de-recharge', label: 'Installation de borne de recharge IRVE' },
-                        { href: '/batterie-de-stockage', label: 'Installation de Batterie de stockage' },
-                        { href: '/ballon-thermodynamique', label: 'Ballon thermodynamique' },
-                        { href: '/solutions/batterie-virtuelle', label: 'Batterie Virtuelle' },
-                      ].map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className="block px-4 py-2 text-sm text-[var(--color-text)] hover:bg-gray-50 rounded-lg transition-colors duration-[var(--transition-fast)]"
-                          onClick={() => close()}
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
+                      <div>
+                        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 px-2">Énergie Solaire</p>
+                        <div className="space-y-1">
+                          {[
+                            { href: '/panneaux-solaire', label: 'Panneaux Solaires' },
+                            { href: '/batterie-de-stockage', label: 'Batterie de Stockage' },
+                            { href: '/solutions/batterie-virtuelle', label: 'Batterie Virtuelle' },
+                          ].map((item) => (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              className="block px-3 py-2 text-sm font-semibold text-[var(--color-text)] hover:text-[var(--color-primary)] hover:bg-gray-50 rounded-lg transition-colors duration-[var(--transition-fast)]"
+                              onClick={() => close()}
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 px-2">Électricité & Confort</p>
+                        <div className="space-y-1">
+                          {[
+                            { href: '/climatisation', label: 'Climatisation & PAC' },
+                            { href: '/borne-de-recharge', label: 'Borne de Recharge IRVE' },
+                            { href: '/electricite-generale', label: 'Électricité Générale' },
+                          ].map((item) => (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              className="block px-3 py-2 text-sm font-semibold text-[var(--color-text)] hover:text-[var(--color-primary)] hover:bg-gray-50 rounded-lg transition-colors duration-[var(--transition-fast)]"
+                              onClick={() => close()}
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   )}
                 </Popover.Panel>

@@ -2,13 +2,16 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { 
   WrenchScrewdriverIcon, 
   BoltIcon, 
   Battery100Icon,
   CloudIcon,
   PowerIcon,
-  BeakerIcon
+  BeakerIcon,
+  SunIcon,
+  SparklesIcon
 } from '@heroicons/react/24/outline';
 
 interface SolarServicesSectionProps {
@@ -21,16 +24,17 @@ interface ServiceCardProps {
   features: string[];
   icon: React.ReactNode;
   imagePath: string;
+  href: string;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, features, icon, imagePath }) => (
-  <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02]">
+const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, features, icon, imagePath, href }) => (
+  <Link href={href} className="block bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] cursor-pointer">
     <div className="relative h-48 w-full">
       <Image
         src={imagePath}
         alt={title}
         fill
-        className="object-cover"
+        className="object-cover animate-fade-in"
         sizes="(max-width: 768px) 100vw, 50vw"
       />
       <div className="absolute inset-0 bg-black/40 flex items-end p-6">
@@ -53,23 +57,11 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, features,
         ))}
       </ul>
     </div>
-  </div>
+  </Link>
 );
 
 const SolarServicesSection: React.FC<SolarServicesSectionProps> = ({ cityName }) => {
   const services: ServiceCardProps[] = [
-    {
-      title: "Étude et diagnostic personnalisé",
-      description: "Analyse complète de votre projet solaire",
-      icon: <WrenchScrewdriverIcon className="w-6 h-6 text-FFDF64" />,
-      imagePath: "/images/produit/diagnostic-personnalise.png",
-      features: [
-        "Analyse détaillée des besoins énergétiques",
-        "Étude de faisabilité technique",
-        "Simulation de production solaire",
-        "Estimation des économies réalisables"
-      ]
-    },
     {
       title: "Installation de panneaux solaires",
       description: "Solutions photovoltaïques haute performance",
@@ -80,7 +72,8 @@ const SolarServicesSection: React.FC<SolarServicesSectionProps> = ({ cityName })
         "Installation sur toiture ou au sol",
         "Pose de supports et fixations adaptés",
         "Raccordement et mise en service"
-      ]
+      ],
+      href: "/panneaux-solaire"
     },
     {
       title: "Batteries de stockage",
@@ -92,7 +85,8 @@ const SolarServicesSection: React.FC<SolarServicesSectionProps> = ({ cityName })
         "Utilisation en cas de besoin",
         "Monitoring de la consommation",
         "Installation plug-and-play"
-      ]
+      ],
+      href: "/batterie-de-stockage"
     },
     {
       title: "Batterie virtuelle",
@@ -104,7 +98,8 @@ const SolarServicesSection: React.FC<SolarServicesSectionProps> = ({ cityName })
         "Gestion automatisée des surplus",
         "Suivi en temps réel",
         "Économies optimisées"
-      ]
+      ],
+      href: "/solutions/batterie-virtuelle"
     },
     {
       title: "Bornes de recharge IRVE",
@@ -116,19 +111,34 @@ const SolarServicesSection: React.FC<SolarServicesSectionProps> = ({ cityName })
         "Compatible avec tous les véhicules",
         "Intégration avec vos panneaux solaires",
         "Pilotage intelligent de la charge"
-      ]
+      ],
+      href: "/borne-de-recharge"
     },
     {
-      title: "Ballon thermodynamique",
-      description: "Eau chaude écologique",
-      icon: <BeakerIcon className="w-6 h-6 text-FFDF64" />,
-      imagePath: "/images/produit/ballon-thermodynamique.png",
+      title: "Climatisation & PAC",
+      description: "Confort thermique toutes saisons",
+      icon: <SunIcon className="w-6 h-6 text-FFDF64" />,
+      imagePath: "/images/ce-thermodynamique-thermor-aeromax-5-1-2021.jpg",
       features: [
-        "Chauffe-eau économique",
-        "Fonctionnement écologique",
-        "Installation optimisée",
-        "Économies d'énergie garanties"
-      ]
+        "Climatisation réversible (froid/chaud)",
+        "Pompes à chaleur Air-Air et Air-Eau",
+        "Économies de chauffage jusqu'à 60%",
+        "Équipements certifiés RGE"
+      ],
+      href: "/climatisation"
+    },
+    {
+      title: "Électricité Générale",
+      description: "Sécurisation et mise aux normes",
+      icon: <SparklesIcon className="w-6 h-6 text-FFDF64" />,
+      imagePath: "/images/maison-panneaux-solaires-borne-de-recharge-batterie-de-stockage.png",
+      features: [
+        "Rénovation électrique et mise en conformité",
+        "Modernisation de tableaux électriques",
+        "Câblage domotique et connectivité",
+        "Interventions et dépannages rapides"
+      ],
+      href: "/electricite-generale"
     }
   ];
 
@@ -139,11 +149,11 @@ const SolarServicesSection: React.FC<SolarServicesSectionProps> = ({ cityName })
           <div className="flex items-center justify-center space-x-4 mb-4">
             <WrenchScrewdriverIcon className="w-12 h-12 text-FFDF64" />
             <h2 className="text-3xl font-bold text-gray-900">
-              Nos services d&apos;installation solaire à {cityName}
+              Nos expertises en électricité & transition énergétique à {cityName}
             </h2>
           </div>
           <p className="text-xl text-gray-600">
-            Des solutions complètes et personnalisées pour votre transition énergétique
+            Des solutions complètes pour un habitat autonome, confortable et sécurisé
           </p>
         </div>
 

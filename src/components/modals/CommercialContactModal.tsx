@@ -66,15 +66,15 @@ export default function CommercialContactModal({ isOpen, closeModal, cityName = 
                 <div className="flex flex-col items-center mb-6">
                   <div className="w-32 h-32 rounded-full overflow-hidden mb-4 border-4 border-FFDF64">
                     <Image
-                      src="/images/team/rudy.jpg"
-                      alt="Rudy - Expert en solutions solaires"
+                      src="/images/paul.jpeg"
+                      alt="Paul - Expert en solutions solaires"
                       width={128}
                       height={128}
                       className="object-cover"
                     />
                   </div>
-                  <h4 className="text-xl font-semibold text-gray-900">Rudy</h4>
-                  <p className="text-gray-600">technico-Commercial</p>
+                  <h4 className="text-xl font-semibold text-gray-900">Paul</h4>
+                  <p className="text-gray-600">Technico-Commercial</p>
                 </div>
 
                 <div className="space-y-4">

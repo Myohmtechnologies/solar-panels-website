@@ -43,7 +43,7 @@ const certifications = [
 const faqs = [
   {
     question: "Combien coûte l'installation d'une borne de recharge pour voiture électrique ?",
-    answer: "Le coût de l'installation d'une borne de recharge à domicile dépend du modèle choisi et de la configuration de votre installation électrique. Chez My Ohm Technologies, nos forfaits clés en main (matériel et pose inclus) débutent à partir de 1 390 € (aides de l'État et crédit d'impôt de 500 € déduits) pour notre Borne My-Ohm, et à partir de 1 699 € pour le modèle premium Schneider Charge."
+    answer: "Le coût de l'installation d'une borne de recharge à domicile dépend du modèle choisi et de la configuration de votre installation électrique. Chez My Ohm Technologies, nos forfaits clés en main (matériel et pose inclus) débutent à partir de 1 390 € (aides de l'État et crédit d'impôt de 500 € déduits) pour notre Borne Ohme, et à partir de 1 699 € pour les modèles Schneider Charge et Hager Witty."
   },
   {
     question: "Quel est le meilleur emplacement pour installer ma borne de recharge à domicile ?",
@@ -55,7 +55,7 @@ const faqs = [
   },
   {
     question: "J'habite en maison, comment choisir ma borne de recharge ?",
-    answer: "Le choix se fait en fonction de votre véhicule (puissance maximale acceptée en charge lente/rapide), de vos besoins quotidiens en autonomie, et de votre abonnement électrique. Pour la majorité des maisons individuelles, une borne de 7,4 kW en monophasé est recommandée. Elle permet de recharger complètement n'importe quel véhicule électrique durant la nuit. Si vous avez des panneaux solaires, optez pour une borne intelligente comme la borne My-Ohm qui maximise l'autoconsommation."
+    answer: "Le choix se fait en fonction de votre véhicule (puissance maximale acceptée en charge lente/rapide), de vos besoins quotidiens en autonomie, et de votre abonnement électrique. Pour la majorité des maisons individuelles, une borne de 7,4 kW en monophasé est recommandée. Elle permet de recharger complètement n'importe quel véhicule électrique durant la nuit. Si vous avez des panneaux solaires, optez pour une borne intelligente comme la borne Ohme qui maximise l'autoconsommation."
   },
   {
     question: "Quelle est la différence entre une borne de recharge et une prise ?",
@@ -251,7 +251,7 @@ export default function BorneDeRechargePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 items-stretch max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
             {/* Carte Schneider Charge */}
             <div className="bg-white rounded-3xl p-8 shadow-md border border-gray-200/60 flex flex-col justify-between relative">
               <div>
@@ -314,7 +314,7 @@ export default function BorneDeRechargePage() {
               </button>
             </div>
 
-            {/* Carte Borne My-Ohm */}
+            {/* Carte Borne Ohme */}
             <div className="bg-white rounded-3xl p-8 shadow-md border-2 border-ffb700 flex flex-col justify-between relative overflow-hidden">
               {/* Badge "Notre Meilleure Offre" */}
               <div className="absolute top-0 right-0 bg-gradient-to-r from-ffeb99 to-ffb700 text-black font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl rounded-tr-[22px] uppercase tracking-wider shadow-sm">
@@ -324,7 +324,7 @@ export default function BorneDeRechargePage() {
               <div>
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-[#116290] font-bold tracking-wide uppercase text-xs bg-[#116290]/10 px-3 py-1 rounded-full">
-                    My Ohm
+                    Ohme
                   </span>
                 </div>
 
@@ -333,14 +333,14 @@ export default function BorneDeRechargePage() {
                   <div className="relative w-full h-full">
                     <Image
                       src="/images/my-ohm.png"
-                      alt="Borne de recharge My-Ohm"
+                      alt="Borne de recharge Ohme"
                       fill
                       className="object-contain"
                     />
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Borne My-Ohm</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Borne Ohme</h3>
                 <p className="text-sm text-gray-500 mb-4">Puissance 7.4 kW monophasé</p>
 
                 <div className="mb-6">
@@ -374,6 +374,68 @@ export default function BorneDeRechargePage() {
               <button
                 onClick={openExpertModal}
                 className="w-full py-4 bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-semibold rounded-2xl hover:shadow-xl hover:scale-[1.02] transition-all text-center"
+              >
+                Demander un devis gratuit
+              </button>
+            </div>
+
+            {/* Carte Hager Witty */}
+            <div className="bg-white rounded-3xl p-8 shadow-md border border-gray-200/60 flex flex-col justify-between relative">
+              <div>
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-[#00549F] font-bold tracking-wide uppercase text-xs bg-[#00549F]/10 px-3 py-1 rounded-full">
+                    Hager
+                  </span>
+                  <span className="text-xs text-blue-600 bg-blue-50 font-semibold px-3 py-1 rounded-full">
+                    Lecteur RFID inclus
+                  </span>
+                </div>
+
+                {/* Image Container */}
+                <div className="relative w-full h-48 bg-white rounded-2xl flex items-center justify-center p-6 mb-6 border border-gray-100 shadow-sm">
+                  <div className="relative w-full h-full">
+                    <Image
+                      src="/images/hager.webp"
+                      alt="Borne Hager Witty"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
+
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Hager Witty</h3>
+                <p className="text-sm text-gray-500 mb-4">Puissance modulable 7.4 à 22 kW</p>
+
+                <div className="mb-6">
+                  <span className="text-sm text-gray-500 block">Borne et installation, à partir de</span>
+                  <div className="flex items-baseline">
+                    <span className="text-4xl font-extrabold text-gray-900">1 699 €</span>
+                    <span className="text-lg text-gray-500 ml-2">TTC *</span>
+                  </div>
+                  <span className="text-xs text-gray-400 mt-1 block">*Aides déduites (TVA 5,5% et crédit d'impôt inclus)</span>
+                </div>
+
+                <hr className="border-gray-100 my-6" />
+
+                <ul className="space-y-3 mb-8">
+                  {[
+                    "Gestion dynamique intelligente de la charge",
+                    "Borne ultra-robuste certifiée IP55 / IK10",
+                    "Contrôle d'accès sécurisé par badge RFID",
+                    "Compatible avec la charge solaire photovoltaïque"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start text-sm text-gray-600">
+                      <svg className="h-5 w-5 text-orange-500 mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <button
+                onClick={openExpertModal}
+                className="w-full py-4 bg-transparent border-2 border-[#116290] text-[#116290] font-semibold rounded-2xl hover:bg-[#116290]/5 transition-all text-center"
               >
                 Demander un devis gratuit
               </button>
@@ -713,7 +775,7 @@ export default function BorneDeRechargePage() {
               {
                 image: '/images/borne-nice.jpeg',
                 title: 'Villa à Nice',
-                description: 'Installation en garage fermé d\'une borne de recharge My-Ohm 7.4 kW robuste et compacte.',
+                description: 'Installation en garage fermé d\'une borne de recharge Ohme 7.4 kW robuste et compacte.',
                 city: 'Nice',
                 details: 'Pose intérieure en garage'
               },

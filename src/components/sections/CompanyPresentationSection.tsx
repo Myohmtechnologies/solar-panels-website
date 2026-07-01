@@ -46,7 +46,7 @@ export default function CompanyPresentationSection() {
               className="relative rounded-3xl overflow-hidden shadow-2xl"
             >
               <Image
-                src="/images/local-my-ohm-technologies.jpg"
+                src="/images/siege.webp"
                 alt="Showroom MY OHM Technologies - Installation panneaux solaires PACA"
                 width={600}
                 height={400}

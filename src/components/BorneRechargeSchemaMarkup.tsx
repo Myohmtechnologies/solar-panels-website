@@ -152,7 +152,7 @@ const BorneRechargeSchemaMarkup = () => {
             "name": "Combien coûte l'installation d'une borne de recharge pour voiture électrique ?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Le coût de l'installation d'une borne de recharge à domicile dépend du modèle choisi et de la configuration de votre installation électrique. Chez My Ohm Technologies, nos forfaits clés en main (matériel et pose inclus) débutent à partir de 1 390 € (aides de l'État et crédit d'impôt de 500 € déduits) pour notre Borne My-Ohm, et à partir de 1 699 € pour le modèle premium Schneider Charge."
+              "text": "Le coût de l'installation d'une borne de recharge à domicile dépend du modèle choisi et de la configuration de votre installation électrique. Chez My Ohm Technologies, nos forfaits clés en main (matériel et pose inclus) débutent à partir de 1 390 € (aides de l'État et crédit d'impôt de 500 € déduits) pour notre Borne Ohme, et à partir de 1 699 € pour les modèles Schneider Charge et Hager Witty."
             }
           },
           {
@@ -176,7 +176,7 @@ const BorneRechargeSchemaMarkup = () => {
             "name": "J'habite en maison, comment choisir ma borne de recharge ?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Le choix se fait en fonction de votre véhicule (puissance maximale acceptée en charge lente/rapide), de vos besoins quotidiens en autonomie, et de votre abonnement électrique. Pour la majorité des maisons individuelles, une borne de 7,4 kW en monophasé est recommandée. Elle permet de recharger complètement n'importe quel véhicule électrique durant la nuit. Si vous avez des panneaux solaires, optez pour une borne intelligente comme la borne My-Ohm qui maximise l'autoconsommation."
+              "text": "Le choix se fait en fonction de votre véhicule (puissance maximale acceptée en charge lente/rapide), de vos besoins quotidiens en autonomie, et de votre abonnement électrique. Pour la majorité des maisons individuelles, une borne de 7,4 kW en monophasé est recommandée. Elle permet de recharger complètement n'importe quel véhicule électrique durant la nuit. Si vous avez des panneaux solaires, optez pour une borne intelligente comme la borne Ohme qui maximise l'autoconsommation."
             }
           },
           {

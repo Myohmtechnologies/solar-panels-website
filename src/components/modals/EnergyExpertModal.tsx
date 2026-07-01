@@ -4,6 +4,7 @@ import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { submitLead } from '@/services/leadService';
 
 interface EnergyExpertModalProps {
@@ -13,6 +14,7 @@ interface EnergyExpertModalProps {
 }
 
 export default function EnergyExpertModal({ isOpen, onClose, source = 'other' }: EnergyExpertModalProps) {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -100,7 +102,7 @@ export default function EnergyExpertModal({ isOpen, onClose, source = 'other' }:
           console.log('Form submitted successfully');
           setIsSubmitted(true);
           
-          // Réinitialiser après 3 secondes
+          // Réinitialiser après 1 seconde et rediriger vers la page merci
           setTimeout(() => {
             onClose();
             setIsSubmitted(false);
@@ -109,7 +111,8 @@ export default function EnergyExpertModal({ isOpen, onClose, source = 'other' }:
               email: '',
               phone: '',
             });
-          }, 3000);
+            router.push('/merci');
+          }, 1000);
         } else {
           console.error('Error from API:', result.error);
           setError(result.error || "Une erreur s'est produite lors de l'envoi du formulaire.");
@@ -128,7 +131,8 @@ export default function EnergyExpertModal({ isOpen, onClose, source = 'other' }:
             email: '',
             phone: '',
           });
-        }, 3000);
+          router.push('/merci');
+        }, 1000);
       }
     } catch (err) {
       console.error('Error in form submission process:', err);

@@ -156,7 +156,7 @@ export default function ClimatisationPage() {
                   onClick={openExpertModal}
                   className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-br from-ffeb99 to-ffb700 text-black rounded-full font-medium text-lg hover:shadow-xl transition-all"
                 >
-                  Demander un devis gratuit
+                  Obtenir mon estimation
                   <ArrowRightIcon className="h-5 w-5 ml-2" />
                 </button>
                  <a
@@ -435,7 +435,7 @@ export default function ClimatisationPage() {
                     onClick={openExpertModal}
                     className="w-full py-4 bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-bold rounded-2xl hover:shadow-xl hover:scale-[1.01] transition-all text-center"
                   >
-                    Demander un devis gratuit
+                    Obtenir mon estimation
                   </button>
                 </div>
               </motion.div>

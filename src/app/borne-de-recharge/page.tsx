@@ -43,7 +43,7 @@ const certifications = [
 const faqs = [
   {
     question: "Combien coûte l'installation d'une borne de recharge pour voiture électrique ?",
-    answer: "Le coût de l'installation d'une borne de recharge à domicile dépend du modèle choisi et de la configuration de votre installation électrique. Chez My Ohm Technologies, nos forfaits clés en main (matériel et pose inclus) débutent à partir de 1 390 € (aides de l'État et crédit d'impôt de 500 € déduits) pour notre Borne Ohme, et à partir de 1 699 € pour les modèles Schneider Charge et Hager Witty."
+    answer: "Le coût de l'installation d'une borne de recharge à domicile dépend du modèle choisi et de la configuration de votre installation électrique. Chez My Ohm Technologies, nos forfaits clés en main (matériel et pose inclus) débutent à partir de 1 390 € (aides de l'État et crédit d'impôt de 500 € déduits) pour notre Borne Ohme, et à partir de 1 590 € pour les modèles Schneider Charge et Hager Witty."
   },
   {
     question: "Quel est le meilleur emplacement pour installer ma borne de recharge à domicile ?",
@@ -291,7 +291,7 @@ export default function BorneDeRechargePage() {
                 <div className="mb-6">
                   <span className="text-sm text-gray-500 block">Borne et installation, à partir de</span>
                   <div className="flex items-baseline">
-                    <span className="text-4xl font-extrabold text-gray-900">1 699 €</span>
+                    <span className="text-4xl font-extrabold text-gray-900">1 590 €</span>
                     <span className="text-lg text-gray-500 ml-2">TTC *</span>
                   </div>
                   <span className="text-xs text-gray-400 mt-1 block">*Aides déduites (TVA 5,5% et crédit d'impôt inclus)</span>
@@ -418,7 +418,7 @@ export default function BorneDeRechargePage() {
                 <div className="mb-6">
                   <span className="text-sm text-gray-500 block">Borne et installation, à partir de</span>
                   <div className="flex items-baseline">
-                    <span className="text-4xl font-extrabold text-gray-900">1 699 €</span>
+                    <span className="text-4xl font-extrabold text-gray-900">1 590 €</span>
                     <span className="text-lg text-gray-500 ml-2">TTC *</span>
                   </div>
                   <span className="text-xs text-gray-400 mt-1 block">*Aides déduites (TVA 5,5% et crédit d'impôt inclus)</span>

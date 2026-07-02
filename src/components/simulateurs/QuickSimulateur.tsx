@@ -42,17 +42,17 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
         
         if (field === 'type') {
           // Conversion pour l'étape 1 (choix du type de logement)
-          conversionId = 'AW-16287034089';
+          conversionId = 'AW-18287034089';
           conversionLabel = 'ypCbCI6G9LkaEPPGpNM-';
           conversionValue = 1.0;
         } else if (field === 'chauffage') {
           // Conversion pour l'étape 2 (choix du type de chauffage)
-          conversionId = 'AW-16287034089';
+          conversionId = 'AW-18287034089';
           conversionLabel = 'GuogCKyr9rkaEPPGpNM-';
           conversionValue = 1.0;
         } else if (field === 'facture') {
           // Conversion pour l'étape 3 (montant de la facture)
-          conversionId = 'AW-16287034089';
+          conversionId = 'AW-18287034089';
           conversionLabel = 'Lm7lCJCJ6LkaEPPGpNM-';
           conversionValue = 1.0;
         }
@@ -120,9 +120,9 @@ export default function QuickSimulateur({ onStepChange }: QuickSimulateurProps) 
       
       // Tracking Google Ads - conversion principale (seulement après soumission réussie)
       if (typeof window !== 'undefined' && (window as any).gtag) {
-        console.log('Conversion finale déclenchée (formulaire soumis avec succès):', 'AW-16287034089/LjhoCLLJ9rkaEPPGpNM-');
+        console.log('Conversion finale déclenchée (formulaire soumis avec succès):', 'AW-18287034089/LjhoCLLJ9rkaEPPGpNM-');
         (window as any).gtag('event', 'conversion', {
-          'send_to': 'AW-16287034089/LjhoCLLJ9rkaEPPGpNM-',
+          'send_to': 'AW-18287034089/LjhoCLLJ9rkaEPPGpNM-',
           'value': 10.0,
           'currency': 'EUR'
         });

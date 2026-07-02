@@ -308,7 +308,7 @@ export default function SimulationEconomiePage() {
                     // Appel de la fonction de conversion Google Ads
                     if (typeof window !== 'undefined' && window.gtag) {
                       window.gtag('event', 'conversion', {
-                        'send_to': 'AW-16287034089/9PJFCP3gnLkaEPPGpNM-',
+                        'send_to': 'AW-18287034089/9PJFCP3gnLkaEPPGpNM-',
                         'value': 10.0,
                         'currency': 'EUR',
                         'event_callback': function () {

@@ -46,7 +46,7 @@ export const trackConversion = (conversionType: string, value: number = 1.0) => 
   // Google Ads conversion tracking
   if (window.gtag) {
     window.gtag('event', 'conversion', {
-      send_to: 'AW-16287034089',
+      send_to: 'AW-18287034089',
       value: value,
       currency: 'EUR',
       traffic_source: source.type,

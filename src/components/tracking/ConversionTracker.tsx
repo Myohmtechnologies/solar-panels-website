@@ -2,7 +2,7 @@
 
 import Script from 'next/script';
 
-const GOOGLE_ADS_ID = 'AW-16287034089';
+const GOOGLE_ADS_ID = 'AW-18287034089';
 
 // Types de conversion et leurs IDs
 export const CONVERSION_TYPES = {

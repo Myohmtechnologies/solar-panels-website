@@ -24,7 +24,7 @@ export default function SimulationEconomieLayout({
     <div className="font-sans min-h-screen bg-white">
       {/* Google Ads Tag - Chargé avec stratégie "lazyOnload" pour ne pas bloquer le rendu */}
       <Script
-        src="https://www.googletagmanager.com/gtag/js?id=AW-16287034089"
+        src="https://www.googletagmanager.com/gtag/js?id=AW-18287034089"
         strategy="lazyOnload"
       />
       <Script id="google-ads-config" strategy="lazyOnload">
@@ -32,7 +32,7 @@ export default function SimulationEconomieLayout({
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'AW-16287034089');
+          gtag('config', 'AW-18287034089');
         `}
       </Script>
 

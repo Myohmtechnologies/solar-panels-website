@@ -25,7 +25,7 @@ export default function PacaPageTracker() {
       // Track Google Ads conversion if from ads
       if (gclid) {
         window.gtag('event', 'conversion', {
-          'send_to': 'AW-16287034089/bCJ6CKu725gaEPPGpNM-',
+          'send_to': 'AW-18287034089/bCJ6CKu725gaEPPGpNM-',
           'page_location': window.location.href
         });
       }

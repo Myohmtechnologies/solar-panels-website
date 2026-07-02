@@ -155,8 +155,17 @@ export default function BorneDeRechargePage() {
                   Demander un devis gratuit
                   <ArrowRightIcon className="h-5 w-5 ml-2" />
                 </button>
-                <a
+                 <a
                   href="tel:+33492766858"
+                  onClick={() => {
+                    if (typeof window !== 'undefined' && (window as any).gtag) {
+                      (window as any).gtag('event', 'conversion', {
+                        'send_to': 'AW-18287034089/C5KlCNiF0MkcEOn9949E',
+                        'value': 1.0,
+                        'currency': 'EUR'
+                      });
+                    }
+                  }}
                   className="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-[#116290]/30 text-[#116290] rounded-full font-medium text-lg hover:bg-[#116290]/5 transition-all"
                 >
                   <PhoneIcon className="h-6 w-6 mr-2 flex-shrink-0" />

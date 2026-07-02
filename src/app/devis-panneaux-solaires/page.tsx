@@ -378,7 +378,7 @@ export default function DevisPanneauxSolairesPage() {
                     // Appel de la fonction de conversion Google Ads
                     if (typeof window !== 'undefined' && window.gtag) {
                       window.gtag('event', 'conversion', {
-                        'send_to': 'AW-16817660787/9PJFCP3gnLkaEPPGpNM-',
+                        'send_to': 'AW-16287034089/9PJFCP3gnLkaEPPGpNM-',
                         'value': 10.0,
                         'currency': 'EUR',
                         'event_callback': function () {
@@ -487,7 +487,7 @@ export default function DevisPanneauxSolairesPage() {
                     // Appel de la fonction de conversion Google Ads
                     if (typeof window !== 'undefined' && window.gtag) {
                       window.gtag('event', 'conversion', {
-                        'send_to': 'AW-16817660787/9PJFCP3gnLkaEPPGpNM-',
+                        'send_to': 'AW-16287034089/9PJFCP3gnLkaEPPGpNM-',
                         'value': 10.0,
                         'currency': 'EUR',
                         'event_callback': function () {
@@ -636,7 +636,7 @@ export default function DevisPanneauxSolairesPage() {
                     // Appel de la fonction de conversion Google Ads
                     if (typeof window !== 'undefined' && window.gtag) {
                       window.gtag('event', 'conversion', {
-                        'send_to': 'AW-16817660787/bbv9CPi8qLkaEPPGpNM-',
+                        'send_to': 'AW-16287034089/bbv9CPi8qLkaEPPGpNM-',
                         'value': 1.0,
                         'currency': 'EUR',
                         'event_callback': function () {
@@ -693,7 +693,7 @@ export default function DevisPanneauxSolairesPage() {
                         // Appel de la fonction de conversion Google Ads
                         if (typeof window !== 'undefined' && window.gtag) {
                           window.gtag('event', 'conversion', {
-                            'send_to': 'AW-16817660787/X33tCPnSqbkaEPPGpNM-',
+                            'send_to': 'AW-16287034089/X33tCPnSqbkaEPPGpNM-',
                             'value': 10.0,
                             'currency': 'EUR',
                             'event_callback': function () {
@@ -752,7 +752,7 @@ export default function DevisPanneauxSolairesPage() {
                   // Appel de la fonction de conversion Google Ads
                   if (typeof window !== 'undefined' && window.gtag) {
                     window.gtag('event', 'conversion', {
-                      'send_to': 'AW-16817660787/G0ogCNbAnbkaEPPGpNM-',
+                      'send_to': 'AW-16287034089/G0ogCNbAnbkaEPPGpNM-',
                       'value': 10.0,
                       'currency': 'EUR',
                       'event_callback': function () {

@@ -81,8 +81,32 @@ const pacTypes = [
   }
 ];
 
+const faqs = [
+  {
+    question: "Quel est le prix pour l'installation d'une climatisation réversible / PAC ?",
+    answer: "Le coût dépend du type d'équipement (Mono-split, Multi-split, ou PAC Air-Eau) et de la surface de votre logement. Chez My Ohm Technologies, nos forfaits clés en main (matériel et installation RGE inclus) débutent généralement à partir de 1 500 € pour un système mono-split. Nous vous offrons une étude technique gratuite pour estimer précisément votre projet."
+  },
+  {
+    question: "Quelles sont les aides de l'État disponibles pour une pompe à chaleur ?",
+    answer: "L'installation d'une pompe à chaleur (surtout Air-Eau) donne droit à des aides importantes selon vos ressources : MaPrimeRénov', primes CEE (Certificats d'Économie d'Énergie), éco-PTZ et TVA réduite à 5,5%. Pour une climatisation réversible (Air-Air), vous pouvez bénéficier de la prime CEE. Nos conseillers déduisent directement ces aides de votre devis."
+  },
+  {
+    question: "Quelle est la différence entre climatisation réversible et pompe à chaleur ?",
+    answer: "Il s'agit du même principe thermodynamique. Une climatisation réversible est une pompe à chaleur Air-Air : elle chauffe en hiver et refroidit en été. La pompe à chaleur Air-Eau, elle, chauffe de l'eau envoyée dans vos radiateurs existants ou votre plancher chauffant, en remplacement d'une ancienne chaudière fioul ou gaz."
+  },
+  {
+    question: "Combien de temps dure l'installation d'un système de climatisation ?",
+    answer: "Pour une installation standard d'un climatiseur mono-split (une pièce), les travaux durent environ une demi-journée à une journée. Pour équiper plusieurs pièces (multi-split) ou remplacer une chaudière par une PAC Air-Eau, comptez entre 2 et 4 jours de travaux. Nos techniciens RGE laissent le logement impeccable."
+  },
+  {
+    question: "Pourquoi est-il obligatoire de choisir un installateur certifié RGE ?",
+    answer: "Faire appel à un installateur certifié RGE (Reconnu Garant de l'Environnement) est obligatoire pour deux raisons : d'une part, c'est indispensable pour manipuler les fluides frigorigènes en toute sécurité et activer vos garanties constructeur ; d'autre part, c'est la condition sine qua non pour pouvoir bénéficier des aides financières de l'État."
+  }
+];
+
 export default function ClimatisationPage() {
   const [isExpertModalOpen, setIsExpertModalOpen] = useState(false);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   
   const openExpertModal = () => {
     setIsExpertModalOpen(true);
@@ -90,6 +114,10 @@ export default function ClimatisationPage() {
   
   const closeExpertModal = () => {
     setIsExpertModalOpen(false);
+  };
+
+  const toggleFaq = (index: number) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
   
   return (
@@ -456,6 +484,52 @@ export default function ClimatisationPage() {
         </div>
       </section>
 
+
+      {/* Section FAQ */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Questions Fréquentes sur la Climatisation & PAC
+            </h2>
+            <p className="text-lg text-gray-600">
+              Tout ce que vous devez savoir pour aborder votre projet de chauffage et climatisation en toute sérénité.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, index) => {
+              const isOpen = openFaqIndex === index;
+              return (
+                <div
+                  key={index}
+                  className="border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 hover:border-gray-300 bg-gray-50/50"
+                >
+                  <button
+                    onClick={() => toggleFaq(index)}
+                    className="w-full px-6 py-5 text-left flex justify-between items-center bg-white hover:bg-gray-50/80 transition-colors focus:outline-none"
+                  >
+                    <span className="font-bold text-gray-950 text-lg leading-snug pr-4">
+                      {faq.question}
+                    </span>
+                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 font-bold transition-transform duration-300">
+                      {isOpen ? '−' : '+'}
+                    </span>
+                  </button>
+                  <div
+                    className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'max-h-[300px] border-t border-gray-100' : 'max-h-0'
+                      }`}
+                  >
+                    <div className="p-6 text-gray-600 leading-relaxed text-[15px]">
+                      {faq.answer}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
       {/* Contact CTA Section */}
       <ContactCTASection />

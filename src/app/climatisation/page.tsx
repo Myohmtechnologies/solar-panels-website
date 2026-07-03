@@ -56,6 +56,7 @@ const pacTypes = [
   {
     name: 'Pompe à Chaleur Air-Air',
     idealFor: 'Chauffage & Climatisation',
+    image: '/images/air-air.webp',
     description: 'Chauffez votre logement en hiver et rafraîchissez-le en été. Une solution 2-en-1 performante pour un confort optimal toute l\'année.',
     features: [
       'Chauffage en hiver et climatisation en été',
@@ -68,6 +69,7 @@ const pacTypes = [
   {
     name: 'Pompe à Chaleur Air-Eau',
     idealFor: 'Remplacement de chaudière',
+    image: '/images/air-eaux.jpg',
     description: 'Remplacez votre ancienne chaudière fioul ou gaz par une solution écologique alimentant vos radiateurs ou plancher chauffant existants.',
     features: [
       'Chauffage + production d\'eau chaude sanitaire',
@@ -419,6 +421,16 @@ export default function ClimatisationPage() {
                     <p className="text-sm text-gray-500 mt-1 font-semibold text-[#116290]">Idéal pour : {type.idealFor}</p>
                   </div>
                   <div className="p-8">
+                    {type.image && (
+                      <div className="relative w-full h-52 rounded-2xl overflow-hidden mb-6 shadow-sm border border-gray-100 bg-gray-50">
+                        <Image
+                          src={type.image}
+                          alt={type.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
                     <p className="text-gray-600 mb-6 leading-relaxed">{type.description}</p>
                     <ul className="space-y-4">
                       {type.features.map((feature, i) => (

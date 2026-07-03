@@ -268,7 +268,7 @@ export default function ClimatisationPage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative h-[350px] rounded-2xl overflow-hidden shadow-xl">
               <Image
-                src="/images/maison-panneaux-solaires-borne-de-recharge-batterie-de-stockage.png"
+                src="/images/comment-ça-fonctionne.png"
                 alt="Fonctionnement Pompe à Chaleur"
                 fill
                 className="object-cover"

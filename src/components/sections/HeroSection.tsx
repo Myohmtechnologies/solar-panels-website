@@ -110,7 +110,7 @@ const HeroSection = () => {
             {/* Contenu textuel */}
             <div className="relative z-20 flex flex-col items-center text-center">
               <span className="text-base md:text-xl font-extrabold text-[#ffb700] uppercase tracking-widest mb-3">
-                À partir de 1 390€
+                À partir de 1 240€
               </span>
               <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-wide">
                 Borne de Recharge

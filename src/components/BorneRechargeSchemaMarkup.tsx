@@ -152,7 +152,7 @@ const BorneRechargeSchemaMarkup = () => {
             "name": "Combien coûte l'installation d'une borne de recharge pour voiture électrique ?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Le coût de l'installation d'une borne de recharge à domicile dépend du modèle choisi et de la configuration de votre installation électrique. Chez My Ohm Technologies, nos forfaits clés en main (matériel et pose inclus) débutent à partir de 1 390 € (aides de l'État et crédit d'impôt de 500 € déduits) pour notre Borne Ohme, à partir de 1 490 € pour la Wallbox Pulsar Plus, et à partir de 1 590 € pour le modèle Hager Witty."
+              "text": "Le coût de l'installation d'une borne de recharge à domicile dépend du modèle choisi et de la configuration de votre installation électrique. Chez My Ohm Technologies, nos forfaits clés en main (matériel et pose inclus) débutent à partir de 1 240 € (aides de l'État et crédit d'impôt de 500 € déduits) pour notre Borne Ohme, à partir de 1 490 € pour la Wallbox Pulsar Plus, et à partir de 1 590 € pour le modèle Hager Witty."
             }
           },
           {

@@ -43,7 +43,7 @@ const certifications = [
 const faqs = [
   {
     question: "Combien coûte l'installation d'une borne de recharge pour voiture électrique ?",
-    answer: "Le coût de l'installation d'une borne de recharge à domicile dépend du modèle choisi et de la configuration de votre installation électrique. Chez My Ohm Technologies, nos forfaits clés en main (matériel et pose inclus) débutent à partir de 1 390 € (aides de l'État et crédit d'impôt de 500 € déduits) pour notre Borne Ohme, et à partir de 1 590 € pour les modèles Schneider Charge et Hager Witty."
+    answer: "Le coût de l'installation d'une borne de recharge à domicile dépend du modèle choisi et de la configuration de votre installation électrique. Chez My Ohm Technologies, nos forfaits clés en main (matériel et pose inclus) débutent à partir de 1 390 € (aides de l'État et crédit d'impôt de 500 € déduits) pour notre Borne Ohme, à partir de 1 490 € pour la Wallbox Pulsar Plus, et à partir de 1 590 € pour le modèle Hager Witty."
   },
   {
     question: "Quel est le meilleur emplacement pour installer ma borne de recharge à domicile ?",
@@ -261,12 +261,12 @@ export default function BorneDeRechargePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
-            {/* Carte Schneider Charge */}
+            {/* Carte Wallbox Pulsar Plus */}
             <div className="bg-white rounded-3xl p-8 shadow-md border border-gray-200/60 flex flex-col justify-between relative">
               <div>
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-[#009639] font-bold tracking-wide uppercase text-xs bg-[#009639]/10 px-3 py-1 rounded-full">
-                    Schneider Electric
+                  <span className="text-[#000000] font-bold tracking-wide uppercase text-xs bg-[#000000]/10 px-3 py-1 rounded-full">
+                    Wallbox
                   </span>
                   <span className="text-xs text-orange-600 bg-orange-50 font-semibold px-3 py-1 rounded-full">
                     Garantie optionnelle
@@ -277,21 +277,21 @@ export default function BorneDeRechargePage() {
                 <div className="relative w-full h-48 bg-white rounded-2xl flex items-center justify-center p-6 mb-6 border border-gray-100 shadow-sm">
                   <div className="relative w-full h-full">
                     <Image
-                      src="/images/schneider.png"
-                      alt="Borne Schneider Charge"
+                      src="/images/wallbox-borne-de-recharge-pulsar-plus-socket-type-2s-22kw-monophase-ou-triphase-bluetooth-wifi.jpg"
+                      alt="Borne Wallbox Pulsar Plus"
                       fill
                       className="object-contain"
                     />
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Schneider Charge</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Wallbox Pulsar Plus</h3>
                 <p className="text-sm text-gray-500 mb-4">Puissance modulable 7 à 22 kW</p>
 
                 <div className="mb-6">
                   <span className="text-sm text-gray-500 block">Borne et installation, à partir de</span>
                   <div className="flex items-baseline">
-                    <span className="text-4xl font-extrabold text-gray-900">1 590 €</span>
+                    <span className="text-4xl font-extrabold text-gray-900">1 490 €</span>
                     <span className="text-lg text-gray-500 ml-2">TTC *</span>
                   </div>
                   <span className="text-xs text-gray-400 mt-1 block">*Aides déduites (TVA 5,5% et crédit d'impôt inclus)</span>
@@ -301,10 +301,10 @@ export default function BorneDeRechargePage() {
 
                 <ul className="space-y-3 mb-8">
                   {[
-                    "Borne connectée avec application mobile",
-                    "Programmation intelligente de la recharge",
-                    "Recharge à l'énergie solaire (si photovoltaïque)",
-                    "Extension de garantie constructeur en option"
+                    "Borne connectée (Bluetooth & Wi-Fi)",
+                    "Application myWallbox de suivi de consommation",
+                    "Planification des recharges en heures creuses",
+                    "Design ultra-compact et résistant (IP54 / IK08)"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start text-sm text-gray-600">
                       <svg className="h-5 w-5 text-orange-500 mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>

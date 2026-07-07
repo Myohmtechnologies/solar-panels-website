@@ -262,19 +262,19 @@ export default function BorneDeRechargePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
             {/* Carte Wallbox Pulsar Plus */}
-            <div className="bg-white rounded-3xl p-8 shadow-md border border-gray-200/60 flex flex-col justify-between relative">
+            <div className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 flex flex-col justify-between relative hover:shadow-lg transition-shadow duration-300">
               <div>
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-[#000000] font-bold tracking-wide uppercase text-xs bg-[#000000]/10 px-3 py-1 rounded-full">
+                  <span className="text-[#000000] font-bold tracking-wide uppercase text-[10px] bg-black/5 px-2.5 py-0.5 rounded-full">
                     Wallbox
                   </span>
-                  <span className="text-xs text-orange-600 bg-orange-50 font-semibold px-3 py-1 rounded-full">
+                  <span className="text-[10px] text-orange-600 bg-orange-50 font-semibold px-2.5 py-0.5 rounded-full">
                     Garantie optionnelle
                   </span>
                 </div>
 
                 {/* Image Container */}
-                <div className="relative w-full h-48 bg-white rounded-2xl flex items-center justify-center p-6 mb-6 border border-gray-100 shadow-sm">
+                <div className="relative w-full h-44 mb-4 flex items-center justify-center">
                   <div className="relative w-full h-full">
                     <Image
                       src="/images/wallbox-borne-de-recharge-pulsar-plus-socket-type-2s-22kw-monophase-ou-triphase-bluetooth-wifi.jpg"
@@ -285,29 +285,29 @@ export default function BorneDeRechargePage() {
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Wallbox Pulsar Plus</h3>
-                <p className="text-sm text-gray-500 mb-4">Puissance modulable 7 à 22 kW</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-1">Wallbox Pulsar Plus</h3>
+                <p className="text-xs text-gray-500 mb-3">Puissance modulable 7 à 22 kW</p>
 
-                <div className="mb-6">
-                  <span className="text-sm text-gray-500 block">Borne et installation, à partir de</span>
+                <div className="mb-4">
+                  <span className="text-xs text-gray-500 block">Borne et installation, à partir de</span>
                   <div className="flex items-baseline">
-                    <span className="text-4xl font-extrabold text-gray-900">1 490 €</span>
-                    <span className="text-lg text-gray-500 ml-2">TTC *</span>
+                    <span className="text-3xl font-extrabold text-gray-900">1 490 €</span>
+                    <span className="text-sm text-gray-500 ml-1.5 font-semibold">TTC *</span>
                   </div>
-                  <span className="text-xs text-gray-400 mt-1 block">*Aides déduites (TVA 5,5% et crédit d'impôt inclus)</span>
+                  <span className="text-[10px] text-gray-400 mt-0.5 block">*Aides déduites (TVA 5,5% & crédit d'impôt inclus)</span>
                 </div>
 
-                <hr className="border-gray-100 my-6" />
+                <hr className="border-gray-100 my-4" />
 
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-2 mb-6">
                   {[
                     "Borne connectée (Bluetooth & Wi-Fi)",
                     "Application myWallbox de suivi de consommation",
                     "Planification des recharges en heures creuses",
                     "Design ultra-compact et résistant (IP54 / IK08)"
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start text-sm text-gray-600">
-                      <svg className="h-5 w-5 text-orange-500 mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                    <li key={i} className="flex items-start text-xs text-gray-600">
+                      <svg className="h-4 w-4 text-orange-500 mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
                       <span>{item}</span>
@@ -317,28 +317,28 @@ export default function BorneDeRechargePage() {
               </div>
               <button
                 onClick={openExpertModal}
-                className="w-full py-4 bg-transparent border-2 border-[#116290] text-[#116290] font-semibold rounded-2xl hover:bg-[#116290]/5 transition-all text-center"
+                className="w-full py-3 bg-transparent border-2 border-[#116290] text-[#116290] font-bold rounded-full hover:bg-[#116290]/5 active:scale-[0.98] transition-all text-xs text-center"
               >
                 Obtenir mon estimation
               </button>
             </div>
 
             {/* Carte Borne Ohme */}
-            <div className="bg-white rounded-3xl p-8 shadow-md border-2 border-ffb700 flex flex-col justify-between relative overflow-hidden">
+            <div className="bg-white rounded-3xl p-6 shadow-md border-2 border-ffb700 flex flex-col justify-between relative overflow-hidden hover:shadow-lg transition-shadow duration-300">
               {/* Badge "Notre Meilleure Offre" */}
-              <div className="absolute top-0 right-0 bg-gradient-to-r from-ffeb99 to-ffb700 text-black font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl rounded-tr-[22px] uppercase tracking-wider shadow-sm">
-                Notre Meilleure Offre
+              <div className="absolute top-0 right-0 bg-gradient-to-r from-ffeb99 to-ffb700 text-black font-black text-[9px] px-3.5 py-1 rounded-bl-xl uppercase tracking-widest shadow-sm">
+                Meilleure Offre
               </div>
 
               <div>
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-[#116290] font-bold tracking-wide uppercase text-xs bg-[#116290]/10 px-3 py-1 rounded-full">
+                  <span className="text-[#116290] font-bold tracking-wide uppercase text-[10px] bg-[#116290]/10 px-2.5 py-0.5 rounded-full">
                     Ohme
                   </span>
                 </div>
 
                 {/* Image Container */}
-                <div className="relative w-full h-48 bg-white rounded-2xl flex items-center justify-center p-6 mb-6 border border-gray-100 shadow-sm">
+                <div className="relative w-full h-44 mb-4 flex items-center justify-center">
                   <div className="relative w-full h-full">
                     <Image
                       src="/images/my-ohm.png"
@@ -349,21 +349,21 @@ export default function BorneDeRechargePage() {
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Borne Ohme</h3>
-                <p className="text-sm text-gray-500 mb-4">Puissance 7.4 kW monophasé</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-1">Borne Ohme</h3>
+                <p className="text-xs text-gray-500 mb-3">Puissance 7.4 kW monophasé</p>
 
-                <div className="mb-6">
-                  <span className="text-sm text-gray-500 block">Borne et installation, à partir de</span>
+                <div className="mb-4">
+                  <span className="text-xs text-gray-500 block">Borne et installation, à partir de</span>
                   <div className="flex items-baseline">
-                    <span className="text-4xl font-extrabold text-gray-900">1 240 €</span>
-                    <span className="text-lg text-gray-500 ml-2">TTC *</span>
+                    <span className="text-3xl font-extrabold text-gray-900">1 240 €</span>
+                    <span className="text-sm text-gray-500 ml-1.5 font-semibold">TTC *</span>
                   </div>
-                  <span className="text-xs text-gray-400 mt-1 block">*Aides déduites (TVA 5,5% et crédit d'impôt inclus)</span>
+                  <span className="text-[10px] text-gray-400 mt-0.5 block">*Aides déduites (TVA 5,5% & crédit d'impôt inclus)</span>
                 </div>
 
-                <hr className="border-gray-100 my-6" />
+                <hr className="border-gray-100 my-4" />
 
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-2 mb-6">
                   {[
                     "Borne intelligente et connectée",
                     "Charge dynamique en temps réel",
@@ -371,8 +371,8 @@ export default function BorneDeRechargePage() {
                     "Accès sécurisé par badge RFID",
                     "Garantie décennale installation incluse"
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start text-sm text-gray-600">
-                      <svg className="h-5 w-5 text-orange-500 mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                    <li key={i} className="flex items-start text-xs text-gray-600">
+                      <svg className="h-4 w-4 text-orange-500 mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
                       <span>{item}</span>
@@ -382,26 +382,26 @@ export default function BorneDeRechargePage() {
               </div>
               <button
                 onClick={openExpertModal}
-                className="w-full py-4 bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-semibold rounded-2xl hover:shadow-xl hover:scale-[1.02] transition-all text-center"
+                className="w-full py-3 bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-bold rounded-full hover:shadow-md active:scale-[0.98] transition-all text-xs text-center"
               >
                 Obtenir mon estimation
               </button>
             </div>
 
             {/* Carte Hager Witty */}
-            <div className="bg-white rounded-3xl p-8 shadow-md border border-gray-200/60 flex flex-col justify-between relative">
+            <div className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 flex flex-col justify-between relative hover:shadow-lg transition-shadow duration-300">
               <div>
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-[#00549F] font-bold tracking-wide uppercase text-xs bg-[#00549F]/10 px-3 py-1 rounded-full">
+                  <span className="text-[#00549F] font-bold tracking-wide uppercase text-[10px] bg-[#00549F]/10 px-2.5 py-0.5 rounded-full">
                     Hager
                   </span>
-                  <span className="text-xs text-blue-600 bg-blue-50 font-semibold px-3 py-1 rounded-full">
+                  <span className="text-[10px] text-blue-600 bg-blue-50 font-semibold px-2.5 py-0.5 rounded-full">
                     Lecteur RFID inclus
                   </span>
                 </div>
 
                 {/* Image Container */}
-                <div className="relative w-full h-48 bg-white rounded-2xl flex items-center justify-center p-6 mb-6 border border-gray-100 shadow-sm">
+                <div className="relative w-full h-44 mb-4 flex items-center justify-center">
                   <div className="relative w-full h-full">
                     <Image
                       src="/images/hager.webp"
@@ -412,29 +412,29 @@ export default function BorneDeRechargePage() {
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">Hager Witty</h3>
-                <p className="text-sm text-gray-500 mb-4">Puissance modulable 7.4 à 22 kW</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-1">Hager Witty</h3>
+                <p className="text-xs text-gray-500 mb-3">Puissance modulable 7.4 à 22 kW</p>
 
-                <div className="mb-6">
-                  <span className="text-sm text-gray-500 block">Borne et installation, à partir de</span>
+                <div className="mb-4">
+                  <span className="text-xs text-gray-500 block">Borne et installation, à partir de</span>
                   <div className="flex items-baseline">
-                    <span className="text-4xl font-extrabold text-gray-900">1 590 €</span>
-                    <span className="text-lg text-gray-500 ml-2">TTC *</span>
+                    <span className="text-3xl font-extrabold text-gray-900">1 590 €</span>
+                    <span className="text-sm text-gray-500 ml-1.5 font-semibold">TTC *</span>
                   </div>
-                  <span className="text-xs text-gray-400 mt-1 block">*Aides déduites (TVA 5,5% et crédit d'impôt inclus)</span>
+                  <span className="text-[10px] text-gray-400 mt-0.5 block">*Aides déduites (TVA 5,5% & crédit d'impôt inclus)</span>
                 </div>
 
-                <hr className="border-gray-100 my-6" />
+                <hr className="border-gray-100 my-4" />
 
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-2 mb-6">
                   {[
                     "Gestion dynamique intelligente de la charge",
                     "Borne ultra-robuste certifiée IP55 / IK10",
                     "Contrôle d'accès sécurisé par badge RFID",
                     "Compatible avec la charge solaire photovoltaïque"
                   ].map((item, i) => (
-                    <li key={i} className="flex items-start text-sm text-gray-600">
-                      <svg className="h-5 w-5 text-orange-500 mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                    <li key={i} className="flex items-start text-xs text-gray-600">
+                      <svg className="h-4 w-4 text-orange-500 mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
                       <span>{item}</span>
@@ -444,7 +444,7 @@ export default function BorneDeRechargePage() {
               </div>
               <button
                 onClick={openExpertModal}
-                className="w-full py-4 bg-transparent border-2 border-[#116290] text-[#116290] font-semibold rounded-2xl hover:bg-[#116290]/5 transition-all text-center"
+                className="w-full py-3 bg-transparent border-2 border-[#116290] text-[#116290] font-bold rounded-full hover:bg-[#116290]/5 active:scale-[0.98] transition-all text-xs text-center"
               >
                 Obtenir mon estimation
               </button>

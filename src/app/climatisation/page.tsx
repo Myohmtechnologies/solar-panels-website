@@ -65,38 +65,25 @@ const pacTypes = [
       'Filtration et purification de l\'air intérieur',
       'Installation simple et rapide'
     ]
-  },
-  {
-    name: 'Pompe à Chaleur Air-Eau',
-    idealFor: 'Remplacement de chaudière',
-    image: '/images/air-eaux.jpg',
-    description: 'Remplacez votre ancienne chaudière fioul ou gaz par une solution écologique alimentant vos radiateurs ou plancher chauffant existants.',
-    features: [
-      'Chauffage + production d\'eau chaude sanitaire',
-      'Jusqu\'à 70% d\'économies sur votre facture',
-      'Compatible avec vos radiateurs existants',
-      'Éligible aux aides maximales de l\'État',
-      'Température d\'eau stable et homogène'
-    ]
   }
 ];
 
 const faqs = [
   {
     question: "Quel est le prix pour l'installation d'une climatisation réversible / PAC ?",
-    answer: "Le coût dépend du type d'équipement (Mono-split, Multi-split, ou PAC Air-Eau) et de la surface de votre logement. Chez My Ohm Technologies, nos forfaits clés en main (matériel et installation RGE inclus) débutent généralement à partir de 1 500 € pour un système mono-split. Nous vous offrons une étude technique gratuite pour estimer précisément votre projet."
+    answer: "Le coût dépend de la configuration de votre logement (système Mono-split ou Multi-split) et de sa surface. Chez My Ohm Technologies, nos forfaits clés en main (matériel et installation RGE inclus) débutent généralement à partir de 1 290 € pour un système mono-split. Nous vous offrons une étude technique gratuite pour estimer précisément votre projet."
   },
   {
-    question: "Quelles sont les aides de l'État disponibles pour une pompe à chaleur ?",
-    answer: "L'installation d'une pompe à chaleur (surtout Air-Eau) donne droit à des aides importantes selon vos ressources : MaPrimeRénov', primes CEE (Certificats d'Économie d'Énergie), éco-PTZ et TVA réduite à 5,5%. Pour une climatisation réversible (Air-Air), vous pouvez bénéficier de la prime CEE. Nos conseillers déduisent directement ces aides de votre devis."
+    question: "Quelles sont les aides de l'État disponibles pour une pompe à chaleur Air-Air ?",
+    answer: "Pour une climatisation réversible (pompe à chaleur Air-Air), vous pouvez bénéficier de la prime CEE (Certificats d'Économie d'Énergie), d'une TVA à taux réduit et de facilités de financement comme l'éco-PTZ. Nos conseillers déduisent directement toutes ces aides de votre devis pour vous proposer le meilleur tarif."
   },
   {
-    question: "Quelle est la différence entre climatisation réversible et pompe à chaleur ?",
-    answer: "Il s'agit du même principe thermodynamique. Une climatisation réversible est une pompe à chaleur Air-Air : elle chauffe en hiver et refroidit en été. La pompe à chaleur Air-Eau, elle, chauffe de l'eau envoyée dans vos radiateurs existants ou votre plancher chauffant, en remplacement d'une ancienne chaudière fioul ou gaz."
+    question: "Comment fonctionne une pompe à chaleur Air-Air (climatisation réversible) ?",
+    answer: "La pompe à chaleur Air-Air capte les calories gratuites présentes dans l'air extérieur pour les diffuser sous forme de chaleur dans votre maison en hiver. En été, le cycle s'inverse pour extraire la chaleur de votre habitation et la rejeter à l'extérieur, fonctionnant ainsi comme un climatiseur ultra-performant et très économe en électricité."
   },
   {
     question: "Combien de temps dure l'installation d'un système de climatisation ?",
-    answer: "Pour une installation standard d'un climatiseur mono-split (une pièce), les travaux durent environ une demi-journée à une journée. Pour équiper plusieurs pièces (multi-split) ou remplacer une chaudière par une PAC Air-Eau, comptez entre 2 et 4 jours de travaux. Nos techniciens RGE laissent le logement impeccable."
+    answer: "Pour une installation standard d'un climatiseur mono-split (une seule pièce), les travaux durent environ une demi-journée à une journée. Pour équiper plusieurs pièces de votre logement (système multi-split), comptez entre 1 et 3 jours selon la complexité et le nombre d'unités intérieures à poser."
   },
   {
     question: "Pourquoi est-il obligatoire de choisir un installateur certifié RGE ?",
@@ -159,7 +146,7 @@ export default function ClimatisationPage() {
 
               <div className="mb-6">
                 <span className="text-2xl sm:text-3xl font-extrabold text-[#ffb700] block">
-                  À partir de 1 190 € TTC
+                  À partir de 1 290 € TTC
                 </span>
                 <span className="text-sm text-gray-500 font-medium block mt-1">
                   Chauffage & climatisation — Installateur certifié RGE en région PACA
@@ -319,7 +306,7 @@ export default function ClimatisationPage() {
                 {
                   number: "03",
                   title: "Diffusion intérieure",
-                  description: "La chaleur est restituée à l'intérieur du logement sous forme d'air chaud (Air-Air) ou d'eau chaude (Air-Eau)."
+                  description: "La chaleur est restituée à l'intérieur du logement sous forme d'air chaud par les unités intérieures (mono-split ou multi-split)."
                 },
                 {
                   number: "04",
@@ -427,14 +414,14 @@ export default function ClimatisationPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#116290] mb-4">
-              Nos modèles de pompes à chaleur
+              Notre modèle de pompe à chaleur
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Des solutions simples et performantes adaptées à vos besoins de confort thermique.
+              Une solution de chauffage et de climatisation 2-en-1 performante et économique.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="max-w-2xl mx-auto">
             {pacTypes.map((type, index) => (
               <motion.div
                 key={index}

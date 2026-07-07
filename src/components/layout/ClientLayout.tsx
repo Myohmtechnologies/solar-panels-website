@@ -24,7 +24,7 @@ export default function ClientLayout({
   return (
     <>
       <Header />
-      <main className={`min-h-screen ${isHome ? '' : 'pt-32 md:pt-28'}`}>
+      <main className={`min-h-screen ${isHome ? '' : 'pt-32 md:pt-36'}`}>
         {children}
       </main>
       <Footer />

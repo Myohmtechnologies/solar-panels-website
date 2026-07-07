@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import MobileMenu from './MobileMenu';
@@ -11,6 +12,7 @@ import { PhoneIcon } from '@heroicons/react/24/outline';
 import { throttle } from 'lodash';
 
 const Header = () => {
+  const pathname = usePathname();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showMobileHeader, setShowMobileHeader] = useState(true);
 
@@ -248,6 +250,48 @@ const Header = () => {
             </nav>
           </div>
         </div>
+
+        {/* Secondary SubHeader Desktop */}
+        <div className="bg-gray-50 border-t border-b border-gray-100 py-2.5">
+          <div className="max-w-7xl mx-auto px-4 flex justify-center items-center space-x-12">
+            <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest mr-2">Nos Spécialités :</span>
+            {[
+              { href: '/panneaux-solaire', label: 'Panneaux Solaires', icon: (
+                <svg className="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                </svg>
+              )},
+              { href: '/climatisation', label: 'Climatisation & PAC', icon: (
+                <svg className="w-4 h-4 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18M3 12h18m-3-6L6 18M6 6l12 12" />
+                </svg>
+              )},
+              { href: '/borne-de-recharge', label: 'Bornes de Recharge', icon: (
+                <svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              )},
+              { href: '/electricite-generale', label: 'Électricité Générale', icon: (
+                <svg className="w-4 h-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              )}
+            ].map((item) => (
+              <Link 
+                key={item.href} 
+                href={item.href} 
+                className={`flex items-center gap-1.5 text-[11px] uppercase tracking-wider font-extrabold transition-all duration-200 pb-0.5 border-b-2 ${
+                  pathname === item.href 
+                    ? 'text-[#116290] border-[#116290]' 
+                    : 'text-gray-500 border-transparent hover:text-[#116290] hover:border-gray-300'
+                }`}
+              >
+                {item.icon}
+                <span>{item.label}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
         <InfoBanner />
       </header>
 
@@ -299,6 +343,45 @@ const Header = () => {
               )}
             </button>
           </div>
+        </div>
+
+        {/* Secondary SubHeader Mobile */}
+        <div className="bg-gray-50 border-t border-b border-gray-100 overflow-x-auto whitespace-nowrap scrollbar-none py-2 px-4 flex justify-between items-center gap-4">
+          {[
+            { href: '/panneaux-solaire', label: 'Solaire', icon: (
+              <svg className="w-3.5 h-3.5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+              </svg>
+            )},
+            { href: '/climatisation', label: 'Climatisation', icon: (
+              <svg className="w-3.5 h-3.5 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18M3 12h18m-3-6L6 18M6 6l12 12" />
+              </svg>
+            )},
+            { href: '/borne-de-recharge', label: 'Bornes', icon: (
+              <svg className="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            )},
+            { href: '/electricite-generale', label: 'Électricité', icon: (
+              <svg className="w-3.5 h-3.5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+            )}
+          ].map((item) => (
+            <Link 
+              key={item.href} 
+              href={item.href} 
+              className={`flex items-center gap-1 text-[10px] uppercase tracking-wider font-extrabold pb-0.5 border-b-2 ${
+                pathname === item.href 
+                  ? 'text-[#116290] border-[#116290]' 
+                  : 'text-gray-500 border-transparent'
+              }`}
+            >
+              {item.icon}
+              <span>{item.label}</span>
+            </Link>
+          ))}
         </div>
         <InfoBanner />
       </header>

@@ -269,7 +269,7 @@ export default function BorneDeRechargePage() {
                     Wallbox
                   </span>
                   <span className="text-[10px] text-orange-600 bg-orange-50 font-semibold px-2.5 py-0.5 rounded-full">
-                    Garantie optionnelle
+                    Garantie 3 ans
                   </span>
                 </div>
 
@@ -301,10 +301,11 @@ export default function BorneDeRechargePage() {
 
                 <ul className="space-y-2 mb-6">
                   {[
-                    "Borne connectée (Bluetooth & Wi-Fi)",
-                    "Application myWallbox de suivi de consommation",
-                    "Planification des recharges en heures creuses",
-                    "Design ultra-compact et résistant (IP54 / IK08)"
+                    "Connectivité Wi-Fi et Bluetooth : pilotage simple depuis votre smartphone.",
+                    "Application Wallbox avec contrôle d'accès via l'application.",
+                    "Compatible avec les installations photovoltaïques.",
+                    "SAV réactif, joignable via le portail d'assistance Wallbox.",
+                    "Garantie constructeur : 3 ans."
                   ].map((item, i) => (
                     <li key={i} className="flex items-start text-xs text-gray-600">
                       <svg className="h-4 w-4 text-orange-500 mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -335,6 +336,9 @@ export default function BorneDeRechargePage() {
                   <span className="text-[#116290] font-bold tracking-wide uppercase text-[10px] bg-[#116290]/10 px-2.5 py-0.5 rounded-full">
                     Ohme
                   </span>
+                  <span className="text-[10px] text-orange-600 bg-orange-50 font-semibold px-2.5 py-0.5 rounded-full">
+                    Garantie 3 ans
+                  </span>
                 </div>
 
                 {/* Image Container */}
@@ -349,7 +353,7 @@ export default function BorneDeRechargePage() {
                   </div>
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mb-1">Borne Ohme</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-1">Ohme ePod S</h3>
                 <p className="text-xs text-gray-500 mb-3">Puissance 7.4 kW monophasé</p>
 
                 <div className="mb-4">
@@ -365,11 +369,11 @@ export default function BorneDeRechargePage() {
 
                 <ul className="space-y-2 mb-6">
                   {[
-                    "Borne intelligente et connectée",
-                    "Charge dynamique en temps réel",
-                    "Plug and charge ultra-simplifié",
-                    "Accès sécurisé par badge RFID",
-                    "Garantie décennale installation incluse"
+                    "Carte SIM 4G intégrée : idéale si votre garage ne dispose pas de Wi-Fi ou si le signal est faible.",
+                    "Application Ohme avancée : optimisation automatique selon les heures creuses et les tarifs de votre fournisseur d'énergie.",
+                    "Fonction Solar Boost : recharge avec le surplus de votre production photovoltaïque.",
+                    "SAV réactif et facilement joignable par téléphone.",
+                    "Garantie constructeur : 3 ans."
                   ].map((item, i) => (
                     <li key={i} className="flex items-start text-xs text-gray-600">
                       <svg className="h-4 w-4 text-orange-500 mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
@@ -396,7 +400,7 @@ export default function BorneDeRechargePage() {
                     Hager
                   </span>
                   <span className="text-[10px] text-blue-600 bg-blue-50 font-semibold px-2.5 py-0.5 rounded-full">
-                    Lecteur RFID inclus
+                    Garantie 2 ans
                   </span>
                 </div>
 
@@ -412,7 +416,7 @@ export default function BorneDeRechargePage() {
                   </div>
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mb-1">Hager Witty</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-1">Hager Witty One</h3>
                 <p className="text-xs text-gray-500 mb-3">Puissance modulable 7.4 à 22 kW</p>
 
                 <div className="mb-4">
@@ -428,10 +432,11 @@ export default function BorneDeRechargePage() {
 
                 <ul className="space-y-2 mb-6">
                   {[
-                    "Gestion dynamique intelligente de la charge",
-                    "Borne ultra-robuste certifiée IP55 / IK10",
-                    "Contrôle d'accès sécurisé par badge RFID",
-                    "Compatible avec la charge solaire photovoltaïque"
+                    "Connectivité Bluetooth : configuration simple et rapide depuis votre smartphone.",
+                    "Très facile d'utilisation, avec une prise en main rapide et sans réglages complexes.",
+                    "Application Hager Charge avec contrôle d'accès via l'application et par badge RFID.",
+                    "SAV réactif et facilement joignable par téléphone.",
+                    "Garantie constructeur : 2 ans."
                   ].map((item, i) => (
                     <li key={i} className="flex items-start text-xs text-gray-600">
                       <svg className="h-4 w-4 text-orange-500 mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>

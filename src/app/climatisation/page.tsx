@@ -71,7 +71,7 @@ const pacTypes = [
 const faqs = [
   {
     question: "Quel est le prix pour l'installation d'une climatisation réversible / PAC ?",
-    answer: "Le coût dépend de la configuration de votre logement (système Mono-split ou Multi-split) et de sa surface. Chez My Ohm Technologies, nos forfaits clés en main (matériel et installation RGE inclus) débutent généralement à partir de 1 290 € pour un système mono-split. Nous vous offrons une étude technique gratuite pour estimer précisément votre projet."
+    answer: "Le coût dépend de la configuration de votre logement (système Mono-split ou Multi-split) et de sa surface. Chez My Ohm Technologies, nos forfaits clés en main (matériel et installation RGE inclus) débutent généralement à partir de 1 690 € pour un système mono-split. Nous vous offrons une étude technique gratuite pour estimer précisément votre projet."
   },
   {
     question: "Quelles sont les aides de l'État disponibles pour une pompe à chaleur Air-Air ?",
@@ -146,7 +146,7 @@ export default function ClimatisationPage() {
 
               <div className="mb-6">
                 <span className="text-2xl sm:text-3xl font-extrabold text-[#ffb700] block">
-                  À partir de 1 290 € TTC
+                  À partir de 1 690 € TTC
                 </span>
                 <span className="text-sm text-gray-500 font-medium block mt-1">
                   Chauffage & climatisation — Installateur certifié RGE en région PACA

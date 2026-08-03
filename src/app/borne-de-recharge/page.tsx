@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -22,6 +22,51 @@ import {
 import ContactCTASection from '@/components/sections/ContactCTASection';
 import BorneRechargeSchemaMarkup from '@/components/BorneRechargeSchemaMarkup';
 import EnergyExpertModal from '@/components/modals/EnergyExpertModal';
+
+const realisationsAvis = [
+  {
+    id: 1,
+    name: "Jean-Pierre M. (Nice)",
+    stars: 5,
+    text: "Installation impeccable de ma borne de recharge à Nice. Techniciens très pros, discrets et travail extrêmement propre. Je recommande !",
+    image: "/images/borne/realisation-dune-borne-de-recharge.jpeg"
+  },
+  {
+    id: 2,
+    name: "Sophie L. (Digne)",
+    stars: 5,
+    text: "Très satisfaite de la prestation pour notre maison à Digne. La borne fonctionne parfaitement, la mise en service a été faite avec explications détaillées de l'application.",
+    image: "/images/borne/2026-05-19.jpg"
+  },
+  {
+    id: 3,
+    name: "Laurent D. (Toulon)",
+    stars: 5,
+    text: "Entreprise sérieuse et réactive à Toulon. Devis clair, délai respecté et installation soignée conforme aux exigences de ma voiture. Top !",
+    image: "/images/borne/citroin.webp"
+  },
+  {
+    id: 4,
+    name: "Michel R. (Marseille)",
+    stars: 5,
+    text: "Installation conforme IRVE de notre borne de recharge à Marseille. Excellent contact avec le conseiller technique et travail soigné.",
+    image: "/images/borne/megane.webp"
+  },
+  {
+    id: 5,
+    name: "Chantal B. (Aix-en-Provence)",
+    stars: 5,
+    text: "Très professionnel du début à la fin. La borne Ohme installée à Aix fonctionne parfaitement et nous permet de recharger à moindre coût.",
+    image: "/images/borne/super5.webp"
+  },
+  {
+    id: 6,
+    name: "Julien G. (Manosque)",
+    stars: 5,
+    text: "Une équipe compétente et à l'écoute. La pose de notre borne Wallbox à Manosque s'est faite très rapidement et le rendu est parfait.",
+    image: "/images/borne/tesla.webp"
+  }
+];
 
 const certifications = [
   {
@@ -74,6 +119,7 @@ const faqs = [
 export default function BorneDeRechargePage() {
   const [isExpertModalOpen, setIsExpertModalOpen] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [avisStartIndex, setAvisStartIndex] = useState(0);
 
   const openExpertModal = () => {
     setIsExpertModalOpen(true);
@@ -86,6 +132,31 @@ export default function BorneDeRechargePage() {
   const toggleFaq = (index: number) => {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
   };
+
+  const nextAvis = () => {
+    setAvisStartIndex((prev) => (prev + 1) % realisationsAvis.length);
+  };
+
+  const prevAvis = () => {
+    setAvisStartIndex((prev) => (prev - 1 + realisationsAvis.length) % realisationsAvis.length);
+  };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      nextAvis();
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const getVisibleAvis = () => {
+    const list = [];
+    for (let i = 0; i < 3; i++) {
+      list.push(realisationsAvis[(avisStartIndex + i) % realisationsAvis.length]);
+    }
+    return list;
+  };
+
+  const visibleAvis = getVisibleAvis();
 
   return (
     <main className="overflow-x-hidden bg-white">
@@ -190,6 +261,102 @@ export default function BorneDeRechargePage() {
                 />
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section Réalisations et Avis */}
+      <section className="py-16 bg-gray-50/50 border-b border-gray-100 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-[#116290] mb-3">
+              Leurs Bornes de Recharge Installées par Nos Soins
+            </h2>
+            <div className="flex items-center justify-center space-x-2">
+              <div className="flex text-yellow-500">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="h-5 w-5 fill-current" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <span className="text-sm font-semibold text-gray-600">4.9/5 sur Google Reviews (6 avis récents)</span>
+            </div>
+          </div>
+
+          <div className="relative flex items-center justify-between gap-4">
+            {/* Bouton Gauche */}
+            <button 
+              onClick={prevAvis}
+              className="p-3 rounded-full bg-white border border-gray-200 text-[#116290] hover:bg-gray-50 hover:scale-105 active:scale-95 transition-all shadow-sm z-10 flex-shrink-0"
+              aria-label="Avis précédent"
+            >
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* Grille des cartes animées */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full transition-all duration-500 ease-in-out">
+              {visibleAvis.map((avis, idx) => (
+                <div 
+                  key={avis.id} 
+                  className={`bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition-all duration-500 transform ${
+                    idx === 1 ? 'hidden md:flex animate-fade-in' : idx === 2 ? 'hidden lg:flex animate-fade-in' : 'flex animate-fade-in'
+                  }`}
+                >
+                  <div className="p-6">
+                    <div className="flex items-center space-x-1 text-yellow-500 mb-3">
+                      {[...Array(avis.stars)].map((_, i) => (
+                        <svg key={i} className="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
+                    <p className="text-gray-600 text-sm italic mb-4 min-h-[64px]">
+                      "{avis.text}"
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="font-semibold text-[#116290] text-sm">{avis.name}</span>
+                      <span className="text-[10px] text-gray-400 font-medium">Avis vérifié Google</span>
+                    </div>
+                  </div>
+                  <div className="relative w-full h-56 bg-gray-50 border-t border-gray-100">
+                    <Image
+                      src={avis.image}
+                      alt={`Réalisation borne par My Ohm Technologies - ${avis.name}`}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Bouton Droite */}
+            <button 
+              onClick={nextAvis}
+              className="p-3 rounded-full bg-white border border-gray-200 text-[#116290] hover:bg-gray-50 hover:scale-105 active:scale-95 transition-all shadow-md z-10 flex-shrink-0"
+              aria-label="Avis suivant"
+            >
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Indicateurs de points */}
+          <div className="flex justify-center space-x-2 mt-8">
+            {realisationsAvis.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setAvisStartIndex(index)}
+                className={`h-2.5 rounded-full transition-all duration-300 ${
+                  index === avisStartIndex ? 'w-8 bg-[#116290]' : 'w-2.5 bg-gray-200'
+                }`}
+                aria-label={`Aller à l'avis ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>

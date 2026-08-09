@@ -21,7 +21,7 @@ import {
 } from '@heroicons/react/24/outline';
 import ContactCTASection from '@/components/sections/ContactCTASection';
 import BorneRechargeSchemaMarkup from '@/components/BorneRechargeSchemaMarkup';
-import EnergyExpertModal from '@/components/modals/EnergyExpertModal';
+import BorneRechargeSimulatorModal from '@/components/modals/BorneRechargeSimulatorModal';
 
 const realisationsAvis = [
   {
@@ -253,7 +253,7 @@ export default function BorneDeRechargePage() {
             >
               <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-gradient-to-br from-gray-100 to-gray-200 aspect-[4/3] w-full">
                 <Image
-                  src="/images/borne.jpeg"
+                  src="/images/install-borne.png"
                   alt="Installation borne de recharge pour véhicule électrique"
                   fill
                   className="object-cover"
@@ -1087,7 +1087,7 @@ export default function BorneDeRechargePage() {
       </div>
 
       {/* Expert Modal */}
-      <EnergyExpertModal isOpen={isExpertModalOpen} onClose={closeExpertModal} source="borne" />
+      <BorneRechargeSimulatorModal isOpen={isExpertModalOpen} onClose={closeExpertModal} />
     </main>
   );
 }

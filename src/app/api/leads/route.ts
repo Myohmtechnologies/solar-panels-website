@@ -3,7 +3,7 @@ import { clientPromise } from '@/lib/mongodb';
 import { Resend } from 'resend';
 
 // Configuration de Resend pour l'envoi d'emails
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy');
 
 // Adresses email pour les notifications (utilisant des variables d'environnement)
 // Les adresses peuvent être multiples, séparées par des virgules

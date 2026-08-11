@@ -56,7 +56,7 @@ const realisationsAvis = [
     id: 5,
     name: "Chantal B. (Aix-en-Provence)",
     stars: 5,
-    text: "Très professionnel du début à la fin. La borne Ohme installée à Aix fonctionne parfaitement et nous permet de recharger à moindre coût.",
+    text: "Très professionnel du début à la fin. La borne Schneider installée à Aix fonctionne parfaitement et nous permet de recharger à moindre coût.",
     image: "/images/borne/super5.webp"
   },
   {
@@ -88,7 +88,7 @@ const certifications = [
 const faqs = [
   {
     question: "Combien coûte l'installation d'une borne de recharge pour voiture électrique ?",
-    answer: "Le coût de l'installation d'une borne de recharge à domicile dépend du modèle choisi et de la configuration de votre installation électrique. Chez My Ohm Technologies, nos forfaits clés en main (matériel et pose inclus) débutent à partir de 1 240 € (aides de l'État et crédit d'impôt de 500 € déduits) pour notre Borne Ohme, à partir de 1 490 € pour la Wallbox Pulsar Plus, et à partir de 1 590 € pour le modèle Hager Witty."
+    answer: "Le coût de l'installation d'une borne de recharge à domicile dépend du modèle choisi et de la configuration de votre installation électrique. Chez My Ohm Technologies, nos forfaits clés en main (matériel et pose inclus) débutent à partir de 1 390 € (aides de l'État et crédit d'impôt de 500 € déduits) pour notre Borne Schneider Charge, à partir de 1 490 € pour la Wallbox Pulsar Plus, et à partir de 1 590 € pour le modèle Hager Witty."
   },
   {
     question: "Quel est le meilleur emplacement pour installer ma borne de recharge à domicile ?",
@@ -100,7 +100,7 @@ const faqs = [
   },
   {
     question: "J'habite en maison, comment choisir ma borne de recharge ?",
-    answer: "Le choix se fait en fonction de votre véhicule (puissance maximale acceptée en charge lente/rapide), de vos besoins quotidiens en autonomie, et de votre abonnement électrique. Pour la majorité des maisons individuelles, une borne de 7,4 kW en monophasé est recommandée. Elle permet de recharger complètement n'importe quel véhicule électrique durant la nuit. Si vous avez des panneaux solaires, optez pour une borne intelligente comme la borne Ohme qui maximise l'autoconsommation."
+    answer: "Le choix se fait en fonction de votre véhicule (puissance maximale acceptée en charge lente/rapide), de vos besoins quotidiens en autonomie, et de votre abonnement électrique. Pour la majorité des maisons individuelles, une borne de 7,4 kW en monophasé est recommandée. Elle permet de recharger complètement n'importe quel véhicule électrique durant la nuit. Si vous avez des panneaux solaires, optez pour une borne intelligente comme la Wallbox Pulsar Plus ou la Schneider Charge qui maximisent l'autoconsommation."
   },
   {
     question: "Quelle est la différence entre une borne de recharge et une prise ?",
@@ -197,7 +197,7 @@ export default function BorneDeRechargePage() {
 
               <div className="mb-6">
                 <span className="text-2xl sm:text-3xl font-extrabold text-[#ffb700] block">
-                  À partir de 1 240 € TTC
+                  À partir de 1 390 € TTC
                 </span>
                 <span className="text-sm text-gray-500 font-medium block mt-1">
                   Électricien et installateur certifié IRVE en région PACA
@@ -428,8 +428,76 @@ export default function BorneDeRechargePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
-            {/* Carte Wallbox Pulsar Plus */}
+            {/* Carte Schneider Charge */}
             <div className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 flex flex-col justify-between relative hover:shadow-lg transition-shadow duration-300">
+              <div>
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-[#3dcd58] font-bold tracking-wide uppercase text-[10px] bg-[#3dcd58]/10 px-2.5 py-0.5 rounded-full">
+                    Schneider
+                  </span>
+                  <span className="text-[10px] text-orange-600 bg-orange-50 font-semibold px-2.5 py-0.5 rounded-full">
+                    Garantie 2 ans
+                  </span>
+                </div>
+
+                {/* Image Container */}
+                <div className="relative w-full h-44 mb-4 flex items-center justify-center">
+                  <div className="relative w-full h-full">
+                    <Image
+                      src="/images/schneider.png"
+                      alt="Borne Schneider Charge"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
+
+                <h3 className="text-xl font-bold text-gray-900 mb-1">Schneider Charge</h3>
+                <p className="text-xs text-gray-500 mb-3">Puissance réglable 7.4 à 22 kW</p>
+
+                <div className="mb-4">
+                  <span className="text-xs text-gray-500 block">Borne et installation, à partir de</span>
+                  <div className="flex items-baseline">
+                    <span className="text-3xl font-extrabold text-gray-900">1 390 €</span>
+                    <span className="text-sm text-gray-500 ml-1.5 font-semibold">TTC *</span>
+                  </div>
+                  <span className="text-[10px] text-gray-400 mt-0.5 block">*Aides déduites (TVA 5,5% & crédit d'impôt inclus)</span>
+                </div>
+
+                <hr className="border-gray-100 my-4" />
+
+                <ul className="space-y-2 mb-6">
+                  {[
+                    "Délestage dynamique intelligent en option : évite toute coupure d'électricité.",
+                    "Application Wiser Home de Schneider Electric pour planifier et suivre votre consommation.",
+                    "Robuste et étanche (IP55/IK10) : idéale pour installation extérieure ou garage.",
+                    "Matériel de qualité professionnelle d'un leader mondial de la gestion de l'énergie.",
+                    "Garantie constructeur : 2 ans."
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start text-xs text-gray-600">
+                      <svg className="h-4 w-4 text-orange-500 mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <button
+                onClick={openExpertModal}
+                className="w-full py-3 bg-transparent border-2 border-[#116290] text-[#116290] font-bold rounded-full hover:bg-[#116290]/5 active:scale-[0.98] transition-all text-xs text-center"
+              >
+                Obtenir mon estimation
+              </button>
+            </div>
+
+            {/* Carte Wallbox Pulsar Plus */}
+            <div className="bg-white rounded-3xl p-6 shadow-md border-2 border-ffb700 flex flex-col justify-between relative overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              {/* Badge "Notre Meilleure Offre" */}
+              <div className="absolute top-0 right-0 bg-gradient-to-r from-ffeb99 to-ffb700 text-black font-black text-[9px] px-3.5 py-1 rounded-bl-xl uppercase tracking-widest shadow-sm">
+                Meilleure Offre
+              </div>
+
               <div>
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-[#000000] font-bold tracking-wide uppercase text-[10px] bg-black/5 px-2.5 py-0.5 rounded-full">
@@ -472,74 +540,6 @@ export default function BorneDeRechargePage() {
                     "Application Wallbox avec contrôle d'accès via l'application.",
                     "Compatible avec les installations photovoltaïques.",
                     "SAV réactif, joignable via le portail d'assistance Wallbox.",
-                    "Garantie constructeur : 3 ans."
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start text-xs text-gray-600">
-                      <svg className="h-4 w-4 text-orange-500 mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <button
-                onClick={openExpertModal}
-                className="w-full py-3 bg-transparent border-2 border-[#116290] text-[#116290] font-bold rounded-full hover:bg-[#116290]/5 active:scale-[0.98] transition-all text-xs text-center"
-              >
-                Obtenir mon estimation
-              </button>
-            </div>
-
-            {/* Carte Borne Ohme */}
-            <div className="bg-white rounded-3xl p-6 shadow-md border-2 border-ffb700 flex flex-col justify-between relative overflow-hidden hover:shadow-lg transition-shadow duration-300">
-              {/* Badge "Notre Meilleure Offre" */}
-              <div className="absolute top-0 right-0 bg-gradient-to-r from-ffeb99 to-ffb700 text-black font-black text-[9px] px-3.5 py-1 rounded-bl-xl uppercase tracking-widest shadow-sm">
-                Meilleure Offre
-              </div>
-
-              <div>
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-[#116290] font-bold tracking-wide uppercase text-[10px] bg-[#116290]/10 px-2.5 py-0.5 rounded-full">
-                    Ohme
-                  </span>
-                  <span className="text-[10px] text-orange-600 bg-orange-50 font-semibold px-2.5 py-0.5 rounded-full">
-                    Garantie 3 ans
-                  </span>
-                </div>
-
-                {/* Image Container */}
-                <div className="relative w-full h-44 mb-4 flex items-center justify-center">
-                  <div className="relative w-full h-full">
-                    <Image
-                      src="/images/my-ohm.png"
-                      alt="Borne de recharge Ohme"
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
-
-                <h3 className="text-xl font-bold text-gray-900 mb-1">Ohme ePod S</h3>
-                <p className="text-xs text-gray-500 mb-3">Puissance 7.4 kW monophasé</p>
-
-                <div className="mb-4">
-                  <span className="text-xs text-gray-500 block">Borne et installation, à partir de</span>
-                  <div className="flex items-baseline">
-                    <span className="text-3xl font-extrabold text-gray-900">1 240 €</span>
-                    <span className="text-sm text-gray-500 ml-1.5 font-semibold">TTC *</span>
-                  </div>
-                  <span className="text-[10px] text-gray-400 mt-0.5 block">*Aides déduites (TVA 5,5% & crédit d'impôt inclus)</span>
-                </div>
-
-                <hr className="border-gray-100 my-4" />
-
-                <ul className="space-y-2 mb-6">
-                  {[
-                    "Carte SIM 4G intégrée : idéale si votre garage ne dispose pas de Wi-Fi ou si le signal est faible.",
-                    "Application Ohme avancée : optimisation automatique selon les heures creuses et les tarifs de votre fournisseur d'énergie.",
-                    "Fonction Solar Boost : recharge avec le surplus de votre production photovoltaïque.",
-                    "SAV réactif et facilement joignable par téléphone.",
                     "Garantie constructeur : 3 ans."
                   ].map((item, i) => (
                     <li key={i} className="flex items-start text-xs text-gray-600">
@@ -956,7 +956,7 @@ export default function BorneDeRechargePage() {
               {
                 image: '/images/borne-nice.jpeg',
                 title: 'Villa à Nice',
-                description: 'Installation en garage fermé d\'une borne de recharge Ohme 7.4 kW robuste et compacte.',
+                description: 'Installation en garage fermé d\'une borne de recharge Schneider Charge 7.4 kW robuste et compacte.',
                 city: 'Nice',
                 details: 'Pose intérieure en garage'
               },

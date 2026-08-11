@@ -5,7 +5,7 @@ if (!process.env.RESEND_API_KEY) {
   console.error('❌ RESEND_API_KEY manquante dans .env.local');
 }
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY || 're_dummy');
 
 const headerHtml = `
   <div style="background-color: #FFDF64; padding: 20px; text-align: center;">

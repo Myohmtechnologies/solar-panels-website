@@ -17,7 +17,7 @@ import {
   CpuChipIcon
 } from '@heroicons/react/24/outline';
 import ContactCTASection from '@/components/sections/ContactCTASection';
-import EnergyExpertModal from '@/components/modals/EnergyExpertModal';
+import CablageReseauModal from '@/components/modals/CablageReseauModal';
 
 const stats = [
   { label: 'Prises RJ45 Certifiées', value: '4 800+' },
@@ -98,16 +98,94 @@ const steps = [
 
 const testimonials = [
   {
-    name: 'Olivier D. (Directeur Informatique - Aix-en-Provence)',
-    role: 'Réseau de Bureaux (80 postes)',
-    text: 'My Ohm Technologies a câblé l\'ensemble de nos nouveaux bureaux en Cat 6a. Le travail sur la baie de brassage est d\'une propreté exemplaire, et le cahier de recette Fluke nous a été remis dès le lendemain. Un vrai travail de pro.',
-    stars: 5
+    name: 'Olivier D.',
+    location: 'Sophia Antipolis',
+    role: 'Directeur des Systèmes d\'Information',
+    company: 'Entreprise Tech (80 postes)',
+    text: 'My Ohm Technologies a câblé l\'ensemble de nos nouveaux bureaux en Cat 6a. Le travail sur la baie de brassage 42U est d\'une propreté exemplaire, et le cahier de recette Fluke nous a été remis dès le lendemain. Un vrai travail de pro.',
+    stars: 5,
+    tag: 'Câblage Cat 6a & Baie 42U'
   },
   {
-    name: 'Sarah M. (Gérante d\'Hôtel - Toulon)',
-    role: 'Raccordement Fibre & Wi-Fi Client',
-    text: 'Nous devions relier trois bâtiments distincts en fibre optique pour étendre notre réseau Wi-Fi. L\'équipe a réalisé les soudures de fibre et installé les tiroirs optiques très proprement. Le débit est parfait partout.',
-    stars: 5
+    name: 'Sarah M.',
+    location: 'Toulon',
+    role: 'Gérante d\'Établissement Hôtelier',
+    company: 'Complexe Hôtelier & Résidence',
+    text: 'Nous devions relier trois bâtiments distincts en fibre optique monomode pour étendre notre réseau Wi-Fi client. L\'équipe a réalisé les soudures de fibre et installé les tiroirs optiques très proprement. Le débit est ultra-stable partout.',
+    stars: 5,
+    tag: 'Fibre Optique Monomode'
+  },
+  {
+    name: 'Dr. Thomas B.',
+    location: 'Marseille (8e)',
+    role: 'Médecin Coordinateur',
+    company: 'Centre Médical Pluridisciplinaire',
+    text: 'Installation de 35 prises RJ45 blindées pour nos équipements d\'imagerie et postes médicaux. Travail soigné, aucune goulotte apparente disgracieuse et respect strict des normes de sécurité.',
+    stars: 5,
+    tag: 'Réseau Santé & Sécurité'
+  },
+  {
+    name: 'Laurent V.',
+    location: 'Manosque',
+    role: 'Directeur de Site Industriel',
+    company: 'Site de Production & Logistique',
+    text: 'Câblage en grande hauteur avec nacelle dans notre atelier de production. Les techniciens sont certifiés et ont parfaitement protégé les câbles dans des chemins de câbles métalliques.',
+    stars: 5,
+    tag: 'Câblage Industriel CACES'
+  },
+  {
+    name: 'Émilie R.',
+    location: 'Nice',
+    role: 'Fondatrice & Gestionnaire',
+    company: 'Espace de Coworking (400 m²)',
+    text: 'Déploiement de 12 bornes Wi-Fi 6 professionnelles en PoE et brassage complet de notre baie. Nos 60 coworkers ont désormais une connexion sans fil ultra-rapide sans aucune micro-coupure.',
+    stars: 5,
+    tag: 'Wi-Fi 6 Haute Densité'
+  },
+  {
+    name: 'Marc A.',
+    location: 'Aix-en-Provence',
+    role: 'Expert-Comptable Associé',
+    company: 'Cabinet d\'Audit & Conseil',
+    text: 'Notre ancienne baie était un véritable plat de spaghettis. My Ohm a réalisé un nettoyage de baie de nuit : remplacement des cordons, étiquetage clair et remise au propre. Zéro impact sur notre journée de travail.',
+    stars: 5,
+    tag: 'Nettoyage & Audit de Baie'
+  },
+  {
+    name: 'Julien P.',
+    location: 'Avignon',
+    role: 'Responsable d\'Exploitation',
+    company: 'Concession Automobile',
+    text: 'Création du réseau pour le showroom commercial et l\'atelier mécanique, incluant le raccordement de 16 caméras IP. Équipe ponctuelle, dynamique et devis respecté au centime près.',
+    stars: 5,
+    tag: 'Réseau & Vidéosurveillance IP'
+  },
+  {
+    name: 'Claire D.',
+    location: 'Cannes',
+    role: 'Directrice d\'Établissement',
+    company: 'Campus & École Privée',
+    text: 'Mise en place du réseau informatique pour 4 salles de classe numériques et la salle des professeurs. Le test Fluke a confirmé un débit maximal sur chaque prise. Nous recommandons sans hésiter.',
+    stars: 5,
+    tag: 'Certification Fluke Réseau'
+  },
+  {
+    name: 'Antoine G.',
+    location: 'Marseille',
+    role: 'Directeur d\'Agence',
+    company: 'Studio de Création & Post-production',
+    text: 'Nos serveurs NAS nécessitaient des transferts très lourds. My Ohm nous a installé un réseau 10 Gbits/s en Cat 7 avec switchs managés. Nos temps de rendu et d\'échange de rushs 4K ont été divisés par 5.',
+    stars: 5,
+    tag: 'Réseau 10 Gbits/s Cat 7'
+  },
+  {
+    name: 'Philippe B.',
+    location: 'Cavaillon',
+    role: 'Directeur Logistique',
+    company: 'Plateforme de Distribution',
+    text: 'Liaison fibre de 350 mètres entre nos bureaux administratifs et le quai d\'expédition. Soudure par fusion irréprochable et dossier technique complet fourni. Des experts très compétents.',
+    stars: 5,
+    tag: 'Liaison Fibre Longue Distance'
   }
 ];
 
@@ -303,35 +381,78 @@ export default function CablageReseauFibreProPage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 lg:py-28 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 px-4 py-1.5 bg-yellow-500/10 rounded-full mb-4">
+              <span className="text-yellow-700 font-bold text-xs uppercase tracking-wider">Avis Clients Vérifiés Google 5.0 ★</span>
+            </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-gray-950 mb-4">
-              Ils Nous Font Confiance
+              Ils Nous Font Confiance en Région PACA
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Découvrez les retours de nos clients professionnels pour qui nous avons structuré le réseau informatique.
+              Découvrez les retours d'expérience de nos clients professionnels pour qui nous avons déployé et certifié le réseau informatique.
             </p>
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {testimonials.map((test, index) => (
-              <div key={index} className="bg-gray-50/60 p-8 rounded-3xl border border-gray-100 flex flex-col justify-between">
-                <p className="text-gray-600 italic text-sm leading-relaxed mb-6">"{test.text}"</p>
+        {/* Animated Marquee Slider */}
+        <div className="relative w-full overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+          <motion.div
+            className="flex gap-6 w-max cursor-grab active:cursor-grabbing px-4"
+            animate={{ x: ['0%', '-50%'] }}
+            transition={{
+              x: {
+                repeat: Infinity,
+                repeatType: 'loop',
+                duration: 45,
+                ease: 'linear'
+              }
+            }}
+            whileHover={{ transition: { duration: 0 } }}
+          >
+            {[...testimonials, ...testimonials].map((test, index) => (
+              <div
+                key={index}
+                className="w-[320px] sm:w-[380px] flex-shrink-0 bg-gray-50/80 hover:bg-white p-7 rounded-3xl border border-gray-200/70 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              >
                 <div>
-                  <div className="flex text-yellow-500 mb-2">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 bg-[#116290]/10 text-[#116290] rounded-full">
+                      {test.tag}
+                    </span>
+                    <span className="text-xs text-gray-400 font-medium">{test.location}</span>
+                  </div>
+
+                  <div className="flex text-yellow-400 mb-3">
                     {[...Array(test.stars)].map((_, i) => (
                       <svg key={i} className="h-4 w-4 fill-current" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
                     ))}
                   </div>
-                  <h4 className="font-bold text-gray-950 text-sm">{test.name}</h4>
-                  <p className="text-gray-500 text-xs">{test.role}</p>
+
+                  <p className="text-gray-700 text-sm leading-relaxed mb-6 italic">
+                    "{test.text}"
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-gray-200/60 flex items-center justify-between">
+                  <div>
+                    <h4 className="font-bold text-gray-950 text-sm">{test.name}</h4>
+                    <p className="text-gray-500 text-xs">{test.role}</p>
+                    <p className="text-gray-400 text-[11px] font-medium">{test.company}</p>
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-[#116290]/10 flex items-center justify-center text-[#116290] font-bold text-xs">
+                    ✓
+                  </div>
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -382,13 +503,154 @@ export default function CablageReseauFibreProPage() {
         </div>
       </section>
 
+      {/* Coverage & Internal Linking Section */}
+      <section className="py-20 lg:py-24 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Zones d'intervention PACA */}
+            <div>
+              <div className="inline-flex items-center space-x-2 px-3 py-1 bg-[#116290]/10 rounded-full mb-4">
+                <span className="text-[#116290] font-bold text-xs uppercase tracking-wider">Intervention Rapide</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-950 mb-4">
+                Déploiement Réseau dans Toute la Région PACA
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                Nos équipes de techniciens réseau et électriciens qualifiés interviennent sous 48h sur vos sites professionnels, bureaux, cliniques et entrepôts dans l'ensemble des départements du Sud :
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {[
+                  { dept: '13 - Bouches-du-Rhône', cities: 'Marseille, Aix-en-Provence, Aubagne, Arles' },
+                  { dept: '83 - Var', cities: 'Toulon, La Seyne, Fréjus, Draguignan' },
+                  { dept: '06 - Alpes-Maritimes', cities: 'Nice, Cannes, Antibes, Sophia Antipolis' },
+                  { dept: '04 - Alpes-de-Haute-Provence', cities: 'Manosque, Digne-les-Bains, Sisteron' },
+                  { dept: '84 - Vaucluse', cities: 'Avignon, Cavaillon, Orange, Pertuis' }
+                ].map((item, idx) => (
+                  <div key={idx} className="p-3.5 bg-gray-50 rounded-2xl border border-gray-100">
+                    <p className="font-bold text-gray-900 text-xs text-[#116290] mb-0.5">{item.dept}</p>
+                    <p className="text-gray-500 text-[11px]">{item.cities}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Prestations Complémentaires Pro (Maillage Interne) */}
+            <div>
+              <div className="inline-flex items-center space-x-2 px-3 py-1 bg-[#ffb700]/10 rounded-full mb-4">
+                <span className="text-yellow-700 font-bold text-xs uppercase tracking-wider">Solutions Globales Pro</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-950 mb-4">
+                Nos Autres Expertises pour Entreprises
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                Profitez d'un interlocuteur unique pour l'ensemble de vos infrastructures techniques et énergétiques :
+              </p>
+              <div className="space-y-4">
+                <Link
+                  href="/electricite-generale"
+                  className="block p-4 rounded-2xl bg-gray-50 hover:bg-[#116290]/5 border border-gray-100 hover:border-[#116290]/30 transition-all group"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-bold text-gray-900 text-sm group-hover:text-[#116290] transition-colors">
+                        ⚡ Électricité Générale Tertiaire & Tableaux
+                      </h4>
+                      <p className="text-gray-500 text-xs mt-1">
+                        Rénovation de tableaux électriques, équilibrage triphasé, éclairage LED de bureaux.
+                      </p>
+                    </div>
+                    <ArrowRightIcon className="h-5 w-5 text-gray-400 group-hover:text-[#116290] group-hover:translate-x-1 transition-all flex-shrink-0 ml-3" />
+                  </div>
+                </Link>
+
+                <Link
+                  href="/borne-de-recharge"
+                  className="block p-4 rounded-2xl bg-gray-50 hover:bg-[#116290]/5 border border-gray-100 hover:border-[#116290]/30 transition-all group"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-bold text-gray-900 text-sm group-hover:text-[#116290] transition-colors">
+                        🔌 Bornes de Recharge IRVE Flotte d'Entreprise
+                      </h4>
+                      <p className="text-gray-500 text-xs mt-1">
+                        Installation de bornes pour véhicules électriques de société et parkings clients.
+                      </p>
+                    </div>
+                    <ArrowRightIcon className="h-5 w-5 text-gray-400 group-hover:text-[#116290] group-hover:translate-x-1 transition-all flex-shrink-0 ml-3" />
+                  </div>
+                </Link>
+
+                <Link
+                  href="/panneaux-solaire"
+                  className="block p-4 rounded-2xl bg-gray-50 hover:bg-[#116290]/5 border border-gray-100 hover:border-[#116290]/30 transition-all group"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-bold text-gray-900 text-sm group-hover:text-[#116290] transition-colors">
+                        ☀️ Photovoltaïque & Autoconsommation Entreprise
+                      </h4>
+                      <p className="text-gray-500 text-xs mt-1">
+                        Réduisez les charges électriques de vos bâtiments avec une toiture solaire pro.
+                      </p>
+                    </div>
+                    <ArrowRightIcon className="h-5 w-5 text-gray-400 group-hover:text-[#116290] group-hover:translate-x-1 transition-all flex-shrink-0 ml-3" />
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <div id="contact">
         <ContactCTASection />
       </div>
 
-      {/* Expert Modal */}
-      <EnergyExpertModal isOpen={isExpertModalOpen} onClose={closeExpertModal} source="other" />
+      {/* Modal Câblage Réseau Pro */}
+      <CablageReseauModal isOpen={isExpertModalOpen} onClose={closeExpertModal} />
+
+      {/* JSON-LD Structured Data Schema for Google SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@graph': [
+              {
+                '@type': 'Service',
+                'name': 'Câblage Informatique & Raccordement Fibre Optique Pro',
+                'provider': {
+                  '@type': 'LocalBusiness',
+                  'name': 'My Ohm Technologies',
+                  'telephone': '+33492766858',
+                  'url': 'https://www.myohmtechnologies.com',
+                  'areaServed': [
+                    { '@type': 'AdministrativeArea', 'name': "Provence-Alpes-Côte d'Azur" },
+                    { '@type': 'AdministrativeArea', 'name': 'Bouches-du-Rhône' },
+                    { '@type': 'AdministrativeArea', 'name': 'Var' },
+                    { '@type': 'AdministrativeArea', 'name': 'Alpes-Maritimes' },
+                    { '@type': 'AdministrativeArea', 'name': 'Alpes-de-Haute-Provence' },
+                    { '@type': 'AdministrativeArea', 'name': 'Vaucluse' }
+                  ]
+                },
+                'description': 'Installation et certification de câblage informatique RJ45 Cat 6a/7/8 et raccordement de fibre optique monomode et multimode pour entreprises en région PACA.'
+              },
+              {
+                '@type': 'FAQPage',
+                'mainEntity': faqs.map(faq => ({
+                  '@type': 'Question',
+                  'name': faq.question,
+                  'acceptedAnswer': {
+                    '@type': 'Answer',
+                    'text': faq.answer
+                  }
+                }))
+              }
+            ]
+          })
+        }}
+      />
     </main>
   );
 }

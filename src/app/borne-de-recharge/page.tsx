@@ -221,12 +221,12 @@ export default function BorneDeRechargePage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   onClick={openExpertModal}
-                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-br from-ffeb99 to-ffb700 text-black rounded-full font-medium text-lg hover:shadow-xl transition-all"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white rounded-lg font-medium text-lg hover:bg-[var(--color-primary)]/90 transition-colors duration-[var(--transition-fast)] shadow-md hover:shadow-xl"
                 >
                   Obtenir mon estimation
                   <ArrowRightIcon className="h-5 w-5 ml-2" />
                 </button>
-                 <a
+                <a
                   href="tel:+33492766858"
                   onClick={() => {
                     if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -286,7 +286,7 @@ export default function BorneDeRechargePage() {
 
           <div className="relative flex items-center justify-between gap-4">
             {/* Bouton Gauche */}
-            <button 
+            <button
               onClick={prevAvis}
               className="p-3 rounded-full bg-white border border-gray-200 text-[#116290] hover:bg-gray-50 hover:scale-105 active:scale-95 transition-all shadow-sm z-10 flex-shrink-0"
               aria-label="Avis précédent"
@@ -299,11 +299,10 @@ export default function BorneDeRechargePage() {
             {/* Grille des cartes animées */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full transition-all duration-500 ease-in-out">
               {visibleAvis.map((avis, idx) => (
-                <div 
-                  key={avis.id} 
-                  className={`bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition-all duration-500 transform ${
-                    idx === 1 ? 'hidden md:flex animate-fade-in' : idx === 2 ? 'hidden lg:flex animate-fade-in' : 'flex animate-fade-in'
-                  }`}
+                <div
+                  key={avis.id}
+                  className={`bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 flex flex-col justify-between hover:shadow-md transition-all duration-500 transform ${idx === 1 ? 'hidden md:flex animate-fade-in' : idx === 2 ? 'hidden lg:flex animate-fade-in' : 'flex animate-fade-in'
+                    }`}
                 >
                   <div className="p-6">
                     <div className="flex items-center space-x-1 text-yellow-500 mb-3">
@@ -334,7 +333,7 @@ export default function BorneDeRechargePage() {
             </div>
 
             {/* Bouton Droite */}
-            <button 
+            <button
               onClick={nextAvis}
               className="p-3 rounded-full bg-white border border-gray-200 text-[#116290] hover:bg-gray-50 hover:scale-105 active:scale-95 transition-all shadow-md z-10 flex-shrink-0"
               aria-label="Avis suivant"
@@ -351,9 +350,8 @@ export default function BorneDeRechargePage() {
               <button
                 key={index}
                 onClick={() => setAvisStartIndex(index)}
-                className={`h-2.5 rounded-full transition-all duration-300 ${
-                  index === avisStartIndex ? 'w-8 bg-[#116290]' : 'w-2.5 bg-gray-200'
-                }`}
+                className={`h-2.5 rounded-full transition-all duration-300 ${index === avisStartIndex ? 'w-8 bg-[#116290]' : 'w-2.5 bg-gray-200'
+                  }`}
                 aria-label={`Aller à l'avis ${index + 1}`}
               />
             ))}
@@ -458,7 +456,7 @@ export default function BorneDeRechargePage() {
                 <div className="mb-4">
                   <span className="text-xs text-gray-500 block">Borne et installation, à partir de</span>
                   <div className="flex items-baseline">
-                    <span className="text-3xl font-extrabold text-gray-900">1 490 €</span>
+                    <span className="text-3xl font-extrabold text-gray-900">1 650 €</span>
                     <span className="text-sm text-gray-500 ml-1.5 font-semibold">TTC *</span>
                   </div>
                   <span className="text-[10px] text-gray-400 mt-0.5 block">*Aides déduites (TVA 5,5% & crédit d'impôt inclus)</span>
@@ -589,7 +587,7 @@ export default function BorneDeRechargePage() {
                 <div className="mb-4">
                   <span className="text-xs text-gray-500 block">Borne et installation, à partir de</span>
                   <div className="flex items-baseline">
-                    <span className="text-3xl font-extrabold text-gray-900">1 590 €</span>
+                    <span className="text-3xl font-extrabold text-gray-900">1 690 €</span>
                     <span className="text-sm text-gray-500 ml-1.5 font-semibold">TTC *</span>
                   </div>
                   <span className="text-[10px] text-gray-400 mt-0.5 block">*Aides déduites (TVA 5,5% & crédit d'impôt inclus)</span>
@@ -1008,7 +1006,7 @@ export default function BorneDeRechargePage() {
                       {realisation.description}
                     </p>
                   </div>
-                  
+
                   <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400 font-medium">
                     <span>{realisation.details}</span>
                     <span className="text-orange-500 group-hover:translate-x-1 transition-transform flex items-center gap-1">

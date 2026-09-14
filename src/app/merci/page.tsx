@@ -2,10 +2,13 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import MetaLeadPixel from '@/components/analytics/MetaLeadPixel';
 
 export default function MerciPage() {
   return (
     <div className="min-h-screen bg-gray-50/30 flex flex-col justify-between">
+      {/* Pixel Meta Ads : validation de lead */}
+      <MetaLeadPixel />
       {/* Header avec Logo */}
       <header className="py-6 bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-center">

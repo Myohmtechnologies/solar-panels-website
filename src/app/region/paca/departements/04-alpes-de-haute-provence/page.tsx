@@ -6,7 +6,6 @@ import RegionAids from '@/components/sections/RegionAids';
 import RegionFAQ from '@/components/sections/RegionFAQ';
 import ContactCTASection from '@/components/sections/ContactCTASection';
 import LocalReviews from '@/components/sections/LocalReviews';
-import PrixInstallation from '@/components/PrixInstallation';
 import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
 import { RegionData } from '@/config/seo';
 
@@ -116,35 +115,35 @@ const regionData: RegionData = {
 export default function DepartmentPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-f2f6fa to-e3e9f0">
-      <RegionHero 
+      <RegionHero
         region={departementData.name}
         ensoleillement="2750 heures/an"
         potentielSolaire="Très bon (1400 kWh/kWc)"
       />
-      
-      <DepartmentCitiesList 
+
+      <DepartmentCitiesList
         departmentCode={departementData.code}
         departmentName={departementData.name}
         cities={alpesDeHauteProvence.cities}
       />
 
-      <PrixInstallation />
-      
-      <RegionAids 
+
+
+      <RegionAids
         region={regionData}
-        advantages={departementData.advantages} 
+        advantages={departementData.advantages}
       />
-      
-      <LocalReviews 
+
+      <LocalReviews
         region={regionData}
       />
-      
+
       <ClientTestimonialsSection />
-      
-      <RegionFAQ 
+
+      <RegionFAQ
         faqs={departementData.faqs}
       />
-      
+
       <ContactCTASection />
     </main>
   );

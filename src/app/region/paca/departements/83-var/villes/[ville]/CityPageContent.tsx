@@ -7,7 +7,6 @@ import CityHeroVideo from '@/components/sections/CityHeroVideo';
 import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
 import SolarProductionProcessSection from '@/components/sections/SolarProductionProcessSection';
 import CityIntroSection from '@/components/sections/CityIntroSection';
-import InstallationPricingSection from '@/components/sections/InstallationPricingSection';
 import StateAidsSection from '@/components/sections/StateAidsSection';
 import SolarComponentsSection from '@/components/sections/SolarComponentsSection';
 import LastInstallationsSection from '@/components/sections/LastInstallationsSection';
@@ -159,7 +158,7 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
       />
 
       {/* 1. Section Hero Video */}
-      <CityHeroVideo 
+      <CityHeroVideo
         cityName={villeName}
         departmentCode="83"
         departmentName="Var"
@@ -176,7 +175,7 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
       <SolarProductionProcessSection />
 
       {/* 4. Section Introduction Ville */}
-      <CityIntroSection 
+      <CityIntroSection
         cityName={cityData.name}
         region="PACA"
         department="Var"
@@ -184,7 +183,7 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
       />
 
       {/* 5. Section Puissance Solaire */}
-      <SolarPowerSection 
+      <SolarPowerSection
         cityName={villeName}
         sunshineHours={cityData.sunshineHours || 2800}
       />
@@ -192,8 +191,6 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
       {/* 6. Section Aides d'État */}
       <StateAidsSection ville={villeName} />
 
-      {/* 7. Section Prix Installation */}
-      <InstallationPricingSection ville={cityData.name} />
 
       {/* 8. Section Composants Solaires */}
       <SolarComponentsSection />
@@ -208,7 +205,7 @@ export default function CityPageContent({ ville, cityData }: CityPageContentProp
       <SolarComparisonSection />
 
       {/* 12. Section Présence Locale */}
-      <LocalPresenceSection 
+      <LocalPresenceSection
         cityData={localPresenceData}
         departmentCode="83"
         departmentName="Var"

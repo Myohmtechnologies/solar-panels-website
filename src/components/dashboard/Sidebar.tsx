@@ -21,12 +21,9 @@ import {
 const navigation = [
   { name: 'Tableau de bord', href: '/dashboard', icon: HomeIcon },
   { name: 'Prospects', href: '/dashboard/prospects', icon: UsersIcon },
-  { name: 'Devis', href: '/dashboard/devis', icon: ReceiptRefundIcon },
   { name: 'Historique devis', href: '/dashboard/devis/historique', icon: ClockIcon },
   { name: 'Projets terminés', href: '/dashboard/completed', icon: CheckCircleIcon },
-  { name: 'Prospects non intéressés', href: '/dashboard/not-interested', icon: HandThumbDownIcon },
-  { name: 'Blog', href: '/dashboard/blog', icon: DocumentTextIcon },
-  { name: 'Réalisations', href: '/dashboard/realisations', icon: PhotoIcon },
+  { name: 'perdu', href: '/dashboard/not-interested', icon: HandThumbDownIcon },
   { name: 'Projets', href: '/dashboard/projets', icon: BriefcaseIcon },
   { name: 'Paramètres', href: '/dashboard/settings', icon: Cog6ToothIcon },
 ];
@@ -62,23 +59,22 @@ export default function Sidebar() {
                   className={`group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${isActive
                     ? 'bg-white text-[#0B6291] shadow-md'
                     : 'text-white hover:bg-white/10'
-                  }`}
+                    }`}
                 >
                   <item.icon
-                    className={`mr-3 flex-shrink-0 h-5 w-5 ${
-                      isActive ? 'text-[#ffb700]' : 'text-white group-hover:text-[#ffeb99]'
-                    }`}
+                    className={`mr-3 flex-shrink-0 h-5 w-5 ${isActive ? 'text-[#ffb700]' : 'text-white group-hover:text-[#ffeb99]'
+                      }`}
                   />
                   <span className="truncate">{item.name}</span>
                 </Link>
               );
             })}
           </nav>
-          
+
           {/* Déconnexion */}
           <div className="mt-6 pt-6 border-t border-white/20">
-            <Link 
-              href="/logout" 
+            <Link
+              href="/logout"
               className="group flex items-center px-4 py-3 text-sm font-medium rounded-xl text-white hover:bg-white/10 transition-all duration-200"
             >
               <ArrowLeftOnRectangleIcon className="mr-3 flex-shrink-0 h-5 w-5 text-white group-hover:text-[#ffeb99]" />

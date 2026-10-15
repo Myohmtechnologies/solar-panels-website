@@ -12,13 +12,8 @@ const TABS = [
   { name: 'Tous les prospects', value: 'ALL' },
   { name: 'Nouveaux', value: LeadStatus.NEW },
   { name: 'Contactés', value: LeadStatus.CONTACTED },
-  { name: 'RDV Client', value: 'RDV_SCHEDULED' },
-  { name: 'Signature en cours', value: LeadStatus.SECOND_RDV },
-  { name: 'Visites techniques', value: LeadStatus.TECHNICAL_VISIT },
-  { name: 'Démarche Administrative', value: LeadStatus.DEMARCHE_ADMINISTRATIF },
-  { name: 'Installation', value: LeadStatus.INSTALLATION },
-  { name: 'Consuel', value: LeadStatus.CONSUAL },
-  { name: 'Raccordement EDF', value: LeadStatus.RACORDEMENT_EDF },
+  { name: 'Devis envoyé', value: LeadStatus.DEVIS_ENVOYE },
+  { name: 'Installés', value: LeadStatus.COMPLETED },
 ];
 
 export default function LeadsPage() {
@@ -29,7 +24,7 @@ export default function LeadsPage() {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('ALL');
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortOrder, setSortOrder] = useState('next-action-asc');
+  const [sortOrder, setSortOrder] = useState('most-recent');
 
   const fetchLeads = async () => {
     try {
@@ -54,9 +49,16 @@ export default function LeadsPage() {
   useEffect(() => {
     let filtered = [...leads];
 
-    // Filtrer par statut
+    // Filtrer par statut (4 filtres principaux)
     if (activeTab !== 'ALL') {
-      filtered = filtered.filter(lead => lead.status === activeTab);
+      if (activeTab === LeadStatus.COMPLETED) {
+        filtered = filtered.filter(lead => 
+          lead.status === LeadStatus.COMPLETED || 
+          lead.status === LeadStatus.INSTALLATION
+        );
+      } else {
+        filtered = filtered.filter(lead => lead.status === activeTab);
+      }
     }
 
     // Filtrer par recherche
@@ -69,31 +71,52 @@ export default function LeadsPage() {
       );
     }
 
-    // Trier les leads par date de création (les plus récents en premier)
-    filtered.sort((a, b) => {
-      const dateCreatedA = new Date(a.createdAt).getTime();
-      const dateCreatedB = new Date(b.createdAt).getTime();
-      
-      // Tri décroissant par date de création (plus récent en premier)
-      return dateCreatedB - dateCreatedA;
-    });
+    // Fonction pour extraire le timestamp le plus pertinent du lead
+    const getLeadTimestamp = (lead: Lead): number => {
+      // 1. Prochaine action planifiée ou date d'action
+      if (lead.nextAction && ('plannedDate' in lead.nextAction || 'date' in lead.nextAction)) {
+        const d = (lead.nextAction as any).plannedDate || (lead.nextAction as any).date;
+        if (d) {
+          const t = new Date(d).getTime();
+          if (!isNaN(t)) return t;
+        }
+      }
+      // 2. Dernière action enregistrée
+      if (lead.lastAction?.date) {
+        const t = new Date(lead.lastAction.date).getTime();
+        if (!isNaN(t)) return t;
+      }
+      // 3. Date de mise à jour
+      if (lead.updatedAt) {
+        const t = new Date(lead.updatedAt).getTime();
+        if (!isNaN(t)) return t;
+      }
+      // 4. Date de simulation / création
+      if (lead.createdAt) {
+        const t = new Date(lead.createdAt).getTime();
+        if (!isNaN(t)) return t;
+      }
+      return 0;
+    };
 
-    // Trier ensuite par date de prochaine action si spécifié
-    if (sortOrder !== 'creation-date') {
-      filtered.sort((a, b) => {
-        // Utilisation d'une assertion de type pour éviter les erreurs TypeScript
-        const dateA = a.nextAction && 'plannedDate' in a.nextAction
-          ? new Date((a.nextAction as any).plannedDate).getTime()
-          : Number.MAX_SAFE_INTEGER;
-        const dateB = b.nextAction && 'plannedDate' in b.nextAction
-          ? new Date((b.nextAction as any).plannedDate).getTime()
-          : Number.MAX_SAFE_INTEGER;
-        
-        return sortOrder === 'next-action-asc' 
-          ? dateA - dateB  // Plus proche en premier
-          : dateB - dateA; // Plus loin en premier
-      });
-    }
+    // Tri des leads : le dernier en date en haut de la liste par défaut
+    filtered.sort((a, b) => {
+      if (sortOrder === 'creation-date') {
+        const dateCreatedA = new Date(a.createdAt).getTime();
+        const dateCreatedB = new Date(b.createdAt).getTime();
+        return dateCreatedB - dateCreatedA;
+      }
+
+      const timeA = getLeadTimestamp(a);
+      const timeB = getLeadTimestamp(b);
+
+      if (sortOrder === 'oldest' || sortOrder === 'next-action-asc') {
+        return timeA - timeB; // Plus ancien en premier
+      }
+
+      // Par défaut : dernier en date en haut de la liste (ordre décroissant)
+      return timeB - timeA;
+    });
 
     setFilteredLeads(filtered);
   }, [leads, activeTab, searchTerm, sortOrder]);
@@ -149,6 +172,8 @@ export default function LeadsPage() {
             activeTab={activeTab}
             onTabChange={setActiveTab}
             tabs={TABS}
+            leads={leads}
+            sortOrder={sortOrder}
             onSortChange={setSortOrder}
           />
         </div>

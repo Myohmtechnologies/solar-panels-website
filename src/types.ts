@@ -1,14 +1,15 @@
 export enum LeadStatus {
   NEW = 'NEW',
   CONTACTED = 'CONTACTED',
+  DEVIS_ENVOYE = 'DEVIS_ENVOYE',
+  COMPLETED = 'COMPLETED',
+  INSTALLATION = 'INSTALLATION',
   RDV_SCHEDULED = 'RDV_SCHEDULED',
   SECOND_RDV = 'SECOND_RDV',
   TECHNICAL_VISIT = 'TECHNICAL_VISIT',
   DEMARCHE_ADMINISTRATIF = 'DEMARCHE_ADMINISTRATIF',
-  INSTALLATION = 'INSTALLATION',
   CONSUAL = 'CONSUAL',
   RACORDEMENT_EDF = 'RACORDEMENT_EDF',
-  COMPLETED = 'COMPLETED',
   NOT_INTERESTED = 'NOT_INTERESTED'
 }
 
@@ -20,9 +21,22 @@ export interface Address {
 }
 
 export interface NextAction {
-  date: string;
-  description: string;
+  type?: LeadStatus;
+  date?: string;
+  plannedDate?: string | Date;
+  endDate?: string | Date;
+  description?: string;
   address?: Address;
+  location?: string;
+  commercialId?: string;
+  commercialName?: string;
+  duration?: number;
+  assignedTo?: {
+    commercialId: string;
+    name: string;
+    email: string;
+    phone?: string;
+  };
 }
 
 export interface Lead {
@@ -31,24 +45,29 @@ export interface Lead {
   email: string;
   phone: string;
   status: LeadStatus;
-  logementType: 'HOUSE' | 'APARTMENT';
-  energyBill: number;
-  address?: string;
+  logementType?: 'HOUSE' | 'APARTMENT' | any;
+  energyBill?: number | string;
+  address?: string | Address;
   postalCode?: string;
   city?: string;
   notes?: string;
+  devisPrice?: number | string;
+  devisNumber?: string;
   createdAt: string;
-  updatedAt: string;
+  updatedAt?: string;
+  lastAction?: LeadAction;
   nextAction?: NextAction;
 }
 
 export interface LeadAction {
-  _id: string;
+  _id?: string;
   leadId: string;
-  type: 'STATUS_CHANGE' | 'NOTE';
-  status: LeadStatus;
+  type: 'STATUS_CHANGE' | 'NOTE' | 'CALL' | 'EMAIL' | 'MEETING' | 'TECHNICAL_VISIT' | 'CONTRACT' | 'INSTALLATION' | 'RDV';
+  status: LeadStatus | 'PLANNED' | 'COMPLETED' | 'CANCELLED';
   date: string;
   notes?: string;
+  devisPrice?: number | string;
+  devisNumber?: string;
   nextAction?: NextAction;
 }
 

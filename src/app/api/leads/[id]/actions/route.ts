@@ -22,7 +22,7 @@ export async function POST(
     const db = client.db('myohm');
     
     const body = await request.json();
-    const { type, status, notes, nextAction } = body;
+    const { type, status, notes, nextAction, devisPrice, devisNumber } = body;
 
     // Debug: Afficher la date reçue
     console.log('Date reçue du client:', nextAction?.plannedDate);
@@ -47,35 +47,40 @@ export async function POST(
     }
 
     // Créer une date en préservant l'heure exacte
-    function createExactDate(dateString: string): Date {
+    function createExactDate(dateString?: string): Date {
+      if (!dateString) return new Date();
       const date = new Date(dateString);
-      console.log('Date après création:', date.toISOString());
-      console.log('Heure locale:', date.toLocaleTimeString('fr-FR'));
-      console.log('Offset en minutes:', date.getTimezoneOffset());
-      return date;
+      return isNaN(date.getTime()) ? new Date() : date;
     }
 
     // Créer l'action
     const now = new Date();
+    const actionDate = body.date ? new Date(body.date) : now;
+    const finalDate = isNaN(actionDate.getTime()) ? now : actionDate;
+
     const actionData: Omit<LeadAction, '_id'> = {
       leadId: params.id,
-      type: type as LeadAction['type'],
+      type: (type as LeadAction['type']) || 'STATUS_CHANGE',
       status: 'PLANNED',
-      date: now.toISOString(),
-      notes,
-      nextAction: nextAction ? {
-        type: nextAction.type,
+      date: finalDate.toISOString(),
+      notes: notes || '',
+      ...(devisPrice !== undefined && devisPrice !== '' ? { devisPrice } : {}),
+      ...(devisNumber !== undefined && devisNumber !== '' ? { devisNumber } : {}),
+      nextAction: nextAction && nextAction.plannedDate ? {
+        type: nextAction.type || status,
         plannedDate: createExactDate(nextAction.plannedDate).toISOString(),
         location: nextAction.location,
-        description: nextAction.description,
-        // Conserver les informations du commercial
+        description: nextAction.description || notes || '',
         commercialId: nextAction.commercialId,
         commercialName: nextAction.commercialName,
-        // Conserver les autres champs s'ils existent
         ...(nextAction.endDate && { endDate: nextAction.endDate }),
         ...(nextAction.duration && { duration: nextAction.duration }),
         ...(nextAction.assignedTo && { assignedTo: nextAction.assignedTo })
-      } : undefined
+      } : {
+        type: status,
+        plannedDate: finalDate.toISOString(),
+        description: notes || `Statut mis à jour : ${status}`
+      }
     };
 
     console.log('Date stockée dans MongoDB:', actionData.nextAction?.plannedDate);
@@ -88,26 +93,17 @@ export async function POST(
       _id: result.insertedId.toString()
     };
     
-    // Mettre à jour le lead
+    // Mettre à jour le lead dans MongoDB
     await db.collection('leads').updateOne(
       leadFilter,
       {
         $set: {
           status,
           lastAction: action,
-          nextAction: nextAction ? {
-            type: nextAction.type,
-            plannedDate: createExactDate(nextAction.plannedDate).toISOString(),
-            location: nextAction.location,
-            description: nextAction.description,
-            // Conserver les informations du commercial
-            commercialId: nextAction.commercialId,
-            commercialName: nextAction.commercialName,
-            // Conserver les autres champs s'ils existent
-            ...(nextAction.endDate && { endDate: nextAction.endDate }),
-            ...(nextAction.duration && { duration: nextAction.duration }),
-            ...(nextAction.assignedTo && { assignedTo: nextAction.assignedTo })
-          } : null,
+          ...(notes ? { notes } : {}),
+          ...(devisPrice !== undefined && devisPrice !== '' ? { devisPrice } : {}),
+          ...(devisNumber !== undefined && devisNumber !== '' ? { devisNumber } : {}),
+          nextAction: actionData.nextAction,
           updatedAt: now.toISOString()
         }
       }
@@ -118,16 +114,17 @@ export async function POST(
       ...action,
       nextAction: action.nextAction ? {
         ...action.nextAction,
-        plannedDate: new Date(action.nextAction.plannedDate)
-          .toLocaleString('fr-FR', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            timeZone: 'Europe/Paris'
-          })
+        plannedDate: action.nextAction.plannedDate
+          ? new Date(action.nextAction.plannedDate).toLocaleString('fr-FR', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+              timeZone: 'Europe/Paris'
+            })
+          : ''
       } : null
     };
 

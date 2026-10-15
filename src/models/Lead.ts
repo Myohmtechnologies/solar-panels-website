@@ -38,7 +38,7 @@ const LeadSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['NEW', 'CONTACTED', 'QUALIFIED', 'CONVERTED', 'LOST'],
+    enum: ['NEW', 'CONTACTED', 'DEVIS_ENVOYE', 'COMPLETED', 'INSTALLATION', 'QUALIFIED', 'CONVERTED', 'LOST', 'RDV_SCHEDULED', 'SECOND_RDV', 'TECHNICAL_VISIT', 'DEMARCHE_ADMINISTRATIF', 'CONSUAL', 'RACORDEMENT_EDF', 'NOT_INTERESTED'],
     default: 'NEW',
   }
 });

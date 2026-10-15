@@ -65,13 +65,15 @@ export enum LogementType {
 export enum LeadStatus {
   NEW = 'NEW',
   CONTACTED = 'CONTACTED',
+  DEVIS_ENVOYE = 'DEVIS_ENVOYE',
+  COMPLETED = 'COMPLETED',
+  INSTALLATION = 'INSTALLATION',
   RDV_SCHEDULED = 'RDV_SCHEDULED',
+  SECOND_RDV = 'SECOND_RDV',
   TECHNICAL_VISIT = 'TECHNICAL_VISIT',
   DEMARCHE_ADMINISTRATIF = 'DEMARCHE_ADMINISTRATIF',
-  INSTALLATION = 'INSTALLATION',
   CONSUAL = 'CONSUAL',
   RACORDEMENT_EDF = 'RACORDEMENT_EDF',
-  COMPLETED = 'COMPLETED',
   NOT_INTERESTED = 'NOT_INTERESTED'
 }
 
@@ -95,10 +97,12 @@ export interface NextAction {
 export interface LeadAction {
   _id?: string;
   leadId: string;
-  type: 'CALL' | 'EMAIL' | 'MEETING' | 'TECHNICAL_VISIT' | 'CONTRACT' | 'INSTALLATION' | 'RDV';
+  type: 'CALL' | 'EMAIL' | 'MEETING' | 'TECHNICAL_VISIT' | 'CONTRACT' | 'INSTALLATION' | 'RDV' | 'STATUS_CHANGE';
   status: LeadStatus | 'PLANNED' | 'COMPLETED' | 'CANCELLED';
   date: string;
   notes: string;
+  devisPrice?: number | string;
+  devisNumber?: string;
   nextAction?: NextAction;
 }
 
@@ -123,35 +127,42 @@ export interface Lead {
   energyBill: string;
   status: LeadStatus;
   createdAt: string;
+  notes?: string;
+  devisPrice?: number | string;
+  devisNumber?: string;
   lastAction?: LeadAction;
   nextAction?: NextAction;
 }
 
 // Mapping des statuts aux étapes suivantes possibles
 export const STATUS_TRANSITIONS: Record<LeadStatus, LeadStatus[]> = {
-  [LeadStatus.NEW]: [LeadStatus.CONTACTED, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.CONTACTED]: [LeadStatus.RDV_SCHEDULED, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.RDV_SCHEDULED]: [LeadStatus.TECHNICAL_VISIT, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.TECHNICAL_VISIT]: [LeadStatus.DEMARCHE_ADMINISTRATIF, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.DEMARCHE_ADMINISTRATIF]: [LeadStatus.INSTALLATION],
-  [LeadStatus.INSTALLATION]: [LeadStatus.CONSUAL],
-  [LeadStatus.CONSUAL]: [LeadStatus.RACORDEMENT_EDF],
-  [LeadStatus.RACORDEMENT_EDF]: [LeadStatus.COMPLETED],
-  [LeadStatus.COMPLETED]: [],
-  [LeadStatus.NOT_INTERESTED]: []
+  [LeadStatus.NEW]: [LeadStatus.CONTACTED, LeadStatus.DEVIS_ENVOYE, LeadStatus.COMPLETED, LeadStatus.NOT_INTERESTED],
+  [LeadStatus.CONTACTED]: [LeadStatus.DEVIS_ENVOYE, LeadStatus.COMPLETED, LeadStatus.NOT_INTERESTED],
+  [LeadStatus.DEVIS_ENVOYE]: [LeadStatus.COMPLETED, LeadStatus.CONTACTED, LeadStatus.NOT_INTERESTED],
+  [LeadStatus.COMPLETED]: [LeadStatus.DEVIS_ENVOYE, LeadStatus.CONTACTED],
+  [LeadStatus.INSTALLATION]: [LeadStatus.COMPLETED, LeadStatus.DEVIS_ENVOYE],
+  [LeadStatus.RDV_SCHEDULED]: [LeadStatus.DEVIS_ENVOYE, LeadStatus.COMPLETED, LeadStatus.NOT_INTERESTED],
+  [LeadStatus.SECOND_RDV]: [LeadStatus.DEVIS_ENVOYE, LeadStatus.COMPLETED, LeadStatus.NOT_INTERESTED],
+  [LeadStatus.TECHNICAL_VISIT]: [LeadStatus.DEVIS_ENVOYE, LeadStatus.COMPLETED, LeadStatus.NOT_INTERESTED],
+  [LeadStatus.DEMARCHE_ADMINISTRATIF]: [LeadStatus.COMPLETED, LeadStatus.NOT_INTERESTED],
+  [LeadStatus.CONSUAL]: [LeadStatus.COMPLETED, LeadStatus.NOT_INTERESTED],
+  [LeadStatus.RACORDEMENT_EDF]: [LeadStatus.COMPLETED, LeadStatus.NOT_INTERESTED],
+  [LeadStatus.NOT_INTERESTED]: [LeadStatus.CONTACTED, LeadStatus.DEVIS_ENVOYE, LeadStatus.NEW]
 };
 
 // Configuration des actions requises pour chaque transition
 export const REQUIRED_ACTIONS: Record<LeadStatus, string[]> = {
   [LeadStatus.NEW]: ['CALL', 'EMAIL'],
-  [LeadStatus.CONTACTED]: ['MEETING'],
+  [LeadStatus.CONTACTED]: ['CALL', 'EMAIL'],
+  [LeadStatus.DEVIS_ENVOYE]: ['EMAIL', 'CALL'],
+  [LeadStatus.COMPLETED]: [],
   [LeadStatus.RDV_SCHEDULED]: ['TECHNICAL_VISIT'],
+  [LeadStatus.SECOND_RDV]: ['CONTRACT'],
   [LeadStatus.TECHNICAL_VISIT]: ['CONTRACT'],
   [LeadStatus.DEMARCHE_ADMINISTRATIF]: ['INSTALLATION'],
   [LeadStatus.INSTALLATION]: ['INSTALLATION_COMPLETE'],
   [LeadStatus.CONSUAL]: [],
   [LeadStatus.RACORDEMENT_EDF]: [],
-  [LeadStatus.COMPLETED]: [],
   [LeadStatus.NOT_INTERESTED]: []
 };
 

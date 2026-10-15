@@ -2,217 +2,142 @@
 
 import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { 
+  XMarkIcon, 
+  PhoneIcon, 
+  SparklesIcon, 
+  DocumentTextIcon, 
+  CheckBadgeIcon, 
+  XCircleIcon,
+  ClockIcon,
+  ChatBubbleBottomCenterTextIcon,
+  BanknotesIcon
+} from '@heroicons/react/24/outline';
 import { Lead, LeadStatus } from '@/types';
-import { format } from 'date-fns';
-import { fr } from 'date-fns/locale';
-import { createCalendarEvent } from '@/utils/calendar';
-import AppointmentSlotGrid from '../calendar/AppointmentSlotGrid';
 
 interface LeadActionModalProps {
   isOpen: boolean;
   onClose: () => void;
   lead: Lead;
+  initialStatus?: LeadStatus;
   onStatusChange: (leadId: string, newStatus: LeadStatus) => void;
-}
-
-interface Commercial {
-  _id: string;
-  name: string;
-  email: string;
-  phone?: string;
 }
 
 const STATUS_LABELS: Record<LeadStatus, string> = {
   [LeadStatus.NEW]: 'Nouveau',
   [LeadStatus.CONTACTED]: 'Contacté',
+  [LeadStatus.DEVIS_ENVOYE]: 'Devis envoyé',
+  [LeadStatus.COMPLETED]: 'Installé',
+  [LeadStatus.INSTALLATION]: 'Installé',
   [LeadStatus.RDV_SCHEDULED]: 'RDV Fixé',
-  [LeadStatus.SECOND_RDV]: '2ème RDV',
+  [LeadStatus.SECOND_RDV]: 'Signature en cours',
   [LeadStatus.TECHNICAL_VISIT]: 'Visite Technique',
   [LeadStatus.DEMARCHE_ADMINISTRATIF]: 'Démarche Administrative',
-  [LeadStatus.INSTALLATION]: 'Installation',
   [LeadStatus.CONSUAL]: 'Consuel',
   [LeadStatus.RACORDEMENT_EDF]: 'Raccordement EDF',
-  [LeadStatus.COMPLETED]: 'Terminé - suivi annuel',
-  [LeadStatus.NOT_INTERESTED]: 'À Suivre',
+  [LeadStatus.NOT_INTERESTED]: 'Pas intéressé / Sans suite',
 };
 
-const STATUS_COLORS: Record<LeadStatus, string> = {
-  [LeadStatus.NEW]: 'bg-blue-100 text-blue-800',
-  [LeadStatus.CONTACTED]: 'bg-yellow-100 text-yellow-800',
-  [LeadStatus.RDV_SCHEDULED]: 'bg-purple-100 text-purple-800',
-  [LeadStatus.SECOND_RDV]: 'bg-teal-100 text-teal-800',
-  [LeadStatus.TECHNICAL_VISIT]: 'bg-indigo-100 text-indigo-800',
-  [LeadStatus.DEMARCHE_ADMINISTRATIF]: 'bg-orange-100 text-orange-800',
-  [LeadStatus.INSTALLATION]: 'bg-green-100 text-green-800',
-  [LeadStatus.CONSUAL]: 'bg-pink-100 text-pink-800',
-  [LeadStatus.RACORDEMENT_EDF]: 'bg-cyan-100 text-cyan-800',
-  [LeadStatus.COMPLETED]: 'bg-gray-100 text-gray-800',
-  [LeadStatus.NOT_INTERESTED]: 'bg-red-100 text-red-800',
+const getLocalCurrentDateTimeString = () => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
 };
 
-const STATUS_TRANSITIONS: Record<LeadStatus, LeadStatus[]> = {
-  [LeadStatus.NEW]: [LeadStatus.CONTACTED, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.CONTACTED]: [LeadStatus.RDV_SCHEDULED, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.RDV_SCHEDULED]: [LeadStatus.SECOND_RDV, LeadStatus.TECHNICAL_VISIT, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.SECOND_RDV]: [LeadStatus.TECHNICAL_VISIT, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.TECHNICAL_VISIT]: [LeadStatus.DEMARCHE_ADMINISTRATIF, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.DEMARCHE_ADMINISTRATIF]: [LeadStatus.INSTALLATION, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.INSTALLATION]: [LeadStatus.CONSUAL, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.CONSUAL]: [LeadStatus.RACORDEMENT_EDF, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.RACORDEMENT_EDF]: [LeadStatus.COMPLETED, LeadStatus.NOT_INTERESTED],
-  [LeadStatus.COMPLETED]: [],
-  [LeadStatus.NOT_INTERESTED]: []
-};
+const COMMON_NOT_INTERESTED_REASONS = [
+  'Tarif hors budget',
+  'A choisi un concurrent',
+  'Projet annulé ou reporté',
+  'Logement non éligible',
+  'Ne répond plus aux appels',
+  'Simple renseignement'
+];
 
-// Statuts qui nécessitent une date et une adresse
-const REQUIRES_APPOINTMENT = [LeadStatus.RDV_SCHEDULED, LeadStatus.TECHNICAL_VISIT];
-
-// Statuts qui nécessitent une date de suivi
-const REQUIRES_FOLLOWUP = [LeadStatus.CONTACTED, LeadStatus.SECOND_RDV, LeadStatus.DEMARCHE_ADMINISTRATIF, LeadStatus.INSTALLATION, LeadStatus.CONSUAL, LeadStatus.RACORDEMENT_EDF];
-
-export default function LeadActionModal({ isOpen, onClose, lead, onStatusChange }: LeadActionModalProps) {
-  const [selectedStatus, setSelectedStatus] = useState<LeadStatus | null>(null);
-  const [notes, setNotes] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [nextActionDate, setNextActionDate] = useState('');
-  const [commercials, setCommercials] = useState<Commercial[]>([]);
-  const [selectedCommercial, setSelectedCommercial] = useState<Commercial | null>(null);
-  const [appointmentDuration, setAppointmentDuration] = useState<number>(3); // Durée par défaut: 3 heures
-  const [selectedSlot, setSelectedSlot] = useState<{ start: string; end: string } | null>(null);
-
-  // Extraire les informations d'adresse du lead si disponibles
-  const extractAddressInfo = () => {
-    // Vérifier d'abord si le lead a des propriétés d'adresse directes
-    let street = '';
-    let postalCode = '';
-    let city = lead.city || '';
-    let additionalInfo = '';
-    
-    // Vérifier si le lead a une propriété address directe (comme dans types.ts)
-    if ((lead as any).address) {
-      if (typeof (lead as any).address === 'string') {
-        street = (lead as any).address;
-      }
-    }
-    
-    // Vérifier si le lead a une propriété postalCode directe
-    if ((lead as any).postalCode) {
-      postalCode = (lead as any).postalCode;
-    }
-    
-    // Si le lead a une propriété address qui est un objet (comme dans l'interface Address)
-    if (typeof (lead as any).address === 'object' && (lead as any).address !== null) {
-      const addressObj = (lead as any).address;
-      street = addressObj.street || street;
-      postalCode = addressObj.postalCode || postalCode;
-      city = addressObj.city || city;
-      additionalInfo = addressObj.additionalInfo || '';
-    }
-    
-    return {
-      street,
-      postalCode,
-      city,
-      additionalInfo
-    };
-  };
-  
-  const addressInfo = extractAddressInfo();
-  const [address, setAddress] = useState(addressInfo);
-  const [nextAction, setNextAction] = useState({
-    description: '',
-    date: ''
-  });
-
-  // Charger la liste des commerciaux
-  useEffect(() => {
-    const fetchCommercials = async () => {
-      try {
-        const response = await fetch('/api/commercials');
-        if (response.ok) {
-          const data = await response.json();
-          setCommercials(data.commercials || []);
-          
-          // Si nous n'avons pas de commerciaux dans l'API, utiliser des valeurs par défaut
-          if (!data.commercials || data.commercials.length === 0) {
-            setCommercials([
-              { _id: '1', name: 'Rudy Salatnia', email: 'rudy@myohm.fr', phone: '0601020304' },
-              { _id: '2', name: 'Ali Abed', email: 'ali@myohm.fr', phone: '0601020305' }
-            ]);
-          }
-        } else {
-          // Utiliser des valeurs par défaut en cas d'erreur
-          setCommercials([
-            { _id: '1', name: 'Rudy Salatnia', email: 'rudy@myohm.fr', phone: '0601020304' },
-            { _id: '2', name: 'Ali Abed', email: 'ali@myohm.fr', phone: '0601020305' }
-          ]);
-        }
-      } catch (error) {
-        console.error('Erreur lors du chargement des commerciaux:', error);
-        // Utiliser des valeurs par défaut en cas d'erreur
-        setCommercials([
-          { _id: '1', name: 'Rudy Salatnia', email: 'rudy@myohm.fr', phone: '0601020304' },
-          { _id: '2', name: 'Ali Abed', email: 'ali@myohm.fr', phone: '0601020305' }
-        ]);
-      }
-    };
-
-    if (isOpen) {
-      fetchCommercials();
-    }
-  }, [isOpen]);
-
-  const getStatusDescription = (status: LeadStatus) => {
-    switch(status) {
-      case LeadStatus.DEMARCHE_ADMINISTRATIF:
-        return 'Démarche administrative en cours';
-      case LeadStatus.INSTALLATION:
-        return 'Installation planifiée';
-      case LeadStatus.CONSUAL:
-        return 'Demande Consuel en cours';
-      case LeadStatus.RACORDEMENT_EDF:
-        return 'Raccordement EDF en cours';
+export default function LeadActionModal({ 
+  isOpen, 
+  onClose, 
+  lead, 
+  initialStatus,
+  onStatusChange 
+}: LeadActionModalProps) {
+  const getDefaultNextStatus = (currentStatus: LeadStatus): LeadStatus => {
+    if (initialStatus) return initialStatus;
+    switch (currentStatus) {
+      case LeadStatus.NEW:
+        return LeadStatus.CONTACTED;
+      case LeadStatus.CONTACTED:
+        return LeadStatus.DEVIS_ENVOYE;
+      case LeadStatus.DEVIS_ENVOYE:
+        return LeadStatus.COMPLETED;
       default:
-        return '';
+        return LeadStatus.CONTACTED;
     }
   };
 
-  const validateForm = () => {
-    if (!selectedStatus) {
-      setError('Veuillez sélectionner un statut');
-      return false;
-    }
+  const [selectedStatus, setSelectedStatus] = useState<LeadStatus>(getDefaultNextStatus(lead.status));
+  const [actionDate, setActionDate] = useState<string>(getLocalCurrentDateTimeString());
+  const [notes, setNotes] = useState<string>('');
+  const [devisPrice, setDevisPrice] = useState<string>('');
+  const [devisNumber, setDevisNumber] = useState<string>('');
+  const [notInterestedReason, setNotInterestedReason] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-    if (REQUIRES_APPOINTMENT.includes(selectedStatus)) {
-      if (!selectedCommercial) {
-        setError('Veuillez sélectionner un commercial pour le rendez-vous');
-        return false;
-      }
-      if (!nextActionDate) {
-        setError('Veuillez sélectionner une date pour le rendez-vous');
-        return false;
-      }
-      if (!address.street || !address.postalCode || !address.city) {
-        setError('Veuillez remplir l\'adresse complète pour le rendez-vous');
-        return false;
-      }
+  useEffect(() => {
+    if (isOpen) {
+      setSelectedStatus(initialStatus || getDefaultNextStatus(lead.status));
+      setActionDate(getLocalCurrentDateTimeString());
+      setNotes('');
+      setDevisPrice(lead.devisPrice ? String(lead.devisPrice) : '');
+      setDevisNumber(lead.devisNumber || '');
+      setNotInterestedReason('');
+      setError(null);
     }
+  }, [isOpen, lead.status, initialStatus]);
 
-    if (selectedStatus && REQUIRES_FOLLOWUP.includes(selectedStatus) && !nextAction.date) {
-      setError(`Veuillez indiquer la date de suivi pour ${STATUS_LABELS[selectedStatus]}`);
-      return false;
-    }
-
-    if (selectedStatus === LeadStatus.NOT_INTERESTED && !notes.trim()) {
-      setError('Veuillez indiquer la raison du suivi');
-      return false;
-    }
-
-    setError(null);
-    return true;
+  const handleSelectStatus = (status: LeadStatus) => {
+    setSelectedStatus(status);
+    setActionDate(getLocalCurrentDateTimeString());
   };
+
+  const statusOptions = [
+    {
+      value: LeadStatus.NEW,
+      label: 'Nouveau',
+      description: 'Prospect brut',
+      icon: SparklesIcon,
+      activeColor: 'bg-blue-600 text-white ring-2 ring-blue-600 shadow-md',
+      inactiveColor: 'bg-blue-50/70 text-blue-900 border border-blue-200 hover:bg-blue-100/60'
+    },
+    {
+      value: LeadStatus.CONTACTED,
+      label: 'Contacté',
+      description: 'Échange au téléphone',
+      icon: PhoneIcon,
+      activeColor: 'bg-amber-500 text-white ring-2 ring-amber-500 shadow-md',
+      inactiveColor: 'bg-amber-50/70 text-amber-900 border border-amber-200 hover:bg-amber-100/60'
+    },
+    {
+      value: LeadStatus.DEVIS_ENVOYE,
+      label: 'Devis envoyé',
+      description: 'Prix & n° devis',
+      icon: DocumentTextIcon,
+      activeColor: 'bg-purple-600 text-white ring-2 ring-purple-600 shadow-md',
+      inactiveColor: 'bg-purple-50/70 text-purple-900 border border-purple-200 hover:bg-purple-100/60'
+    },
+    {
+      value: LeadStatus.COMPLETED,
+      label: 'Installé',
+      description: 'Chantier réalisé',
+      icon: CheckBadgeIcon,
+      activeColor: 'bg-emerald-600 text-white ring-2 ring-emerald-600 shadow-md',
+      inactiveColor: 'bg-emerald-50/70 text-emerald-900 border border-emerald-200 hover:bg-emerald-100/60'
+    }
+  ];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -220,411 +145,343 @@ export default function LeadActionModal({ isOpen, onClose, lead, onStatusChange 
     setError(null);
 
     try {
-      if (!validateForm()) {
-        setIsLoading(false);
-        return;
+      const finalDate = actionDate ? new Date(actionDate) : new Date();
+      const isoDate = isNaN(finalDate.getTime()) ? new Date().toISOString() : finalDate.toISOString();
+
+      let actionType = 'STATUS_CHANGE';
+      if (selectedStatus === LeadStatus.CONTACTED) actionType = 'CALL';
+      else if (selectedStatus === LeadStatus.DEVIS_ENVOYE) actionType = 'EMAIL';
+      else if (selectedStatus === LeadStatus.COMPLETED) actionType = 'INSTALLATION';
+      else if (selectedStatus === LeadStatus.NOT_INTERESTED) actionType = 'STATUS_CHANGE';
+
+      let finalNotes = notes.trim();
+      let descriptionText = `Statut passé à : ${STATUS_LABELS[selectedStatus] || selectedStatus}`;
+
+      if (selectedStatus === LeadStatus.DEVIS_ENVOYE) {
+        if (!devisPrice) {
+          setError('Veuillez renseigner le prix du devis.');
+          setIsLoading(false);
+          return;
+        }
+        const devisDetails = `Devis envoyé : ${devisPrice} € TTC${devisNumber ? ` (N° ${devisNumber})` : ''}`;
+        finalNotes = finalNotes ? `${devisDetails} - ${finalNotes}` : devisDetails;
+        descriptionText = devisDetails;
+      } else if (selectedStatus === LeadStatus.NOT_INTERESTED) {
+        finalNotes = notInterestedReason.trim() || finalNotes || 'Classé sans suite / Pas intéressé';
+        descriptionText = `Non intéressé : ${finalNotes}`;
       }
 
-      // Préparation des données pour l'API
-      const actionData: any = {
-        type: selectedStatus === LeadStatus.RDV_SCHEDULED ? 'MEETING' : 'TECHNICAL_VISIT',
-        status: 'PLANNED',
-        notes,
-        date: new Date().toISOString()
+      const actionPayload = {
+        status: selectedStatus,
+        type: actionType,
+        notes: finalNotes,
+        date: isoDate,
+        ...(selectedStatus === LeadStatus.DEVIS_ENVOYE ? {
+          devisPrice: devisPrice ? Number(devisPrice) || devisPrice : undefined,
+          devisNumber: devisNumber ? devisNumber.trim() : undefined,
+        } : {}),
+        nextAction: {
+          type: selectedStatus,
+          plannedDate: isoDate,
+          description: descriptionText
+        }
       };
 
-      // Ajout des informations de rendez-vous si nécessaire
-      if (selectedStatus && REQUIRES_APPOINTMENT.includes(selectedStatus) && selectedCommercial) {
-        const fullAddress = `${address.street}, ${address.postalCode} ${address.city}${
-          address.additionalInfo ? `, ${address.additionalInfo}` : ''
-        }`;
-        
-        // Préserver l'heure exacte sélectionnée
-        const exactDate = new Date(nextActionDate);
-        
-        // Calculer la date de fin en fonction de la durée
-        const endDate = new Date(exactDate);
-        endDate.setHours(endDate.getHours() + appointmentDuration);
-        
-        // Création de l'événement dans le calendrier
-        const calendarResult = await createCalendarEvent(
-          selectedStatus === LeadStatus.RDV_SCHEDULED ? 'MEETING_SCHEDULED' : 'TECHNICAL_VISIT',
-          exactDate,
-          lead.email,
-          fullAddress
-        );
+      const response = await fetch(`/api/leads/${lead._id}/actions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(actionPayload),
+      });
 
-        // Ajout des informations de rendez-vous avec attribution explicite au commercial
-        actionData.nextAction = {
-          type: selectedStatus,
-          plannedDate: exactDate.toISOString(),
-          endDate: endDate.toISOString(),
-          location: fullAddress,
-          description: notes || `Rendez-vous ${
-            selectedStatus === LeadStatus.RDV_SCHEDULED ? 'commercial' : 'technique'
-          } avec ${selectedCommercial.name}`,
-          commercialId: selectedCommercial._id,
-          commercialName: selectedCommercial.name,
-          calendarEventId: calendarResult.eventId,
-          duration: appointmentDuration,
-          assignedTo: {
-            commercialId: selectedCommercial._id,
-            name: selectedCommercial.name,
-            email: selectedCommercial.email,
-            phone: selectedCommercial.phone || ''
-          }
-        };
-
-        // Afficher un message de succès ou d'avertissement pour le calendrier
-        if (calendarResult.warning) {
-          console.warn('Calendar warning:', calendarResult.warning);
-        }
-      } else if (selectedStatus && REQUIRES_FOLLOWUP.includes(selectedStatus) && nextAction.date) {
-        // Préserver l'heure exacte pour les suivis
-        const exactDate = new Date(nextAction.date);
-
-        actionData.nextAction = {
-          type: selectedStatus,
-          plannedDate: exactDate.toISOString(),
-          description: nextAction.description || (selectedStatus ? getStatusDescription(selectedStatus) : '')
-        };
-      }
-
-      // Appel à l'API pour mettre à jour le statut
-      if (selectedStatus) {
-        console.log('Sending to API:', {
-          ...actionData,
-          status: selectedStatus,
-        });
-        
-        const response = await fetch(`/api/leads/${lead._id}/actions`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            ...actionData,
-            status: selectedStatus, // Ajouter le nouveau statut du lead
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to update lead status');
-        }
-
-        const responseData = await response.json();
-        console.log('API Response:', responseData);
-
-        // Mise à jour du state local via le callback
-        onStatusChange(lead._id, selectedStatus);
-      }
-
+      if (!response.ok) throw new Error('Erreur lors de la mise à jour du statut');
+      onStatusChange(lead._id, selectedStatus);
       onClose();
     } catch (err) {
-      setError('Une erreur est survenue lors de la mise à jour du statut');
-      console.error('Error updating lead status:', err);
+      setError(err instanceof Error ? err.message : 'Une erreur est survenue lors de la sauvegarde.');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const availableStatuses = STATUS_TRANSITIONS[lead.status] || [];
+  const handleNotInterested = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const isoDate = new Date().toISOString();
+      await fetch(`/api/leads/${lead._id}/actions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          status: LeadStatus.NOT_INTERESTED,
+          type: 'STATUS_CHANGE',
+          notes: 'Classé sans suite / Pas intéressé',
+          date: isoDate,
+          nextAction: {
+            type: LeadStatus.NOT_INTERESTED,
+            plannedDate: isoDate,
+            description: 'Non intéressé : Classé sans suite'
+          }
+        }),
+      });
+      onStatusChange(lead._id, LeadStatus.NOT_INTERESTED);
+      onClose();
+    } catch {
+      setError('Erreur lors du classement sans suite.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
         <Transition.Child
           as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
+          enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100"
+          leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-gray-900/60 backdrop-blur-xs transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto">
-          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
             <Transition.Child
               as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enter="ease-out duration-300" enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               enterTo="opacity-100 translate-y-0 sm:scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200" leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-6xl sm:p-6">
-                <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
-                  <button
-                    type="button"
-                    className="rounded-md bg-white text-gray-400 hover:text-gray-500"
-                    onClick={onClose}
-                  >
+              <Dialog.Panel className="relative transform overflow-hidden rounded-2xl bg-white px-5 pb-6 pt-5 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-7">
+                {/* Bouton de fermeture */}
+                <div className="absolute right-4 top-4">
+                  <button type="button"
+                    className="rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"
+                    onClick={onClose}>
                     <span className="sr-only">Fermer</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
 
-                <div className="sm:flex sm:items-start">
-                  <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                    <Dialog.Title as="h3" className="text-lg font-semibold leading-6 text-gray-900">
-                      Modifier le statut
-                    </Dialog.Title>
-
-                    <form onSubmit={handleSubmit} className="mt-6 space-y-6">
-                      {/* Statut actuel supprimé comme demandé */}
-
-                      <div>
-                        <label className="text-sm font-medium text-gray-700">Nouveau statut</label>
-                        <div className="mt-3 grid grid-cols-2 gap-3">
-                          {availableStatuses.map((status) => (
-                            <button
-                              key={status}
-                              type="button"
-                              onClick={() => setSelectedStatus(status)}
-                              className={`flex justify-center items-center px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${selectedStatus === status 
-                                ? `bg-[#0B6291] text-white shadow-md` 
-                                : `bg-gradient-to-r from-[#ffeb99]/80 to-[#ffb700]/80 text-[#0B6291] font-semibold hover:from-[#ffeb99] hover:to-[#ffb700]`
-                              }`}
-                            >
-                              {STATUS_LABELS[status]}
-                            </button>
-                          ))}
-                        </div>
+                {/* En-tête */}
+                <div>
+                  <Dialog.Title as="h3" className="text-xl font-bold leading-6 text-gray-900">
+                    Modifier le statut
+                  </Dialog.Title>
+                  
+                  <div className="mt-3 bg-gradient-to-r from-blue-50/60 to-slate-50 border border-blue-100/80 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <div className="text-base font-bold text-gray-900 flex items-center gap-2">
+                        <span>{lead.name}</span>
+                        {lead.city && (
+                          <span className="text-xs font-normal text-gray-500">• {lead.city}</span>
+                        )}
                       </div>
-
-                      {/* Champs pour les rendez-vous */}
-                      {selectedStatus && REQUIRES_APPOINTMENT.includes(selectedStatus) && (
-                        <>
-                          <div className="mb-4">
-                            <label className="block text-sm font-medium text-[#0B6291] mb-2">
-                              Sélectionner un commercial
-                            </label>
-                            <div className="grid grid-cols-2 gap-3">
-                              {commercials.map((commercial) => (
-                                <button
-                                  key={commercial._id}
-                                  type="button"
-                                  onClick={() => setSelectedCommercial(commercial)}
-                                  className={`flex justify-center items-center px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200 ${selectedCommercial?._id === commercial._id 
-                                    ? `bg-[#0B6291] text-white shadow-md` 
-                                    : `bg-white border border-gray-300 text-gray-700 hover:bg-gray-50`
-                                  }`}
-                                >
-                                  {commercial.name}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-
-
-
-                          {selectedCommercial && (
-                            <div className="mb-4">
-                              <label className="block text-sm font-medium text-[#0B6291] mb-2">
-                                Disponibilités de {selectedCommercial.name}
-                              </label>
-                              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                                <div className="lg:col-span-2 border rounded-lg overflow-hidden shadow-md">
-                                  <AppointmentSlotGrid 
-                                    commercialId={selectedCommercial._id}
-                                    commercialName={selectedCommercial.name}
-                                    onSlotSelect={(slotInfo) => {
-                                      // Construire la date et l'heure du rendez-vous
-                                      const dateTime = `${slotInfo.date}T${slotInfo.time}`;
-                                      setNextActionDate(dateTime);
-                                      setAppointmentDuration(slotInfo.duration);
-                                    }}
-                                    className="p-4"
-                                  />
-                                </div>
-                                <div className="lg:col-span-1 p-4 bg-white rounded-lg border border-gray-200 shadow-md">
-                                  <h3 className="text-md font-semibold text-[#0B6291] mb-4">Sélection manuelle</h3>
-                                  
-                                  <div className="mb-4">
-                                    <label className="block text-sm font-medium text-[#0B6291] mb-2">
-                                      Date et heure du rendez-vous
-                                    </label>
-                                    <input
-                                      type="datetime-local"
-                                      className="block w-full rounded-lg border border-gray-300 py-3 px-4 bg-white text-gray-800 focus:ring-2 focus:ring-[#0B6291] focus:outline-none transition-all duration-200 ease-in-out"
-                                      value={nextActionDate}
-                                      onChange={(e) => setNextActionDate(e.target.value)}
-                                      required
-                                    />
-                                  </div>
-                                  
-                                  <div className="mb-4">
-                                    <label className="block text-sm font-medium text-[#0B6291] mb-2">
-                                      Durée du rendez-vous
-                                    </label>
-                                    <select
-                                      value={appointmentDuration}
-                                      onChange={(e) => setAppointmentDuration(Number(e.target.value))}
-                                      className="block w-full rounded-lg border border-gray-300 py-3 px-4 bg-white text-gray-800 focus:ring-2 focus:ring-[#0B6291] focus:outline-none transition-all duration-200 ease-in-out"
-                                    >
-                                      <option value={1}>1 heure</option>
-                                      <option value={2}>2 heures</option>
-                                      <option value={3}>3 heures</option>
-                                      <option value={4}>4 heures</option>
-                                    </select>
-                                  </div>
-                                  
-                                  {nextActionDate && (
-                                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200 mt-4">
-                                      <div className="flex items-center space-x-2 text-blue-700 mb-1">
-                                        <span className="font-medium text-sm">Rendez-vous sélectionné</span>
-                                      </div>
-                                      <div className="text-sm text-blue-800">
-                                        {new Date(nextActionDate).toLocaleString('fr-FR', { dateStyle: 'full', timeStyle: 'short' })}
-                                      </div>
-                                      <div className="text-sm text-blue-800 mt-1">
-                                        Durée: {appointmentDuration} heure{appointmentDuration > 1 ? 's' : ''}
-                                      </div>
-                                      <div className="flex items-center mt-2 pt-2 border-t border-blue-200">
-                                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 mr-2">
-                                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                                          </svg>
-                                        </div>
-                                        <div className="text-sm text-blue-800">
-                                          <span className="font-medium">Commercial attribué:</span> {selectedCommercial.name}
-                                        </div>
-                                      </div>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          )}
-
-                          <div className="space-y-4 mb-4">
-                            <label className="block text-sm font-medium text-[#0B6291] mb-2">
-                              Adresse du rendez-vous
-                            </label>
-                            <div className="relative">
-                              <input
-                                type="text"
-                                placeholder="Rue"
-                                className="block w-full rounded-lg border-0 py-3 px-4 bg-white text-gray-800 shadow-md focus:ring-2 focus:ring-[#0B6291] focus:outline-none transition-all duration-200 ease-in-out"
-                                value={address.street}
-                                onChange={(e) => setAddress({ ...address, street: e.target.value })}
-                                required
-                              />
-                              <div className="absolute right-3 top-3 text-[#0B6291]">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                                </svg>
-                              </div>
-                            </div>
-                            
-                            <div className="grid grid-cols-2 gap-4">
-                              <div className="relative">
-                                <input
-                                  type="text"
-                                  placeholder="Code postal"
-                                  className="block w-full rounded-lg border-0 py-3 px-4 bg-white text-gray-800 shadow-md focus:ring-2 focus:ring-[#0B6291] focus:outline-none transition-all duration-200 ease-in-out"
-                                  value={address.postalCode}
-                                  onChange={(e) => setAddress({ ...address, postalCode: e.target.value })}
-                                  required
-                                />
-                              </div>
-                              <div className="relative">
-                                <input
-                                  type="text"
-                                  placeholder="Ville"
-                                  name="city"
-                                  id="city"
-                                  value={address.city}
-                                  onChange={(e) => setAddress({ ...address, city: e.target.value })}
-                                  className="block w-full rounded-lg border-0 py-3 px-4 bg-white text-gray-800 shadow-md focus:ring-2 focus:ring-[#0B6291] focus:outline-none transition-all duration-200 ease-in-out"
-                                  required
-                                />
-                              </div>
-                            </div>
-                            
-                            <div className="relative">
-                              <input
-                                type="text"
-                                placeholder="Complément d'adresse (optionnel)"
-                                className="block w-full rounded-lg border-0 py-3 px-4 bg-white text-gray-800 shadow-md focus:ring-2 focus:ring-[#0B6291] focus:outline-none transition-all duration-200 ease-in-out"
-                                value={address.additionalInfo}
-                                onChange={(e) => setAddress({ ...address, additionalInfo: e.target.value })}
-                              />
-                            </div>
-                          </div>
-                        </>
-                      )}
-
-                      {/* Champs pour les suivis */}
-                      {selectedStatus && REQUIRES_FOLLOWUP.includes(selectedStatus) && (
-                        <div className="space-y-2">
-                          <label className="block text-sm font-medium text-gray-700">
-                            {`Date de suivi - ${STATUS_LABELS[selectedStatus]}`}
-                          </label>
-                          <input
-                            type="datetime-local"
-                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
-                            value={nextAction.date}
-                            onChange={(e) => setNextAction({ ...nextAction, date: e.target.value })}
-                            required
-                          />
-                          <textarea
-                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"
-                            value={nextAction.description}
-                            onChange={(e) => setNextAction({ ...nextAction, description: e.target.value })}
-                            placeholder={`Détails sur ${STATUS_LABELS[selectedStatus].toLowerCase()}`}
-                            rows={2}
-                          />
-                        </div>
-                      )}
-
-                      <div className="mb-4">
-                        <label htmlFor="notes" className="block text-sm font-medium text-[#0B6291] mb-2">
-                          {selectedStatus === LeadStatus.NOT_INTERESTED ? 'Raison du suivi' : 'Notes'}
-                        </label>
-                        <div className="relative">
-                          <textarea
-                            id="notes"
-                            name="notes"
-                            rows={3}
-                            value={notes}
-                            onChange={(e) => setNotes(e.target.value)}
-                            className="block w-full rounded-lg border-0 py-3 px-4 bg-white text-gray-800 shadow-md focus:ring-2 focus:ring-[#0B6291] focus:outline-none transition-all duration-200 ease-in-out resize-none"
-                            placeholder={selectedStatus === LeadStatus.NOT_INTERESTED ? 'Notez les raisons du suivi et la date de relance prévue' : 'Notes additionnelles...'}
-                            required={selectedStatus === LeadStatus.NOT_INTERESTED}
-                          />
-                        </div>
+                      <div className="text-sm text-[#0B6291] font-semibold mt-0.5 flex items-center gap-1.5">
+                        <PhoneIcon className="h-4 w-4" />
+                        <a href={`tel:${lead.phone}`} className="hover:underline">{lead.phone}</a>
                       </div>
-
-                      {error && (
-                        <div className="rounded-md bg-red-50 p-4">
-                          <div className="text-sm text-red-700">{error}</div>
-                        </div>
-                      )}
-
-                      <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-                        <button
-                          type="submit"
-                          disabled={!selectedStatus || isLoading}
-                          className="inline-flex w-full justify-center rounded-md bg-[#0B6291] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#0B6291]/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B6291] sm:ml-3 sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                          {isLoading ? 'Mise à jour...' : 'Mettre à jour le statut'}
-                        </button>
-                        <button
-                          type="button"
-                          className="mt-3 inline-flex w-full justify-center rounded-md bg-gradient-to-r from-[#ffeb99]/80 to-[#ffb700]/80 px-3 py-2 text-sm font-semibold text-[#0B6291] shadow-sm hover:from-[#ffeb99] hover:to-[#ffb700] sm:mt-0 sm:w-auto"
-                          onClick={onClose}
-                        >
-                          Annuler
-                        </button>
-                      </div>
-                    </form>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-[11px] font-medium text-gray-400 block uppercase">Statut actuel</span>
+                      <span className="inline-block mt-0.5 text-xs font-bold px-2.5 py-1 rounded-full bg-white border border-gray-200 text-gray-700 shadow-2xs">
+                        {STATUS_LABELS[lead.status] || lead.status}
+                      </span>
+                    </div>
                   </div>
                 </div>
+
+                <form id="lead-action-form" onSubmit={handleSubmit} className="mt-5 space-y-5">
+                  {/* LES 4 ÉTAPES */}
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-800 mb-2">
+                      Sélectionner le statut
+                    </label>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                      {statusOptions.map((option) => {
+                        const isSelected = selectedStatus === option.value;
+                        const Icon = option.icon;
+                        return (
+                          <button key={option.value} type="button"
+                            onClick={() => handleSelectStatus(option.value)}
+                            className={`flex flex-col items-center justify-center p-3 rounded-xl transition-all duration-150 cursor-pointer text-center ${
+                              isSelected ? option.activeColor : option.inactiveColor
+                            }`}>
+                            <Icon className={`h-6 w-6 mb-1 ${isSelected ? 'text-white' : ''}`} />
+                            <span className="text-sm font-bold tracking-tight">{option.label}</span>
+                            <span className={`text-[11px] mt-0.5 ${isSelected ? 'text-white/80' : 'text-gray-500'}`}>
+                              {option.description}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* DATE ET HEURE */}
+                  <div className="bg-gray-50/80 border border-gray-200/80 rounded-xl p-3">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label htmlFor="actionDate" className="text-xs font-semibold uppercase tracking-wider text-gray-700 flex items-center gap-1.5">
+                        <ClockIcon className="h-4 w-4 text-[#0B6291]" />
+                        <span>Date et heure de l&apos;action</span>
+                      </label>
+                      <span className="text-[11px] font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+                        ✓ Remplie automatiquement
+                      </span>
+                    </div>
+                    <input id="actionDate" type="datetime-local" value={actionDate}
+                      onChange={(e) => setActionDate(e.target.value)}
+                      className="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-2xs focus:border-[#0B6291] focus:ring-1 focus:ring-[#0B6291] outline-none" />
+                  </div>
+
+                  {/* DEVIS ENVOYÉ */}
+                  {selectedStatus === LeadStatus.DEVIS_ENVOYE && (
+                    <div className="bg-purple-50/50 border border-purple-200/80 rounded-xl p-4 space-y-4">
+                      <div className="flex items-center gap-2 text-purple-900 font-bold text-sm">
+                        <DocumentTextIcon className="h-5 w-5 text-purple-600" />
+                        <span>Informations du devis envoyé</span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        <div>
+                          <label htmlFor="devisPrice" className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5 flex items-center gap-1">
+                            <BanknotesIcon className="h-4 w-4 text-purple-600" />
+                            <span>Prix du devis (€ TTC) *</span>
+                          </label>
+                          <div className="relative">
+                            <input id="devisPrice" type="number" step="any" required value={devisPrice}
+                              onChange={(e) => setDevisPrice(e.target.value)} placeholder="Ex: 14500"
+                              className="block w-full rounded-xl border border-gray-300 bg-white py-2.5 pl-3 pr-14 text-sm font-bold text-gray-900 placeholder:text-gray-400 placeholder:font-normal focus:border-purple-600 focus:ring-2 focus:ring-purple-200 outline-none shadow-2xs" />
+                            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-500 font-bold text-xs">€ TTC</div>
+                          </div>
+                        </div>
+                        <div>
+                          <label htmlFor="devisNumber" className="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5 flex items-center justify-between">
+                            <span className="flex items-center gap-1">
+                              <DocumentTextIcon className="h-4 w-4 text-purple-600" />
+                              Numéro de devis
+                            </span>
+                            <span className="text-[11px] font-normal text-gray-400">Facultatif</span>
+                          </label>
+                          <input id="devisNumber" type="text" value={devisNumber}
+                            onChange={(e) => setDevisNumber(e.target.value)} placeholder="Ex: DEV-2026-0042"
+                            className="block w-full rounded-xl border border-gray-300 bg-white py-2.5 px-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-purple-600 focus:ring-2 focus:ring-purple-200 outline-none shadow-2xs" />
+                        </div>
+                      </div>
+                      <div>
+                        <label htmlFor="notes" className="block text-xs font-medium text-gray-600 mb-1">
+                          Remarques complémentaires (facultatif)
+                        </label>
+                        <textarea id="notes" rows={2} value={notes} onChange={(e) => setNotes(e.target.value)}
+                          placeholder="Options incluses, garantie, délai de pose..."
+                          className="block w-full rounded-xl border border-gray-300 bg-white p-2.5 text-xs text-gray-900 placeholder:text-gray-400 focus:border-purple-600 focus:ring-1 focus:ring-purple-200 outline-none shadow-2xs" />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* CONTACTÉ */}
+                  {selectedStatus === LeadStatus.CONTACTED && (
+                    <div>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <label htmlFor="notes" className="text-sm font-semibold text-gray-800 flex items-center gap-1.5">
+                          <ChatBubbleBottomCenterTextIcon className="h-4 w-4 text-amber-600" />
+                          <span>Détails de l&apos;appel avec le prospect</span>
+                        </label>
+                        <span className="text-xs text-gray-400">Pendant ou après l&apos;appel</span>
+                      </div>
+                      <textarea id="notes" rows={4} value={notes} onChange={(e) => setNotes(e.target.value)}
+                        placeholder="Prenez vos notes en direct pendant l'appel : besoins, toiture, consommation annuelle, budget, questions du client..."
+                        className="block w-full rounded-xl border border-gray-300 p-3.5 text-sm text-gray-900 placeholder:text-gray-400 shadow-2xs focus:border-[#0B6291] focus:ring-2 focus:ring-[#0B6291]/20 outline-none resize-y" />
+                    </div>
+                  )}
+
+                  {/* PAS INTÉRESSÉ */}
+                  {selectedStatus === LeadStatus.NOT_INTERESTED && (
+                    <div className="bg-rose-50/70 border border-rose-200 rounded-xl p-4 space-y-3">
+                      <div className="text-sm font-bold text-rose-900 flex items-center gap-1.5">
+                        <XCircleIcon className="h-5 w-5 text-rose-600" />
+                        <span>Motif du classement sans suite</span>
+                      </div>
+                      <p className="text-xs text-rose-700">
+                        Ce prospect sera immédiatement déplacé dans la liste des <strong>Prospects non intéressés</strong>.
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {COMMON_NOT_INTERESTED_REASONS.map((reason) => (
+                          <button key={reason} type="button" onClick={() => setNotInterestedReason(reason)}
+                            className={`text-xs px-2.5 py-1 rounded-lg border transition-colors cursor-pointer ${
+                              notInterestedReason === reason
+                                ? 'bg-rose-600 text-white border-rose-600 font-semibold'
+                                : 'bg-white text-gray-700 border-gray-200 hover:bg-rose-100 hover:border-rose-300'
+                            }`}>
+                            {reason}
+                          </button>
+                        ))}
+                      </div>
+                      <textarea rows={2} value={notInterestedReason} onChange={(e) => setNotInterestedReason(e.target.value)}
+                        placeholder="Raison détaillée ou commentaire..."
+                        className="block w-full rounded-xl border border-rose-200 bg-white p-2.5 text-xs text-gray-900 placeholder:text-gray-400 focus:border-rose-500 focus:ring-1 focus:ring-rose-200 outline-none" />
+                    </div>
+                  )}
+
+                  {/* NOUVEAU ou INSTALLÉ */}
+                  {(selectedStatus === LeadStatus.NEW || selectedStatus === LeadStatus.COMPLETED) && (
+                    <div>
+                      <label htmlFor="notes" className="block text-sm font-semibold text-gray-800 mb-1.5">
+                        {selectedStatus === LeadStatus.COMPLETED ? "Notes sur l'installation" : 'Notes / Remarques'}
+                      </label>
+                      <textarea id="notes" rows={3} value={notes} onChange={(e) => setNotes(e.target.value)}
+                        placeholder={selectedStatus === LeadStatus.COMPLETED ? "Date d'intervention, remarques techniques..." : 'Notes complémentaires...'}
+                        className="block w-full rounded-xl border border-gray-300 p-3 text-sm text-gray-900 placeholder:text-gray-400 shadow-2xs focus:border-[#0B6291] focus:ring-2 focus:ring-[#0B6291]/20 outline-none" />
+                    </div>
+                  )}
+
+                  {/* Notes précédentes */}
+                  {lead.notes && (
+                    <div className="p-3 bg-amber-50/60 border border-amber-200/70 rounded-xl">
+                      <span className="text-xs font-semibold text-amber-900 block mb-1">Notes précédentes enregistrées :</span>
+                      <p className="text-xs text-gray-700 whitespace-pre-wrap">{lead.notes}</p>
+                    </div>
+                  )}
+
+                  {/* Erreur */}
+                  {error && (
+                    <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-700">{error}</div>
+                  )}
+
+                  {/* BOUTONS */}
+                  <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-end gap-3 pt-2">
+                    {/* Pas intéressé — à gauche en rouge */}
+                    <button type="button" disabled={isLoading} onClick={handleNotInterested}
+                      className="w-full sm:w-auto sm:mr-auto px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-rose-600 hover:bg-rose-700 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                      <XCircleIcon className="h-4 w-4" />
+                      Pas intéressé
+                    </button>
+
+                    {/* Annuler */}
+                    <button type="button" onClick={onClose}
+                      className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-gray-300 bg-white text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors shadow-2xs">
+                      Annuler
+                    </button>
+
+                    {/* Confirmer */}
+                    <button type="submit" disabled={isLoading}
+                      className={`w-full sm:w-auto px-6 py-2.5 rounded-xl text-sm font-bold text-white transition-colors shadow-md disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 ${
+                        selectedStatus === LeadStatus.DEVIS_ENVOYE
+                          ? 'bg-purple-600 hover:bg-purple-700'
+                          : 'bg-[#0B6291] hover:bg-[#094d73]'
+                      }`}>
+                      {isLoading ? (
+                        <>
+                          <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          <span>Enregistrement...</span>
+                        </>
+                      ) : selectedStatus === LeadStatus.DEVIS_ENVOYE ? (
+                        <span>Enregistrer le devis</span>
+                      ) : (
+                        <span>Mettre à jour le statut</span>
+                      )}
+                    </button>
+                  </div>
+                </form>
               </Dialog.Panel>
             </Transition.Child>
           </div>

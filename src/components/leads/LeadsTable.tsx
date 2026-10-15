@@ -21,32 +21,34 @@ interface LeadsTableProps {
   showNextFollowUp?: boolean; // Propriété optionnelle pour afficher la date du prochain suivi
 }
 
-const STATUS_LABELS = {
+const STATUS_LABELS: Record<LeadStatus, string> = {
   [LeadStatus.NEW]: 'Nouveau',
   [LeadStatus.CONTACTED]: 'Contacté',
+  [LeadStatus.DEVIS_ENVOYE]: 'Devis envoyé',
+  [LeadStatus.COMPLETED]: 'Installé',
+  [LeadStatus.INSTALLATION]: 'Installé',
   [LeadStatus.RDV_SCHEDULED]: 'RDV Fixé',
   [LeadStatus.SECOND_RDV]: 'Signature en cours',
   [LeadStatus.TECHNICAL_VISIT]: 'Visite Technique',
   [LeadStatus.DEMARCHE_ADMINISTRATIF]: 'Démarche Administrative',
-  [LeadStatus.INSTALLATION]: 'Installation',
   [LeadStatus.CONSUAL]: 'Consuel',
   [LeadStatus.RACORDEMENT_EDF]: 'Raccordement EDF',
-  [LeadStatus.COMPLETED]: 'Terminé',
-  [LeadStatus.NOT_INTERESTED]: 'À Suivre',
+  [LeadStatus.NOT_INTERESTED]: 'Sans suite',
 };
 
-const STATUS_COLORS = {
-  [LeadStatus.NEW]: 'bg-blue-100 text-blue-800',
-  [LeadStatus.CONTACTED]: 'bg-yellow-100 text-yellow-800',
-  [LeadStatus.RDV_SCHEDULED]: 'bg-purple-100 text-purple-800',
-  [LeadStatus.SECOND_RDV]: 'bg-blue-100 text-blue-800',
-  [LeadStatus.TECHNICAL_VISIT]: 'bg-gray-100 text-gray-800',
-  [LeadStatus.DEMARCHE_ADMINISTRATIF]: 'bg-yellow-100 text-yellow-800',
-  [LeadStatus.INSTALLATION]: 'bg-blue-100 text-blue-800',
-  [LeadStatus.CONSUAL]: 'bg-gray-100 text-gray-800',
-  [LeadStatus.RACORDEMENT_EDF]: 'bg-yellow-100 text-yellow-800',
-  [LeadStatus.COMPLETED]: 'bg-green-100 text-green-800',
-  [LeadStatus.NOT_INTERESTED]: 'bg-orange-100 text-orange-800',
+const STATUS_COLORS: Record<LeadStatus, string> = {
+  [LeadStatus.NEW]: 'bg-blue-100 text-blue-800 border border-blue-200',
+  [LeadStatus.CONTACTED]: 'bg-amber-100 text-amber-800 border border-amber-200',
+  [LeadStatus.DEVIS_ENVOYE]: 'bg-purple-100 text-purple-800 border border-purple-200',
+  [LeadStatus.COMPLETED]: 'bg-emerald-100 text-emerald-800 border border-emerald-200',
+  [LeadStatus.INSTALLATION]: 'bg-emerald-100 text-emerald-800 border border-emerald-200',
+  [LeadStatus.RDV_SCHEDULED]: 'bg-indigo-100 text-indigo-800 border border-indigo-200',
+  [LeadStatus.SECOND_RDV]: 'bg-blue-100 text-blue-800 border border-blue-200',
+  [LeadStatus.TECHNICAL_VISIT]: 'bg-gray-100 text-gray-800 border border-gray-200',
+  [LeadStatus.DEMARCHE_ADMINISTRATIF]: 'bg-orange-100 text-orange-800 border border-orange-200',
+  [LeadStatus.CONSUAL]: 'bg-pink-100 text-pink-800 border border-pink-200',
+  [LeadStatus.RACORDEMENT_EDF]: 'bg-cyan-100 text-cyan-800 border border-cyan-200',
+  [LeadStatus.NOT_INTERESTED]: 'bg-rose-100 text-rose-800 border border-rose-200',
 };
 
 const formatDate = (date: string | undefined | null) => {
@@ -79,9 +81,17 @@ export default function LeadsTable({ leads, onLeadUpdate, showNextFollowUp = fal
   const totalPages = Math.ceil(leads.length / leadsPerPage);
 
   const pageSizeOptions = [10, 25, 50, 100];
+  const [initialModalStatus, setInitialModalStatus] = useState<LeadStatus | undefined>(undefined);
 
   const handleActionClick = (lead: Lead) => {
     setSelectedLead(lead);
+    setInitialModalStatus(undefined);
+    setIsActionModalOpen(true);
+  };
+
+  const handleNotInterestedClick = (lead: Lead) => {
+    setSelectedLead(lead);
+    setInitialModalStatus(LeadStatus.NOT_INTERESTED);
     setIsActionModalOpen(true);
   };
 
@@ -187,20 +197,51 @@ export default function LeadsTable({ leads, onLeadUpdate, showNextFollowUp = fal
                     <span className="font-medium">
                       {showNextFollowUp 
                         ? (
-                          // Pour les projets terminés, afficher la dernière action
                           formatDate(lead.updatedAt || lead.createdAt)
                         ) 
                         : (lead.status === LeadStatus.NEW 
                           ? (
                             <>
-                              <span className="text-xs text-blue-600 block">Date de simulation:</span>
+                              <span className="text-xs text-blue-600 block">Date de simulation :</span>
                               {formatDate(lead.createdAt)}
+                            </>
+                          )
+                          : lead.status === LeadStatus.CONTACTED
+                          ? (
+                            <>
+                              <span className="text-xs text-amber-600 block">Contacté le :</span>
+                              {formatDate((lead.nextAction as any)?.plannedDate || lead.lastAction?.date || lead.updatedAt)}
+                            </>
+                          )
+                          : lead.status === LeadStatus.DEVIS_ENVOYE
+                          ? (
+                            <>
+                              <span className="text-xs text-purple-600 block">Devis envoyé le :</span>
+                              {formatDate((lead.nextAction as any)?.plannedDate || lead.lastAction?.date || lead.updatedAt)}
+                              {lead.devisPrice && (
+                                <span className="inline-block mt-1 text-xs font-bold text-purple-700 bg-purple-50 border border-purple-200 px-2 py-0.5 rounded-md">
+                                  💶 {typeof lead.devisPrice === 'number' ? lead.devisPrice.toLocaleString('fr-FR') : lead.devisPrice} €
+                                  {lead.devisNumber ? ` (${lead.devisNumber})` : ''}
+                                </span>
+                              )}
+                            </>
+                          )
+                          : (lead.status === LeadStatus.COMPLETED || lead.status === LeadStatus.INSTALLATION)
+                          ? (
+                            <>
+                              <span className="text-xs text-emerald-600 block">Installé le :</span>
+                              {formatDate((lead.nextAction as any)?.plannedDate || lead.lastAction?.date || lead.updatedAt)}
                             </>
                           )
                           : (lead.nextAction && 'plannedDate' in lead.nextAction 
                             ? formatDate((lead.nextAction as any).plannedDate) 
-                            : '-'))}
+                            : formatDate(lead.updatedAt || lead.createdAt)))}
                     </span>
+                    {lead.notes && (
+                      <span className="text-xs text-gray-400 truncate max-w-[200px] mt-0.5" title={lead.notes}>
+                        📝 {lead.notes}
+                      </span>
+                    )}
                   </div>
                 </td>
                 {showNextFollowUp && (

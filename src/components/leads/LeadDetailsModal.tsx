@@ -7,32 +7,34 @@ import { Lead, LeadAction, LeadStatus, NextAction } from '@/types';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
-const STATUS_LABELS = {
+const STATUS_LABELS: Record<LeadStatus, string> = {
   [LeadStatus.NEW]: 'Nouveau',
   [LeadStatus.CONTACTED]: 'Contacté',
+  [LeadStatus.DEVIS_ENVOYE]: 'Devis envoyé',
+  [LeadStatus.COMPLETED]: 'Installé',
+  [LeadStatus.INSTALLATION]: 'Installé',
   [LeadStatus.RDV_SCHEDULED]: 'RDV Fixé',
   [LeadStatus.SECOND_RDV]: 'Signature en cours',
   [LeadStatus.TECHNICAL_VISIT]: 'Visite Technique',
   [LeadStatus.DEMARCHE_ADMINISTRATIF]: 'Démarche Administrative',
-  [LeadStatus.INSTALLATION]: 'Installation',
   [LeadStatus.CONSUAL]: 'Consuel',
   [LeadStatus.RACORDEMENT_EDF]: 'Raccordement EDF',
-  [LeadStatus.COMPLETED]: 'Terminé',
-  [LeadStatus.NOT_INTERESTED]: 'Pas Intéressé',
+  [LeadStatus.NOT_INTERESTED]: 'Sans suite / À suivre',
 };
 
-const STATUS_COLORS = {
-  [LeadStatus.NEW]: 'bg-blue-100 text-blue-800',
-  [LeadStatus.CONTACTED]: 'bg-yellow-100 text-yellow-800',
-  [LeadStatus.RDV_SCHEDULED]: 'bg-purple-100 text-purple-800',
-  [LeadStatus.SECOND_RDV]: 'bg-indigo-100 text-indigo-800',
-  [LeadStatus.TECHNICAL_VISIT]: 'bg-indigo-100 text-indigo-800',
-  [LeadStatus.DEMARCHE_ADMINISTRATIF]: 'bg-orange-100 text-orange-800',
-  [LeadStatus.INSTALLATION]: 'bg-green-100 text-green-800',
-  [LeadStatus.CONSUAL]: 'bg-pink-100 text-pink-800',
-  [LeadStatus.RACORDEMENT_EDF]: 'bg-cyan-100 text-cyan-800',
-  [LeadStatus.COMPLETED]: 'bg-gray-100 text-gray-800',
-  [LeadStatus.NOT_INTERESTED]: 'bg-red-100 text-red-800',
+const STATUS_COLORS: Record<LeadStatus, string> = {
+  [LeadStatus.NEW]: 'bg-blue-100 text-blue-800 border border-blue-200',
+  [LeadStatus.CONTACTED]: 'bg-amber-100 text-amber-800 border border-amber-200',
+  [LeadStatus.DEVIS_ENVOYE]: 'bg-purple-100 text-purple-800 border border-purple-200',
+  [LeadStatus.COMPLETED]: 'bg-emerald-100 text-emerald-800 border border-emerald-200',
+  [LeadStatus.INSTALLATION]: 'bg-emerald-100 text-emerald-800 border border-emerald-200',
+  [LeadStatus.RDV_SCHEDULED]: 'bg-indigo-100 text-indigo-800 border border-indigo-200',
+  [LeadStatus.SECOND_RDV]: 'bg-blue-100 text-blue-800 border border-blue-200',
+  [LeadStatus.TECHNICAL_VISIT]: 'bg-gray-100 text-gray-800 border border-gray-200',
+  [LeadStatus.DEMARCHE_ADMINISTRATIF]: 'bg-orange-100 text-orange-800 border border-orange-200',
+  [LeadStatus.CONSUAL]: 'bg-pink-100 text-pink-800 border border-pink-200',
+  [LeadStatus.RACORDEMENT_EDF]: 'bg-cyan-100 text-cyan-800 border border-cyan-200',
+  [LeadStatus.NOT_INTERESTED]: 'bg-rose-100 text-rose-800 border border-rose-200',
 };
 
 interface LeadDetailsModalProps {
@@ -200,7 +202,13 @@ export default function LeadDetailsModal({ isOpen, onClose, lead }: LeadDetailsM
                           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                             <dt className="text-sm font-medium leading-6 text-gray-900">Adresse</dt>
                             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                              {lead.address && <div>{lead.address}</div>}
+                              {lead.address && (
+                                <div>
+                                  {typeof lead.address === 'string' 
+                                    ? lead.address 
+                                    : `${lead.address.street || ''} ${lead.address.additionalInfo ? `(${lead.address.additionalInfo})` : ''}`}
+                                </div>
+                              )}
                               {(lead.postalCode || lead.city) && (
                                 <div>{`${lead.postalCode || ''} ${lead.city || ''}`}</div>
                               )}
@@ -295,7 +303,7 @@ export default function LeadDetailsModal({ isOpen, onClose, lead }: LeadDetailsM
                                         ) : null}
                                         <div className="relative flex space-x-3">
                                           <div>
-                                            <span className={`h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white ${STATUS_COLORS[action.status]}`}>
+                                            <span className={`h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white ${STATUS_COLORS[action.status as LeadStatus] || 'bg-gray-100 text-gray-800'}`}>
                                               <span className="text-xs font-medium">{action.type.charAt(0)}</span>
                                             </span>
                                           </div>

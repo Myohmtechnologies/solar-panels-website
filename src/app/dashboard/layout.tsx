@@ -26,7 +26,7 @@ const navigation = [
   { name: 'Devis', href: '/dashboard/devis', icon: ReceiptRefundIcon },
   { name: 'Planning', href: '/dashboard/planning', icon: BriefcaseIcon },
   { name: 'Projets Terminés', href: '/dashboard/completed', icon: CheckCircleIcon },
-  { name: 'Prospects non intéressés', href: '/dashboard/not-interested', icon: HandThumbDownIcon },
+  { name: 'Prospects perdus', href: '/dashboard/not-interested', icon: HandThumbDownIcon },
   { name: 'Blog', href: '/dashboard/blog', icon: DocumentTextIcon },
   { name: 'Réalisations', href: '/dashboard/realisations', icon: PhotoIcon },
   { name: 'Paramètres', href: '/dashboard/settings', icon: Cog6ToothIcon },

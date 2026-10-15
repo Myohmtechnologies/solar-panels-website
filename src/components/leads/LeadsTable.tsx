@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Lead, LeadStatus, NextAction } from '@/types';
 import LeadActionModal from './LeadActionModal';
 import LeadDetailsModal from './LeadDetailsModal';
@@ -72,15 +72,32 @@ export default function LeadsTable({ leads, onLeadUpdate, showNextFollowUp = fal
   const [isActionModalOpen, setIsActionModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [leadsPerPage, setLeadsPerPage] = useState(10);
+  const leadsPerPage = 10;
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [leads]);
 
   // Calcul pour la pagination
   const indexOfLastLead = currentPage * leadsPerPage;
   const indexOfFirstLead = indexOfLastLead - leadsPerPage;
   const currentLeads = leads.slice(indexOfFirstLead, indexOfLastLead);
-  const totalPages = Math.ceil(leads.length / leadsPerPage);
+  const totalPages = Math.max(1, Math.ceil(leads.length / leadsPerPage));
+  const firstVisiblePage = Math.max(1, currentPage - 2);
+  const lastVisiblePage = Math.min(totalPages, currentPage + 2);
+  const pageItems: (number | 'ellipsis-start' | 'ellipsis-end')[] = [
+    ...(firstVisiblePage > 1
+      ? [1, ...(firstVisiblePage > 2 ? ['ellipsis-start' as const] : [])]
+      : []),
+    ...Array.from(
+      { length: lastVisiblePage - firstVisiblePage + 1 },
+      (_, index) => firstVisiblePage + index
+    ),
+    ...(lastVisiblePage < totalPages
+      ? [...(lastVisiblePage < totalPages - 1 ? ['ellipsis-end' as const] : []), totalPages]
+      : []),
+  ];
 
-  const pageSizeOptions = [10, 25, 50, 100];
   const [initialModalStatus, setInitialModalStatus] = useState<LeadStatus | undefined>(undefined);
 
   const handleActionClick = (lead: Lead) => {
@@ -163,7 +180,7 @@ export default function LeadsTable({ leads, onLeadUpdate, showNextFollowUp = fal
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-100">
-            {leads.map((lead, index) => (
+            {currentLeads.map((lead, index) => (
               <tr key={lead._id} className={`hover:bg-gray-50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}`}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900 truncate" title={lead.name}>
@@ -309,92 +326,55 @@ export default function LeadsTable({ leads, onLeadUpdate, showNextFollowUp = fal
       </div>
 
       {/* Pagination */}
-      <div className="mt-4 flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-        <div className="flex flex-1 justify-between sm:hidden">
-          <button
-            onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-            disabled={currentPage === 1}
-            className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-          >
-            Précédent
-          </button>
-          <button
-            onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-            disabled={currentPage === totalPages}
-            className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-          >
-            Suivant
-          </button>
-        </div>
-        <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-          <div>
-            <p className="text-sm text-gray-700">
-              Affichage de <span className="font-medium">{indexOfFirstLead + 1}</span> à{' '}
-              <span className="font-medium">{Math.min(indexOfLastLead, leads.length)}</span> sur{' '}
-              <span className="font-medium">{leads.length}</span> résultats
-            </p>
-          </div>
-          <div>
-            <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-              {[
-                {
-                  id: 'first-page',
-                  label: 'Première page',
-                  icon: '««',
-                  onClick: () => setCurrentPage(1),
-                  disabled: currentPage === 1,
-                  className: 'relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
-                },
-                {
-                  id: 'previous-page',
-                  label: 'Précédent',
-                  icon: '«',
-                  onClick: () => setCurrentPage(p => Math.max(1, p - 1)),
-                  disabled: currentPage === 1,
-                  className: 'relative inline-flex items-center px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
-                },
-                {
-                  id: 'current-page',
-                  content: `Page ${currentPage} sur ${totalPages}`,
-                  className: 'relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 focus:outline-offset-0',
-                  isSpan: true
-                },
-                {
-                  id: 'next-page',
-                  label: 'Suivant',
-                  icon: '»',
-                  onClick: () => setCurrentPage(p => Math.min(totalPages, p + 1)),
-                  disabled: currentPage === totalPages,
-                  className: 'relative inline-flex items-center px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
-                },
-                {
-                  id: 'last-page',
-                  label: 'Dernière page',
-                  icon: '»»',
-                  onClick: () => setCurrentPage(totalPages),
-                  disabled: currentPage === totalPages,
-                  className: 'relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
-                }
-              ].map(item => (
-                item.isSpan ? (
-                  <span key={item.id} className={item.className}>
-                    {item.content}
-                  </span>
-                ) : (
-                  <button
-                    key={item.id}
-                    onClick={item.onClick}
-                    disabled={item.disabled}
-                    className={item.className}
-                  >
-                    <span className="sr-only">{item.label}</span>
-                    {item.icon}
-                  </button>
-                )
-              ))}
-            </nav>
-          </div>
-        </div>
+      <div className="mt-4 flex flex-col gap-4 border-t border-gray-100 bg-white px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <p className="text-center text-sm text-gray-500 sm:text-left">
+          Affichage de <span className="font-semibold text-gray-800">{leads.length === 0 ? 0 : indexOfFirstLead + 1}</span> à{' '}
+          <span className="font-semibold text-gray-800">{Math.min(indexOfLastLead, leads.length)}</span> sur{' '}
+          <span className="font-semibold text-gray-800">{leads.length}</span> prospects
+        </p>
+
+        {totalPages > 1 && (
+          <nav className="flex items-center justify-center gap-1.5" aria-label="Pagination des prospects">
+            <button
+              type="button"
+              onClick={() => setCurrentPage(page => Math.max(1, page - 1))}
+              disabled={currentPage === 1}
+              aria-label="Page précédente"
+              className="inline-flex h-9 min-w-9 items-center justify-center rounded-lg border border-gray-200 px-2 text-sm font-medium text-gray-600 transition hover:border-[#0B6291]/30 hover:bg-[#0B6291]/5 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              ‹
+            </button>
+            {pageItems.map(page =>
+              typeof page === 'number' ? (
+                <button
+                  key={page}
+                  type="button"
+                  onClick={() => setCurrentPage(page)}
+                  aria-label={`Aller à la page ${page}`}
+                  aria-current={currentPage === page ? 'page' : undefined}
+                  className={`inline-flex h-9 min-w-9 items-center justify-center rounded-lg px-3 text-sm font-semibold transition ${
+                    currentPage === page
+                      ? 'bg-[#0B6291] text-white shadow-sm'
+                      : 'border border-gray-200 text-gray-600 hover:border-[#0B6291]/30 hover:bg-[#0B6291]/5 hover:text-[#0B6291]'
+                  }`}
+                >
+                  {page}
+                </button>
+              ) : (
+                <span key={page} className="px-1 text-sm text-gray-400" aria-hidden="true">…</span>
+              )
+            )}
+            <button
+              type="button"
+              onClick={() => setCurrentPage(page => Math.min(totalPages, page + 1))}
+              disabled={currentPage === totalPages}
+              aria-label="Page suivante"
+              className="inline-flex h-9 min-w-9 items-center justify-center rounded-lg border border-gray-200 px-2 text-sm font-medium text-gray-600 transition hover:border-[#0B6291]/30 hover:bg-[#0B6291]/5 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              ›
+            </button>
+          </nav>
+        )}
       </div>
 
       {/* Modals */}

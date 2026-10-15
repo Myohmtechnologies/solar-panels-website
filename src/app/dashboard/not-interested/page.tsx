@@ -48,8 +48,8 @@ export default function NotInterestedPage() {
           };
         })
         .sort((a: NotInterestedLead, b: NotInterestedLead) => {
-          // Trier par date de prochain contact (les plus urgents en premier)
-          return new Date(a.nextContactDate!).getTime() - new Date(b.nextContactDate!).getTime();
+          // Afficher les prospects modifiés le plus récemment en premier.
+          return new Date(b.lastContactAttempt!).getTime() - new Date(a.lastContactAttempt!).getTime();
         });
 
       setLeads(notInterestedLeads);
@@ -142,7 +142,7 @@ export default function NotInterestedPage() {
         <div className="bg-white rounded-lg shadow overflow-hidden">
           <div className="px-4 py-3 bg-gray-50 border-b">
             <p className="text-sm text-gray-600">
-              Les prospects sont listés par ordre de priorité de relance. Contactez-les pour comprendre leurs objections et proposer de nouvelles solutions.
+              Les prospects les plus récemment mis à jour apparaissent en premier. Contactez-les pour comprendre leurs objections et proposer de nouvelles solutions.
             </p>
           </div>
           <LeadsTable 

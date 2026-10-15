@@ -23,7 +23,7 @@ const navigation = [
   { name: 'Prospects', href: '/dashboard/prospects', icon: UsersIcon },
   { name: 'Historique devis', href: '/dashboard/devis/historique', icon: ClockIcon },
   { name: 'Projets terminés', href: '/dashboard/completed', icon: CheckCircleIcon },
-  { name: 'perdu', href: '/dashboard/not-interested', icon: HandThumbDownIcon },
+  { name: 'Prospects perdus', href: '/dashboard/not-interested', icon: HandThumbDownIcon },
   { name: 'Projets', href: '/dashboard/projets', icon: BriefcaseIcon },
   { name: 'Paramètres', href: '/dashboard/settings', icon: Cog6ToothIcon },
 ];

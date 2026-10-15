@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { Lead, LeadStatus } from '@/types';
-import LeadsStats from '@/components/leads/LeadsStats';
 import LeadsFilters from '@/components/leads/LeadsFilters';
 import LeadsTable from '@/components/leads/LeadsTable';
 import { PlusIcon } from '@heroicons/react/24/outline';
@@ -22,7 +21,7 @@ export default function LeadsPage() {
   const [filteredLeads, setFilteredLeads] = useState<Lead[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState('ALL');
+  const [activeTab, setActiveTab] = useState(LeadStatus.NEW);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortOrder, setSortOrder] = useState('most-recent');
 
@@ -157,11 +156,6 @@ export default function LeadsPage() {
               Nouveau prospect
             </button>
           </div>
-        </div>
-
-        {/* Stats */}
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <LeadsStats leads={leads} />
         </div>
 
         {/* Filtres et recherche */}

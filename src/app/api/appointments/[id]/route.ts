@@ -7,6 +7,10 @@ import {
 } from '../../../../services/appointmentService';
 import { verifyAdminToken, verifyCommercialToken } from '../../../../lib/auth';
 
+// Cette route dépend de l'authentification et de données par rendez-vous.
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 // GET /api/appointments/[id] - Récupérer un rendez-vous spécifique
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {

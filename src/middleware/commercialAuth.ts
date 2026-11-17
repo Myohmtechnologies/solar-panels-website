@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
+import { jwtVerify } from 'jose';
 import { clientPromise } from '@/lib/mongodb';
 import { ObjectId } from 'mongodb';
 
@@ -27,7 +27,13 @@ export async function verifyCommercialAuth(request: NextRequest) {
     }
     
     // Vérifier le token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'default_secret') as JwtPayload;
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET || 'default_secret');
+    const { payload } = await jwtVerify(token, secret, { algorithms: ['HS256'] });
+    const decoded: JwtPayload = {
+      id: typeof payload.id === 'string' ? payload.id : '',
+      email: typeof payload.email === 'string' ? payload.email : '',
+      role: typeof payload.role === 'string' ? payload.role : '',
+    };
     
     if (!decoded || !decoded.id || decoded.role !== 'commercial') {
       return {

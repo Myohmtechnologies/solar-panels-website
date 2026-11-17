@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import jwt from 'jsonwebtoken';
+import { jwtVerify } from 'jose';
 
 export function isDashboardRequest(request: NextRequest): boolean {
   // Exemple simple de vérification
@@ -16,7 +16,8 @@ export async function verifyAdminToken(token: string): Promise<boolean> {
       throw new Error('JWT_SECRET non défini dans les variables d\'environnement');
     }
 
-    const decoded: any = jwt.verify(token, jwtSecret);
+    const secret = new TextEncoder().encode(jwtSecret);
+    const { payload: decoded } = await jwtVerify(token, secret, { algorithms: ['HS256'] });
     return decoded.role === 'admin';
   } catch (error) {
     return false;
@@ -31,8 +32,13 @@ export async function verifyCommercialToken(token: string): Promise<{ id: string
       throw new Error('JWT_SECRET non défini dans les variables d\'environnement');
     }
 
-    const decoded: any = jwt.verify(token, jwtSecret);
-    if (decoded.role !== 'commercial') {
+    const secret = new TextEncoder().encode(jwtSecret);
+    const { payload: decoded } = await jwtVerify(token, secret, { algorithms: ['HS256'] });
+    if (
+      decoded.role !== 'commercial' ||
+      typeof decoded.id !== 'string' ||
+      typeof decoded.email !== 'string'
+    ) {
       return null;
     }
 

@@ -1,7 +1,7 @@
 import { clientPromise } from '@/lib/mongodb';
 import { ObjectId } from 'mongodb';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import { SignJWT } from 'jose';
 
 // Interface pour un commercial
 export interface Commercial {
@@ -146,15 +146,16 @@ export async function authenticateCommercial(email: string, password: string) {
     }
     
     // Générer un token JWT
-    const token = jwt.sign(
-      { 
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET || 'default_secret');
+    const token = await new SignJWT({
         id: commercial._id.toString(),
         email: commercial.email,
         role: 'commercial'
-      },
-      process.env.JWT_SECRET || 'default_secret',
-      { expiresIn: '24h' }
-    );
+      })
+      .setProtectedHeader({ alg: 'HS256' })
+      .setIssuedAt()
+      .setExpirationTime('24h')
+      .sign(secret);
     
     return {
       success: true,

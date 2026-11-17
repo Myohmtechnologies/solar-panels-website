@@ -18,19 +18,27 @@ const LeadSchema = new mongoose.Schema({
     required: [true, 'Le numéro de téléphone est requis'],
     trim: true,
   },
+  address: {
+    type: String,
+    trim: true,
+  },
+  projectType: {
+    type: String,
+    index: true,
+  },
+  simulatorData: {
+    type: mongoose.Schema.Types.Mixed,
+  },
   residentialStatus: {
     type: String,
-    enum: ['OWNER', 'RENTER'],
-    required: true,
+    enum: ['OWNER', 'RENTER', 'TENANT'],
   },
   logementType: {
     type: String,
     enum: ['HOUSE', 'APARTMENT'],
-    required: true,
   },
   energyBill: {
     type: String,
-    required: true,
   },
   createdAt: {
     type: Date,

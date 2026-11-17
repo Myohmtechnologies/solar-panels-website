@@ -3,7 +3,10 @@
 import { 
   EnvelopeIcon, 
   PhoneIcon, 
-  UserIcon 
+  UserIcon,
+  ArrowRightIcon,
+  CheckCircleIcon,
+  ShieldCheckIcon,
 } from '@heroicons/react/24/solid';
 import { useState } from 'react';
 
@@ -11,12 +14,13 @@ const ContactCTASection = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
-    phone: ''
+    phone: '',
+    message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -30,50 +34,34 @@ const ContactCTASection = () => {
     setSubmitStatus('loading');
 
     try {
-      console.log('Starting form submission');
-      // Créer l'événement dans le calendrier
-      const startDateTime = new Date();
-      startDateTime.setHours(startDateTime.getHours() + 1); // RDV dans 1 heure
-      const endDateTime = new Date(startDateTime);
-      endDateTime.setHours(endDateTime.getHours() + 1); // Durée de 1 heure
-
-      const eventData = {
-        summary: `Rendez-vous avec ${formData.fullName}`,
-        description: `Contact: ${formData.phone}\nEmail: ${formData.email}`,
-        startDateTime: startDateTime.toISOString(),
-        endDateTime: endDateTime.toISOString(),
-        attendeeEmail: formData.email,
-        location: 'À définir'
-      };
-
-      console.log('Sending calendar request with data:', eventData);
-
-      const calendarResponse = await fetch('/api/calendar', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(eventData),
+        body: JSON.stringify({
+          name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          subject: 'Demande depuis la page contact',
+          message: formData.message,
+        }),
       });
 
-      console.log('Calendar response status:', calendarResponse.status);
-      const calendarData = await calendarResponse.json();
-      console.log('Calendar response data:', calendarData);
-      
-      if (!calendarResponse.ok) {
-        throw new Error(calendarData.error || 'Erreur lors de la création du rendez-vous');
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || 'Erreur lors de l’envoi du message');
       }
 
-      console.log('Form submitted successfully');
       setSubmitStatus('success');
-      // Réinitialiser le formulaire
       setFormData({
         fullName: '',
         email: '',
-        phone: ''
+        phone: '',
+        message: '',
       });
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('Erreur lors de l’envoi du formulaire de contact:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -81,60 +69,59 @@ const ContactCTASection = () => {
   };
 
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-12 bg-gradient-to-br from-f2f6fa to-e3e9f0">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center space-x-4 mb-4">
-            <EnvelopeIcon className="w-12 h-12 text-FFDF64" />
-            <h2 className="text-3xl font-bold text-gray-900">
-              Contactez-nous
-            </h2>
-          </div>
-
-          <p className="text-gray-700 max-w-2xl mx-auto leading-relaxed">
-            Prêt à faire le premier pas vers une énergie solaire ? Remplissez ce formulaire et notre équipe vous recontactera rapidement pour une étude personnalisée.
+    <section className="bg-white px-4 py-14 md:px-8 md:py-20 lg:px-12">
+      <div className="mx-auto max-w-7xl">
+        <div className="mx-auto mb-10 max-w-3xl text-center md:mb-12">
+          <span className="mb-3 inline-flex rounded-full bg-[#116290]/5 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.13em] text-[#116290]">Parlons de votre projet</span>
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 md:text-4xl lg:text-5xl">Contactez notre équipe</h1>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-gray-600 md:text-lg">
+            Une question ou un projet en tête ? Laissez-nous vos coordonnées, notre équipe locale vous recontactera pour vous conseiller.
           </p>
+          <div className="mx-auto mt-5 h-1.5 w-16 rounded-full bg-gradient-to-r from-[#ffdf64] to-[#ffb700]" />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Texte de motivation */}
-          <div className="space-y-6 text-center md:text-left">
-            <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group">
-              <div className="flex flex-col items-center md:items-start">
-                <div className="p-4 bg-FFDF64/20 rounded-full mb-4">
-                  <PhoneIcon className="w-10 h-10 text-FFDF64" />
-                </div>
-                <h3 className="font-bold text-gray-900 mb-2 group-hover:text-AFC97E transition-colors">
-                  Conseil Personnalisé
-                </h3>
-                <p className="text-gray-600 text-sm text-center md:text-left">
-                  Notre équipe d&apos;experts est disponible pour répondre à toutes vos questions et vous guider dans votre projet solaire.
-                </p>
+        <div className="grid items-stretch overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-[0_18px_55px_rgba(10,61,92,0.10)] lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="relative flex flex-col justify-between overflow-hidden bg-gradient-to-br from-[#0a3d5c] via-[#116290] to-[#0b5279] p-7 text-white sm:p-9 lg:p-10">
+            <div className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full border-[28px] border-white/5" />
+            <div className="relative">
+              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ffdf64] to-[#ffb700] text-[#0a3d5c] shadow-lg">
+                <EnvelopeIcon className="h-7 w-7" />
               </div>
+              <h2 className="max-w-md text-2xl font-bold leading-tight sm:text-3xl">Un échange simple, un conseil adapté</h2>
+              <p className="mt-4 max-w-lg leading-7 text-white/80">
+                Décrivez-nous votre besoin. Nous prendrons le temps de comprendre votre situation et de vous orienter vers la bonne solution.
+              </p>
+              <ul className="mt-7 space-y-4">
+                {['Une équipe de proximité basée à Manosque', 'Un accompagnement adapté à votre logement', 'Une réponse rapide à votre demande'].map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm font-medium text-white/90 sm:text-base">
+                    <CheckCircleIcon className="mt-0.5 h-5 w-5 flex-none text-[#ffdf64]" />{item}
+                  </li>
+                ))}
+              </ul>
             </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 group">
-              <div className="flex flex-col items-center md:items-start">
-                <div className="p-4 bg-FFDF64/20 rounded-full mb-4">
-                  <UserIcon className="w-10 h-10 text-FFDF64" />
-                </div>
-                <h3 className="font-bold text-gray-900 mb-2 group-hover:text-AFC97E transition-colors">
-                  Étude Sur Mesure
-                </h3>
-                <p className="text-gray-600 text-sm text-center md:text-left">
-                  Nous analysons votre situation unique pour vous proposer la solution solaire la plus adaptée à vos besoins.
-                </p>
-              </div>
+            <div className="relative mt-9 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+              <a href="tel:+33492766858" className="flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 p-4 transition hover:bg-white/15">
+                <PhoneIcon className="h-5 w-5 flex-none text-[#ffdf64]" />
+                <span><span className="block text-xs text-white/65">Appelez-nous</span><span className="font-semibold">04 92 76 68 58</span></span>
+              </a>
+              <a href="mailto:contact@myohmtechnologies.com" className="flex min-w-0 items-center gap-3 rounded-2xl border border-white/15 bg-white/10 p-4 transition hover:bg-white/15">
+                <EnvelopeIcon className="h-5 w-5 flex-none text-[#ffdf64]" />
+                <span className="min-w-0"><span className="block text-xs text-white/65">Écrivez-nous</span><span className="block break-all text-sm font-semibold">contact@myohmtechnologies.com</span></span>
+              </a>
             </div>
           </div>
 
           {/* Formulaire de contact */}
           <form 
             onSubmit={handleSubmit} 
-            className="bg-white p-8 rounded-2xl shadow-lg space-y-6"
+            className="space-y-5 bg-white p-6 sm:p-9 lg:p-10"
           >
+            <div className="mb-2">
+              <h2 className="text-2xl font-bold text-[#102c40]">Envoyez-nous un message</h2>
+              <p className="mt-2 text-sm leading-6 text-gray-600">Remplissez le formulaire, nous reviendrons vers vous rapidement.</p>
+            </div>
             <div>
-              <label htmlFor="fullName" className="block text-gray-700 mb-2">Nom Complet</label>
+              <label htmlFor="fullName" className="mb-2 block text-sm font-semibold text-[#102c40]">Nom complet</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <UserIcon className="h-5 w-5 text-gray-400" />
@@ -147,13 +134,13 @@ const ContactCTASection = () => {
                   onChange={handleChange}
                   required
                   placeholder="Votre nom et prénom"
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64"
+                  className="w-full rounded-xl border border-gray-200 bg-gray-50/70 py-3 pl-11 pr-4 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#116290]/50 focus:bg-white focus:ring-4 focus:ring-[#116290]/10"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-gray-700 mb-2">Email</label>
+              <label htmlFor="email" className="mb-2 block text-sm font-semibold text-[#102c40]">Adresse e-mail</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <EnvelopeIcon className="h-5 w-5 text-gray-400" />
@@ -166,13 +153,13 @@ const ContactCTASection = () => {
                   onChange={handleChange}
                   required
                   placeholder="votre@email.com"
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64"
+                  className="w-full rounded-xl border border-gray-200 bg-gray-50/70 py-3 pl-11 pr-4 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#116290]/50 focus:bg-white focus:ring-4 focus:ring-[#116290]/10"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="phone" className="block text-gray-700 mb-2">Numéro de Téléphone</label>
+              <label htmlFor="phone" className="mb-2 block text-sm font-semibold text-[#102c40]">Téléphone</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <PhoneIcon className="h-5 w-5 text-gray-400" />
@@ -185,43 +172,53 @@ const ContactCTASection = () => {
                   onChange={handleChange}
                   required
                   placeholder="06 12 34 56 78"
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64"
+                  className="w-full rounded-xl border border-gray-200 bg-gray-50/70 py-3 pl-11 pr-4 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#116290]/50 focus:bg-white focus:ring-4 focus:ring-[#116290]/10"
                 />
               </div>
+            </div>
+
+            <div>
+              <label htmlFor="message" className="mb-2 block text-sm font-semibold text-[#102c40]">Parlez-nous de votre projet</label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                rows={4}
+                placeholder="Décrivez brièvement votre besoin…"
+                className="w-full resize-y rounded-xl border border-gray-200 bg-gray-50/70 px-4 py-3 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-[#116290]/50 focus:bg-white focus:ring-4 focus:ring-[#116290]/10"
+              />
             </div>
 
             <button 
               type="submit"
               disabled={isSubmitting}
-              className={`w-full bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 ${
+              className={`inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#ffdf64] to-[#ffb700] px-6 py-4 font-bold text-[#123c54] shadow-lg shadow-[#ffb700]/20 transition hover:-translate-y-0.5 hover:shadow-xl ${
                 isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >
-              {isSubmitting ? 'Envoi en cours...' : 'Demander un Conseil Gratuit'}
+              {isSubmitting ? 'Envoi en cours...' : 'Envoyer ma demande'}
+              {!isSubmitting && <ArrowRightIcon className="h-5 w-5" />}
             </button>
             
             {submitStatus === 'success' && (
-              <div className="text-green-600 text-sm mt-2">
+              <div role="status" className="rounded-xl bg-emerald-50 p-3 text-sm font-medium text-emerald-700">
                 Votre demande a été envoyée avec succès ! Nous vous contacterons bientôt.
               </div>
             )}
             
             {submitStatus === 'error' && (
-              <div className="text-red-600 text-sm mt-2">
+              <div role="alert" className="rounded-xl bg-red-50 p-3 text-sm font-medium text-red-700">
                 Une erreur est survenue. Veuillez réessayer plus tard.
               </div>
             )}
           </form>
         </div>
 
-        <div className="bg-gradient-to-br from-ffeb99 to-ffb700 p-6 rounded-2xl mt-12 text-center">
-          <div className="max-w-2xl mx-auto flex flex-col items-center">
-            <EnvelopeIcon className="w-12 h-12 text-black mb-4" />
-            <h4 className="font-bold text-black text-xl mb-2">Engagement Confidentialité</h4>
-            <p className="text-black/80 max-w-xl">
-              Vos données personnelles sont protégées. Nous nous engageons à les utiliser uniquement dans le cadre de votre projet solaire.
-            </p>
-          </div>
+        <div className="mx-auto mt-6 flex max-w-3xl items-center justify-center gap-2 text-center text-sm text-gray-500">
+          <ShieldCheckIcon className="h-5 w-5 flex-none text-[#116290]" />
+          Vos coordonnées sont utilisées uniquement pour répondre à votre demande.
         </div>
       </div>
     </section>

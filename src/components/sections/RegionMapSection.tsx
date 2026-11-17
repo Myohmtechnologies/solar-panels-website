@@ -20,8 +20,22 @@ const RegionMapSection = ({ region }: RegionMapSectionProps) => {
   if (!regionData) return null;
 
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-12 bg-gradient-to-br from-f2f6fa to-e3e9f0">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <section className="py-16 px-4 md:px-8 lg:px-12 bg-white">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-10 text-center">
+          <span className="inline-flex rounded-full bg-[#f1f6f9] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#116290]">
+            Proximité et expertise locale
+          </span>
+          <h2 className="mt-3 text-3xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-4xl">
+            Nos zones d’<span className="text-[#116290]">intervention</span> en région PACA
+          </h2>
+          <div className="mx-auto mt-4 h-1.5 w-16 rounded-full bg-gradient-to-r from-[#ffb700] to-[#116290]" />
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-gray-600">
+            Nos équipes interviennent dans les six départements de la région pour vous accompagner dans votre projet énergétique.
+          </p>
+        </div>
+
+        <div className="grid items-center gap-12 md:grid-cols-2">
         {/* Map Section */}
         <div className="relative rounded-3xl overflow-hidden shadow-2xl transform transition-transform hover:scale-[1.02]">
           <Image
@@ -38,9 +52,9 @@ const RegionMapSection = ({ region }: RegionMapSectionProps) => {
         <div className="space-y-6">
           <div className="flex items-center space-x-4 mb-4">
             <SunIcon className="w-12 h-12 text-FFDF64" />
-            <h2 className="text-3xl font-bold text-gray-900">
+              <h3 className="text-3xl font-bold text-gray-900">
               Potentiel Solaire
-            </h2>
+            </h3>
           </div>
 
           <p className="text-gray-700 leading-relaxed">
@@ -78,6 +92,7 @@ const RegionMapSection = ({ region }: RegionMapSectionProps) => {
           >
             Découvrir Votre Région
           </Link>
+        </div>
         </div>
       </div>
     </section>

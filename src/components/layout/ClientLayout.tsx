@@ -14,8 +14,9 @@ export default function ClientLayout({
   const isThanksPage = pathname?.startsWith('/merci');
   const isSimulationEconomie = pathname?.startsWith('/simulation-economie');
   const isDevisPanneauxSolaires = pathname?.startsWith('/devis-panneaux-solaires');
+  const isSolarSimulator = pathname === '/simulator';
 
-  if (isDashboard || isThanksPage || isSimulationEconomie || isDevisPanneauxSolaires) {
+  if (isDashboard || isThanksPage || isSimulationEconomie || isDevisPanneauxSolaires || isSolarSimulator) {
     return children;
   }
 
@@ -24,7 +25,7 @@ export default function ClientLayout({
   return (
     <>
       <Header />
-      <main className={`min-h-screen ${isHome ? '' : 'pt-32 md:pt-36'}`}>
+      <main className={`min-h-screen ${isHome ? '' : 'pt-24 md:pt-28'}`}>
         {children}
       </main>
       <Footer />

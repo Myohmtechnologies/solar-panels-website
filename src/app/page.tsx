@@ -1,19 +1,15 @@
 import { Metadata } from 'next';
 import HeroSection from '@/components/sections/HeroSection';
-import CaseStudySection from '@/components/sections/CaseStudySection';
-import SolarBenefitsSection from '@/components/sections/SolarBenefitsSection';
-import SolarPanelSection from '@/components/sections/SolarPanelSection';
 import SolarInstallationStepsSection from '@/components/sections/SolarInstallationStepsSection';
 import FaqSection from '@/components/sections/FaqSection';
 import RegionMapSection from '@/components/sections/RegionMapSection';
 import HomeSchemaMarkup from '@/components/HomeSchemaMarkup';
-import ClientTestimonialsSection from '@/components/sections/ClientTestimonialsSection';
+import HomeTestimonialsSection from '@/components/sections/HomeTestimonialsSection';
 import CityActionButtons from '@/components/sections/CityActionButtons';
 import ChatBot from '@/components/ChatBot';
 import CompanyPresentationSection from '@/components/sections/CompanyPresentationSection';
-import SolarServicesSection from '@/components/sections/SolarServicesSection';
+import HomeServicesSection from '@/components/sections/HomeServicesSection';
 import SolarSolutionsSection from '@/components/sections/SolarSolutionsSection';
-import InteractiveSolarSection from '@/components/sections/InteractiveSolarSection';
 
 export const metadata: Metadata = {
   title: 'MY OHM Technologies - Installation de panneaux solaires en PACA',
@@ -61,15 +57,11 @@ export default function Home() {
     <main className="overflow-x-hidden">
       <HomeSchemaMarkup />
       <HeroSection />
-      <ClientTestimonialsSection />
-      <CompanyPresentationSection />
-      <SolarSolutionsSection />
-      <InteractiveSolarSection />
       <CityActionButtons />
-      <SolarBenefitsSection />
-      <SolarPanelSection />
-      <SolarServicesSection cityName="PACA" />
-      <CaseStudySection />
+      <CompanyPresentationSection />
+      <HomeServicesSection />
+      <SolarSolutionsSection />
+      <HomeTestimonialsSection />
       <SolarInstallationStepsSection />
       <FaqSection />
       <RegionMapSection region="PACA" />

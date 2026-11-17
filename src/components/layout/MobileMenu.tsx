@@ -42,6 +42,11 @@ const menuLinks = [
     icon: '/images/eclairage.png'
   },
   {
+    href: '/installation-ballon-eau-chaude',
+    label: 'Ballon d’eau chaude électrique',
+    icon: '/images/icon-chauffe-eau.png'
+  },
+  {
     href: '/qui-sommes-nous',
     label: 'Qui sommes-nous'
   },
@@ -60,10 +65,6 @@ const menuLinks = [
   {
     href: '/contact',
     label: 'Contact'
-  },
-  {
-    href: '/parrainage',
-    label: 'Parrainage'
   }
 ];
 

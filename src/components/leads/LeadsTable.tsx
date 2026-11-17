@@ -186,6 +186,9 @@ export default function LeadsTable({ leads, onLeadUpdate, showNextFollowUp = fal
                   <div className="text-sm font-medium text-gray-900 truncate" title={lead.name}>
                     {lead.name}
                   </div>
+                  {lead.projectType && <span className="mt-1 inline-flex rounded-full bg-[#eaf2f6] px-2 py-0.5 text-[10px] font-semibold text-[#116290]">
+                    {lead.simulatorData?.prestationLabel || ({ SOLAR_PANELS: 'Panneaux solaires', CHARGING_STATION: 'Borne de recharge', AIR_CONDITIONING: 'Climatisation', WATER_HEATER: 'Ballon d’eau chaude', ELECTRICAL_WORK: 'Électricité générale' } as Record<string, string>)[lead.projectType] || lead.projectType}
+                  </span>}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-900 truncate" title={lead.city}>

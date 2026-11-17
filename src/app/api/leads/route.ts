@@ -70,10 +70,11 @@ async function sendLeadNotificationEmail(lead: any) {
             <div style="background-color: #f0f7ff; padding: 20px; border-radius: 8px; margin: 20px 0;">
               <h3 style="color: #333; margin: 0 0 15px 0;">Données du simulateur</h3>
               <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 10px;"><strong>Prestation :</strong> ${lead.simulatorData.prestationLabel || lead.projectType || 'Non spécifiée'}</li>
+                <li style="margin-bottom: 10px;"><strong>Adresse :</strong> ${lead.simulatorData.address || lead.address || 'Non spécifiée'}</li>
                 <li style="margin-bottom: 10px;"><strong>Type de logement :</strong> ${lead.simulatorData.logementType || 'Non spécifié'}</li>
-                <li style="margin-bottom: 10px;"><strong>Équipement :</strong> ${lead.simulatorData.equipment || 'Non spécifié'}</li>
-                <li style="margin-bottom: 10px;"><strong>Facture d'énergie :</strong> ${lead.simulatorData.energyBill || 'Non spécifié'}</li>
                 <li style="margin-bottom: 10px;"><strong>Statut résidentiel :</strong> ${lead.simulatorData.residentialStatus || 'Non spécifié'}</li>
+                ${(lead.simulatorData.answers || []).map((answer: { question: string; answer: string }) => `<li style="margin-bottom: 10px;"><strong>${answer.question} :</strong> ${answer.answer || 'Non renseigné'}</li>`).join('')}
               </ul>
             </div>
             ` : ''}
@@ -161,12 +162,12 @@ export async function POST(req: Request) {
       // Informations du rendez-vous
       nextAction: body.nextAction || null,
       // Données du simulateur (pour compatibilité avec l'existant)
-      simulatorData: body.source === 'simulator' ? {
+      simulatorData: body.source === 'simulator' ? (body.simulatorData || {
         logementType: body.logementType,
         equipment: body.equipment,
         energyBill: body.energyBill,
         residentialStatus: body.residentialStatus
-      } : null
+      }) : null
     };
 
     try {

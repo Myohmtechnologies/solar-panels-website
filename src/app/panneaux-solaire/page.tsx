@@ -1,14 +1,15 @@
 import { Metadata } from 'next';
-import ContactCTASection from '@/components/sections/ContactCTASection';
-import ActionCTASection from '@/components/sections/ActionCTASection';
 import SolarProductionProcessSection from '@/components/sections/SolarProductionProcessSection';
-import FinancialIncentivesSection from '@/components/sections/FinancialIncentivesSection';
-import SolarTechnologySection from '@/components/sections/SolarTechnologySection';
-import EnergyValorizationSection from '@/components/sections/EnergyValorizationSection';
+import WhyPhotovoltaicSection from '@/components/sections/WhyPhotovoltaicSection';
+import SolarEquipmentSection from '@/components/sections/SolarEquipmentSection';
+import SolarTestimonialsSection from '@/components/sections/SolarTestimonialsSection';
+import SolarPricingTableSection from '@/components/sections/SolarPricingTableSection';
+import SolarProjectStepsCardsSection from '@/components/sections/SolarProjectStepsCardsSection';
+import SolarFaqSection from '@/components/sections/SolarFaqSection';
 
 export const metadata: Metadata = {
-  title: 'Panneaux Solaires - Comprendre la Production d\'Énergie Solaire | My Ohm',
-  description: 'Découvrez le fonctionnement des panneaux solaires et des micro-onduleurs. Apprenez comment la lumière est transformée en électricité pour votre logement.',
+  title: 'Panneaux Solaires - Installation Photovoltaïque Clé en Main | My Ohm Technologies',
+  description: 'Installation de panneaux solaires JinkoSolar Tiger Neo N°1 mondial et micro-onduleurs Enphase en région PACA. Réduisez votre facture d\'électricité avec un artisan certifié RGE.',
   keywords: [
     'panneaux solaires', 
     'production énergie solaire', 
@@ -17,19 +18,35 @@ export const metadata: Metadata = {
     'micro-onduleurs',
     'énergie renouvelable',
     'autoconsommation',
-    'revente électricité'
+    'revente électricité',
+    'JinkoSolar Tiger Neo',
+    'Enphase IQ8AC'
   ]
 };
 
 export default function PanneauxSolairePage() {
   return (
-    <main className="min-h-screen bg-gray-50">
+    <div className="bg-white">
+      {/* 1. Hero / Promesse / 4.9 Google / Dès 6 900 € */}
       <SolarProductionProcessSection />
-      <ActionCTASection />
-      <FinancialIncentivesSection />
-      <SolarTechnologySection />
-      <EnergyValorizationSection />
-      <ContactCTASection />
-    </main>
+
+      {/* 2. Pourquoi le photovoltaïque en 2026 ? */}
+      <WhyPhotovoltaicSection />
+
+      {/* 3. Matériel premium : JinkoSolar Tiger Neo N°1 mondial */}
+      <SolarEquipmentSection />
+
+      {/* 4. Preuve sociale : Avis clients réels 100% solaire avec photos toitures */}
+      <SolarTestimonialsSection />
+
+      {/* 5. Tarifs transparents : 3 kWc, 6 kWc, 9 kWc avec Jinko + Enphase IQ8AC */}
+      <SolarPricingTableSection />
+
+      {/* 6. Les 4 étapes du projet d'installation */}
+      <SolarProjectStepsCardsSection />
+
+      {/* 7. Foire aux questions (FAQ) */}
+      <SolarFaqSection />
+    </div>
   );
 }

@@ -219,13 +219,13 @@ export default function BorneDeRechargePage() {
                 ))}
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button
-                  onClick={openExpertModal}
+                <Link
+                  href="/simulator?prestation=borne"
                   className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white rounded-lg font-medium text-lg hover:bg-[var(--color-primary)]/90 transition-colors duration-[var(--transition-fast)] shadow-md hover:shadow-xl"
                 >
                   Obtenir mon estimation
                   <ArrowRightIcon className="h-5 w-5 ml-2" />
-                </button>
+                </Link>
                 <a
                   href="tel:+33492766858"
                   onClick={() => {
@@ -414,7 +414,7 @@ export default function BorneDeRechargePage() {
       </section>
 
       {/* Section Tarifs & Aides */}
-      <section className="py-20 bg-white border-t border-b border-gray-100">
+      <section id="offres" className="scroll-mt-32 py-20 bg-white border-t border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -423,21 +423,21 @@ export default function BorneDeRechargePage() {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Une installation conforme et sécurisée au meilleur prix, éligible aux subventions de l'État.
             </p>
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#ffdf64] to-[#ffb700] px-5 py-2.5 text-sm font-extrabold text-[#0a3d5c] shadow-sm">
+              <span aria-hidden="true">⚡</span> Offre Black Friday : 100 € de remise sur chaque borne
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
             {/* Carte Schneider Charge */}
-            <div className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 flex flex-col justify-between relative hover:shadow-lg transition-shadow duration-300">
+            <div className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 flex flex-col justify-between relative hover:shadow-lg transition-shadow duration-300 lg:order-1 lg:col-start-1 lg:row-start-1">
               <div>
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-[#3dcd58] font-bold tracking-wide uppercase text-[10px] bg-[#3dcd58]/10 px-2.5 py-0.5 rounded-full">
-                    Schneider
-                  </span>
+                  <Image src="/images/Schneider_Electric.svg.webp" alt="Schneider Electric" width={112} height={34} className="h-7 w-auto object-contain" />
                   <span className="text-[10px] text-orange-600 bg-orange-50 font-semibold px-2.5 py-0.5 rounded-full">
                     Garantie 2 ans
                   </span>
                 </div>
-
                 {/* Image Container */}
                 <div className="relative w-full h-44 mb-4 flex items-center justify-center">
                   <div className="relative w-full h-full">
@@ -454,12 +454,12 @@ export default function BorneDeRechargePage() {
                 <p className="text-xs text-gray-500 mb-3">Puissance réglable 7.4 à 22 kW</p>
 
                 <div className="mb-4">
-                  <span className="text-xs text-gray-500 block">Borne et installation, à partir de</span>
-                  <div className="flex items-baseline">
-                    <span className="text-3xl font-extrabold text-gray-900">1 650 €</span>
-                    <span className="text-sm text-gray-500 ml-1.5 font-semibold">TTC *</span>
+                  <span className="mb-2 inline-flex rounded-full border border-[#e33127] bg-[#171717] px-3 py-1.5 text-xs font-bold text-white">Offre Black Friday −100 €</span>
+                  <div className="flex flex-wrap items-baseline gap-x-2">
+                    <span className="text-base font-semibold text-gray-400 line-through">1 650 €</span>
+                    <span className="text-4xl font-extrabold leading-none text-[#116290]">1 550 €</span>
+                    <span className="text-sm font-semibold text-gray-500">TTC</span>
                   </div>
-                  <span className="text-[10px] text-gray-400 mt-0.5 block">*Aides déduites (TVA 5,5% & crédit d'impôt inclus)</span>
                 </div>
 
                 <hr className="border-gray-100 my-4" />
@@ -490,17 +490,10 @@ export default function BorneDeRechargePage() {
             </div>
 
             {/* Carte Wallbox Pulsar Plus */}
-            <div className="bg-white rounded-3xl p-6 shadow-md border-2 border-ffb700 flex flex-col justify-between relative overflow-hidden hover:shadow-lg transition-shadow duration-300">
-              {/* Badge "Notre Meilleure Offre" */}
-              <div className="absolute top-0 right-0 bg-gradient-to-r from-ffeb99 to-ffb700 text-black font-black text-[9px] px-3.5 py-1 rounded-bl-xl uppercase tracking-widest shadow-sm">
-                Meilleure Offre
-              </div>
-
+            <div className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 flex flex-col justify-between relative hover:shadow-lg transition-shadow duration-300 lg:order-3 lg:col-start-3 lg:row-start-1">
               <div>
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-[#000000] font-bold tracking-wide uppercase text-[10px] bg-black/5 px-2.5 py-0.5 rounded-full">
-                    Wallbox
-                  </span>
+                  <Image src="/images/WBX_BIG.png" alt="Wallbox" width={112} height={30} className="h-7 w-auto object-contain" />
                   <span className="text-[10px] text-orange-600 bg-orange-50 font-semibold px-2.5 py-0.5 rounded-full">
                     Garantie 3 ans
                   </span>
@@ -522,12 +515,12 @@ export default function BorneDeRechargePage() {
                 <p className="text-xs text-gray-500 mb-3">Puissance modulable 7 à 22 kW</p>
 
                 <div className="mb-4">
-                  <span className="text-xs text-gray-500 block">Borne et installation, à partir de</span>
-                  <div className="flex items-baseline">
-                    <span className="text-3xl font-extrabold text-gray-900">1 490 €</span>
-                    <span className="text-sm text-gray-500 ml-1.5 font-semibold">TTC *</span>
+                  <span className="mb-2 inline-flex rounded-full border border-[#e33127] bg-[#171717] px-3 py-1.5 text-xs font-bold text-white">Offre Black Friday −100 €</span>
+                  <div className="flex flex-wrap items-baseline gap-x-2">
+                    <span className="text-base font-semibold text-gray-400 line-through">1 490 €</span>
+                    <span className="text-4xl font-extrabold leading-none text-[#116290]">1 390 €</span>
+                    <span className="text-sm font-semibold text-gray-500">TTC</span>
                   </div>
-                  <span className="text-[10px] text-gray-400 mt-0.5 block">*Aides déduites (TVA 5,5% & crédit d'impôt inclus)</span>
                 </div>
 
                 <hr className="border-gray-100 my-4" />
@@ -551,24 +544,24 @@ export default function BorneDeRechargePage() {
               </div>
               <button
                 onClick={openExpertModal}
-                className="w-full py-3 bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-bold rounded-full hover:shadow-md active:scale-[0.98] transition-all text-xs text-center"
+                className="w-full py-3 bg-transparent border-2 border-[#116290] text-[#116290] font-bold rounded-full hover:bg-[#116290]/5 active:scale-[0.98] transition-all text-xs text-center"
               >
                 Obtenir mon estimation
               </button>
             </div>
 
             {/* Carte Hager Witty */}
-            <div className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 flex flex-col justify-between relative hover:shadow-lg transition-shadow duration-300">
+            <div className="bg-white rounded-3xl p-6 shadow-md border-2 border-[#ffb700] flex flex-col justify-between relative overflow-hidden hover:shadow-lg transition-shadow duration-300 lg:order-2 lg:col-start-2 lg:row-start-1">
+              <div className="absolute right-0 top-0 rounded-bl-xl bg-gradient-to-r from-[#ffeb99] to-[#ffb700] px-3.5 py-1 text-[10px] font-black uppercase tracking-widest text-black shadow-sm">
+                Meilleure offre
+              </div>
               <div>
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-[#00549F] font-bold tracking-wide uppercase text-[10px] bg-[#00549F]/10 px-2.5 py-0.5 rounded-full">
-                    Hager
-                  </span>
+                  <Image src="/images/Hager_Logo_533px_sRGB_blue.png" alt="Hager" width={90} height={30} className="h-7 w-auto object-contain" />
                   <span className="text-[10px] text-blue-600 bg-blue-50 font-semibold px-2.5 py-0.5 rounded-full">
                     Garantie 2 ans
                   </span>
                 </div>
-
                 {/* Image Container */}
                 <div className="relative w-full h-44 mb-4 flex items-center justify-center">
                   <div className="relative w-full h-full">
@@ -585,12 +578,12 @@ export default function BorneDeRechargePage() {
                 <p className="text-xs text-gray-500 mb-3">Puissance modulable 7.4 à 22 kW</p>
 
                 <div className="mb-4">
-                  <span className="text-xs text-gray-500 block">Borne et installation, à partir de</span>
-                  <div className="flex items-baseline">
-                    <span className="text-3xl font-extrabold text-gray-900">1 690 €</span>
-                    <span className="text-sm text-gray-500 ml-1.5 font-semibold">TTC *</span>
+                  <span className="mb-2 inline-flex rounded-full border border-[#e33127] bg-[#171717] px-3 py-1.5 text-xs font-bold text-white">Offre Black Friday −100 €</span>
+                  <div className="flex flex-wrap items-baseline gap-x-2">
+                    <span className="text-base font-semibold text-gray-400 line-through">1 690 €</span>
+                    <span className="text-4xl font-extrabold leading-none text-[#116290]">1 590 €</span>
+                    <span className="text-sm font-semibold text-gray-500">TTC</span>
                   </div>
-                  <span className="text-[10px] text-gray-400 mt-0.5 block">*Aides déduites (TVA 5,5% & crédit d'impôt inclus)</span>
                 </div>
 
                 <hr className="border-gray-100 my-4" />
@@ -614,7 +607,7 @@ export default function BorneDeRechargePage() {
               </div>
               <button
                 onClick={openExpertModal}
-                className="w-full py-3 bg-transparent border-2 border-[#116290] text-[#116290] font-bold rounded-full hover:bg-[#116290]/5 active:scale-[0.98] transition-all text-xs text-center"
+                className="w-full py-3 bg-gradient-to-r from-[#ffeb99] to-[#ffb700] text-black font-bold rounded-full hover:shadow-md active:scale-[0.98] transition-all text-xs text-center"
               >
                 Obtenir mon estimation
               </button>
@@ -910,7 +903,7 @@ export default function BorneDeRechargePage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                image: '/images/borne/borne.jpg',
+                image: '/images/gap.png',
                 title: 'Villa à Gap',
                 description: 'Installation d\'une borne 11 kW triphasée connectée avec gestion dynamique de la recharge.',
                 city: 'Gap',
@@ -931,7 +924,7 @@ export default function BorneDeRechargePage() {
                 details: 'Borne intelligente connectée'
               },
               {
-                image: '/images/borne.jpeg',
+                image: '/images/manosque.png',
                 title: 'Villa à Manosque',
                 description: 'Installation d\'une borne Schneider Charge 7.4 kW avec système de délestage intelligent.',
                 city: 'Manosque',

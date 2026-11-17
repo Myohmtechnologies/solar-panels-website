@@ -111,13 +111,13 @@ export default function ElectriciteGeneralePage() {
                 Profitez d'installations électriques sécurisées, durables et prêtes pour la transition énergétique. Nos experts qualifiés vous accompagnent dans tous vos projets.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button
-                  onClick={openExpertModal}
+                <Link
+                  href="/simulator?prestation=electricite"
                   className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-br from-ffeb99 to-ffb700 text-black rounded-full font-medium text-lg hover:shadow-xl transition-all"
                 >
                   Demander un devis rapide
                   <ArrowRightIcon className="h-5 w-5 ml-2" />
-                </button>
+                </Link>
                 <Link
                   href="/contact"
                   className="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-[#116290]/30 text-[#116290] rounded-full font-medium text-lg hover:bg-[#116290]/5 transition-all"
@@ -135,7 +135,7 @@ export default function ElectriciteGeneralePage() {
             >
               <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-gradient-to-br from-gray-100 to-gray-200 aspect-[4/3] w-full">
                 <Image
-                  src="/images/maison-panneaux-solaires-borne-de-recharge-batterie-de-stockage.png"
+                  src="/images/elec.png"
                   alt="Installation tableau électrique par MyOhm Technologies"
                   fill
                   className="object-cover"

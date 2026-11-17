@@ -42,6 +42,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
+      url: 'https://www.myohmtechnologies.com/installation-ballon-eau-chaude',
+      lastModified: new Date(),
+    },
+    {
       url: 'https://www.myohmtechnologies.com/climatisation',
       lastModified: new Date(),
     },

@@ -1,116 +1,85 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRightIcon, MapPinIcon } from '@heroicons/react/24/outline';
 
 export default function CompanyPresentationSection() {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return (
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-              MY OHM Technologies - Votre Expert Local en Énergie Solaire
-            </h2>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4">
+    <section className="relative overflow-hidden bg-white py-16 md:py-24">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-6xl mx-auto"
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.55 }}
+          className="overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#0a3d5c] via-[#116290] to-[#0b5279] shadow-2xl shadow-[#116290]/20"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            MY OHM Technologies - entreprise d'installation de panneaux solaires photovoltaïque
-          </h2>
-
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-[1.02fr_0.98fr]">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative rounded-3xl overflow-hidden shadow-2xl"
+              initial={{ opacity: 0, scale: 1.03 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="relative min-h-[300px] sm:min-h-[420px] lg:min-h-[560px]"
             >
               <Image
-                src="/images/siege.webp"
-                alt="Showroom MY OHM Technologies - Installation panneaux solaires PACA"
-                width={600}
-                height={400}
-                className="object-cover w-full h-full"
+                src="/images/siege.png"
+                alt="Siège et showroom MY OHM Technologies à Manosque"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover"
                 priority
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#071f30]/70 via-transparent to-[#071f30]/10" />
+              <div className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/90 px-4 py-2.5 text-sm font-semibold text-[#116290] shadow-lg backdrop-blur-sm sm:bottom-7 sm:left-7">
+                <MapPinIcon className="h-5 w-5 text-[#d99500]" /> Manosque, région PACA
+              </div>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="space-y-6"
-            >
-              <h3 className="text-2xl font-semibold text-[#126290] mb-4">
-                Une Entreprise Locale à Votre Service
-              </h3>
-              
-              <p className="text-gray-700 leading-relaxed">
-                Implantée au cœur de la région PACA, MY OHM Technologies est votre partenaire de confiance pour votre transition énergétique. Notre showroom, situé à Manosque, vous permet de découvrir concrètement les solutions solaires adaptées à vos besoins.
+            <div className="relative flex flex-col justify-center bg-white px-6 py-10 sm:px-10 sm:py-12 lg:px-14 lg:py-16">
+              <div className="absolute right-0 top-0 h-1.5 w-32 bg-gradient-to-r from-[#ffdf64] to-[#ffb700]" />
+              <span className="mb-4 inline-flex w-fit items-center gap-2 rounded-full border border-[#116290]/10 bg-[#116290]/5 px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.13em] text-[#116290]">
+                MY OHM TECHNOLOGIES · DEPUIS MANOSQUE
+              </span>
+              <h2 className="max-w-xl text-3xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-[2.75rem]">
+                Une entreprise locale à votre service
+              </h2>
+              <p className="mt-5 max-w-xl text-base leading-7 text-gray-600 sm:text-lg sm:leading-8">
+                Implantée au cœur de la région PACA, MY OHM Technologies vous accompagne dans votre transition énergétique. Dans notre showroom à Manosque, découvrez des solutions adaptées à votre logement et à vos besoins.
               </p>
 
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <span className="text-[#126290] text-xl">✓</span>
-                  <p className="text-gray-700">Installation certifiée RGE QualiPV</p>
+              <div className="mt-7 grid grid-cols-2 gap-3 sm:gap-4" aria-label="Nos certifications et partenaires">
+                <div className="flex h-28 items-center justify-center rounded-2xl border border-gray-100 bg-gray-50 p-3 shadow-sm sm:h-32 sm:p-4">
+                  <Image
+                    src="/images/Logo-RechargeElec.jpg"
+                    alt="Logo RechargeElec"
+                    width={240}
+                    height={84}
+                    className="h-auto max-h-20 w-full object-contain"
+                  />
                 </div>
-                <div className="flex items-start space-x-3">
-                  <span className="text-[#126290] text-xl">✓</span>
-                  <p className="text-gray-700">Équipe locale expérimentée</p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <span className="text-[#126290] text-xl">✓</span>
-                  <p className="text-gray-700">Accompagnement personnalisé</p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <span className="text-[#126290] text-xl">✓</span>
-                  <p className="text-gray-700">Service après-vente réactif</p>
+                <div className="flex h-28 items-center justify-center rounded-2xl border border-gray-100 bg-gray-50 p-3 shadow-sm sm:h-32 sm:p-4">
+                  <Image
+                    src="/images/logo-QualiPV-2025-RGE_sc.png"
+                    alt="Certification QualiPV RGE 2025"
+                    width={150}
+                    height={90}
+                    className="h-auto max-h-24 w-full object-contain"
+                  />
                 </div>
               </div>
 
               <div className="mt-8">
-                <a
+                <Link
                   href="/contact"
-                  className="inline-flex items-center px-6 py-3 bg-[#126290] text-white rounded-lg hover:bg-opacity-90 transition-all"
+                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#ffdf64] to-[#ffb700] px-6 py-3.5 font-bold text-[#123c54] shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:shadow-xl"
                 >
-                  Visitez Notre Showroom
-                  <svg
-                    className="w-5 h-5 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M14 5l7 7m0 0l-7 7m7-7H3"
-                    />
-                  </svg>
-                </a>
+                  Visiter notre showroom <ArrowRightIcon className="ml-2 h-5 w-5" />
+                </Link>
               </div>
-            </motion.div>
+            </div>
           </div>
         </motion.div>
       </div>

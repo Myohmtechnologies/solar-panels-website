@@ -16,13 +16,15 @@ import {
   CheckCircleIcon,
   ReceiptRefundIcon,
   ArrowLeftOnRectangleIcon,
-  HandThumbDownIcon
+  HandThumbDownIcon,
+  EnvelopeIcon,
 } from '@heroicons/react/24/outline';
 
 
 const navigation = [
   { name: 'Tableau de bord', href: '/dashboard', icon: HomeIcon },
   { name: 'Prospects', href: '/dashboard/leads', icon: UsersIcon },
+  { name: 'Messages de contact', href: '/dashboard/contacts', icon: EnvelopeIcon },
   { name: 'Devis', href: '/dashboard/devis', icon: ReceiptRefundIcon },
   { name: 'Planning', href: '/dashboard/planning', icon: BriefcaseIcon },
   { name: 'Projets Terminés', href: '/dashboard/completed', icon: CheckCircleIcon },

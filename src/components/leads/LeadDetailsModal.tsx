@@ -216,19 +216,33 @@ export default function LeadDetailsModal({ isOpen, onClose, lead }: LeadDetailsM
                           </div>
                         )}
 
-                        {/* Informations projet */}
-                        <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                        {/* Informations de prestation et réponses du simulateur */}
+                        {lead.projectType && <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                          <dt className="text-sm font-medium leading-6 text-gray-900">Prestation</dt>
+                          <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                            {lead.simulatorData?.prestationLabel || ({ SOLAR_PANELS: 'Panneaux solaires', CHARGING_STATION: 'Borne de recharge', AIR_CONDITIONING: 'Climatisation', WATER_HEATER: 'Ballon d’eau chaude', ELECTRICAL_WORK: 'Électricité générale' } as Record<string, string>)[lead.projectType] || lead.projectType}
+                          </dd>
+                        </div>}
+                        {(lead.simulatorData?.logementType || lead.logementType) && <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                           <dt className="text-sm font-medium leading-6 text-gray-900">Type de logement</dt>
                           <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                            {lead.logementType === 'HOUSE' ? 'Maison' : 'Appartement'}
+                            {(lead.simulatorData?.logementType || lead.logementType) === 'HOUSE' ? 'Maison' : 'Appartement'}
                           </dd>
-                        </div>
-                        <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                          <dt className="text-sm font-medium leading-6 text-gray-900">Facture énergétique</dt>
+                        </div>}
+                        {(lead.simulatorData?.residentialStatus || lead.residentialStatus) && <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                          <dt className="text-sm font-medium leading-6 text-gray-900">Statut résidentiel</dt>
                           <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                            {lead.energyBill}€ / mois
+                            {(lead.simulatorData?.residentialStatus || lead.residentialStatus) === 'OWNER' ? 'Propriétaire' : 'Locataire'}
                           </dd>
-                        </div>
+                        </div>}
+                        {lead.simulatorData?.answers?.map((answer, index) => <div key={`${answer.question}-${index}`} className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                          <dt className="text-sm font-medium leading-6 text-gray-900">{answer.question}</dt>
+                          <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{answer.answer}</dd>
+                        </div>)}
+                        {lead.energyBill && <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                          <dt className="text-sm font-medium leading-6 text-gray-900">Facture énergétique</dt>
+                          <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{lead.energyBill} / mois</dd>
+                        </div>}
 
                         {/* Statut actuel */}
                         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">

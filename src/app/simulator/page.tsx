@@ -1,725 +1,399 @@
 'use client';
 
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import { Suspense, useEffect, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import {
+  ArrowRightIcon,
+  BuildingOffice2Icon,
+  CheckIcon,
+  HomeIcon,
+  KeyIcon,
+  BoltIcon,
+  SparklesIcon,
+  ShieldCheckIcon,
+  LockClosedIcon,
+  MapPinIcon,
+  ChevronLeftIcon,
+  SunIcon,
+  WrenchScrewdriverIcon,
+  FireIcon,
+} from '@heroicons/react/24/outline';
 import { simulatorEvents, conversionEvents, navigationEvents, formEvents } from '@/utils/analytics';
-import { UserIcon, EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import SimulateurSchemaMarkup from '@/components/SimulateurSchemaMarkup';
 
-// Constantes pour les étapes et les factures d'énergie
-const STEPS = {
-  PROPERTY_TYPE: 1,
-  ENERGY_BILL: 2,
-  CONTACT: 3,
-} as const;
+type ServiceId = 'panneaux' | 'borne' | 'clim' | 'ballon' | 'electricite';
+type AddressSuggestion = { fulltext?: string; label?: string; x?: number; y?: number };
+type QuestionOption = { label: string; value: string; detail?: string };
+type ServiceQuestion = { key: string; analyticsKey: string; title: string; subtitle: string; options: QuestionOption[] };
 
-type StepType = typeof STEPS[keyof typeof STEPS];
-
-const ENERGY_BILL_RANGES = [
-  { 
-    label: "moins de 80€ par mois",
-    value: "<80€",
-    annual: "960€ par an",
-    savings: "~380€ par an",
-    co2: "~750kg par an",
-    bill: 80
-  },
-  { 
-    label: "de 85€ à 165€ par mois",
-    value: "85€-165€",
-    annual: "1020€ - 1980€ par an",
-    savings: "~720€ par an",
-    co2: "~1200kg par an",
-    bill: 125
-  },
-  { 
-    label: "plus de 165€ par mois",
-    value: ">165€",
-    annual: "1980€+ par an",
-    savings: "~1100€ par an",
-    co2: "~1800kg par an",
-    bill: 200
-  },
-  { 
-    label: "Je ne sais pas",
-    value: "unknown",
-    annual: "Montant inconnu",
-    savings: "Estimation personnalisée",
-    co2: "À déterminer",
-    bill: 125 // Valeur moyenne par défaut
-  },
+const energyBillOptions: QuestionOption[] = [
+  { label: 'Moins de 85 € / mois', value: '<85€', detail: '≈ moins de 1 000 €/an' },
+  { label: 'Entre 85 € et 165 € / mois', value: '85€-165€', detail: '≈ 1 000 € à 2 000 €/an' },
+  { label: 'Plus de 165 € / mois', value: '>165€', detail: '≈ plus de 2 000 €/an' },
 ];
 
-// Validation des données
-const validateEmail = (email: string): boolean => {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(email);
+const serviceConfigs: Record<ServiceId, { label: string; projectType: string; icon: typeof SunIcon; questions: ServiceQuestion[] }> = {
+  panneaux: {
+    label: 'Panneaux solaires', projectType: 'SOLAR_PANELS', icon: SunIcon,
+    questions: [{ key: 'energyBill', analyticsKey: 'energy_bill', title: 'Votre facture d’électricité ?', subtitle: 'Choisissez le montant moyen de votre facture mensuelle.', options: energyBillOptions }],
+  },
+  borne: {
+    label: 'Borne de recharge', projectType: 'CHARGING_STATION', icon: BoltIcon,
+    questions: [
+      { key: 'chargingDistance', analyticsKey: 'charging_distance', title: 'Où souhaitez-vous faire installer votre borne de recharge ?', subtitle: 'La distance depuis le tableau électrique aide à évaluer les travaux nécessaires.', options: [
+        { label: 'À proximité de mon tableau électrique', value: 'LESS_THAN_15M', detail: 'Distance courte de câble (moins de 15 mètres linéaires).' },
+        { label: 'Ma borne sera éloignée de mon tableau', value: 'MORE_THAN_15M', detail: 'Distance longue nécessitant des travaux supplémentaires (plus de 15 mètres).' },
+      ] },
+      { key: 'vehicleStatus', analyticsKey: 'vehicle_status', title: 'Possédez-vous déjà votre véhicule électrique ou hybride rechargeable ?', subtitle: 'Cela nous aide à valider la compatibilité de recharge avec le constructeur de votre véhicule.', options: [
+        { label: 'Oui', value: 'YES' },
+        { label: 'Non, je l’ai commandé et attends d’être livré(e)', value: 'ORDERED' },
+        { label: 'Non, il s’agit d’un projet', value: 'PLANNED' },
+      ] },
+    ],
+  },
+  clim: {
+    label: 'Climatisation', projectType: 'AIR_CONDITIONING', icon: SparklesIcon,
+    questions: [
+      { key: 'climProject', analyticsKey: 'clim_project', title: 'Quel est votre projet de climatisation ?', subtitle: 'Dites-nous ce que vous souhaitez faire réaliser.', options: [
+        { label: 'Installer une climatisation', value: 'INSTALL' },
+        { label: 'Remplacer une installation existante', value: 'REPLACE' },
+        { label: 'Autre demande', value: 'OTHER' },
+      ] },
+      { key: 'climSurface', analyticsKey: 'clim_surface', title: 'Quelle surface souhaitez-vous climatiser ?', subtitle: 'Une estimation suffit pour commencer.', options: [
+        { label: 'Moins de 30 m²', value: '<30M2' },
+        { label: 'Entre 30 et 60 m²', value: '30-60M2' },
+        { label: 'Entre 60 et 100 m²', value: '60-100M2' },
+        { label: 'Plus de 100 m²', value: '>100M2' },
+      ] },
+    ],
+  },
+  ballon: {
+    label: 'Ballon d’eau chaude', projectType: 'WATER_HEATER', icon: FireIcon,
+    questions: [{ key: 'waterHeaterCapacity', analyticsKey: 'water_heater_capacity', title: 'Quelle capacité souhaitez-vous pour votre ballon ?', subtitle: 'Si vous hésitez, choisissez « Je ne sais pas encore » ; nous vous conseillerons.', options: [
+      { label: '50 litres', value: '50L' },
+      { label: '100 litres', value: '100L' },
+      { label: '150 litres', value: '150L' },
+      { label: '200 litres', value: '200L' },
+      { label: '300 litres', value: '300L' },
+      { label: 'Je ne sais pas encore', value: 'UNKNOWN' },
+    ] }],
+  },
+  electricite: {
+    label: 'Électricité générale', projectType: 'ELECTRICAL_WORK', icon: WrenchScrewdriverIcon,
+    questions: [
+      { key: 'electricalWorkType', analyticsKey: 'electrical_work_type', title: 'Quel type de travaux souhaitez-vous ?', subtitle: 'Choisissez la demande qui correspond le mieux à votre projet.', options: [
+        { label: 'Rénovation électrique', value: 'RENOVATION' },
+        { label: 'Mise aux normes', value: 'UPGRADE' },
+        { label: 'Ajout de prises ou d’éclairages', value: 'OUTLETS_LIGHTING' },
+        { label: 'Dépannage', value: 'REPAIR' },
+        { label: 'Autre demande', value: 'OTHER' },
+      ] },
+      { key: 'electricalScope', analyticsKey: 'electrical_scope', title: 'Quelle partie du logement est concernée ?', subtitle: 'Cela nous aide à comprendre l’ampleur de l’intervention.', options: [
+        { label: 'Une pièce', value: 'ONE_ROOM' },
+        { label: 'Plusieurs pièces', value: 'SEVERAL_ROOMS' },
+        { label: 'Le tableau électrique', value: 'ELECTRICAL_PANEL' },
+        { label: 'Tout le logement', value: 'WHOLE_HOME' },
+      ] },
+    ],
+  },
 };
 
-const validatePhone = (phone: string): boolean => {
-  const re = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
-  return re.test(phone);
-};
+const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const validatePhone = (phone: string) => /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/.test(phone);
 
-const validateName = (name: string): boolean => {
-  return name.length >= 2;
-};
+function SimulateurContent() {
+  const searchParams = useSearchParams();
+  const requestedService = searchParams.get('prestation') as ServiceId | null;
+  const serviceId: ServiceId = requestedService && requestedService in serviceConfigs ? requestedService : 'panneaux';
+  const service = serviceConfigs[serviceId];
+  const addressStep = service.questions.length + 3;
+  const contactStep = addressStep + 1;
+  const totalSteps = contactStep;
 
-const StepProgressBar = ({ currentStep }: { currentStep: StepType }) => {
-  const steps = [
-    { id: STEPS.PROPERTY_TYPE, label: 'Type de propriété' },
-    { id: STEPS.ENERGY_BILL, label: 'Facture d\'énergie' },
-    { id: STEPS.CONTACT, label: 'Coordonnées' }
-  ];
-
-  return (
-    <div className="mb-8 space-y-2">
-      <div className="flex justify-between items-center">
-        {steps.map((step) => (
-          <div 
-            key={step.id} 
-            className={`text-sm font-medium ${
-              currentStep > step.id 
-                ? 'text-ffb700' 
-                : currentStep === step.id 
-                  ? 'text-ffb700 opacity-70' 
-                  : 'text-gray-400'
-            }`}
-          >
-            {step.label}
-          </div>
-        ))}
-      </div>
-      <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden flex">
-        {steps.map((step) => (
-          <div 
-            key={step.id}
-            className={`h-full transition-all duration-300 ${
-              currentStep > step.id 
-                ? 'bg-gradient-to-br from-ffeb99 to-ffb700' 
-                : currentStep === step.id 
-                  ? 'bg-gradient-to-br from-ffeb99 to-ffb700 opacity-50' 
-                  : 'bg-gray-200'
-            }`}
-            style={{ 
-              width: `${100 / steps.length}%`
-            }}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const SimulateurPage = () => {
-  const router = useRouter();
-  const [currentStep, setCurrentStep] = useState<StepType>(STEPS.PROPERTY_TYPE);
-  const [formState, setFormState] = useState({
-    residentialStatus: "",
-    ownershipType: "",
-    logementType: "",
-    energyBill: "",
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    postalCode: "",
-    isSubmitting: false,
-    error: "",
-    validationErrors: {
-      name: "",
-      email: "",
-      phone: "",
-      address: "",
-      city: "",
-      postalCode: ""
-    }
+  const [step, setStep] = useState(1);
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [form, setForm] = useState({
+    residentialStatus: '', logementType: '', address: '', name: '', email: '', phone: '',
+    isSubmitting: false, error: '',
   });
+  const [addressSuggestions, setAddressSuggestions] = useState<AddressSuggestion[]>([]);
+  const [isSearchingAddress, setIsSearchingAddress] = useState(false);
+  const [addressSelected, setAddressSelected] = useState(false);
 
-  // Préchargement des images
+  const currentQuestion = step >= 3 && step < addressStep ? service.questions[step - 3] : null;
+  const currentContent = currentQuestion
+    ? { title: currentQuestion.title, subtitle: currentQuestion.subtitle }
+    : step === 1
+      ? { title: 'Vous êtes…', subtitle: 'Pour commencer, quel est votre statut dans ce logement ?' }
+      : step === 2
+        ? { title: 'Vous habitez…', subtitle: 'Le type de logement nous aide à adapter votre estimation.' }
+        : step === addressStep
+          ? { title: 'Quelle est l’adresse de votre logement ?', subtitle: 'Pour situer votre projet et préparer une première estimation.' }
+          : { title: 'Recevez votre estimation', subtitle: 'Laissez vos coordonnées et notre équipe vous recontactera pour étudier votre projet.' };
+
   useEffect(() => {
     navigationEvents.pageView('/simulator');
-    simulatorEvents.simulatorStart('direct');
+    simulatorEvents.simulatorStart(serviceId);
     simulatorEvents.stepView('property_type');
-    const preloadImage = (src: string) => {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'image';
-      link.href = src;
-      document.head.appendChild(link);
-    };
+  }, [serviceId]);
 
-    [
-      '/images/maison.svg',
-      '/images/appart.svg',
-      '/images/logo.png'
-    ].forEach(preloadImage);
-  }, []);
-
-  const handleStepChange = (newStep: StepType) => {
-    let stepName: 'property_type' | 'energy_bill' | 'contact' = 'property_type';
-    
-    switch (newStep) {
-      case STEPS.PROPERTY_TYPE:
-        stepName = 'property_type';
-        break;
-      case STEPS.ENERGY_BILL:
-        stepName = 'energy_bill';
-        break;
-      case STEPS.CONTACT:
-        stepName = 'contact';
-        break;
+  useEffect(() => {
+    const query = form.address.trim();
+    if (step !== addressStep || query.length < 4 || addressSelected) {
+      setAddressSuggestions([]);
+      setIsSearchingAddress(false);
+      return;
     }
 
-    simulatorEvents.stepView(stepName);
-    formEvents.formProgress('simulator', newStep, 3);
-
-    setCurrentStep(newStep);
-  };
-
-  const handlePropertyTypeSelect = (type: string) => {
-    simulatorEvents.stepComplete('property_type', { property_type: type });
-    setFormState(prev => ({ ...prev, logementType: type }));
-    handleStepChange(STEPS.ENERGY_BILL);
-  };
-
-  const handleEnergyBillSelect = (value: string) => {
-    simulatorEvents.stepComplete('energy_bill', { energy_bill: value });
-    setFormState(prev => ({ ...prev, energyBill: value }));
-    handleStepChange(STEPS.CONTACT);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormState(prev => {
-      const newState = { ...prev, [name]: value };
-      
-      // Validation en temps réel
-      const validationErrors = { ...prev.validationErrors };
-      
-      switch (name) {
-        case 'email':
-          validationErrors.email = validateEmail(value) ? "" : "Email invalide";
-          break;
-        case 'phone':
-          validationErrors.phone = validatePhone(value) ? "" : "Numéro de téléphone invalide";
-          break;
-        case 'name':
-          validationErrors.name = validateName(value) ? "" : "Nom trop court";
-          break;
-        case 'address':
-          validationErrors.address = value.length > 0 ? "" : "Adresse requise";
-          break;
-        case 'city':
-          validationErrors.city = value.length > 0 ? "" : "Ville requise";
-          break;
-        case 'postalCode':
-          validationErrors.postalCode = value.length > 0 ? "" : "Code postal requis";
-          break;
-      }
-
-      return { ...newState, validationErrors };
-    });
-  };
-
-  const handleBack = () => {
-    if (currentStep > STEPS.PROPERTY_TYPE) {
-      setCurrentStep(prev => {
-        if (prev === STEPS.ENERGY_BILL) return STEPS.PROPERTY_TYPE;
-        if (prev === STEPS.CONTACT) return STEPS.ENERGY_BILL;
-        return prev;
-      });
-    }
-  };
-
-  const validateForm = (): boolean => {
-    const validationErrors = {
-      name: !validateName(formState.name) ? "Nom requis" : "",
-      email: !validateEmail(formState.email) ? "Email invalide" : "",
-      phone: !validatePhone(formState.phone) ? "Numéro de téléphone invalide" : "",
-      address: formState.address.length === 0 ? "Adresse requise" : "",
-      city: formState.city.length === 0 ? "Ville requise" : "",
-      postalCode: formState.postalCode.length === 0 ? "Code postal requis" : ""
-    };
-
-    setFormState(prev => ({
-      ...prev,
-      validationErrors
-    }));
-
-    return Object.values(validationErrors).every(error => error === "");
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (formState.isSubmitting) return;
-    
-    const isValid = validateForm();
-    
-    if (isValid) {
-      setFormState(prev => ({ ...prev, isSubmitting: true, error: '' }));
-      
+    const controller = new AbortController();
+    const timeout = window.setTimeout(async () => {
+      setIsSearchingAddress(true);
       try {
-        conversionEvents.simulatorConversion('complete', {
-          property_type: formState.logementType,
-          energy_bill: formState.energyBill,
-        });
-
-        const formData = {
-          name: formState.name,
-          email: formState.email,
-          phone: formState.phone,
-          address: formState.address,
-          city: formState.city,
-          postalCode: formState.postalCode,
-          residentialStatus: formState.residentialStatus || 'OWNER',
-          logementType: formState.logementType,
-          energyBill: formState.energyBill,
-          source: 'simulator',
-          projectType: 'SOLAR_PANELS',
-          notes: JSON.stringify({
-            logementType: formState.logementType,
-            energyBill: formState.energyBill,
-            address: formState.address,
-            postalCode: formState.postalCode
-          })
-        };
-
-        console.log('Submitting Form Data:', JSON.stringify(formData, null, 2));
-
-        const apiUrl = `${window.location.origin}/api/leads`;
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-
-        console.log('Response Status:', response.status);
+        const params = new URLSearchParams({ text: query, type: 'StreetAddress', maximumResponses: '5', terr: 'METROPOLE' });
+        const response = await fetch(`https://data.geopf.fr/geocodage/completion/?${params}`, { signal: controller.signal });
+        if (!response.ok) throw new Error('Recherche d’adresse indisponible');
         const data = await response.json();
-        console.log('Response Data:', data);
-
-        if (!response.ok) {
-          throw new Error(data.error || 'Erreur lors de la soumission');
-        }
-
-        const leadInfo = {
-          name: formState.name,
-          type: 'simulator',
-          gclid: new URLSearchParams(window.location.search).get('gclid'),
-          source: new URLSearchParams(window.location.search).get('utm_source') || 'direct'
-        };
-        
-        sessionStorage.setItem('leadInfo', JSON.stringify(leadInfo));
-
-        // Track la conversion Google Ads si l'utilisateur vient d'une annonce
-        const gclid = new URLSearchParams(window.location.search).get('gclid');
-        if (typeof window !== 'undefined' && window.gtag && gclid) {
-          window.gtag('event', 'conversion', {
-            'send_to': 'AW-18287034089/FFX8CKXqk6EaEPPGpNM-',
-            'value': 100.0,
-            'currency': 'EUR'
-          });
-        }
-        
-        // Redirection vers la page de remerciement avec les paramètres de tracking
-        const urlParams = new URLSearchParams(window.location.search);
-        const redirectUrl = new URL('/merci', window.location.origin);
-        
-        // Ajout des paramètres de tracking
-        redirectUrl.searchParams.set('source', 'simulator');
-        
-        // Conservation du gclid et des UTM s'ils existent
-        const trackingParams = ['gclid', 'utm_source', 'utm_medium', 'utm_campaign'];
-        trackingParams.forEach(param => {
-          const value = urlParams.get(param);
-          if (value) {
-            redirectUrl.searchParams.set(param, value);
-          }
-        });
-        
-        window.location.href = redirectUrl.toString();
-        
-      } catch (error: any) {
-        console.error('Detailed Error:', {
-          message: error.message,
-          name: error.name,
-          stack: error.stack
-        });
-        setFormState(prev => ({
-          ...prev,
-          error: error.message || "Une erreur est survenue lors de l'envoi du formulaire.",
-          isSubmitting: false
-        }));
-        formEvents.formError('simulator_submission_error');
+        setAddressSuggestions(Array.isArray(data.results) ? data.results : []);
+      } catch (error) {
+        if (!(error instanceof DOMException && error.name === 'AbortError')) setAddressSuggestions([]);
+      } finally {
+        if (!controller.signal.aborted) setIsSearchingAddress(false);
       }
-    } else {
+    }, 300);
+
+    return () => {
+      window.clearTimeout(timeout);
+      controller.abort();
+    };
+  }, [addressSelected, addressStep, form.address, step]);
+
+  const analyticsStepName = (stepNumber: number) => {
+    if (stepNumber === 1) return 'property_type';
+    if (stepNumber === 2) return 'equipment';
+    if (stepNumber === addressStep) return 'address';
+    if (stepNumber === contactStep) return 'contact';
+    return service.questions[stepNumber - 3]?.analyticsKey || 'service_question';
+  };
+
+  const goToStep = (nextStep: number) => {
+    simulatorEvents.stepView(analyticsStepName(nextStep));
+    formEvents.formProgress('simulator', nextStep, totalSteps);
+    setStep(nextStep);
+  };
+
+  const selectStatus = (status: 'OWNER' | 'TENANT') => {
+    simulatorEvents.stepComplete('property_type', { residential_status: status });
+    setForm((current) => ({ ...current, residentialStatus: status }));
+    goToStep(2);
+  };
+
+  const selectHomeType = (homeType: 'HOUSE' | 'APARTMENT') => {
+    simulatorEvents.stepComplete('equipment', { property_type: homeType });
+    setForm((current) => ({ ...current, logementType: homeType }));
+    goToStep(3);
+  };
+
+  const selectServiceAnswer = (question: ServiceQuestion, value: string) => {
+    simulatorEvents.stepComplete(question.analyticsKey, { [question.key]: value });
+    setAnswers((current) => ({ ...current, [question.key]: value }));
+    goToStep(step + 1);
+  };
+
+  const formatAddressSuggestion = (suggestion: AddressSuggestion) => {
+    const label = suggestion.fulltext || suggestion.label;
+    if (!label) return '';
+    const houseNumber = form.address.match(/^\s*(\d+\s*(?:bis|ter|quater)?)(?=\s|,)/i)?.[1]?.trim();
+    return houseNumber && !/^\d/.test(label) ? `${houseNumber} ${label}` : label;
+  };
+
+  const selectAddress = (suggestion: AddressSuggestion) => {
+    const address = formatAddressSuggestion(suggestion);
+    if (!address) return;
+    setAddressSuggestions([]);
+    setAddressSelected(true);
+    setForm((current) => ({ ...current, address }));
+  };
+
+  const continueFromAddress = () => {
+    simulatorEvents.stepComplete('address', { address: form.address.trim() });
+    goToStep(contactStep);
+  };
+
+  const goBack = () => {
+    if (step > 1) goToStep(step - 1);
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!form.name.trim() || !validateEmail(form.email) || !validatePhone(form.phone)) {
       formEvents.formError('simulator_validation_error');
+      setForm((current) => ({ ...current, error: 'Vérifiez votre nom, votre adresse e-mail et votre numéro de téléphone.' }));
+      return;
+    }
+
+    setForm((current) => ({ ...current, isSubmitting: true, error: '' }));
+    try {
+      conversionEvents.simulatorConversion('complete', { property_type: form.logementType, energy_bill: answers.energyBill || '' });
+      const structuredAnswers = service.questions.map((question) => {
+        const value = answers[question.key] || '';
+        const selectedOption = question.options.find((option) => option.value === value);
+        return { question: question.title, answer: selectedOption ? `${selectedOption.label}${selectedOption.detail ? ` — ${selectedOption.detail}` : ''}` : value, value };
+      });
+      const simulatorData = {
+        prestation: serviceId,
+        prestationLabel: service.label,
+        residentialStatus: form.residentialStatus,
+        logementType: form.logementType,
+        address: form.address.trim(),
+        answers: structuredAnswers,
+      };
+      const lead = {
+        name: form.name.trim(), email: form.email.trim(), phone: form.phone.trim(), address: form.address.trim(),
+        residentialStatus: form.residentialStatus, logementType: form.logementType,
+        energyBill: answers.energyBill || null,
+        source: 'simulator', projectType: service.projectType, simulatorData,
+      };
+      const response = await fetch('/api/leads', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(lead),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Une erreur est survenue lors de l’envoi.');
+
+      const params = new URLSearchParams(window.location.search);
+      sessionStorage.setItem('leadInfo', JSON.stringify({ name: form.name, type: 'simulator', service: serviceId, gclid: params.get('gclid'), source: params.get('utm_source') || 'direct' }));
+      if (window.gtag && params.get('gclid')) {
+        window.gtag('event', 'conversion', { send_to: 'AW-18287034089/FFX8CKXqk6EaEPPGpNM-', value: 100, currency: 'EUR' });
+      }
+      const redirect = new URL('/merci', window.location.origin);
+      redirect.searchParams.set('source', 'simulator');
+      redirect.searchParams.set('prestation', serviceId);
+      ['gclid', 'utm_source', 'utm_medium', 'utm_campaign'].forEach((key) => {
+        const value = params.get(key);
+        if (value) redirect.searchParams.set(key, value);
+      });
+      window.location.href = redirect.toString();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Une erreur est survenue lors de l’envoi.';
+      setForm((current) => ({ ...current, isSubmitting: false, error: message }));
+      formEvents.formError('simulator_submission_error');
     }
   };
+
+  const ServiceIcon = service.icon;
+  const Choice = ({ title, detail, icon: Icon, onClick }: { title: string; detail?: string; icon: typeof HomeIcon; onClick: () => void }) => (
+    <button type="button" onClick={onClick} className="group flex w-full items-center gap-4 rounded-2xl border border-[#116290]/10 bg-[#f5f9fb] p-3.5 text-left transition hover:border-[#116290]/30 hover:bg-white hover:shadow-[0_8px_24px_rgba(8,47,73,0.1)] sm:p-4">
+      <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ffeb99] to-[#ffb700] text-[#0a3d5c] shadow-sm transition group-hover:scale-105"><Icon className="h-7 w-7" /></span>
+      <span className="min-w-0 flex-1">
+        <span className="block text-base font-bold text-[#102c40] sm:text-lg">{title}</span>
+        {detail && <span className="mt-0.5 block text-sm text-gray-500">{detail}</span>}
+      </span>
+      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-[#116290]/35 text-transparent transition group-hover:border-[#116290] group-hover:bg-[#116290] group-hover:text-white"><CheckIcon className="h-4 w-4" strokeWidth={3} /></span>
+    </button>
+  );
 
   return (
-    <main className="bg-white">
+    <main className="relative flex min-h-screen flex-col overflow-hidden bg-[#f5f9fb] px-4 pb-8 pt-5 sm:px-6 sm:pt-7">
       <SimulateurSchemaMarkup />
-      <div className="min-h-screen bg-white">
-        <header className="fixed top-0 left-0 right-0 bg-white text-black shadow-sm z-50 px-[10%] py-4 flex justify-between items-center">
-          <Link href="/" className="logo">
-            <Image
-              src="/images/logo.png"
-              alt="Logo"
-              width={150}
-              height={40}
-              className="h-10 w-auto"
-              priority
-            />
-          </Link>
-        </header>
+      <div aria-hidden="true" className="pointer-events-none absolute -left-32 top-20 h-80 w-80 rounded-full bg-[#ffdf64]/20 blur-3xl" />
+      <div aria-hidden="true" className="pointer-events-none absolute -right-36 bottom-0 h-96 w-96 rounded-full bg-[#116290]/10 blur-3xl" />
 
-        <div className="flex flex-col lg:flex-row justify-between px-4 md:px-[10%] gap-8 lg:gap-16 pt-20">
-          <div className="flex-1 max-w-2xl mx-auto w-full">
-            <div className="flex justify-between items-center mb-6">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl text-gray-900 font-semibold leading-snug">
-                Estimation de votre projet solaire en 1 minute
-              </h1>
-              {currentStep > STEPS.PROPERTY_TYPE && (
-                <button
-                  onClick={handleBack}
-                  className="text-gray-600 hover:text-gray-900 transition-colors p-2 rounded-full hover:bg-gray-100"
-                  aria-label="Retour à l'étape précédente"
-                >
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-              )}
-            </div>
+      <header className="relative z-10 mx-auto flex h-14 w-full max-w-6xl items-center justify-center gap-3 sm:gap-4">
+        <Link href="/" aria-label="MY OHM Technologies, accueil">
+          <Image src="/images/logo.png" alt="MY OHM Technologies" width={190} height={70} className="h-10 w-auto sm:h-12" priority />
+        </Link>
+        <span aria-hidden="true" className="text-3xl font-light leading-none text-[#116290]/50">|</span>
+        <span className="whitespace-nowrap text-lg font-extrabold tracking-tight text-[#102c40] sm:text-2xl">{service.label}</span>
+      </header>
 
-            <div className="mb-8">
-              <p className="text-sm font-medium text-gray-700 mb-2">
-                Étape {currentStep} sur {Object.keys(STEPS).length}
-              </p>
-              <StepProgressBar currentStep={currentStep} />
-            </div>
-
-            {currentStep === STEPS.PROPERTY_TYPE && (
-              <div className="space-y-6">
-                <div className="text-center mb-6">
-                  <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                    Quel type de propriété ?
-                  </h2>
-                  
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <button 
-                    onClick={() => handlePropertyTypeSelect("HOUSE")}
-                    className="group bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg text-white rounded-3xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 w-full text-center hover:scale-[1.02]"
-                  >
-                    <div className="flex items-center text-black justify-center space-x-3">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                      </svg>
-                      <span className="font-semibold">Maison individuelle</span>
-                    </div>
-                  </button>
-
-                  <button 
-                    onClick={() => handlePropertyTypeSelect("APARTMENT")}
-                    className="group bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg text-white rounded-3xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 w-full text-center hover:scale-[1.02]"
-                  >
-                    <div className="flex items-center text-black justify-center space-x-3">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8.5a.5.5 0 11-1 0 .5.5 0 011 0zm4.5 4a.5.5 0 11-1 0 .5.5 0 011 0z" />
-                      </svg>
-                      <span className="font-semibold">Appartement</span>
-                    </div>
-                  </button>
-                </div>
-
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-600 text-sm mt-4">
-                  <span className="flex items-center">
-                    <svg className="w-4 h-4 text-AFC97E mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    Estimation personnalisée
-                  </span>
-                  <span className="flex items-center">
-                    <svg className="w-4 h-4 text-AFC97E mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    Adapté à votre logement
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {currentStep === STEPS.ENERGY_BILL && (
-              <div className="space-y-6">
-                <div className="text-center mb-6">
-                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
-                    Quelle est votre facture d&apos;énergie ?
-                  </h2>
-                  
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {ENERGY_BILL_RANGES.map((range, index) => (
-                    <button 
-                      key={index}
-                      onClick={() => handleEnergyBillSelect(range.value)}
-                      className="group bg-gradient-to-br from-ffeb99 to-ffb700 backdrop-blur-lg text-white rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 w-full text-center hover:scale-[1.02]"
-                    >
-                      <div className="flex items-center text-black justify-center space-x-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <div className="text-left">
-                          <span className="font-semibold text-lg md:text-xl block mb-1">{range.label}</span>
-                          <span className="text-base md:text-lg text-gray-700">{range.annual}</span>
-                        </div>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-gray-600 text-base mt-6">
-                  <span className="flex items-center">
-                    <svg className="w-5 h-5 text-AFC97E mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    Calcul précis
-                  </span>
-                  <span className="flex items-center">
-                    <svg className="w-5 h-5 text-AFC97E mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    Personnalisé
-                  </span>
-                </div>
-                
-                {currentStep > STEPS.PROPERTY_TYPE && (
-                  <div className="mt-8 text-center">
-                    <button
-                      onClick={handleBack}
-                      className="flex items-center justify-center gap-2 mx-auto px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-all"
-                    >
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                      </svg>
-                      <span>Retour</span>
-                    </button>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {currentStep === STEPS.CONTACT && (
-              <form 
-                onSubmit={handleSubmit} 
-                className="bg-white p-8 rounded-2xl shadow-lg space-y-6"
-              >
-                <div>
-                  <label htmlFor="name" className="block text-gray-700 mb-2">Nom Complet</label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <UserIcon className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formState.name}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="Votre nom et prénom"
-                      className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64 ${
-                        formState.validationErrors.name ? 'border-red-500' : 'border-gray-300'
-                      }`}
-                    />
-                    {formState.validationErrors.name && (
-                      <p className="mt-1 text-red-500 text-sm">{formState.validationErrors.name}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-gray-700 mb-2">Email</label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <EnvelopeIcon className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formState.email}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="votre@email.com"
-                      className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64 ${
-                        formState.validationErrors.email ? 'border-red-500' : 'border-gray-300'
-                      }`}
-                    />
-                    {formState.validationErrors.email && (
-                      <p className="mt-1 text-red-500 text-sm">{formState.validationErrors.email}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="phone" className="block text-gray-700 mb-2">Numéro de Téléphone</label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <PhoneIcon className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formState.phone}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="06 12 34 56 78"
-                      className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64 ${
-                        formState.validationErrors.phone ? 'border-red-500' : 'border-gray-300'
-                      }`}
-                    />
-                    {formState.validationErrors.phone && (
-                      <p className="mt-1 text-red-500 text-sm">{formState.validationErrors.phone}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="address" className="block text-gray-700 mb-2">Adresse</label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      id="address"
-                      name="address"
-                      value={formState.address}
-                      onChange={handleInputChange}
-                      required
-                      placeholder="123 rue de la République"
-                      className={`w-full pl-4 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64 ${
-                        formState.validationErrors.address ? 'border-red-500' : 'border-gray-300'
-                      }`}
-                    />
-                    {formState.validationErrors.address && (
-                      <p className="mt-1 text-red-500 text-sm">{formState.validationErrors.address}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="city" className="block text-gray-700 mb-2">Ville</label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        id="city"
-                        name="city"
-                        value={formState.city}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Ville"
-                        className={`w-full pl-4 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64 ${
-                          formState.validationErrors.city ? 'border-red-500' : 'border-gray-300'
-                        }`}
-                      />
-                      {formState.validationErrors.city && (
-                        <p className="mt-1 text-red-500 text-sm">{formState.validationErrors.city}</p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="postalCode" className="block text-gray-700 mb-2">Code Postal</label>
-                    <div className="relative">
-                      <input
-                        type="text"
-                        id="postalCode"
-                        name="postalCode"
-                        value={formState.postalCode}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="75000"
-                        className={`w-full pl-4 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-FFDF64 ${
-                          formState.validationErrors.postalCode ? 'border-red-500' : 'border-gray-300'
-                        }`}
-                      />
-                      {formState.validationErrors.postalCode && (
-                        <p className="mt-1 text-red-500 text-sm">{formState.validationErrors.postalCode}</p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {formState.error && (
-                  <div className="p-3 bg-red-100 text-red-700 rounded-lg">
-                    {formState.error}
-                  </div>
-                )}
-
-                <div className="flex flex-col gap-4">
-                  <button 
-                    type="submit"
-                    disabled={formState.isSubmitting}
-                    className={`w-full bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-bold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 ${
-                      formState.isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'
-                    }`}
-                  >
-                    {formState.isSubmitting ? (
-                      <span className="flex items-center justify-center">
-                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Envoi en cours...
-                      </span>
-                    ) : (
-                      'Obtenir une estimation gratuite'
-                    )}
-                  </button>
-                  
-                  <button
-                    type="button"
-                    onClick={handleBack}
-                    className="flex items-center justify-center gap-2 mx-auto px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-all"
-                  >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                    <span>Retour</span>
-                  </button>
-                </div>
-              </form>
-            )}
+      <section className="relative z-10 mx-auto my-auto w-full max-w-3xl rounded-[2rem] border border-[#116290]/10 bg-white p-5 shadow-[0_22px_70px_rgba(8,47,73,0.12)] sm:p-8 md:p-10">
+        {step > 1 && <button type="button" onClick={goBack} className="mb-4 inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#f1f6f9] px-3 py-2 text-sm font-semibold text-[#116290] transition hover:bg-[#e5f0f6]" aria-label="Revenir à l’étape précédente"><ChevronLeftIcon className="h-4 w-4" /><span>Retour</span></button>}
+        <div className="mb-7 flex items-center gap-3">
+          <span className="shrink-0 rounded-full bg-[#f1f6f9] px-3 py-1.5 text-xs font-bold text-[#116290]">Étape {step} sur {totalSteps}</span>
+          <div className="flex flex-1 gap-2" aria-label={`Étape ${step} sur ${totalSteps}`}>
+            {Array.from({ length: totalSteps }, (_, index) => <span key={index} className={`h-2 flex-1 rounded-full ${index < step ? 'bg-gradient-to-r from-[#ffdf64] to-[#ffb700]' : 'bg-gray-200'}`} />)}
           </div>
-
-          {/* Section image */}
-          <div className="flex-1 sticky top-[100px] hidden lg:flex items-start justify-center">
-            <div className="relative w-full max-w-lg">
-              <div className="absolute -inset-1 bg-AFC97E/20 rounded-3xl blur"></div>
-              <Image
-                src="/images/right-simulation.png"
-                alt="Maison avec panneaux solaires"
-                width={600}
-                height={400}
-                className="relative rounded-2xl shadow-lg object-cover w-full"
-                priority
-              />
-            </div>
-          </div>
+          <span className="hidden text-xs font-medium text-gray-500 sm:block">Estimation gratuite</span>
         </div>
+
+        <div className="mb-7">
+          <h1 className="text-3xl font-extrabold tracking-tight text-[#102c40] sm:text-4xl">{currentContent.title}</h1>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-600 sm:text-base">{currentContent.subtitle}</p>
+        </div>
+
+        <div className="space-y-3.5">
+          {step === 1 && <>
+            <Choice title="Propriétaire" detail="Je suis propriétaire de mon logement" icon={HomeIcon} onClick={() => selectStatus('OWNER')} />
+            <Choice title="Locataire" detail="Je suis locataire de mon logement" icon={KeyIcon} onClick={() => selectStatus('TENANT')} />
+          </>}
+
+          {step === 2 && <>
+            <Choice title="Une maison" detail="Individuelle ou mitoyenne" icon={HomeIcon} onClick={() => selectHomeType('HOUSE')} />
+            <Choice title="Un appartement" detail="Dans une résidence ou un immeuble" icon={BuildingOffice2Icon} onClick={() => selectHomeType('APARTMENT')} />
+          </>}
+
+          {currentQuestion && currentQuestion.options.map((option) => (
+            <Choice key={option.value} title={option.label} detail={option.detail} icon={ServiceIcon} onClick={() => selectServiceAnswer(currentQuestion, option.value)} />
+          ))}
+
+          {step === addressStep && <div className="space-y-4">
+            <label htmlFor="simulator-address" className="block text-sm font-semibold text-[#102c40]">Adresse du logement
+              <span className="relative mt-1.5 block">
+                <MapPinIcon className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#116290]" />
+                <input id="simulator-address" value={form.address} onChange={(event) => { setAddressSelected(false); setForm((current) => ({ ...current, address: event.target.value })); }} autoComplete="street-address" placeholder="Ex. 12 rue des Lilas, Manosque" role="combobox" aria-autocomplete="list" aria-expanded={addressSuggestions.length > 0} aria-controls="simulator-address-suggestions" className="w-full rounded-xl border border-gray-200 bg-white py-3 pl-11 pr-4 font-normal outline-none transition placeholder:text-gray-400 focus:border-[#116290] focus:ring-4 focus:ring-[#116290]/10" />
+              </span>
+            </label>
+            {isSearchingAddress && <p className="text-sm text-gray-500">Recherche des adresses…</p>}
+            {addressSuggestions.length > 0 && <ul id="simulator-address-suggestions" role="listbox" className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
+              {addressSuggestions.map((suggestion, index) => {
+                const label = formatAddressSuggestion(suggestion);
+                if (!label) return null;
+                return <li key={`${label}-${index}`} role="option" aria-selected="false">
+                  <button type="button" onClick={() => selectAddress(suggestion)} className="flex w-full items-start gap-3 px-4 py-3 text-left text-sm text-[#102c40] transition hover:bg-[#f5f9fb]"><MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-[#116290]" />{label}</button>
+                </li>;
+              })}
+            </ul>}
+            <p className="rounded-xl bg-[#f5f9fb] px-4 py-3 text-xs leading-5 text-gray-600">Commencez à saisir votre adresse puis choisissez une suggestion. Les adresses sont proposées par la Base Adresse Nationale.</p>
+            <button type="button" onClick={continueFromAddress} disabled={form.address.trim().length < 5} className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#116290] to-[#0a3d5c] px-6 py-4 font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50">Continuer <ArrowRightIcon className="ml-2 h-5 w-5" /></button>
+          </div>}
+
+          {step === contactStep && <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <label className="block text-sm font-semibold text-[#102c40]">Nom et prénom
+                <input required minLength={2} value={form.name} onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))} autoComplete="name" placeholder="Votre nom" className="mt-1.5 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 font-normal outline-none transition placeholder:text-gray-400 focus:border-[#116290] focus:ring-4 focus:ring-[#116290]/10" />
+              </label>
+              <label className="block text-sm font-semibold text-[#102c40]">Téléphone
+                <input required type="tel" value={form.phone} onChange={(event) => setForm((current) => ({ ...current, phone: event.target.value }))} autoComplete="tel" placeholder="06 12 34 56 78" className="mt-1.5 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 font-normal outline-none transition placeholder:text-gray-400 focus:border-[#116290] focus:ring-4 focus:ring-[#116290]/10" />
+              </label>
+            </div>
+            <label className="block text-sm font-semibold text-[#102c40]">Adresse e-mail
+              <input required type="email" value={form.email} onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))} autoComplete="email" placeholder="vous@exemple.fr" className="mt-1.5 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 font-normal outline-none transition placeholder:text-gray-400 focus:border-[#116290] focus:ring-4 focus:ring-[#116290]/10" />
+            </label>
+            {form.error && <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">{form.error}</p>}
+            <button type="submit" disabled={form.isSubmitting} className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#116290] to-[#0a3d5c] px-6 py-4 font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60">{form.isSubmitting ? 'Envoi en cours…' : 'Recevoir mon estimation'} {!form.isSubmitting && <ArrowRightIcon className="ml-2 h-5 w-5" />}</button>
+          </form>}
+        </div>
+
+        {step === 1 && <p className="mt-6 text-center text-xs text-gray-500">Une estimation rapide, sans engagement.</p>}
+      </section>
+
+      <div className="relative z-10 mx-auto mt-5 w-full max-w-3xl px-3 pb-2">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[11px] font-semibold text-[#536577] sm:text-xs">
+          <span className="inline-flex items-center gap-1.5"><SparklesIcon className="h-4 w-4 text-[#e9a900]" />100% gratuit</span>
+          <span className="inline-flex items-center gap-1.5"><ShieldCheckIcon className="h-4 w-4 text-[#116290]" />Sans engagement</span>
+          <span className="inline-flex items-center gap-1.5"><LockClosedIcon className="h-4 w-4 text-[#e9a900]" />Données protégées</span>
+        </div>
+        <p className="mx-auto mt-3 max-w-xl text-center text-xs leading-5 text-gray-500">En continuant, vous acceptez d’être recontacté par MY OHM Technologies concernant votre projet.</p>
       </div>
     </main>
   );
-};
+}
 
-export default SimulateurPage;
+export default function SimulateurPage() {
+  return (
+    <Suspense fallback={<main className="flex min-h-screen items-start justify-center bg-[#f5f9fb] px-4 pt-8"><Image src="/images/logo.png" alt="MY OHM Technologies" width={190} height={70} className="h-11 w-auto" priority /></main>}>
+      <SimulateurContent />
+    </Suspense>
+  );
+}

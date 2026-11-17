@@ -121,10 +121,20 @@ export interface Lead {
   name: string;
   email: string;
   phone: string;
+  projectType?: string;
+  address?: string;
+  simulatorData?: {
+    prestation?: string;
+    prestationLabel?: string;
+    residentialStatus?: ResidentialStatus | string;
+    logementType?: LogementType | string;
+    address?: string;
+    answers?: Array<{ question: string; answer: string; value?: string }>;
+  };
   city?: string;
-  residentialStatus: ResidentialStatus;
-  logementType: LogementType;
-  energyBill: string;
+  residentialStatus?: ResidentialStatus;
+  logementType?: LogementType;
+  energyBill?: string;
   status: LeadStatus;
   createdAt: string;
   notes?: string;

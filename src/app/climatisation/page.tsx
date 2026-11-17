@@ -15,7 +15,6 @@ import {
   HomeIcon,
   CurrencyEuroIcon,
   ChartBarIcon,
-  CpuIcon,
   PhoneIcon,
   UserGroupIcon,
   WrenchScrewdriverIcon,
@@ -108,9 +107,9 @@ export default function ClimatisationPage() {
   };
   
   return (
-    <main className="bg-white overflow-x-hidden">
+    <div className="bg-white overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden bg-white">
+      <section className="relative pt-12 pb-16 sm:pt-14 sm:pb-20 lg:pt-16 lg:pb-24 overflow-hidden bg-white">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gray-50" />
           <div className="absolute inset-0 opacity-10 bg-grid-gray/10" style={{ backgroundSize: '30px 30px' }} />
@@ -168,15 +167,15 @@ export default function ClimatisationPage() {
                 ))}
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button
-                  onClick={openExpertModal}
-                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-br from-ffeb99 to-ffb700 text-black rounded-full font-medium text-lg hover:shadow-xl transition-all"
+              <div className="flex flex-col sm:flex-row gap-3 sm:flex-wrap">
+                <Link
+                  href="/simulator?prestation=clim"
+                  className="inline-flex min-h-14 items-center justify-center rounded-xl bg-gradient-to-r from-ffeb99 to-ffb700 px-7 py-4 text-base font-bold text-gray-900 shadow-md transition hover:-translate-y-0.5 hover:shadow-lg"
                 >
                   Obtenir mon estimation
                   <ArrowRightIcon className="h-5 w-5 ml-2" />
-                </button>
-                 <a
+                </Link>
+                <a
                   href="tel:+33492766858"
                   onClick={() => {
                     if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -187,9 +186,9 @@ export default function ClimatisationPage() {
                       });
                     }
                   }}
-                  className="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-[#116290]/30 text-[#116290] rounded-full font-medium text-lg hover:bg-[#116290]/5 transition-all"
+                  className="inline-flex min-h-14 items-center justify-center rounded-full border-2 border-[#116290]/30 bg-white px-7 py-4 text-base font-semibold text-[#116290] transition hover:bg-[#116290]/5"
                 >
-                  <PhoneIcon className="h-6 w-6 mr-2 flex-shrink-0" />
+                  <PhoneIcon className="mr-2 h-5 w-5 flex-shrink-0" />
                   04 92 76 68 58
                 </a>
               </div>
@@ -523,6 +522,6 @@ export default function ClimatisationPage() {
       
       {/* Expert Modal */}
       <EnergyExpertModal isOpen={isExpertModalOpen} onClose={closeExpertModal} source="climatisation" />
-    </main>
+    </div>
   );
 }

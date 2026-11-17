@@ -44,6 +44,16 @@ export interface Lead {
   name: string;
   email: string;
   phone: string;
+  residentialStatus?: 'OWNER' | 'TENANT' | 'RENTER';
+  projectType?: string;
+  simulatorData?: {
+    prestation?: string;
+    prestationLabel?: string;
+    residentialStatus?: string;
+    logementType?: string;
+    address?: string;
+    answers?: Array<{ question: string; answer: string; value?: string }>;
+  };
   status: LeadStatus;
   logementType?: 'HOUSE' | 'APARTMENT' | any;
   energyBill?: number | string;

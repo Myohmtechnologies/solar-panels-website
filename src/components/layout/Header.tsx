@@ -6,15 +6,56 @@ import Image from 'next/image';
 import Link from 'next/link';
 import MobileMenu from './MobileMenu';
 import InfoBanner from './InfoBanner';
-import { Popover } from '@headlessui/react';
-import { ChevronDownIcon, Bars3Icon, XMarkIcon, CalculatorIcon } from '@heroicons/react/24/outline';
-import { PhoneIcon } from '@heroicons/react/24/outline';
+import { Dialog, Popover } from '@headlessui/react';
+import { 
+  ChevronDownIcon, 
+  Bars3Icon, 
+  XMarkIcon, 
+  CalculatorIcon, 
+  SunIcon, 
+  Battery100Icon, 
+  BoltIcon, 
+  SparklesIcon, 
+  WrenchScrewdriverIcon, 
+  HomeModernIcon,
+  PhoneIcon,
+  ArrowRightIcon
+} from '@heroicons/react/24/outline';
 import { throttle } from 'lodash';
+
+const simulatorServices = [
+  { id: 'panneaux', title: 'Panneaux solaires', description: 'Estimez votre projet photovoltaïque et vos économies.', icon: SunIcon, offer: true },
+  { id: 'borne', title: 'Borne de recharge', description: 'Préparez votre installation de borne à domicile.', icon: BoltIcon, offer: true },
+  { id: 'clim', title: 'Climatisation', description: 'Configurez votre projet de climatisation.', icon: SparklesIcon },
+];
 
 const Header = () => {
   const pathname = usePathname();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showMobileHeader, setShowMobileHeader] = useState(true);
+  const [isSimulatorChooserOpen, setSimulatorChooserOpen] = useState(false);
+  const [blackFridayCountdown, setBlackFridayCountdown] = useState<{ days: number; hours: number; minutes: number; seconds: number } | null>(null);
+  const [isBlackFridayActive, setBlackFridayActive] = useState(true);
+
+  useEffect(() => {
+    const deadline = new Date('2026-12-01T00:00:00+01:00').getTime();
+    const updateCountdown = () => {
+      const remaining = deadline - Date.now();
+      if (remaining <= 0) {
+        setBlackFridayActive(false);
+        return;
+      }
+      setBlackFridayCountdown({
+        days: Math.floor(remaining / 86400000),
+        hours: Math.floor((remaining % 86400000) / 3600000),
+        minutes: Math.floor((remaining % 3600000) / 60000),
+        seconds: Math.floor((remaining % 60000) / 1000),
+      });
+    };
+    updateCountdown();
+    const interval = window.setInterval(updateCountdown, 1000);
+    return () => window.clearInterval(interval);
+  }, []);
 
   // Optimisation du scroll handling avec throttle
   const handleScroll = useCallback(
@@ -62,243 +103,228 @@ const Header = () => {
 
   return (
     <>
+      {/* Bandeau promotionnel Black Friday */}
+      {isBlackFridayActive && <div className="fixed inset-x-0 top-0 z-[60] flex h-9 items-center justify-center bg-[#202020] px-3 text-[10px] text-white sm:text-xs">
+        <div className="flex max-w-full items-center justify-center gap-1.5 whitespace-nowrap sm:gap-2.5">
+          <span><strong className="text-[#ffcf25]">Opération Black Friday :</strong><span className="hidden sm:inline"> fin au 30 novembre 2026</span></span>
+          {blackFridayCountdown && <span className="flex items-center gap-1 font-extrabold tabular-nums sm:gap-1.5">
+            <span className="rounded bg-[#e52d21] px-1.5 py-1 sm:px-2">{blackFridayCountdown.days} j</span>
+            <span className="rounded bg-[#e52d21] px-1.5 py-1 sm:px-2">{blackFridayCountdown.hours} h</span>
+            <span className="rounded bg-[#e52d21] px-1.5 py-1 sm:px-2">{blackFridayCountdown.minutes} min</span>
+            <span className="hidden rounded bg-[#e52d21] px-1.5 py-1 sm:inline sm:px-2">{String(blackFridayCountdown.seconds).padStart(2, '0')} s</span>
+          </span>}
+          <Link href="/borne-de-recharge#offres" className="ml-0.5 font-bold text-[#ffcf25] underline decoration-[#ffcf25]/60 underline-offset-2 hover:text-white sm:ml-1">Voir les offres <span aria-hidden="true">›</span></Link>
+        </div>
+      </div>}
+
       {/* Header Desktop */}
       <header 
-        className="hidden md:block fixed top-0 left-0 right-0 bg-white shadow-sm"
+        className="hidden md:block fixed top-9 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-[0_2px_15px_rgba(0,0,0,0.03)]"
         style={{ 
           zIndex: 'var(--z-header)'
         }}
       >
-        <div className="mx-auto h-[5rem]">
-          <div className="flex justify-around items-center h-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20">
+          <div className="flex items-center justify-between h-full gap-4 lg:gap-8">
             {/* Logo */}
             <Link 
               href="/" 
-              className="flex-shrink-0"
+              className="flex-shrink-0 transition-opacity hover:opacity-90 py-1"
               aria-label="Retour à l'accueil"
             >
               <Image 
                 src="/images/logo.png" 
-                alt="Logo MY OHM" 
-                width={170}
-                height={60}
-                className="w-auto h-12 md:h-14"
+                alt="Logo MY OHM Technologies" 
+                width={160}
+                height={55}
+                className="w-auto h-11 md:h-12"
                 priority={true}
                 loading="eager"
-                sizes="(max-width: 768px) 120px, 170px"
-                quality={85}
+                sizes="(max-width: 768px) 120px, 160px"
+                quality={90}
               />
             </Link>
 
             {/* Navigation desktop */}
-            <nav className="hidden md:flex items-center space-x-8" aria-label="Navigation principale">
+            <nav className="flex items-center space-x-1 lg:space-x-1.5 xl:space-x-3" aria-label="Navigation principale">
               {/* Services avec sous-menu */}
               <Popover className="relative">
-                <Popover.Button 
-                  className={({ open }) => `
-                    ${open ? 'text-[var(--color-primary)]' : 'text-[var(--color-text)]'}
-                    flex items-center font-bold text-base cursor-pointer gap-1
-                    transition-colors duration-[var(--transition-fast)]
-                  `}
-                  aria-label="Menu des services"
-                >
-                  {({ open }) => (
-                    <>
-                      Nos Services
-                      <ChevronDownIcon 
-                        className={`
-                          w-4 h-4 opacity-50 transition-transform duration-[var(--transition-fast)]
-                          ${open ? 'rotate-180' : ''}
-                        `}
-                      />
-                    </>
-                  )}
-                </Popover.Button>
-
-                <Popover.Panel className="absolute left-0 z-[var(--z-tooltip)] mt-3 bg-white shadow-xl rounded-xl border border-gray-100 p-4 min-w-[32rem]">
-                  {({ close }) => (
-                    <div 
-                      className="grid grid-cols-2 gap-6"
-                      onMouseLeave={() => close()}
+                {({ open }) => (
+                  <>
+                    <Popover.Button 
+                      className={`
+                        inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-xl transition-all cursor-pointer
+                        ${open ? 'text-[#116290] bg-[#116290]/5 font-bold' : 'text-gray-700 hover:text-[#116290] hover:bg-gray-50'}
+                      `}
+                      aria-label="Menu des services"
                     >
-                      <div>
-                        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 px-2">Énergie Solaire</p>
-                        <div className="space-y-1">
-                          {[
-                            { href: '/panneaux-solaire', label: 'Panneaux Solaires' },
-                            { href: '/batterie-de-stockage', label: 'Batterie de Stockage' },
-                            { href: '/solutions/batterie-virtuelle', label: 'Batterie Virtuelle' },
-                          ].map((item) => (
-                            <Link
-                              key={item.href}
-                              href={item.href}
-                              className="block px-3 py-2 text-sm font-semibold text-[var(--color-text)] hover:text-[var(--color-primary)] hover:bg-gray-50 rounded-lg transition-colors duration-[var(--transition-fast)]"
-                              onClick={() => close()}
-                            >
-                              {item.label}
-                            </Link>
-                          ))}
+                      <span>Nos Services</span>
+                      <ChevronDownIcon 
+                        className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? 'rotate-180 text-[#116290]' : 'text-gray-400'}`}
+                      />
+                    </Popover.Button>
+
+                    <Popover.Panel className="absolute left-1/2 -translate-x-1/2 z-[var(--z-tooltip)] mt-3 w-[min(42rem,calc(100vw-2rem))] overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-[0_24px_70px_rgba(8,47,73,0.18)] ring-1 ring-black/5">
+                      {({ close }) => (
+                        <div onMouseLeave={() => close()}>
+                          <div className="bg-gradient-to-r from-[#082f49] via-[#0d5578] to-[#116290] px-6 py-5 text-white">
+                            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#ffdf64]">Nos solutions d'experts</p>
+                            <p className="mt-1 text-lg font-bold">Un confort durable, toute l’année</p>
+                            <p className="mt-1 text-sm text-white/75">Découvrez nos prestations clés en main pour votre logement.</p>
+                          </div>
+                          <div className="grid grid-cols-2 gap-4 p-5 bg-white">
+                            <div className="rounded-2xl bg-[#f5f9fb] p-3 border border-[#116290]/10">
+                              <p className="mb-2 px-2 text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#116290]">Énergie solaire</p>
+                              {[
+                                { href: '/panneaux-solaire', label: 'Panneaux solaires', description: 'Produisez votre électricité', icon: SunIcon },
+                                { href: '/batterie-de-stockage', label: 'Batterie de stockage', description: 'Utilisez votre énergie plus tard', icon: Battery100Icon },
+                                { href: '/solutions/batterie-virtuelle', label: 'Batterie virtuelle', description: 'Valorisez votre surplus solaire', icon: BoltIcon },
+                              ].map((item) => {
+                                const Icon = item.icon;
+                                return (
+                                  <Link key={item.href} href={item.href} onClick={() => close()} className="group flex items-center gap-3 rounded-xl p-2.5 transition hover:bg-white hover:shadow-sm">
+                                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-[#116290] shadow-sm transition group-hover:bg-gradient-to-br group-hover:from-[#ffdf64] group-hover:to-[#ffb700] group-hover:text-gray-900">
+                                      <Icon className="h-5 w-5" />
+                                    </span>
+                                    <span className="min-w-0">
+                                      <span className="block text-sm font-bold leading-5 text-[#102c40] group-hover:text-[#116290]">{item.label}</span>
+                                      <span className="mt-0.5 block text-xs leading-4 text-gray-500">{item.description}</span>
+                                    </span>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                            <div className="rounded-2xl bg-[#f5f9fb] p-3 border border-[#116290]/10">
+                              <p className="mb-2 px-2 text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#116290]">Électricité & confort</p>
+                              {[
+                                { href: '/climatisation', label: 'Climatisation & PAC', description: 'Un confort thermique adapté', icon: SparklesIcon },
+                                { href: '/borne-de-recharge', label: 'Borne de recharge IRVE', description: 'Rechargez chez vous', icon: BoltIcon },
+                                { href: '/electricite-generale', label: 'Électricité générale', description: 'Sécurisez vos installations', icon: WrenchScrewdriverIcon },
+                                { href: '/installation-ballon-eau-chaude', label: 'Ballon d’eau chaude', description: 'L’eau chaude au quotidien', icon: HomeModernIcon },
+                              ].map((item) => {
+                                const Icon = item.icon;
+                                return (
+                                  <Link key={item.href} href={item.href} onClick={() => close()} className="group flex items-center gap-3 rounded-xl p-2.5 transition hover:bg-white hover:shadow-sm">
+                                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-[#116290] shadow-sm transition group-hover:bg-gradient-to-br group-hover:from-[#ffdf64] group-hover:to-[#ffb700] group-hover:text-gray-900">
+                                      <Icon className="h-5 w-5" />
+                                    </span>
+                                    <span className="min-w-0">
+                                      <span className="block text-sm font-bold leading-5 text-[#102c40] group-hover:text-[#116290]">{item.label}</span>
+                                      <span className="mt-0.5 block text-xs leading-4 text-gray-500">{item.description}</span>
+                                    </span>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div>
-                        <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 px-2">Électricité & Confort</p>
-                        <div className="space-y-1">
-                          {[
-                            { href: '/climatisation', label: 'Climatisation & PAC' },
-                            { href: '/borne-de-recharge', label: 'Borne de Recharge IRVE' },
-                            { href: '/electricite-generale', label: 'Électricité Générale' },
-                          ].map((item) => (
-                            <Link
-                              key={item.href}
-                              href={item.href}
-                              className="block px-3 py-2 text-sm font-semibold text-[var(--color-text)] hover:text-[var(--color-primary)] hover:bg-gray-50 rounded-lg transition-colors duration-[var(--transition-fast)]"
-                              onClick={() => close()}
-                            >
-                              {item.label}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </Popover.Panel>
+                      )}
+                    </Popover.Panel>
+                  </>
+                )}
               </Popover>
 
               {/* À propos avec sous-menu */}
               <Popover className="relative">
-                <Popover.Button 
-                  className={({ open }) => `
-                    ${open ? 'text-[var(--color-primary)]' : 'text-[var(--color-text)]'}
-                    flex items-center font-bold text-base cursor-pointer gap-1
-                    transition-colors duration-[var(--transition-fast)]
-                  `}
-                  aria-label="Menu à propos"
-                >
-                  {({ open }) => (
-                    <>
-                      À propos
-                      <ChevronDownIcon 
-                        className={`
-                          w-4 h-4 opacity-50 transition-transform duration-[var(--transition-fast)]
-                          ${open ? 'rotate-180' : ''}
-                        `}
-                      />
-                    </>
-                  )}
-                </Popover.Button>
-
-                <Popover.Panel className="absolute left-0 z-[var(--z-tooltip)] mt-3 w-56 bg-white shadow-lg rounded-lg p-2">
-                  {({ close }) => (
-                    <div 
-                      className="space-y-1"
-                      onMouseLeave={() => close()}
+                {({ open }) => (
+                  <>
+                    <Popover.Button 
+                      className={`
+                        inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold rounded-xl transition-all cursor-pointer
+                        ${open ? 'text-[#116290] bg-[#116290]/5 font-bold' : 'text-gray-700 hover:text-[#116290] hover:bg-gray-50'}
+                      `}
+                      aria-label="Menu à propos"
                     >
-                      {[
-                        { href: '/qui-sommes-nous', label: 'Qui sommes-nous' },
-                        { href: '/showroom', label: 'Notre Showroom' },
-                      ].map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className="block px-4 py-2 text-sm text-[var(--color-text)] hover:bg-gray-50 rounded-lg transition-colors duration-[var(--transition-fast)]"
-                          onClick={() => close()}
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </Popover.Panel>
+                      <span>À propos</span>
+                      <ChevronDownIcon 
+                        className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? 'rotate-180 text-[#116290]' : 'text-gray-400'}`}
+                      />
+                    </Popover.Button>
+
+                    <Popover.Panel className="absolute left-0 z-[var(--z-tooltip)] mt-3 w-64 overflow-hidden rounded-2xl border border-gray-100 bg-white p-2 shadow-xl ring-1 ring-black/5">
+                      {({ close }) => (
+                        <div className="space-y-1" onMouseLeave={() => close()}>
+                          {[
+                            { href: '/qui-sommes-nous', label: 'Qui sommes-nous', desc: 'Notre histoire & nos engagements' },
+                            { href: '/showroom', label: 'Notre Showroom', desc: 'Venez tester nos équipements' },
+                          ].map((item) => (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              className="group block px-3 py-2.5 rounded-xl hover:bg-[#116290]/5 transition"
+                              onClick={() => close()}
+                            >
+                              <span className="block text-sm font-bold text-gray-800 group-hover:text-[#116290] transition-colors">{item.label}</span>
+                              <span className="block text-xs text-gray-500 mt-0.5">{item.desc}</span>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </Popover.Panel>
+                  </>
+                )}
               </Popover>
 
-              <Link
-                href="/nos-realisation"
-                className="text-[var(--color-text)] hover:text-[var(--color-primary)] font-bold transition-colors duration-[var(--transition-fast)]"
-              >
-                Nos réalisations
-              </Link>
+              {/* Liens directs */}
+              {[
+                { href: '/nos-realisation', label: 'Nos réalisations' },
+                { href: '/contact', label: 'Contact' },
+              ].map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`
+                      px-3 py-2 text-sm font-semibold rounded-xl transition-all
+                      ${isActive ? 'text-[#116290] bg-[#116290]/5 font-bold' : 'text-gray-700 hover:text-[#116290] hover:bg-gray-50'}
+                    `}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
 
-              <Link
-                href="/contact"
-                className="text-[var(--color-text)] hover:text-[var(--color-primary)] font-bold transition-colors duration-[var(--transition-fast)]"
-              >
-                Contact
-              </Link>
-
-              <Link
-                href="/parrainage"
-                className="text-[var(--color-text)] hover:text-[var(--color-primary)] font-bold transition-colors duration-[var(--transition-fast)]"
-              >
-                Parrainage
-              </Link>
-
-              <Link
-                href="/simulator"
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-ffeb99 to-ffb700 text-black font-medium rounded-lg hover:shadow-md transition-all duration-300"
-              >
-                <CalculatorIcon className="w-5 h-5" />
-                <span>Simulation d'économie</span>
-              </Link>
-
+            {/* CTAs droite */}
+            <div className="flex items-center gap-2.5 lg:gap-3 flex-shrink-0">
+              {/* Bouton Téléphone */}
               <a
                 href="tel:+33492766858"
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#116290] to-[#0a3d5c] text-white rounded-lg hover:bg-[var(--color-primary)]/90 transition-colors duration-[var(--transition-fast)]"
+                className="hidden xl:inline-flex items-center gap-2 px-3.5 py-2.5 text-sm font-bold text-[#116290] bg-slate-50 hover:bg-[#116290]/10 border border-slate-200/80 rounded-xl transition-all duration-200"
               >
-                <PhoneIcon className="w-5 h-5" />
-                <span>04 92 76 68 58</span>
+                <PhoneIcon className="w-4 h-4 text-[#ffb700] flex-shrink-0" />
+                <span className="whitespace-nowrap">04 92 76 68 58</span>
               </a>
-            </nav>
+              <a
+                href="tel:+33492766858"
+                className="inline-flex xl:hidden p-2.5 text-[#116290] bg-slate-50 hover:bg-[#116290]/10 border border-slate-200/80 rounded-xl transition duration-200"
+                aria-label="Appeler le 04 92 76 68 58"
+              >
+                <PhoneIcon className="w-4 h-4 text-[#ffb700]" />
+              </a>
+
+              {/* Bouton Simulation d'économie */}
+              <button
+                type="button"
+                onClick={() => setSimulatorChooserOpen(true)}
+                className="group inline-flex items-center gap-2 px-4 py-2.5 lg:px-5 lg:py-2.5 bg-gradient-to-r from-[#ffdf64] to-[#ffb700] hover:from-[#ffe67d] hover:to-[#ffc019] text-[#0a3d5c] font-bold text-sm rounded-xl shadow-[0_4px_14px_rgba(255,183,0,0.32)] hover:shadow-[0_6px_20px_rgba(255,183,0,0.45)] hover:-translate-y-0.5 transition-all duration-200"
+              >
+                <CalculatorIcon className="w-4 h-4 text-[#0a3d5c]" />
+                <span className="whitespace-nowrap">Simulation d'économie</span>
+                <ArrowRightIcon className="w-3.5 h-3.5 text-[#0a3d5c]/80 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Secondary SubHeader Desktop */}
-        <div className="bg-gray-50 border-t border-b border-gray-100 py-2.5">
-          <div className="max-w-7xl mx-auto px-4 flex justify-center items-center space-x-12">
-            <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest mr-2">Nos Spécialités :</span>
-            {[
-              { href: '/panneaux-solaire', label: 'Panneaux Solaires', icon: (
-                <svg className="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
-                </svg>
-              )},
-              { href: '/climatisation', label: 'Climatisation & PAC', icon: (
-                <svg className="w-4 h-4 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18M3 12h18m-3-6L6 18M6 6l12 12" />
-                </svg>
-              )},
-              { href: '/borne-de-recharge', label: 'Bornes de Recharge', icon: (
-                <svg className="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              )},
-              { href: '/electricite-generale', label: 'Électricité Générale', icon: (
-                <svg className="w-4 h-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              )}
-            ].map((item) => (
-              <Link 
-                key={item.href} 
-                href={item.href} 
-                className={`flex items-center gap-1.5 text-[11px] uppercase tracking-wider font-extrabold transition-all duration-200 pb-0.5 border-b-2 ${
-                  pathname === item.href 
-                    ? 'text-[#116290] border-[#116290]' 
-                    : 'text-gray-500 border-transparent hover:text-[#116290] hover:border-gray-300'
-                }`}
-              >
-                {item.icon}
-                <span>{item.label}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
         <InfoBanner />
       </header>
 
       {/* Header Mobile */}
       <header 
         className={`
-          md:hidden fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm
+          md:hidden fixed top-9 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm
           transition-transform duration-[var(--transition-normal)]
           ${showMobileHeader ? 'translate-y-0' : '-translate-y-full'}
         `}
@@ -306,88 +332,89 @@ const Header = () => {
           zIndex: 'var(--z-header)'
         }}
       >
-        <div className="flex items-center justify-between h-[4rem] px-4">
-          <Link href="/" className="flex-shrink-0" aria-label="Retour à l'accueil">
+        <div className="flex items-center justify-between h-[4rem] px-4 max-w-7xl mx-auto">
+          <Link href="/" className="flex-shrink-0 py-1" aria-label="Retour à l'accueil">
             <Image 
               src="/images/logo.png" 
-              alt="Logo MY OHM" 
-              width={170}
-              height={60}
-              className="w-auto h-12"
+              alt="Logo MY OHM Technologies" 
+              width={140}
+              height={45}
+              className="w-auto h-10"
               priority={true}
               loading="eager"
-              sizes="170px"
-              quality={85}
+              sizes="140px"
+              quality={90}
             />
           </Link>
 
-          <div className="flex items-center gap-3">
-            <Link
-              href="/simulator"
-              className="flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-primary-400 to-secondary-dark text-black text-sm font-medium rounded-lg hover:shadow-md transition-all duration-300"
+          <div className="flex items-center gap-2">
+            <a
+              href="tel:+33492766858"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200/90 bg-slate-50 text-[#116290] transition hover:bg-[#116290] hover:text-white"
+              aria-label="Appeler le 04 92 76 68 58"
             >
-              <CalculatorIcon className="w-4 h-4" />
+              <PhoneIcon className="h-4 w-4" />
+            </a>
+
+            <button
+              type="button"
+              onClick={() => setSimulatorChooserOpen(true)}
+              className="inline-flex h-9 items-center gap-1.5 rounded-xl bg-gradient-to-r from-[#ffdf64] to-[#ffb700] px-3 text-xs font-bold text-[#0a3d5c] shadow-sm hover:shadow transition-all"
+            >
+              <CalculatorIcon className="h-3.5 w-3.5" />
               <span>Simulation</span>
-            </Link>
+            </button>
             
             <button
               onClick={toggleMobileMenu}
-              className="p-2 text-gray-600 hover:text-gray-900 focus:outline-none"
+              className="flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200/90 bg-slate-50 text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition focus:outline-none"
               aria-expanded={isMobileMenuOpen}
               aria-label={isMobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
             >
               {isMobileMenuOpen ? (
-                <XMarkIcon className="w-6 h-6" />
+                <XMarkIcon className="h-5 w-5" />
               ) : (
-                <Bars3Icon className="w-6 h-6" />
+                <Bars3Icon className="h-5 w-5" />
               )}
             </button>
           </div>
         </div>
 
-        {/* Secondary SubHeader Mobile */}
-        <div className="bg-gray-50 border-t border-b border-gray-100 overflow-x-auto whitespace-nowrap scrollbar-none py-2 px-4 flex justify-between items-center gap-4">
-          {[
-            { href: '/panneaux-solaire', label: 'Solaire', icon: (
-              <svg className="w-3.5 h-3.5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
-              </svg>
-            )},
-            { href: '/climatisation', label: 'Climatisation', icon: (
-              <svg className="w-3.5 h-3.5 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18M3 12h18m-3-6L6 18M6 6l12 12" />
-              </svg>
-            )},
-            { href: '/borne-de-recharge', label: 'Bornes', icon: (
-              <svg className="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            )},
-            { href: '/electricite-generale', label: 'Électricité', icon: (
-              <svg className="w-3.5 h-3.5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-              </svg>
-            )}
-          ].map((item) => (
-            <Link 
-              key={item.href} 
-              href={item.href} 
-              className={`flex items-center gap-1 text-[10px] uppercase tracking-wider font-extrabold pb-0.5 border-b-2 ${
-                pathname === item.href 
-                  ? 'text-[#116290] border-[#116290]' 
-                  : 'text-gray-500 border-transparent'
-              }`}
-            >
-              {item.icon}
-              <span>{item.label}</span>
-            </Link>
-          ))}
-        </div>
         <InfoBanner />
       </header>
 
       {/* Menu mobile */}
       <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
+
+      <Dialog open={isSimulatorChooserOpen} onClose={setSimulatorChooserOpen} className="relative z-[100]">
+        <div className="fixed inset-0 bg-[#082f49]/55 backdrop-blur-sm" aria-hidden="true" />
+        <div className="fixed inset-0 flex items-center justify-center overflow-y-auto p-3 sm:p-6">
+          <Dialog.Panel className="relative max-h-[calc(100dvh-1.5rem)] w-full max-w-5xl overflow-y-auto rounded-2xl border border-white/70 bg-white p-4 shadow-[0_30px_100px_rgba(8,47,73,0.32)] sm:max-h-none sm:overflow-hidden sm:rounded-[2rem] sm:p-9">
+            <button type="button" onClick={() => setSimulatorChooserOpen(false)} aria-label="Fermer" className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-[#f1f6f9] text-[#315269] transition hover:bg-[#e5f0f6] sm:right-5 sm:top-5 sm:h-10 sm:w-10">
+              <XMarkIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+            </button>
+            <div className="pr-9 sm:pr-12">
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#116290] sm:text-xs">MY OHM Technologies</p>
+              <Dialog.Title className="mt-1 text-xl font-extrabold tracking-tight text-[#102c40] sm:mt-2 sm:text-3xl">Quel est votre projet ?</Dialog.Title>
+              <p className="mt-1 text-xs text-gray-600 sm:mt-2 sm:text-base">Choisissez une prestation pour accéder à son simulateur.</p>
+            </div>
+
+            <div className="mt-4 grid gap-2.5 md:mt-7 md:grid-cols-3 md:gap-4">
+              {simulatorServices.map(({ id, title, description, icon: Icon, offer }) => (
+                <Link key={id} href={`/simulator?prestation=${id}`} onClick={() => setSimulatorChooserOpen(false)} className="group flex items-center gap-3 rounded-xl border border-[#116290]/20 bg-[#f5f9fb] p-3 transition hover:border-[#116290]/50 hover:bg-white hover:shadow-[0_16px_35px_rgba(8,47,73,0.13)] md:block md:rounded-2xl md:p-5 md:hover:-translate-y-1">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#ffeb99] to-[#ffb700] text-[#0a3d5c] md:h-14 md:w-14 md:rounded-2xl"><Icon className="h-5 w-5 md:h-7 md:w-7" /></span>
+                  <span className="min-w-0 flex-1 md:mt-5 md:block">
+                    <span className="block text-sm font-bold text-[#102c40] md:text-lg">{title}</span>
+                    {offer && <span className="mt-1 inline-flex rounded-full bg-[#202020] px-2.5 py-1 text-[10px] font-extrabold text-white md:text-xs">Offre Black Friday</span>}
+                    <span className="mt-0.5 block text-[11px] leading-4 text-gray-600 md:min-h-10 md:text-sm md:leading-5">{description}</span>
+                    <span className="mt-1.5 inline-flex items-center text-xs font-bold text-[#116290] md:mt-5 md:text-base">Lancer le simulateur <ArrowRightIcon className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover:translate-x-1 md:ml-2 md:h-4 md:w-4" /></span>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </Dialog.Panel>
+        </div>
+      </Dialog>
     </>
   );
 };

@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { clientPromise } from '@/lib/mongodb';
 import { verifyCommercialAuth } from '@/middleware/commercialAuth';
 
+// This endpoint relies on request-time authentication and database access.
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
 // GET /api/appointments
 // Récupère les rendez-vous d'un commercial pour une période donnée
 export async function GET(request: NextRequest) {

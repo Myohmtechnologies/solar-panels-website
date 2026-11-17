@@ -1,29 +1,50 @@
 import { MongoClient } from 'mongodb';
 import mongoose from 'mongoose';
-const uri = process.env.MONGODB_URI;
 
-let clientPromise: Promise<MongoClient>;
+// Do not open MongoDB (or create a rejected promise when env vars are absent)
+// while Next.js is collecting route data during `next build`. Connect only
+// when a request actually awaits the client.
+let mongoClientPromise: Promise<MongoClient> | undefined;
 
-if (!uri) {
-  clientPromise = Promise.reject(new Error('Please define the MONGODB_URI environment variable inside .env.local'));
-  clientPromise.catch(() => {});
-} else {
-  const options = {};
-  let client: MongoClient;
+function getMongoClientPromise(): Promise<MongoClient> {
+  if (mongoClientPromise) return mongoClientPromise;
+
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    return Promise.reject(new Error('MONGODB_URI is not defined'));
+  }
 
   if (process.env.NODE_ENV === 'development') {
-    if (!(global as any)._mongoClientPromise) {
-      client = new MongoClient(uri, options);
-      (global as any)._mongoClientPromise = client.connect();
+    const globalWithMongo = global as typeof globalThis & {
+      _mongoClientPromise?: Promise<MongoClient>;
+    };
+
+    if (!globalWithMongo._mongoClientPromise) {
+      globalWithMongo._mongoClientPromise = new MongoClient(uri).connect();
     }
-    clientPromise = (global as any)._mongoClientPromise;
+    mongoClientPromise = globalWithMongo._mongoClientPromise;
   } else {
-    client = new MongoClient(uri, options);
-    clientPromise = client.connect();
+    mongoClientPromise = new MongoClient(uri).connect();
   }
+
+  return mongoClientPromise;
 }
 
+// Keep the existing `await clientPromise` API while deferring connection
+// setup until the promise is consumed by a request handler.
+const clientPromise = {
+  then: <TResult1 = MongoClient, TResult2 = never>(
+    onfulfilled?: ((value: MongoClient) => TResult1 | PromiseLike<TResult1>) | null,
+    onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | null,
+  ) => getMongoClientPromise().then(onfulfilled, onrejected),
+  catch: <TResult = never>(
+    onrejected?: ((reason: unknown) => TResult | PromiseLike<TResult>) | null,
+  ) => getMongoClientPromise().catch(onrejected),
+  finally: (onfinally?: (() => void) | null) => getMongoClientPromise().finally(onfinally),
+} as Promise<MongoClient>;
+
 async function dbConnect() {
+  const uri = process.env.MONGODB_URI;
   if (!uri) {
     throw new Error('MONGODB_URI is not defined');
   }

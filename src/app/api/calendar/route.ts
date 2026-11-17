@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { google } from 'googleapis';
 
 // Vérification de l'environnement et des credentials
 const isCalendarEnabled = 
@@ -16,26 +15,8 @@ console.log('Calendar Integration Status:', {
   enableCalendar: process.env.ENABLE_CALENDAR,
 });
 
-let calendar;
-if (isCalendarEnabled) {
-  try {
-    console.log('Initializing Google Calendar with credentials');
-    const oauth2Client = new google.auth.OAuth2(
-      process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_CLIENT_SECRET,
-      process.env.GOOGLE_REDIRECT_URI
-    );
-
-    oauth2Client.setCredentials({
-      refresh_token: process.env.GOOGLE_REFRESH_TOKEN
-    });
-
-    calendar = google.calendar({ version: 'v3', auth: oauth2Client });
-    console.log('Google Calendar initialized successfully');
-  } catch (error) {
-    console.error('Failed to initialize Google Calendar:', error);
-  }
-}
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 export async function POST(request: Request) {
   try {
@@ -54,13 +35,22 @@ export async function POST(request: Request) {
     }
 
     // Si le calendrier est désactivé ou non initialisé
-    if (!isCalendarEnabled || !calendar) {
-      console.warn('Calendar integration is not available', { isCalendarEnabled, hasCalendar: !!calendar });
+    if (!isCalendarEnabled) {
+      console.warn('Calendar integration is not available', { isCalendarEnabled });
       return NextResponse.json({ 
         success: true, 
         warning: 'Calendar integration is not available. Event will be saved without calendar integration.'
       });
     }
+
+    const { google } = await import('googleapis');
+    const oauth2Client = new google.auth.OAuth2(
+      process.env.GOOGLE_CLIENT_ID!,
+      process.env.GOOGLE_CLIENT_SECRET!,
+      process.env.GOOGLE_REDIRECT_URI
+    );
+    oauth2Client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
+    const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
 
     const event = {
       summary,
@@ -108,23 +98,28 @@ export async function POST(request: Request) {
         htmlLink: response.data.htmlLink 
       });
     } catch (calendarError) {
+      const errorMessage = calendarError instanceof Error ? calendarError.message : 'Unknown calendar error';
+      const errorDetails = calendarError as { code?: string; errors?: unknown[] };
       console.error('Detailed error creating calendar event:', {
         error: calendarError,
-        message: calendarError.message,
-        code: calendarError.code,
-        errors: calendarError.errors
+        message: errorMessage,
+        code: errorDetails?.code,
+        errors: errorDetails?.errors
       });
       // En production, on continue même si le calendrier échoue
       return NextResponse.json({ 
         success: true,
         warning: 'Event saved but calendar integration failed',
-        error: calendarError.message
+        error: errorMessage
       });
     }
   } catch (error) {
     console.error('Global error in calendar API:', error);
     return NextResponse.json(
-      { error: 'Internal Server Error', details: error.message },
+      {
+        error: 'Internal Server Error',
+        details: error instanceof Error ? error.message : 'Unknown error',
+      },
       { status: 500 }
     );
   }

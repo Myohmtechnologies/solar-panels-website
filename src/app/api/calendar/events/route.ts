@@ -1,4 +1,3 @@
-import { google } from 'googleapis';
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 
@@ -8,26 +7,8 @@ const isCalendarEnabled =
   process.env.GOOGLE_REFRESH_TOKEN &&
   process.env.ENABLE_CALENDAR === 'true';
 
-let calendar;
-if (isCalendarEnabled) {
-  try {
-    const oauth2Client = new google.auth.OAuth2(
-      process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_CLIENT_SECRET,
-      process.env.GOOGLE_REDIRECT_URI
-    );
-
-    oauth2Client.setCredentials({
-      refresh_token: process.env.GOOGLE_REFRESH_TOKEN
-    });
-
-    calendar = google.calendar({ version: 'v3', auth: oauth2Client });
-  } catch (error) {
-    console.error('Failed to initialize Google Calendar:', error);
-  }
-}
-
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 export async function GET(request: Request) {
   try {
@@ -42,13 +23,22 @@ export async function GET(request: Request) {
     }
 
     // Si le calendrier est désactivé ou non initialisé
-    if (!isCalendarEnabled || !calendar) {
+    if (!isCalendarEnabled) {
       console.warn('Calendar integration is not available');
       return NextResponse.json({ 
         events: [],
         warning: 'Calendar integration is not available'
       });
     }
+
+    const { google } = await import('googleapis');
+    const oauth2Client = new google.auth.OAuth2(
+      process.env.GOOGLE_CLIENT_ID!,
+      process.env.GOOGLE_CLIENT_SECRET!,
+      process.env.GOOGLE_REDIRECT_URI
+    );
+    oauth2Client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
+    const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
 
     try {
       const response = await calendar.events.list({

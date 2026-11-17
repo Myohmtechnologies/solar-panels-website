@@ -1,5 +1,3 @@
-import { google } from 'googleapis';
-
 // Initialisation du client OAuth2 pour Google Calendar
 export async function getGoogleCalendarClient() {
   try {
@@ -19,6 +17,8 @@ export async function getGoogleCalendarClient() {
       refreshTokenExists: !!process.env.GOOGLE_REFRESH_TOKEN,
       redirectUriExists: !!process.env.GOOGLE_REDIRECT_URI
     });
+
+    const { google } = await import('googleapis');
 
     // Créer un client OAuth2
     const oauth2Client = new google.auth.OAuth2(

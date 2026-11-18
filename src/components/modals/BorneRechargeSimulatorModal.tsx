@@ -131,6 +131,7 @@ export default function BorneRechargeSimulatorModal({ isOpen, onClose }: BorneRe
         phone: phone.trim(),
         postalCode: zipCode.trim(),
         source: 'simulator',
+        projectType: 'CHARGING_STATION',
         notes: notes,
         createdAt: new Date().toISOString(),
       });

@@ -123,6 +123,7 @@ export interface Lead {
   phone: string;
   projectType?: string;
   address?: string;
+  postalCode?: string;
   simulatorData?: {
     prestation?: string;
     prestationLabel?: string;

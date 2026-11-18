@@ -60,7 +60,57 @@ const SERVICE_LABELS: Record<string, string> = {
 };
 
 function getServiceLabel(lead: Lead) {
-  return lead.simulatorData?.prestationLabel || SERVICE_LABELS[lead.projectType || ''] || lead.projectType || 'Service à préciser';
+  const storedService = lead.simulatorData?.prestationLabel;
+  if (storedService) return storedService;
+
+  const prestation = lead.simulatorData?.prestation?.toLowerCase();
+  const prestationLabels: Record<string, string> = {
+    panneaux: 'Panneaux solaires',
+    borne: 'Borne de recharge',
+    clim: 'Climatisation',
+    ballon: 'Ballon d’eau chaude',
+    electricite: 'Électricité générale',
+  };
+  if (prestation && prestationLabels[prestation]) return prestationLabels[prestation];
+
+  // Certains anciens envois du simulateur ont été enregistrés avec le type solaire
+  // par défaut, alors que leurs notes conservent le service réellement demandé.
+  const notes = `${lead.notes || ''} ${lead.nextAction?.description || ''}`.toLowerCase();
+  if (/borne|recharge|véhicule électrique/.test(notes)) return SERVICE_LABELS.CHARGING_STATION;
+  if (/climatisation|climatiseur|pompe à chaleur/.test(notes)) return SERVICE_LABELS.AIR_CONDITIONING;
+  if (/ballon d’eau chaude|ballon d'eau chaude|chauffe-eau/.test(notes)) return SERVICE_LABELS.WATER_HEATER;
+  if (/électricité générale|electricite generale|travaux électriques/.test(notes)) return SERVICE_LABELS.ELECTRICAL_WORK;
+  if (/panneaux solaires|photovoltaïque|solaire/.test(notes)) return SERVICE_LABELS.SOLAR_PANELS;
+
+  return SERVICE_LABELS[lead.projectType || ''] || lead.projectType || 'Service à préciser';
+}
+
+function getLeadCity(lead: Lead) {
+  if (lead.city?.trim()) return lead.city;
+  const address = lead.simulatorData?.address || lead.address;
+  if (!address) return '—';
+  const parts = address.split(',').map((part) => part.trim()).filter(Boolean);
+  return parts.length > 1 ? parts[parts.length - 1] : '—';
+}
+
+function getServiceBadgeClass(label: string) {
+  const normalized = label.toLowerCase();
+  if (normalized.includes('borne') || normalized.includes('recharge')) {
+    return 'bg-violet-50 text-violet-700 ring-violet-200';
+  }
+  if (normalized.includes('panneau') || normalized.includes('solaire')) {
+    return 'bg-amber-50 text-amber-800 ring-amber-200';
+  }
+  if (normalized.includes('électricité') || normalized.includes('electricite') || normalized.includes('électrique')) {
+    return 'bg-orange-50 text-orange-700 ring-orange-200';
+  }
+  if (normalized.includes('climatisation') || normalized.includes('clim')) {
+    return 'bg-cyan-50 text-cyan-700 ring-cyan-200';
+  }
+  if (normalized.includes('ballon') || normalized.includes('chauffe-eau')) {
+    return 'bg-emerald-50 text-emerald-700 ring-emerald-200';
+  }
+  return 'bg-slate-50 text-slate-600 ring-slate-200';
 }
 
 function getActionInfo(lead: Lead, showNextFollowUp: boolean) {
@@ -183,12 +233,12 @@ export default function LeadsTable({ leads, onLeadUpdate, showNextFollowUp = fal
 
   return (
     <>
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
         <div className="overflow-x-auto">
-          <table className="min-w-[1040px] w-full divide-y divide-slate-100">
+          <table className="min-w-[1100px] w-full divide-y divide-slate-100">
             <thead className="bg-[#f3f7f9]">
               <tr>
-                {['Client', 'Ville', 'Téléphone', 'Statut', 'Commercial', showNextFollowUp ? 'Dernière action' : 'Prochaine action'].map((label) => (
+                {['Client', 'Prestation', 'Ville', 'Téléphone', 'Statut', showNextFollowUp ? 'Dernière action' : 'Prochaine action'].map((label) => (
                   <th key={label} scope="col" className="px-5 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.08em] text-[#17618b]">
                     {label}
                   </th>
@@ -200,16 +250,17 @@ export default function LeadsTable({ leads, onLeadUpdate, showNextFollowUp = fal
             <tbody className="divide-y divide-slate-100 bg-white">
               {currentLeads.map((lead) => {
                 const action = getActionInfo(lead, showNextFollowUp);
-                const commercialName = lead.nextAction?.commercialName;
                 return (
                   <tr key={lead._id} className="transition-colors hover:bg-[#f8fbfc]">
-                    <td className="max-w-[250px] px-5 py-4">
+                    <td className="max-w-[220px] px-5 py-4">
                       <div className="truncate text-sm font-semibold text-slate-800" title={lead.name}>{lead.name}</div>
-                      <span className="mt-1 inline-flex max-w-full truncate rounded-full bg-[#eaf3f7] px-2.5 py-1 text-[10px] font-semibold text-[#17618b]" title={getServiceLabel(lead)}>
+                    </td>
+                    <td className="px-5 py-4">
+                      <span className={`inline-flex whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset ${getServiceBadgeClass(getServiceLabel(lead))}`} title={getServiceLabel(lead)}>
                         {getServiceLabel(lead)}
                       </span>
                     </td>
-                    <td className="px-5 py-4 text-sm text-slate-600">{lead.city || '—'}</td>
+                    <td className="px-5 py-4 text-sm text-slate-600">{getLeadCity(lead)}</td>
                     <td className="whitespace-nowrap px-5 py-4 text-sm text-slate-700">
                       {lead.phone ? <a href={`tel:${lead.phone.replace(/[^\d+]/g, '')}`} className="hover:text-[#0b6291]">{lead.phone}</a> : '—'}
                     </td>
@@ -218,7 +269,6 @@ export default function LeadsTable({ leads, onLeadUpdate, showNextFollowUp = fal
                         {STATUS_LABELS[lead.status] || lead.status}
                       </span>
                     </td>
-                    <td className="px-5 py-4 text-sm text-slate-600">{commercialName || '—'}</td>
                     <td className="max-w-[280px] px-5 py-4">
                       <div className="text-[11px] font-medium text-[#17618b]">{action.label}</div>
                       <div className="mt-0.5 text-sm text-slate-600">{action.date}</div>
@@ -282,10 +332,8 @@ export default function LeadsTable({ leads, onLeadUpdate, showNextFollowUp = fal
             </tbody>
           </table>
         </div>
-      </div>
-
       {/* Pagination */}
-      <div className="mt-4 flex flex-col gap-4 border-t border-gray-100 bg-white px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <div className="flex flex-col gap-4 border-t border-slate-100 bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6">
         <p className="text-center text-sm text-gray-500 sm:text-left">
           Affichage de <span className="font-semibold text-gray-800">{leads.length === 0 ? 0 : indexOfFirstLead + 1}</span> à{' '}
           <span className="font-semibold text-gray-800">{Math.min(indexOfLastLead, leads.length)}</span> sur{' '}
@@ -334,6 +382,7 @@ export default function LeadsTable({ leads, onLeadUpdate, showNextFollowUp = fal
             </button>
           </nav>
         )}
+      </div>
       </div>
 
       {/* Modals */}

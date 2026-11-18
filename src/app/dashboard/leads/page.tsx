@@ -4,11 +4,10 @@ import { useEffect, useState } from 'react';
 import { Lead, LeadStatus } from '@/types';
 import LeadsFilters from '@/components/leads/LeadsFilters';
 import LeadsTable from '@/components/leads/LeadsTable';
-import { PlusIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/navigation';
 
 const TABS = [
-  { name: 'Tous les prospects', value: 'ALL' },
+  { name: 'Total des leads', value: 'ALL' },
   { name: 'Nouveaux', value: LeadStatus.NEW },
   { name: 'Contactés', value: LeadStatus.CONTACTED },
   { name: 'Devis envoyé', value: LeadStatus.DEVIS_ENVOYE },
@@ -23,7 +22,6 @@ export default function LeadsPage() {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState(LeadStatus.NEW);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortOrder, setSortOrder] = useState('most-recent');
 
   const fetchLeads = async () => {
     try {
@@ -48,15 +46,11 @@ export default function LeadsPage() {
   useEffect(() => {
     let filtered = [...leads];
 
-    // Filtrer par statut (4 filtres principaux)
     if (activeTab !== 'ALL') {
       if (activeTab === LeadStatus.COMPLETED) {
-        filtered = filtered.filter(lead => 
-          lead.status === LeadStatus.COMPLETED || 
-          lead.status === LeadStatus.INSTALLATION
-        );
+        filtered = filtered.filter((lead) => lead.status === LeadStatus.COMPLETED || lead.status === LeadStatus.INSTALLATION);
       } else {
-        filtered = filtered.filter(lead => lead.status === activeTab);
+        filtered = filtered.filter((lead) => lead.status === activeTab);
       }
     }
 
@@ -66,7 +60,11 @@ export default function LeadsPage() {
       filtered = filtered.filter(lead =>
         lead.name.toLowerCase().includes(searchLower) ||
         lead.email.toLowerCase().includes(searchLower) ||
-        lead.phone.toLowerCase().includes(searchLower)
+        lead.phone.toLowerCase().includes(searchLower) ||
+        (lead.city || '').toLowerCase().includes(searchLower) ||
+        (lead.projectType || '').toLowerCase().includes(searchLower) ||
+        (lead.simulatorData?.prestationLabel || '').toLowerCase().includes(searchLower) ||
+        (lead.notes || '').toLowerCase().includes(searchLower)
       );
     }
 
@@ -98,27 +96,11 @@ export default function LeadsPage() {
       return 0;
     };
 
-    // Tri des leads : le dernier en date en haut de la liste par défaut
-    filtered.sort((a, b) => {
-      if (sortOrder === 'creation-date') {
-        const dateCreatedA = new Date(a.createdAt).getTime();
-        const dateCreatedB = new Date(b.createdAt).getTime();
-        return dateCreatedB - dateCreatedA;
-      }
-
-      const timeA = getLeadTimestamp(a);
-      const timeB = getLeadTimestamp(b);
-
-      if (sortOrder === 'oldest' || sortOrder === 'next-action-asc') {
-        return timeA - timeB; // Plus ancien en premier
-      }
-
-      // Par défaut : dernier en date en haut de la liste (ordre décroissant)
-      return timeB - timeA;
-    });
+    // Trier les prospects filtrés du plus récemment actif au plus ancien.
+    filtered.sort((a, b) => getLeadTimestamp(b) - getLeadTimestamp(a));
 
     setFilteredLeads(filtered);
-  }, [leads, activeTab, searchTerm, sortOrder]);
+  }, [leads, activeTab, searchTerm]);
 
   if (isLoading) {
     return (
@@ -137,43 +119,23 @@ export default function LeadsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto space-y-6 px-4 py-6 sm:px-6 lg:px-8">
-        {/* En-tête avec titre et bouton */}
-        <div className="bg-gradient-to-r from-[#0B6291] to-[#d7f0fc] rounded-xl shadow-lg p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <div className="text-white">
-            <h1 className="text-2xl font-semibold">Prospects</h1>
-            <p className="mt-2 text-sm text-white/80">
-              Liste et suivi de tous vos prospects
-            </p>
-          </div>
-          <div className="mt-4 sm:mt-0">
-            <button
-              onClick={() => router.push('/dashboard/leads/create')}
-              className="inline-flex items-center px-5 py-2.5 border border-transparent shadow-md text-sm font-medium rounded-xl text-[#0B6291] bg-gradient-to-r from-ffb700 to-ffeb99 hover:bg-white/90 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#0B6291]"
-            >
-              <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-              Nouveau prospect
-            </button>
-          </div>
+    <div className="min-h-screen bg-[#f7f9fb]">
+      <div className="mx-auto max-w-[1500px] space-y-4 px-4 py-6 sm:px-6 lg:px-8">
+        <div>
+          <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-900">Prospects</h1>
         </div>
 
-        {/* Filtres et recherche */}
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <LeadsFilters
-            searchTerm={searchTerm}
-            onSearchChange={setSearchTerm}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-            tabs={TABS}
-            leads={leads}
-            sortOrder={sortOrder}
-            onSortChange={setSortOrder}
-          />
-        </div>
+        <LeadsFilters
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          onCreateLead={() => router.push('/dashboard/leads/create')}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          tabs={TABS}
+          leads={leads}
+        />
 
-        {/* Tableau des prospects */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div>
           {isLoading ? (
             <div className="p-8 text-center flex flex-col items-center justify-center">
               <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#0B6291] mb-4"></div>

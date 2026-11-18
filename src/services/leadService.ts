@@ -6,6 +6,7 @@ export interface Lead {
   address?: string;
   postalCode?: string;
   source: 'hero' | 'simulator';
+  projectType?: string;
   notes?: string;
   logementType?: string;
   equipment?: string;
@@ -19,6 +20,17 @@ export interface Lead {
     duration: number;
     notes?: string;
   };
+}
+
+function inferProjectType(lead: Lead) {
+  if (lead.projectType) return lead.projectType;
+  const notes = (lead.notes || '').toLowerCase();
+  if (/borne|recharge|véhicule électrique/.test(notes)) return 'CHARGING_STATION';
+  if (/climatisation|climatiseur|pompe à chaleur/.test(notes)) return 'AIR_CONDITIONING';
+  if (/ballon d’eau chaude|ballon d'eau chaude|chauffe-eau/.test(notes)) return 'WATER_HEATER';
+  if (/électricité générale|electricite generale|travaux électriques/.test(notes)) return 'ELECTRICAL_WORK';
+  if (/panneaux solaires|photovoltaïque|solaire/.test(notes)) return 'SOLAR_PANELS';
+  return 'SOLAR_PANELS';
 }
 
 export async function submitLead(lead: Lead): Promise<{ success: boolean; error?: string; mode?: string }> {
@@ -46,7 +58,7 @@ export async function submitLead(lead: Lead): Promise<{ success: boolean; error?
         address: lead.address,
         postalCode: lead.postalCode,
         source: lead.source,
-        projectType: 'SOLAR_PANELS',
+        projectType: inferProjectType(lead),
         notes: lead.notes || '',
         logementType: lead.logementType,
         equipment: lead.equipment,

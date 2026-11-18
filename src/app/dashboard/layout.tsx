@@ -182,7 +182,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <aside className="relative flex h-full w-[min(19rem,86vw)] flex-col border-r border-slate-200 bg-white shadow-2xl">
             <div className="flex h-[76px] shrink-0 items-center border-b border-slate-100 px-5">
               <Link href="/" className="inline-flex items-center" onClick={() => setSidebarOpen(false)}>
-                <Image src="/images/logo.png" alt="My Ohm Technologies" width={154} height={48} priority className="h-10 w-auto object-contain object-left" />
+                <Image src="/images/logo.png" alt="My Ohm Technologies" width={170} height={54} priority className="h-11 w-auto object-contain object-left" />
               </Link>
             </div>
             <nav className="flex min-h-0 flex-1 flex-col overflow-y-auto px-3 py-4">
@@ -195,7 +195,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-slate-200 bg-white lg:flex">
         <div className="flex h-[76px] shrink-0 items-center border-b border-slate-100 px-5">
           <Link href="/" className="inline-flex items-center">
-            <Image src="/images/logo.png" alt="My Ohm Technologies" width={154} height={48} priority className="h-10 w-auto object-contain object-left" />
+            <Image src="/images/logo.png" alt="My Ohm Technologies" width={170} height={54} priority className="h-11 w-auto object-contain object-left" />
           </Link>
         </div>
         <nav className="flex min-h-0 flex-1 flex-col overflow-y-auto px-3 py-4">

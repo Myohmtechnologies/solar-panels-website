@@ -9,7 +9,6 @@ const pricingTiers = [
     panelsModel: 'JinkoSolar Tiger Neo 500 Wc',
     inverters: '6 micro-onduleurs',
     invertersModel: 'Enphase IQ8AC',
-    price: 'À partir de 6 490 €',
     popular: false,
   },
   {
@@ -19,7 +18,6 @@ const pricingTiers = [
     panelsModel: 'JinkoSolar Tiger Neo 500 Wc',
     inverters: '12 micro-onduleurs',
     invertersModel: 'Enphase IQ8AC',
-    price: 'À partir de 10 190 €',
     popular: true,
   },
   {
@@ -29,7 +27,6 @@ const pricingTiers = [
     panelsModel: 'JinkoSolar Tiger Neo 500 Wc',
     inverters: '18 micro-onduleurs',
     invertersModel: 'Enphase IQ8AC',
-    price: 'À partir de 12 990 €',
     popular: false,
   },
 ];
@@ -92,7 +89,7 @@ export default function SolarPricingTableSection() {
                     scope="col"
                     className="py-5 px-6 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#0a3d5c]"
                   >
-                    Prix moyen clé en main
+                    Votre projet
                   </th>
                 </tr>
               </thead>
@@ -139,14 +136,14 @@ export default function SolarPricingTableSection() {
                       </span>
                     </td>
 
-                    {/* Colonne Prix */}
+                    {/* Demande de devis */}
                     <td className="py-6 px-6">
-                      <p className="text-lg sm:text-xl font-extrabold text-[#111827]">
-                        {tier.price}
-                      </p>
-                      <span className="text-xs text-gray-500 font-medium">
-                        TTC · Aides de l'État déduites
-                      </span>
+                      <Link
+                        href="/simulator?prestation=panneaux"
+                        className="inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-[#0B6291] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#084e75]"
+                      >
+                        Demander un devis <ArrowRightIcon className="h-4 w-4" />
+                      </Link>
                     </td>
                   </tr>
                 ))}

@@ -44,7 +44,7 @@ export default function ContactsPage() {
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.15em] text-[#ffdf64]">Boîte de réception</p>
           <h1 className="mt-1 text-2xl font-bold sm:text-3xl">Messages de contact</h1>
-          <p className="mt-2 text-sm text-white/75">Les demandes envoyées depuis la page Contact, séparées des leads.</p>
+          <p className="mt-2 text-sm text-white/75">Les messages envoyés depuis le formulaire de contact.</p>
         </div>
         <div className="flex items-center gap-3">
           {!loading && <span className="rounded-full bg-white/15 px-4 py-2 text-sm font-semibold">{contacts.length} message{contacts.length > 1 ? 's' : ''}</span>}

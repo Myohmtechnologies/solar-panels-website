@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 export default function PanneauxSolairePage() {
   return (
     <div className="bg-white">
-      {/* 1. Hero / Promesse / 4.9 Google / Dès 6 900 € */}
+      {/* 1. Hero / Promesse / 4.9 Google / Dès 6 490 € */}
       <SolarProductionProcessSection />
 
       {/* 2. Pourquoi le photovoltaïque en 2026 ? */}

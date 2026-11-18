@@ -37,21 +37,76 @@ const STATUS_LABELS: Record<LeadStatus, string> = {
 };
 
 const STATUS_COLORS: Record<LeadStatus, string> = {
-  [LeadStatus.NEW]: 'bg-blue-100 text-blue-800 border border-blue-200',
-  [LeadStatus.CONTACTED]: 'bg-amber-100 text-amber-800 border border-amber-200',
-  [LeadStatus.DEVIS_ENVOYE]: 'bg-purple-100 text-purple-800 border border-purple-200',
-  [LeadStatus.COMPLETED]: 'bg-emerald-100 text-emerald-800 border border-emerald-200',
-  [LeadStatus.INSTALLATION]: 'bg-emerald-100 text-emerald-800 border border-emerald-200',
-  [LeadStatus.RDV_SCHEDULED]: 'bg-indigo-100 text-indigo-800 border border-indigo-200',
-  [LeadStatus.SECOND_RDV]: 'bg-blue-100 text-blue-800 border border-blue-200',
-  [LeadStatus.TECHNICAL_VISIT]: 'bg-gray-100 text-gray-800 border border-gray-200',
-  [LeadStatus.DEMARCHE_ADMINISTRATIF]: 'bg-orange-100 text-orange-800 border border-orange-200',
-  [LeadStatus.CONSUAL]: 'bg-pink-100 text-pink-800 border border-pink-200',
-  [LeadStatus.RACORDEMENT_EDF]: 'bg-cyan-100 text-cyan-800 border border-cyan-200',
-  [LeadStatus.NOT_INTERESTED]: 'bg-rose-100 text-rose-800 border border-rose-200',
+  [LeadStatus.NEW]: 'bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-200',
+  [LeadStatus.CONTACTED]: 'bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-200',
+  [LeadStatus.DEVIS_ENVOYE]: 'bg-violet-50 text-violet-700 ring-1 ring-inset ring-violet-200',
+  [LeadStatus.COMPLETED]: 'bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-200',
+  [LeadStatus.INSTALLATION]: 'bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-200',
+  [LeadStatus.RDV_SCHEDULED]: 'bg-indigo-50 text-indigo-700 ring-1 ring-inset ring-indigo-200',
+  [LeadStatus.SECOND_RDV]: 'bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-200',
+  [LeadStatus.TECHNICAL_VISIT]: 'bg-slate-50 text-slate-700 ring-1 ring-inset ring-slate-200',
+  [LeadStatus.DEMARCHE_ADMINISTRATIF]: 'bg-orange-50 text-orange-700 ring-1 ring-inset ring-orange-200',
+  [LeadStatus.CONSUAL]: 'bg-pink-50 text-pink-700 ring-1 ring-inset ring-pink-200',
+  [LeadStatus.RACORDEMENT_EDF]: 'bg-cyan-50 text-cyan-700 ring-1 ring-inset ring-cyan-200',
+  [LeadStatus.NOT_INTERESTED]: 'bg-rose-50 text-rose-700 ring-1 ring-inset ring-rose-200',
 };
 
-const formatDate = (date: string | undefined | null) => {
+const SERVICE_LABELS: Record<string, string> = {
+  SOLAR_PANELS: 'Panneaux solaires',
+  CHARGING_STATION: 'Borne de recharge',
+  AIR_CONDITIONING: 'Climatisation',
+  WATER_HEATER: 'Ballon d’eau chaude',
+  ELECTRICAL_WORK: 'Électricité générale',
+};
+
+function getServiceLabel(lead: Lead) {
+  return lead.simulatorData?.prestationLabel || SERVICE_LABELS[lead.projectType || ''] || lead.projectType || 'Service à préciser';
+}
+
+function getActionInfo(lead: Lead, showNextFollowUp: boolean) {
+  if (showNextFollowUp) {
+    return {
+      label: 'Dernière action',
+      date: formatDate(lead.updatedAt || lead.createdAt),
+      detail: lead.notes || lead.nextAction?.description,
+    };
+  }
+
+  if (lead.status === LeadStatus.NEW) {
+    return { label: 'Date de simulation', date: formatDate(lead.createdAt), detail: lead.notes || lead.nextAction?.description };
+  }
+  if (lead.status === LeadStatus.CONTACTED) {
+    return {
+      label: 'Contacté le',
+      date: formatDate(lead.nextAction?.plannedDate || lead.lastAction?.date || lead.updatedAt),
+      detail: lead.nextAction?.description || lead.notes,
+    };
+  }
+  if (lead.status === LeadStatus.DEVIS_ENVOYE) {
+    const price = lead.devisPrice
+      ? `${typeof lead.devisPrice === 'number' ? lead.devisPrice.toLocaleString('fr-FR') : lead.devisPrice} €${lead.devisNumber ? ` · ${lead.devisNumber}` : ''}`
+      : undefined;
+    return {
+      label: 'Devis envoyé le',
+      date: formatDate(lead.nextAction?.plannedDate || lead.lastAction?.date || lead.updatedAt),
+      detail: price || lead.nextAction?.description || lead.notes,
+    };
+  }
+  if (lead.status === LeadStatus.COMPLETED || lead.status === LeadStatus.INSTALLATION) {
+    return {
+      label: 'Installé le',
+      date: formatDate(lead.nextAction?.plannedDate || lead.lastAction?.date || lead.updatedAt),
+      detail: lead.nextAction?.description || lead.notes,
+    };
+  }
+  return {
+    label: lead.nextAction?.plannedDate ? 'Prochaine action' : 'Dernière mise à jour',
+    date: formatDate(lead.nextAction?.plannedDate || lead.updatedAt || lead.createdAt),
+    detail: lead.nextAction?.description || lead.notes,
+  };
+}
+
+const formatDate = (date: string | Date | undefined | null) => {
   if (!date) return '-';
 
   try {
@@ -128,157 +183,56 @@ export default function LeadsTable({ leads, onLeadUpdate, showNextFollowUp = fal
 
   return (
     <>
-      <div className="overflow-x-auto">
-        <table className="w-full table-fixed divide-y divide-gray-200">
-          <colgroup>
-            <col className="w-[15%]" />
-            <col className="w-[15%]" />
-            <col className="w-[12%]" />
-            <col className="w-[12%]" />
-            <col className="w-[15%]" />
-            {showNextFollowUp ? (
-              <>
-                <col className="w-[15%]" />
-                <col className="w-[8%]" />
-                <col className="w-[8%]" />
-              </>
-            ) : (
-              <>
-                <col className="w-[23%]" />
-                <col className="w-[8%]" />
-              </>
-            )}
-          </colgroup>
-          <thead className="bg-gradient-to-r from-[#0B6291]/10 to-[#d7f0fc]/10 rounded-t-xl">
-            <tr>
-              <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
-                Client
-              </th>
-              <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
-                Ville
-              </th>
-              <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
-                Téléphone
-              </th>
-              <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
-                Statut
-              </th>
-              <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
-                Commercial
-              </th>
-              <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
-                {showNextFollowUp ? 'Dernière Action' : 'Prochaine Action'}
-              </th>
-              {showNextFollowUp && (
-                <th scope="col" className="px-6 py-4 text-left text-xs font-medium text-[#0B6291] uppercase tracking-wider">
-                  Prochain Suivi
-                </th>
-              )}
-              <th scope="col" className="relative px-6 py-4">
-                <span className="sr-only">Actions</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-100">
-            {currentLeads.map((lead, index) => (
-              <tr key={lead._id} className={`hover:bg-gray-50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}`}>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900 truncate" title={lead.name}>
-                    {lead.name}
-                  </div>
-                  {lead.projectType && <span className="mt-1 inline-flex rounded-full bg-[#eaf2f6] px-2 py-0.5 text-[10px] font-semibold text-[#116290]">
-                    {lead.simulatorData?.prestationLabel || ({ SOLAR_PANELS: 'Panneaux solaires', CHARGING_STATION: 'Borne de recharge', AIR_CONDITIONING: 'Climatisation', WATER_HEATER: 'Ballon d’eau chaude', ELECTRICAL_WORK: 'Électricité générale' } as Record<string, string>)[lead.projectType] || lead.projectType}
-                  </span>}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900 truncate" title={lead.city}>
-                    {lead.city || '-'}
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{lead.phone}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`px-3 py-1.5 inline-flex text-xs leading-5 font-medium rounded-xl ${STATUS_COLORS[lead.status]}`}>
-                    {STATUS_LABELS[lead.status]}
-                  </span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {lead.status === LeadStatus.RDV_SCHEDULED && lead.nextAction && 'commercialName' in lead.nextAction ? (
-                    <div className="text-sm font-medium text-[#0B6291]">
-                      {(lead.nextAction as any).commercialName || '-'}
-                    </div>
-                  ) : (
-                    <div className="text-sm text-gray-400">-</div>
-                  )}
-                </td>
-                <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                  <div className="flex flex-col">
-                    <span className="font-medium">
-                      {showNextFollowUp 
-                        ? (
-                          formatDate(lead.updatedAt || lead.createdAt)
-                        ) 
-                        : (lead.status === LeadStatus.NEW 
-                          ? (
-                            <>
-                              <span className="text-xs text-blue-600 block">Date de simulation :</span>
-                              {formatDate(lead.createdAt)}
-                            </>
-                          )
-                          : lead.status === LeadStatus.CONTACTED
-                          ? (
-                            <>
-                              <span className="text-xs text-amber-600 block">Contacté le :</span>
-                              {formatDate((lead.nextAction as any)?.plannedDate || lead.lastAction?.date || lead.updatedAt)}
-                            </>
-                          )
-                          : lead.status === LeadStatus.DEVIS_ENVOYE
-                          ? (
-                            <>
-                              <span className="text-xs text-purple-600 block">Devis envoyé le :</span>
-                              {formatDate((lead.nextAction as any)?.plannedDate || lead.lastAction?.date || lead.updatedAt)}
-                              {lead.devisPrice && (
-                                <span className="inline-block mt-1 text-xs font-bold text-purple-700 bg-purple-50 border border-purple-200 px-2 py-0.5 rounded-md">
-                                  💶 {typeof lead.devisPrice === 'number' ? lead.devisPrice.toLocaleString('fr-FR') : lead.devisPrice} €
-                                  {lead.devisNumber ? ` (${lead.devisNumber})` : ''}
-                                </span>
-                              )}
-                            </>
-                          )
-                          : (lead.status === LeadStatus.COMPLETED || lead.status === LeadStatus.INSTALLATION)
-                          ? (
-                            <>
-                              <span className="text-xs text-emerald-600 block">Installé le :</span>
-                              {formatDate((lead.nextAction as any)?.plannedDate || lead.lastAction?.date || lead.updatedAt)}
-                            </>
-                          )
-                          : (lead.nextAction && 'plannedDate' in lead.nextAction 
-                            ? formatDate((lead.nextAction as any).plannedDate) 
-                            : formatDate(lead.updatedAt || lead.createdAt)))}
-                    </span>
-                    {lead.notes && (
-                      <span className="text-xs text-gray-400 truncate max-w-[200px] mt-0.5" title={lead.notes}>
-                        📝 {lead.notes}
+      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div className="overflow-x-auto">
+          <table className="min-w-[1040px] w-full divide-y divide-slate-100">
+            <thead className="bg-[#f3f7f9]">
+              <tr>
+                {['Client', 'Ville', 'Téléphone', 'Statut', 'Commercial', showNextFollowUp ? 'Dernière action' : 'Prochaine action'].map((label) => (
+                  <th key={label} scope="col" className="px-5 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.08em] text-[#17618b]">
+                    {label}
+                  </th>
+                ))}
+                {showNextFollowUp && <th scope="col" className="px-5 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.08em] text-[#17618b]">Prochain suivi</th>}
+                <th scope="col" className="w-12 px-3 py-4"><span className="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 bg-white">
+              {currentLeads.map((lead) => {
+                const action = getActionInfo(lead, showNextFollowUp);
+                const commercialName = lead.nextAction?.commercialName;
+                return (
+                  <tr key={lead._id} className="transition-colors hover:bg-[#f8fbfc]">
+                    <td className="max-w-[250px] px-5 py-4">
+                      <div className="truncate text-sm font-semibold text-slate-800" title={lead.name}>{lead.name}</div>
+                      <span className="mt-1 inline-flex max-w-full truncate rounded-full bg-[#eaf3f7] px-2.5 py-1 text-[10px] font-semibold text-[#17618b]" title={getServiceLabel(lead)}>
+                        {getServiceLabel(lead)}
                       </span>
+                    </td>
+                    <td className="px-5 py-4 text-sm text-slate-600">{lead.city || '—'}</td>
+                    <td className="whitespace-nowrap px-5 py-4 text-sm text-slate-700">
+                      {lead.phone ? <a href={`tel:${lead.phone.replace(/[^\d+]/g, '')}`} className="hover:text-[#0b6291]">{lead.phone}</a> : '—'}
+                    </td>
+                    <td className="px-5 py-4">
+                      <span className={`inline-flex whitespace-nowrap rounded-xl px-3 py-1.5 text-xs font-medium ${STATUS_COLORS[lead.status] || 'bg-slate-50 text-slate-700 ring-1 ring-inset ring-slate-200'}`}>
+                        {STATUS_LABELS[lead.status] || lead.status}
+                      </span>
+                    </td>
+                    <td className="px-5 py-4 text-sm text-slate-600">{commercialName || '—'}</td>
+                    <td className="max-w-[280px] px-5 py-4">
+                      <div className="text-[11px] font-medium text-[#17618b]">{action.label}</div>
+                      <div className="mt-0.5 text-sm text-slate-600">{action.date}</div>
+                      {action.detail && <div className="mt-1 truncate text-xs text-slate-400" title={action.detail}>📝 {action.detail}</div>}
+                    </td>
+                    {showNextFollowUp && (
+                      <td className="whitespace-nowrap px-5 py-4 text-sm text-slate-600">
+                        {lead.nextFollowUpDate ? formatDate(lead.nextFollowUpDate) : '—'}
+                      </td>
                     )}
-                  </div>
-                </td>
-                {showNextFollowUp && (
-                  <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
-                    <div className="flex flex-col">
-                      <span className="font-medium">
-                        {lead.nextFollowUpDate 
-                          ? formatDate(lead.nextFollowUpDate)
-                          : '-'}
-                      </span>
-                    </div>
-                  </td>
-                )}
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-3 py-4 text-right">
                   <Menu as="div" className="relative inline-block text-left">
-                    <Menu.Button className="p-2 hover:bg-[#0B6291]/10 rounded-full transition-colors">
-                      <EllipsisVerticalIcon className="h-5 w-5 text-[#0B6291]" />
+                    <Menu.Button aria-label={`Actions pour ${lead.name}`} className="rounded-lg p-2 text-[#0b6291] transition-colors hover:bg-[#eaf3f7]">
+                      <EllipsisVerticalIcon className="h-5 w-5" />
                     </Menu.Button>
                     <Transition
                       as={Fragment}
@@ -289,7 +243,7 @@ export default function LeadsTable({ leads, onLeadUpdate, showNextFollowUp = fal
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-xl bg-white shadow-lg ring-1 ring-slate-200 focus:outline-none">
                         <div className="py-1">
                           <Menu.Item>
                             {({ active }) => (
@@ -321,11 +275,13 @@ export default function LeadsTable({ leads, onLeadUpdate, showNextFollowUp = fal
                       </Menu.Items>
                     </Transition>
                   </Menu>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* Pagination */}

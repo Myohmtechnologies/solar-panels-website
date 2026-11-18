@@ -29,8 +29,11 @@ export default function SolarProductionProcessSection() {
           </h2>
 
           <div className="mb-6">
+            <span className="mb-2 inline-flex rounded-full border border-[#e33127] bg-[#171717] px-3 py-1.5 text-xs font-bold text-white">
+              Offre Black Friday
+            </span>
             <span className="text-2xl sm:text-3xl font-extrabold text-[#ffb700] block">
-              À partir de 6 900 € TTC
+              À partir de 6 490 € TTC
             </span>
             <span className="text-sm text-gray-500 font-medium block mt-1">
               Installateur certifié RGE en région PACA
